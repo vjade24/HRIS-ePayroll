@@ -1,0 +1,482 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="HRIS_ePayroll.MasterPage" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+       <script type="text/javascript">
+             
+           function DisableBackButton() {
+               var mySession = '<%= Session["ep_user_id"]%>';
+               if (mySession == null || mySession == '') {
+                   window.history.forward();
+               } 
+           }
+             window.onload = DisableBackButton();
+             window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+             //window.onunload = function() { void (0) }
+        </script>
+      <meta charset="utf-8">
+      <meta http-equiv="Expires" CONTENT="0">
+      <meta http-equiv="Cache-Control" CONTENT="no-cache">
+      <meta http-equiv="Pragma" CONTENT="no-cache">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>HRIS ePayroll</title>
+      <!-- Bootstrap core CSS-->
+      <link rel="stylesheet"  href="~/vendor/bootstrap/css/bootstrap.min.css">
+      <!-- Custom fonts for this template-->
+      <link  rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css">
+      <!-- Page level plugin CSS-->
+      <link  rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.css">
+      <!-- Custom styles for this template-->
+      <link href="~/css/sb-admin.css" rel="stylesheet">
+      <link  rel="stylesheet" href="~/vendor/gijgo/css/gijgo.min.css">
+      <link href="~/css/common.css" rel="stylesheet">
+      <style type="text/css">
+          .nav-link.my-dp::after {
+              float:none !important;
+              width:auto;
+              content:"\f105";
+              border:none;
+              font-family:"FontAwesome";
+          }
+          .notif_hightlight:focus, .notif_hightlight:hover
+          {
+              background-color:dodgerblue;
+              color:white !important;
+              text-decoration:underline;
+
+          }
+          .notif_hightlight_muted:focus, .notif_hightlight_muted:hover
+          {
+              background-color:white;
+              color:#6c757d !important;
+              text-decoration:none;
+          }
+      </style>
+    <asp:ContentPlaceHolder ID="specific_css" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body class="fixed-nav" id="page-top" onmousemove="hightlight()">
+
+    <!-- The Modal - Favorite Notification -->
+    <div class="modal fade" id="Fav_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header border-bottom-0" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <i  id="Fav_modal_icon" ></i>
+                    <h3 id="Fav_modal_msg"></h3>
+                </div>
+                <div style="margin-bottom:30px">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The Modal - Generating Report -->
+    <div class="modal fade" id="Loading_master">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-sm">
+                <span class="fa fa-spinner fa-spin fa-3x text-white"></span>
+            </div>
+        </div>
+    </div>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href='<%= ResolveUrl("~/") %>'"><Strong><% string str = "HRIS - ePayroll";%><%: str %> 
+        <asp:Label runat="server" ID="appName"></asp:Label></Strong></a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li >
+              <div class="row">
+                <div class="col-12 text-center profile-container">
+                    <img alt="" id="img_profile" src="<%= ResolveUrl("~/View/image_dbretriever.ashx?id="+Session["ep_empl_id"].ToString()) %>" Width="155px" Height="155px" />
+                </div>
+              </div>
+          </li>
+<%
+    foreach (page_menus menu in menus)
+    {
+        if (menu.menu_id_link == 0)
+        {
+            if (menu.url_name != "")
+            {
+%>
+                <li class="nav-item <%: menu.url_name.IndexOf(".") > 0 ? menu.url_name.Substring(0,menu.url_name.IndexOf(".")):menu.url_name.Replace(".aspx","") %>">
+                      <a class="nav-link <%: menu.url_name.IndexOf(".") > 0 ? menu.url_name.Substring(0,menu.url_name.IndexOf(".")):menu.url_name.Replace(".aspx","") %>" id="a_<%: menu.id %>" href="<%: menu.url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+menu.url_name.Substring(0,menu.url_name.IndexOf("."))+"/"+menu.url_name):ResolveUrl("~/View/"+menu.url_name.Replace(".aspx","")+"/"+menu.url_name) %>">
+                          <img src ="<%= ResolveUrl(menu.menu_icon) %>" width="20px" height="20px" />
+                          <i class="<%: menu.menu_icon %>"></i>
+                        <span class="nav-link-text"><%: menu.menu_name %></span>
+                      </a>
+                </li>
+<%
+            }
+            else
+            {
+%>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="<%: menu.menu_name.ToString() %>"">
+                    <a id="a_<%: menu.id %>" class="nav-link nav-link-collapse collapsed <%: menu.url_name.IndexOf(".") > 0 ? menu.url_name.Substring(0,menu.url_name.IndexOf(".")):menu.url_name.Replace(".aspx","")%>" data-toggle="collapse" href="#<%: menu.id %>" data-parent="#exampleAccordion">
+                        <% if (menu.menu_icon != "")
+                            {%><img src ="<%= ResolveUrl(menu.menu_icon) %>" width="20px" height="20px" /><%} %>
+                        <i class="<%: menu.menu_icon %>"></i>
+                    <span class="nav-link-text" style=""><b><%: menu.menu_name %></b></span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="<%: menu.id %>">
+<%
+                foreach(page_menus second_lvl in menus)
+                {
+                    if (second_lvl.url_name != "" && menu.id == second_lvl.menu_id_link && second_lvl.menu_level == 2)
+                    {
+%>
+                    <li class="nav-item <%: second_lvl.url_name.IndexOf(".") > 0 ? second_lvl.url_name.Substring(0,second_lvl.url_name.IndexOf(".")):second_lvl.url_name.Replace(".aspx","") %>">
+                      <a id="a_<%: second_lvl.id %>" class="nav-link <%: second_lvl.url_name.IndexOf(".") > 0 ? second_lvl.url_name.Substring(0,second_lvl.url_name.IndexOf(".")):second_lvl.url_name.Replace(".aspx","") %>" href="<%: second_lvl.url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+second_lvl.url_name.Substring(0,second_lvl.url_name.IndexOf("."))+"/"+second_lvl.url_name):ResolveUrl("~/View/"+second_lvl.url_name.Replace(".aspx","")+"/"+second_lvl.url_name) %>"  onclick="openLoading_master()">
+                        <i class="fa fa-caret-right"></i>
+                          <span class="nav-link-text"><%: second_lvl.menu_name %></span>
+                      </a>
+                    </li>             
+<%
+                    }
+                    else if(second_lvl.menu_id_link == menu.id  && second_lvl.menu_level == 2)
+                    {
+%>
+                    <li>
+                        <a id="a_<%: second_lvl.id %>" class="nav-link-collapse collapsed <%: second_lvl.url_name.IndexOf(".") > 0 ? second_lvl.url_name.Substring(0,second_lvl.url_name.IndexOf(".")):second_lvl.url_name.Replace(".aspx","") %>" data-toggle="collapse" href="#<%: second_lvl.id %>"><%: second_lvl.menu_name %></a>
+                        <ul class="sidenav-third-level collapse <%: second_lvl.url_name.IndexOf(".") > 0 ? second_lvl.url_name.Substring(0,second_lvl.url_name.IndexOf(".")):second_lvl.url_name.Replace(".aspx","") %>" id="<%: second_lvl.id %>">
+<%
+                        foreach(page_menus third_lvl in menus)
+                        {
+                            if ( third_lvl.menu_id_link == second_lvl.id && third_lvl.menu_level == 3)
+                            {
+%>
+                            <li id="<%: third_lvl.id %>"">
+                                <a href="<%: third_lvl.url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+third_lvl.url_name.Substring(0,third_lvl.url_name.IndexOf("."))+"/"+third_lvl.url_name):ResolveUrl("~/View/"+third_lvl.url_name.Replace(".aspx","")+"/"+third_lvl.url_name) %>"  onclick="openLoading_master()"><i class="fa fa-caret-right" ></i><%: third_lvl.menu_name %></a>
+                            </li>
+<%
+                            }
+                        }
+%>           
+                        </ul>
+                    </li>
+<%
+                    }
+                }
+%>                       
+                </ul>
+            </li>
+            
+<% 
+            }
+        }
+    }
+%>
+          
+      </ul>
+         <%--First End--%>
+      <ul class="navbar-nav sidenav-toggler">
+        
+        <li class="nav-item">
+          <a class="nav-link text-center" href="javascript:add_small(0);" onclick="add_small();" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+          
+        <%--<li class="nav-item">
+            <asp:LinkButton ID="lnk_btn_favorites" CssClass="nav-link text-center" runat="server">
+                <i class="fa fa-star text-danger"></i> Remove to Favorites
+            </asp:LinkButton>
+        </li>--%>
+        <%--<li class="nav-item">
+            <a class="nav-link text-center" onclick="ExecuteAddRemoveFav('R')" >
+            <i class="fa fa-star text-danger"></i> Remove to Favorites
+            </a>
+        </li>
+         <li class="nav-item">
+            <a class="nav-link text-center" onclick="ExecuteAddRemoveFav('A')" >
+            <i class="fa fa-star text-warning"></i> Add to Favorites
+            </a>
+        </li>--%>
+        <!-- Nav Item - Messages -->
+        <%--<li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <i class="fa fa-bell fa-fw"></i>
+            <!-- Counter - Messages -->
+            <span class="badge badge-danger badge-counter">7</span>
+            </a>
+
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" style="overflow-x: hidden;overflow-y: auto;max-height:500px">
+            <h6 class="dropdown-header">
+                For Your Action
+            </h6>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                <div class="status-indicator bg-success"></div>
+                </div>
+                <div class="font-weight-bold">
+                <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                <div class="small text-gray-500">Emily Fowler · 58m</div>
+                </div>
+            </a>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                <div class="status-indicator"></div>
+                </div>
+                <div>
+                <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                <div class="small text-gray-500">Jae Chun · 1d</div>
+                </div>
+            </a>
+            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+            </div>
+        </li>--%>
+        <%
+        if (Session["history_page"].ToString() != "")
+            {
+
+        %>
+            <li class="nav-item" style="margin-right:30px !important">
+              <a href="<%: Session["history_page"] %>" class="nav-link">
+                <i class="fa fa-arrow-circle-o-left"></i> Back</a>
+            </li>
+
+        <%
+            }
+
+        %>
+        <li class="nav-item dropdown" >
+          <a href="javascript:void(0);" class="nav-link text-info my-dp" id="messagesDropdown" role="button" data-toggle="<%: notif.Count > 0 ? "dropdown" : "" %>" aria-haspopup="true" aria-expanded="false">
+                <span class="noti fa fa-bell"><span class="counter bold" style="font-size:8px;margin-left:-7px;margin-top:7px;position:absolute;">&nbsp;</span></span>
+              <% if (notif.Count != 0)
+                  {
+              %>  
+                <span class="badge badge-danger badge-counter" style="font-size:9px;margin-left:-3px"><%:notif.Count %></span>
+              <%
+                }%>
+           </a>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" style="overflow-x: hidden;overflow-y: auto;max-height:500px;">
+            <%--<h6 class="dropdown-header font-weight-bold">
+                For Your ACTION
+            </h6>--%>
+                <%
+                    foreach (notification_lst notif_lst in notif)
+                    {
+
+                %>
+                    <a class="<%: notif_lst.notify_url_name != "" ? "dropdown-item d-flex align-items-center notif_hightlight" : "dropdown-item d-flex align-items-center text-muted notif_hightlight_muted" %>" id="a_notif" href="<%: notif_lst.notify_url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+notif_lst.notify_url_name.Substring(0,notif_lst.notify_url_name.IndexOf("."))+"/"+notif_lst.notify_url_name): "#" %>" >
+                        <%-- <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="ResourceImages/HRIS_TEAM/HRIS%20LOGO.png" alt="" width="40" height="40">
+                        </div>--%>
+                        <div class="font-weight-bold">
+                            <div class="text-truncate"><%: notif_lst.row_nbr + " " + notif_lst.notify_short_msg %></div>
+                            <%--<div class="small text-gray-500"><%: notif_lst.notify_long_msg %></div>--%>
+                        </div>
+                    </a>
+                <%
+                    }
+                %>    
+                
+            </div>
+
+
+
+        </li>
+        
+        <li class="nav-item">
+            <a href="<%=ResolveUrl("~/View/cProfile/cProfile.aspx")%>" class="nav-link">
+                 <strong> I'm <%: Session["ep_first_name"] %></strong>
+            </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%: ResolveUrl("~/logoff.aspx") %>" class="nav-link">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+    
+      </ul>
+    </div>
+  </nav>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+                <asp:ContentPlaceHolder ID="MainContainer" runat="server">
+                    
+                </asp:ContentPlaceHolder>
+        </div>
+     </div>
+   
+   
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src='<%= ResolveUrl("~/vendor/jquery/jquery.min.js") %>'></script>
+   
+    <script src='<%= ResolveUrl("~/vendor/popper/popper.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/vendor/bootstrap/js/bootstrap.min.js") %>'></script>
+    <!-- Core plugin JavaScript-->
+    <script src='<%= ResolveUrl("~/vendor/jquery-easing/jquery.easing.min.js") %>'></script>
+    <!-- Page level plugin JavaScript-->
+    <script src='<%= ResolveUrl("~/vendor/chart.js/Chart.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/vendor/datatables/jquery.dataTables.js") %>' ></script>
+    <script src='<%= ResolveUrl("~/vendor/datatables/dataTables.bootstrap4.js") %>'></script>
+    <!-- Custom scripts for all pages-->
+    <script src='<%= ResolveUrl("~/js/sb-admin.min.js") %>'></script>
+    <!-- Custom scripts for this page-->
+    <script src='<%= ResolveUrl("~/js/sb-admin-datatables.min.js") %>'></script>
+    <script type="text/javascript" src='<%= ResolveUrl("~/vendor/gijgo/js/gijgo.min.js")%>'></script>
+     <asp:ContentPlaceHolder ID="specific_scripts" runat="server">
+    </asp:ContentPlaceHolder>
+    <script runat="server">
+        public void logout() {
+            Session.RemoveAll();
+            Response.Redirect("~/");
+        }
+    </script>
+    <script>
+         
+        $(document).ready(function () {
+            if ("<%: menu_active_level %>" == "3")
+            {
+                $("a#a_<%: active_parent_id%>").removeClass("collapsed");
+                $("a#a_<%: active_parent_id%>").closest("ul.sidenav-second-level").addClass("show");
+                var gg = $("a#a_<%: active_parent_id%>").closest("ul.sidenav-second-level");
+                var ggparent = gg.parent();
+                ggparent.children().first().removeClass("collapsed");
+                $("ul#<%: active_parent_id%>").addClass("show");
+                $("li#<%: active_menu_id %>").addClass("active");
+                setTimeout(function () { $("li#<%: active_menu_id %>").click(); $("ul#<%: active_parent_id%>").removeClass("show"); setTimeout(function () { $("ul#<%: active_parent_id%>").addClass("show"); }, 1); }, 1);
+            }
+            else if ("<%: menu_active_level %>" == "2") {
+                
+                //$("a#a_<%: active_parent_id%>").removeClass("collapsed");
+                //$("ul#<%: active_parent_id%>").addClass("show");
+                $("li.nav-item.<%: current_ruet.IndexOf(".") > 0 ? current_ruet.Substring(0,current_ruet.IndexOf(".")):current_ruet.Replace(".aspx","") %>").addClass("active");
+                setTimeout(function () { $("ul#<%: active_parent_id%>").removeClass("show"); setTimeout(function () { $("a#a_<%: active_parent_id%>").click(); }, 50); }, 50);
+            }
+            else {
+                
+                 $("li.nav-item.<%: current_ruet.IndexOf(".") > 0 ? current_ruet.Substring(0,current_ruet.IndexOf(".")):current_ruet.Replace(".aspx","") %>").addClass("active");
+            }
+
+            $("ul#exampleAccordion > li.nav-item").click(function () {
+                add_small(1);
+            });
+           
+        });
+
+
+        function add_small(pointer)
+        {
+            if (pointer == 1) {
+                $("div.profile-container").removeClass("small");
+                $("ul#exampleAccordion > li > a").css("text-align", "left");
+                $("ul#exampleAccordion > li > a > img").css("width", "20px");
+                $("ul#exampleAccordion > li > a > img").css("height","20px");
+            }
+            else
+            {
+                if ($("div.profile-container").hasClass("small")) {
+                    $("div.profile-container").removeClass("small");
+                    $("ul#exampleAccordion > li > a").css("text-align", "left");
+                    $("ul#exampleAccordion > li > a > img").css("width", "20px");
+                    $("ul#exampleAccordion > li > a > img").css("height","20px");
+                }
+                else {
+                    $("div.profile-container").addClass("small");
+                    $("ul#exampleAccordion > li > a").css("text-align", "center");
+                    $("ul#exampleAccordion > li > a > img").css("width", "30px");
+                    $("ul#exampleAccordion > li > a > img").css("height","30px");
+                }
+            }   
+        }
+    </script>
+    <script type="text/javascript">
+        function openLoading_master() {
+
+            $('#Loading_master').modal({
+                keyboard: false,
+                backdrop: "static"
+            });
+        }
+        function openFavNotification() {
+
+            $('#Fav_modal').modal({
+                keyboard: false,
+                backdrop: "static"
+            });
+        }
+    </script>
+
+    <%--Disable All Button when Enter--%>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+            });
+        });
+    </script>
+    <%--Disable All Button when Enter--%>
+
+    <%--<script type="text/javascript">
+        $(document).ready(function ()
+        {
+            setTimeout(function ()
+            {
+                alert('Session Timeout is Already ' + <%: session_timeout_expired  + 000 %> )
+            }, <%: session_timeout_expired + 000 %>);
+        })
+    </script>--%>
+        <%--</form>--%>
+
+
+    <script type="text/javascript">
+        
+        function ExecuteAddRemoveFav(p_mode) 
+        {
+            $(function() {  
+
+                var test = {'par_user_id' : '<%: Session["ep_user_id"] %>'
+                            ,'p_url_name' : '<%: current_ruet.ToString().Trim() %>'
+                            ,'p_mode'     : p_mode};
+                
+                $.ajax({  
+                    url: "MasterPage_Handler.ashx",  
+                    type: "POST",  
+                    data: test,  
+                    success: function (result)
+                    {  
+                        $('#Fav_modal_icon').removeClass();
+                        $('#Fav_modal_icon').addClass(result.split('*')[2]);
+                        $('#Fav_modal_msg').text(result.split('*')[1]);
+                        openFavNotification();
+                    },  
+                    error: function (err)
+                    {
+                        console.log(err)
+                        $('#Fav_modal_icon').removeClass();
+                        $('#Fav_modal_icon').addClass("fa-5x fa fa-exclamation-triangle text-danger");
+                        $('#Fav_modal_msg').text(err.statusText);
+                        openFavNotification();
+                    }  
+                });  
+            })  
+         }
+        
+    </script>
+</body>
+    
+</html>

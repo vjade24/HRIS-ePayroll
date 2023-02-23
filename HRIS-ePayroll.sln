@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRIS-ePayroll", "HRIS-ePayroll\HRIS-ePayroll.csproj", "{B2F7459B-4895-4C30-BFC0-08D8B4FC5C8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2F7459B-4895-4C30-BFC0-08D8B4FC5C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F7459B-4895-4C30-BFC0-08D8B4FC5C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F7459B-4895-4C30-BFC0-08D8B4FC5C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F7459B-4895-4C30-BFC0-08D8B4FC5C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2322D535-84A0-49C4-98FD-A9830F74850B}
+	EndGlobalSection
+EndGlobal
