@@ -19,7 +19,7 @@ using System.Drawing;
 
 namespace HRIS_ePayroll.View
 {
-    public partial class cUpdPayrollMaster : System.Web.UI.Page
+    public partial class cUpdPayrollMasterNew : System.Web.UI.Page
     {
         //********************************************************************
         //  BEGIN - VJA- 04/16/2020 - Data Place holder creation 
@@ -38,6 +38,18 @@ namespace HRIS_ePayroll.View
             }
         }
 
+        DataTable dataListGrid
+        {
+            get
+            {
+                if ((DataTable)ViewState["dataListGrid"] == null) return null;
+                return (DataTable)ViewState["dataListGrid"];
+            }
+            set
+            {
+                ViewState["dataListGrid"] = value;
+            }
+        }
         //********************************************************************
         //  BEGIN - VJA- 04/16/2020 - Public Variable used in Add/Edit Mode
         //********************************************************************
@@ -53,7 +65,7 @@ namespace HRIS_ePayroll.View
             {
                 if (!IsPostBack)
                 {
-                    Session["SortField"] = "payroll_registry_nbr";
+                    Session["SortField"] = "department_code";
                     Session["SortOrder"] = "ASC";
                     InitializePage();
                 }
@@ -104,9 +116,10 @@ namespace HRIS_ePayroll.View
         private void InitializePage()
         {
             Session["sortdirection"] = SortDirection.Ascending.ToString();
-
+            RetrieveBindingDepartments();
             RetrieveYear();
             RetriveEmploymentType();
+            RetrieveDataListGrid();
             ClearEntry();
 
         }
@@ -245,6 +258,7 @@ namespace HRIS_ePayroll.View
 
         protected void ddl_empl_type_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RetrieveDataListGrid();
             UpdatePanel10.Update();
         }
 
@@ -353,6 +367,119 @@ namespace HRIS_ePayroll.View
                     Response.Redirect(url);
                 }
             }
+        }
+
+
+        //*************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Retrieve back end data and load to GridView
+        //*************************************************************************
+        private void RetrieveDataListGrid()
+        {
+            if (ddl_empl_type.SelectedValue.ToString() == "CE" || ddl_empl_type.SelectedValue.ToString() == "JO")
+            {
+                dataListGrid = MyCmn.RetrieveData("sp_payrollemployeemaster_tbl_insert_CE_JO_list1", "p_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "p_year", ddl_year.SelectedValue.ToString().Trim(), "p_month", ddl_month.SelectedValue.ToString().Trim(), "p_department_code", ddl_department.SelectedValue.ToString().Trim());
+            }
+            else 
+            {
+                dataListGrid = MyCmn.RetrieveData("sp_payrollemployeemaster_tbl_insert_RE_list1","p_year", ddl_year.SelectedValue.ToString().Trim(), "p_month", ddl_month.SelectedValue.ToString().Trim(), "p_department_code", ddl_department.SelectedValue.ToString().Trim());
+            }
+            
+            MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
+            gv_dataListGrid.PageSize = Convert.ToInt32(DropDownListID.Text);
+            show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+            up_dataListGrid.Update();
+        }
+
+        //**************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Change Field Sort mode  
+        //**************************************************************************
+        protected void gv_dataListGrid_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortingDirection = string.Empty;
+            sortingDirection = GetCurrentSortDir();
+
+            if (sortingDirection == MyCmn.CONST_SORTASC)
+            {
+                SortDirectionVal = SortDirection.Descending;
+                sortingDirection = MyCmn.CONST_SORTDESC;
+            }
+            else
+            {
+                SortDirectionVal = SortDirection.Ascending;
+                sortingDirection = MyCmn.CONST_SORTASC;
+            }
+            Session["SortField"] = e.SortExpression;
+            Session["SortOrder"] = sortingDirection;
+
+            MyCmn.Sort(gv_dataListGrid, dataListGrid, e.SortExpression, sortingDirection);
+            show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+            //SearchData(txtb_search.Text.ToString().Trim());
+        }
+
+        //**************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Get Grid current sort order 
+        //**************************************************************************
+        private string GetCurrentSortDir()
+        {
+            string sortingDirection = string.Empty;
+
+            if (SortDirectionVal == SortDirection.Ascending)
+            {
+                sortingDirection = MyCmn.CONST_SORTASC;
+            }
+            else
+            {
+                sortingDirection = MyCmn.CONST_SORTDESC;
+            }
+
+            return sortingDirection;
+        }
+
+        //**************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Define Property for Sort Direction  
+        //*************************************************************************
+        public SortDirection SortDirectionVal
+        {
+            get
+            {
+                if (ViewState["dirState"] == null)
+                {
+                    ViewState["dirState"] = SortDirection.Ascending;
+                }
+                return (SortDirection)ViewState["dirState"];
+            }
+
+            set
+            {
+                ViewState["dirState"] = value;
+            }
+        }
+        //**************************************************************************
+        //  BEGIN - VJA- 09/12/2018 - GridView Change Page Number
+        //**************************************************************************
+        protected void gridviewbind_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv_dataListGrid.PageIndex = e.NewPageIndex;
+            MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
+            show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+            //SearchData(txtb_search.Text.ToString().Trim());
+        }
+
+        //*************************************************************************
+        //  BEGIN - VJA- 09/09/2018 - Populate Combo list for Department
+        //*************************************************************************
+        private void RetrieveBindingDepartments()
+        {
+            ddl_department.Items.Clear();
+            DataTable dt = MyCmn.RetrieveData("sp_departments_tbl_list", "par_include_history", "N");
+
+            ddl_department.DataSource = dt;
+            ddl_department.DataValueField = "department_code";
+            ddl_department.DataTextField = "department_name1";
+            ddl_department.DataBind();
+            ListItem li = new ListItem("-- Select All --", "");
+            ddl_department.Items.Insert(0, li);
+            
         }
         //********************************************************************
         // END OF THE CODE

@@ -10,7 +10,7 @@
 namespace HRIS_ePayroll.View {
     
     
-    public partial class cUpdPayrollMaster {
+    public partial class cUpdPayrollMasterNew {
         
         /// <summary>
         /// sm_Script control.
@@ -121,22 +121,31 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.Label lbl_details;
         
         /// <summary>
-        /// UpdatePanel10 control.
+        /// UpdatePanel9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
         
         /// <summary>
-        /// btn_create_generate control.
+        /// DropDownListID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_create_generate;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListID;
+        
+        /// <summary>
+        /// show_pagesx control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label show_pagesx;
         
         /// <summary>
         /// ddl_year control.
@@ -175,6 +184,33 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.Label LblRequired2;
         
         /// <summary>
+        /// btn_generate_report control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_generate_report;
+        
+        /// <summary>
+        /// UpdatePanel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        
+        /// <summary>
+        /// btn_create_generate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_create_generate;
+        
+        /// <summary>
         /// ddl_empl_type control.
         /// </summary>
         /// <remarks>
@@ -193,13 +229,40 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.Label LblRequired3;
         
         /// <summary>
-        /// btn_generate_report control.
+        /// ddl_department control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_generate_report;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_department;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// up_dataListGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel up_dataListGrid;
+        
+        /// <summary>
+        /// gv_dataListGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gv_dataListGrid;
         
         /// <summary>
         /// Master property.

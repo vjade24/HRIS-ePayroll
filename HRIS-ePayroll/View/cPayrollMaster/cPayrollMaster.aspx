@@ -1415,12 +1415,12 @@
                                                     %>  
 
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                        {  %>
+                                                <div class="col-lg-4" style="visibility:hidden">
+                                                    <%--<% if (ViewState["page_allow_add"].ToString() == "1")
+                                                        {  %>--%>
                                                     <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
-                                                    <% }
-                                                        %>     
+                                                    <%--<% }
+                                                        %>     --%>
 
                                                 </div>
                                             </div>

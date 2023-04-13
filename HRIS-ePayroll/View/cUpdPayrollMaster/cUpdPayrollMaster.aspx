@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="specific_css" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContainer" runat="server">
-    <form runat="server" >
+    <form runat="server" style="padding:10%;">
     <asp:ScriptManager ID="sm_Script" runat="server"> </asp:ScriptManager>
 
         <!-- The Modal - Generating Report -->
@@ -88,12 +88,30 @@
         </div>
 
 
-        <div class="col-12" >
+        <div class="col-12" style="padding:5% 10% 0% 10%;">
             <div class="row breadcrumb my-breadcrumb">
                 <div class="col-6"><strong style="font-family:Arial;font-size:18px;color:white;"><%: Master.page_title %></strong></div>
                 <div class="col-6 text-right">
                     
+                        <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                            <ContentTemplate>
+                                            
+                                <% if (ViewState["page_allow_add"].ToString() == "1")
+                                    {  %>
+                                <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Run Update" />
+                                
+                                <% }
+                                    %>     
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                 </div>
+                <%--<div class="col-2 text-right">
+                   <asp:UpdatePanel runat="server">
+                       <ContentTemplate>
+                           <asp:Button ID="btn_save_group" runat="server" CssClass="btn btn-success btn-sm add-icon icn"  Text="Save Group"/>
+                       </ContentTemplate>
+                   </asp:UpdatePanel>
+                </div>--%>
             </div>
             <div class="row">
                 <table class="table table-bordered  table-scroll">
@@ -101,31 +119,7 @@
                         <tr>
                             <td style="padding-left:12px;padding-right:12px;">
                                 <div class="row">
-                                    <div class="col-3">
-                                        <div class="form-group row">
-                                            <div class="col-lg-3 mt-2">
-                                                 <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" Text="Show"></asp:Label>
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-                                                    <ContentTemplate>
-                                                            <asp:DropDownList ID="DropDownListID" runat="server" CssClass="form-control " AppendDataBoundItems="true" AutoPostBack="True"  Width="100%" ToolTip="Show entries per page">
-                                                                <asp:ListItem Text="5" Value="5" />
-                                                                <asp:ListItem Text="10"  Value="10" />
-                                                                <asp:ListItem Text="15" Value="15" />
-                                                                <asp:ListItem Text="25" Selected="True" Value="25" />
-                                                                <asp:ListItem Text="50" Value="50" />
-                                                                <asp:ListItem Text="100" Value="100" />
-                                                            </asp:DropDownList>
-                                                    </ContentTemplate>  
-                                                </asp:UpdatePanel>
-                                            </div>
-                                            <div class="col-lg-4 mt-2">
-                                                    <asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9" style="font-size:10px !important"></asp:Label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         <div class="form-group row">
                                             <div class="col-6" style="padding-top:6px;">
                                                     <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true"  Text="Year:" ></asp:Label>
@@ -133,22 +127,22 @@
                                             <div class="col-6">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_year" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_year" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_year_SelectedIndexChanged"></asp:DropDownList>
                                                         <asp:Label ID="LblRequired1" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <div class="col-3 " style="padding-top:6px;">
+                                            <div class="col-5 text-right" style="padding-top:6px;">
                                                     <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" Text="Month:" ></asp:Label>
                                             </div>
-                                            <div class="col-9">
+                                            <div class="col-7">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_month" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged">
+                                                        <asp:DropDownList ID="ddl_month" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_month_SelectedIndexChanged">
                                                             <asp:ListItem Value="01" Text="January"></asp:ListItem>
                                                             <asp:ListItem Value="02" Text="February"></asp:ListItem>
                                                             <asp:ListItem Value="03" Text="March"></asp:ListItem>
@@ -168,40 +162,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <div class="form-group row">
-                                            <div class="col-6">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
-                                                        <asp:Button ID="btn_generate_report" runat="server" CssClass="btn btn-success btn-md print-icon icn pull-right btn-block" Font-Bold="true" OnClick="btn_generate_report_Click"   Text="Print" />
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
-
-                                            </div>
-                                            <div class="col-6">
-                                                <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                                    <ContentTemplate>
-                                            
-                                                        <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                            {  %>
-                                                        <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn btn-block" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Run Update" />
-                                
-                                                        <% }
-                                                            %>     
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-3"></div>
-                                    <div class="col-9 "  style="margin-top:5px;">
+                                    <div class="col-12 "  style="margin-top:5px;">
                                         <div class="form-group row">
-                                            <div class="col-2" style="padding-top:6px;">
+                                            <div class="col-3" style="padding-top:6px;">
                                                 <asp:Label runat="server" Font-Bold="true" Text="Employment Type:" ></asp:Label>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-9">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
                                                         <asp:DropDownList ID="ddl_empl_type" runat="server" CssClass=" form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
@@ -209,129 +177,15 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
-                                            <div class="col-2" style="padding-top:6px;">
-                                                <asp:Label runat="server" Font-Bold="true" Text="Department:" ></asp:Label>
-                                            </div>
-                                            <div class="col-10" style="padding-top:6px;">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_department" runat="server" CssClass=" form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
-                                                         <asp:Label ID="Label1" CssClass="lbl_required" runat="server" Text=""></asp:Label>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mt-2">
-
-                                        <asp:UpdatePanel ID="up_dataListGrid" UpdateMode="Conditional" runat="server" >
-                                            <ContentTemplate>
-                                                <asp:GridView 
-                                                        ID="gv_dataListGrid" 
-                                                        runat="server" 
-                                                        allowpaging="True" 
-                                                        AllowSorting="True" 
-                                                        AutoGenerateColumns="False" 
-                                                        EnableSortingAndPagingCallbacks="True"
-                                                        ForeColor="#333333" 
-                                                        GridLines="Both" height="100%" 
-                                                        onsorting="gv_dataListGrid_Sorting"  
-                                                        OnPageIndexChanging="gridviewbind_PageIndexChanging"
-                                                        PagerStyle-Width="3" 
-                                                        PagerStyle-Wrap="false" 
-                                                        pagesize="25"
-                                                        Width="100%" 
-                                                        Font-Names="Century gothic"
-                                                        Font-Size="Medium" 
-                                                        RowStyle-Width="5%" 
-                                                        AlternatingRowStyle-Width="10%"
-                                                        CellPadding="2"
-                                                        ShowHeaderWhenEmpty="True"
-                                                        EmptyDataText="NO DATA FOUND"
-                                                        EmptyDataRowStyle-ForeColor="Red"
-                                                        EmptyDataRowStyle-CssClass="no-data-found"
-                                                        >
-                                                       <Columns>
-                                                            <asp:TemplateField HeaderText="ID NO" SortExpression="empl_id">
-                                                                <ItemTemplate>
-                                                                    <%# Eval("empl_id") %>
-                                                                </ItemTemplate>
-                                                                <ItemStyle Width="10%" />
-                                                                <HeaderStyle HorizontalAlign="Center" />
-                                                                <ItemStyle HorizontalAlign="CENTER" />
-                                                            </asp:TemplateField>
-                                                           <asp:TemplateField HeaderText="EMPLOYEE NAME" SortExpression="employee_name">
-                                                                <ItemTemplate>
-                                                                    &nbsp;&nbsp;<%#  Eval("employee_name") %>
-                                                                </ItemTemplate>
-                                                                <ItemStyle Width="60%" />
-                                                                <HeaderStyle HorizontalAlign="Center" />
-                                                                <ItemStyle HorizontalAlign="LEFT" />
-                                                            </asp:TemplateField>
-                                                           <asp:TemplateField HeaderText="DEPARTMENT" SortExpression="department_name1">
-                                                                <ItemTemplate>
-                                                                    &nbsp;&nbsp;<%#  Eval("department_name1") %>
-                                                                </ItemTemplate>
-                                                                <ItemStyle Width="25%" />
-                                                                <HeaderStyle HorizontalAlign="Center" />
-                                                                <ItemStyle HorizontalAlign="LEFT" />
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="ACTION">
-                                                                <ItemTemplate>
-                                                                    <asp:UpdatePanel ID="UpdatePanel12" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                                                        <ContentTemplate>
-                                                                            <% 
-                                                                                if (ViewState["page_allow_edit"].ToString() == "1" || ViewState["page_allow_view"].ToString() == "1" )
-                                                                                {
-                                                                            %>
-                                                                                <asp:ImageButton ID="imgbtn_editrow1" CssClass="btn btn-primary action" EnableTheming="true"  runat="server"  ImageUrl="~/ResourceImages/final_edit.png"  CommandArgument='<%# Eval("empl_id") + "," + Eval("effective_date")%>'/>
-                                                        
-                                                                            <%   }
-                                                                            %>
-
-                                                                        </ContentTemplate>
-                                                                    </asp:UpdatePanel>
-                                                                </ItemTemplate>
-                                                                <ItemStyle Width="5%" />
-                                                                <ItemStyle CssClass="text-center" />
-                                                            </asp:TemplateField>
-                                                        </Columns>
-                                                        <PagerSettings  
-                                                        Mode="NumericFirstLast" 
-                                                        FirstPageText="First" 
-                                                        PreviousPageText="Previous" 
-                                                        NextPageText="Next" 
-                                                        LastPageText="Last" 
-                                                        PageButtonCount="1" 
-                                                        Position="Bottom" 
-                                                        Visible="True" />
-                                                        <AlternatingRowStyle BackColor="White" />
-                                                        <EditRowStyle BackColor="#2461BF" />
-                                                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" Height="10%" />
-                                                        <HeaderStyle BackColor="#507CD1" ForeColor="White" VerticalAlign="Middle" Font-Size="14px" CssClass="td-header" />
-                                                        <PagerStyle CssClass="pagination-ys" BackColor="#2461BF" ForeColor="White" HorizontalAlign="right" VerticalAlign="NotSet" Wrap="True" />
-                                                        <RowStyle BackColor="#EFF3FB" />
-                                                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                                                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                                                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                                                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                                                    </asp:GridView>
-                                            </ContentTemplate>
-                                            <Triggers>
-                                                <%--<asp:AsyncPostBackTrigger ControlID="Button2" />
-                                                <asp:AsyncPostBackTrigger ControlID="txtb_search" />
-                                                <asp:AsyncPostBackTrigger ControlID="DropDownListID" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_empl_type" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_department" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_empl_name" />--%>
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_year" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_month" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_empl_type" />
-                                                <asp:AsyncPostBackTrigger ControlID="ddl_department" />
-                                            </Triggers>
-                                        </asp:UpdatePanel>
-                                    </div>
+                                        <div class="col-12 text-right">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:Button ID="btn_generate_report" runat="server" CssClass="btn btn-success btn-md print-icon icn pull-right" Font-Bold="true" OnClick="btn_generate_report_Click"   Text="Print" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
                                 </div>
                             </td>
                         </tr>

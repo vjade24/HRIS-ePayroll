@@ -878,7 +878,7 @@
     <Content Include="View\cEmplTaxUpd\cEmplTaxUpd.aspx" />
     <Content Include="View\cSalIncreaseEff\cSalIncreaseEff.aspx" />
     <Content Include="View\cStepIncrement\cStepIncrement.aspx" />
-    <Content Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx" />
+    <Content Include="View\cUpdPayrollMasterNew\cUpdPayrollMasterNew.aspx" />
     <Content Include="View\cPayHazardSubsistenceLaundry\cPayHazardSubsistenceLaundry.aspx" />
     <Content Include="View\cBIRAnnualizedTax\cBIRAnnualizedTax.aspx" />
     <Content Include="View\cPayOthContributions_AddEdit\cPayOthContributions_AddEdit.aspx" />
@@ -888,6 +888,7 @@
     <Content Include="View\cPayRegistrySalaryCasual\cPayRegistrySalaryCasual.aspx" />
     <Content Include="View\cEmplTaxWithHeld\cEmplTaxWithHeld.aspx" />
     <Content Include="View\cPayrollMstAsg\cPayrollMstAsg.aspx" />
+    <Content Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx" />
     <Content Include="View\cVoucherDTL\cVoucherDTL.aspx" />
     <Content Include="View\cVoucherHdr\cVoucherHdr.aspx" />
     <Content Include="View\cPaySalaryDifferential\cPaySalaryDifferential.aspx" />
@@ -2523,12 +2524,12 @@
     <Compile Include="View\cStepIncrement\cStepIncrement.aspx.designer.cs">
       <DependentUpon>cStepIncrement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx.cs">
-      <DependentUpon>cUpdPayrollMaster.aspx</DependentUpon>
+    <Compile Include="View\cUpdPayrollMasterNew\cUpdPayrollMasterNew.aspx.cs">
+      <DependentUpon>cUpdPayrollMasterNew.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx.designer.cs">
-      <DependentUpon>cUpdPayrollMaster.aspx</DependentUpon>
+    <Compile Include="View\cUpdPayrollMasterNew\cUpdPayrollMasterNew.aspx.designer.cs">
+      <DependentUpon>cUpdPayrollMasterNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\cPayHazardSubsistenceLaundry\cPayHazardSubsistenceLaundry.aspx.cs">
       <DependentUpon>cPayHazardSubsistenceLaundry.aspx</DependentUpon>
@@ -2595,6 +2596,13 @@
     </Compile>
     <Compile Include="View\cPayrollMstAsg\cPayrollMstAsg.aspx.designer.cs">
       <DependentUpon>cPayrollMstAsg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx.cs">
+      <DependentUpon>cUpdPayrollMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\cUpdPayrollMaster\cUpdPayrollMaster.aspx.designer.cs">
+      <DependentUpon>cUpdPayrollMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\cVoucherDTL\cVoucherDTL.aspx.cs">
       <DependentUpon>cVoucherDTL.aspx</DependentUpon>
