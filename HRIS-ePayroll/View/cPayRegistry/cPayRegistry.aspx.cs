@@ -2225,6 +2225,27 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         procedure = "sp_payrollregistry_othpay_rep";
                         url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
                         break;
+                        
+                    case "974":  // Health Emergency Allowance (HEA) - 'RE'
+                    case "975":  // Health Emergency Allowance (HEA) - 'CE'
+                    case "976":  // Health Emergency Allowance (HEA) - 'JO'
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
+                        break;
+
+                    case "243":  //  Health Emergency Allowance (HEA) - RE - Remittance
+                    case "244":  //  Health Emergency Allowance (HEA) - CE - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_RECE.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
+                        break;
+
+                    case "245":  //  Health Emergency Allowance (HEA) - JO - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_JO.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
+                        break;
                 }
 
 

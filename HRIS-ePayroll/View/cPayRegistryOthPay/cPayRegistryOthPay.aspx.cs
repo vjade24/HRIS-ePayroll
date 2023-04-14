@@ -2045,7 +2045,11 @@ namespace HRIS_ePayroll.View
 
                 if (ddl_payroll_template.SelectedValue == "968" ||  // ONE COVID-19 ALLOWANCE (OCA) - RE
                     ddl_payroll_template.SelectedValue == "969" ||  // ONE COVID-19 ALLOWANCE (OCA) - CE
-                    ddl_payroll_template.SelectedValue == "970"     // ONE COVID-19 ALLOWANCE (OCA) - JO
+                    ddl_payroll_template.SelectedValue == "970" ||  // ONE COVID-19 ALLOWANCE (OCA) - JO
+
+                    ddl_payroll_template.SelectedValue == "974" ||  // Health Emergency Allowance (HEA) - RE
+                    ddl_payroll_template.SelectedValue == "975" ||  // Health Emergency Allowance (HEA) - CE
+                    ddl_payroll_template.SelectedValue == "976"     // Health Emergency Allowance (HEA) - JO
                 )
                 {
                     txtb_net_pay.Text = "0";
@@ -2377,7 +2381,11 @@ namespace HRIS_ePayroll.View
 
             if (ddl_payroll_template.SelectedValue == "968" ||  // ONE COVID-19 ALLOWANCE (OCA) - RE
                 ddl_payroll_template.SelectedValue == "969" ||  // ONE COVID-19 ALLOWANCE (OCA) - CE
-                ddl_payroll_template.SelectedValue == "970"     // ONE COVID-19 ALLOWANCE (OCA) - JO
+                ddl_payroll_template.SelectedValue == "970" ||  // ONE COVID-19 ALLOWANCE (OCA) - JO
+
+                ddl_payroll_template.SelectedValue == "974" ||  // Health Emergency Allowance (HEA) - RE
+                ddl_payroll_template.SelectedValue == "975" ||  // Health Emergency Allowance (HEA) - CE
+                ddl_payroll_template.SelectedValue == "976"     // Health Emergency Allowance (HEA) - JO
                 )    
             {
                 double gross_pay    = 0;

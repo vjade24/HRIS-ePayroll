@@ -251,6 +251,10 @@ namespace HRIS_ePayroll.prinview
                             ls_splitvalue[dynamic_template_code].ToString().Trim() == "241" || //  ONE COVID-19 ALLOWANCE (OCA) - CE - Remittance
                             ls_splitvalue[dynamic_template_code].ToString().Trim() == "242" || //  ONE COVID-19 ALLOWANCE (OCA) - JO - Remittance
 
+                            ls_splitvalue[dynamic_template_code].ToString().Trim() == "243" || //  Health Emergency Allowance (HEA) - RE - Remittance
+                            ls_splitvalue[dynamic_template_code].ToString().Trim() == "244" || //  Health Emergency Allowance (HEA) - CE - Remittance
+                            ls_splitvalue[dynamic_template_code].ToString().Trim() == "245" || //  Health Emergency Allowance (HEA) - JO - Remittance
+
                             (Convert.ToInt16(ls_splitvalue[dynamic_template_code].ToString().Trim()) >= 920 &&
                             Convert.ToInt16(ls_splitvalue[dynamic_template_code].ToString().Trim()) <= 999)
                             )

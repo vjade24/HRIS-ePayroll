@@ -1700,6 +1700,24 @@
       <DependentUpon>cryOthPay4_NOCAFOA.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA.cs">
+      <DependentUpon>cryOthPay_HEA.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA_Remit_JO.cs">
+      <DependentUpon>cryOthPay_HEA_Remit_JO.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA_Remit_RECE.cs">
+      <DependentUpon>cryOthPay_HEA_Remit_RECE.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_OCA_Remit_RECE.cs">
       <DependentUpon>cryOthPay_OCA_Remit_RECE.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -3437,14 +3455,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryMasterInserted_RE.cs</LastGenOutput>
     </Content>
-    <EmbeddedResource Include="Reports\cryListOfEmployees\cryListOfEmployees_Age.rpt">
+    <Content Include="Reports\cryListOfEmployees\cryListOfEmployees_Age.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryListOfEmployees_Age.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\cryListOfEmployees\cryListofEmployees_Retired_Resigned.rpt">
+    </Content>
+    <Content Include="Reports\cryListOfEmployees\cryListofEmployees_Retired_Resigned.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryListofEmployees_Retired_Resigned.cs</LastGenOutput>
-    </EmbeddedResource>
+    </Content>
     <Content Include="Reports\cryMasterInserted\cryMasterInserted_CEJO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryMasterInserted_CEJO.cs</LastGenOutput>
@@ -3660,6 +3678,18 @@
     <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_OCA_Remit_RECE.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryOthPay_OCA_Remit_RECE.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA_Remit_RECE.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOthPay_HEA_Remit_RECE.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOthPay_HEA.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA_Remit_JO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOthPay_HEA_Remit_JO.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryOtherPayroll\cryPHIC\cryPHICBreakdown.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
