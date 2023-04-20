@@ -1411,10 +1411,6 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         {
             if (ddl_dep.SelectedValue != "" )
             {
-                RetrieveBindingSubDep();
-                RetrieveBindingDivision();
-                RetrieveBindingSection();
-                RetrieveEmployeename();
                 if (dtSource_dtl.Rows.Count > 0 && ddl_special_group.SelectedValue != "99")
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
@@ -1425,6 +1421,10 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
             {
                 // FieldValidationColorChanged(true, "ddl_dep");
             }
+            RetrieveBindingSubDep();
+            RetrieveBindingDivision();
+            RetrieveBindingSection();
+            RetrieveEmployeename();
         }
         //**************************************************************************
         //  BEGIN - VJA- 06/11/2019 - Trigger When Select Sub-Department
