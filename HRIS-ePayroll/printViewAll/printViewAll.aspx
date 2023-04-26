@@ -262,7 +262,8 @@
                 {
                     setTimeout(function () {
                         window.frames["report_obj"].focus();
-                        window.frames["report_obj"].print(); 
+                        //window.frames["report_obj"].print(); 
+                        $("#report_obj").get(0).contentWindow.print();
                     }, 1000);
                 }
 
