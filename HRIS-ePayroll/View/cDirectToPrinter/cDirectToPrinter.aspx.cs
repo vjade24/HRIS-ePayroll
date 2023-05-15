@@ -1198,6 +1198,28 @@ namespace HRIS_ePayroll.View
                                 printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_PBB2021.rpt";
                                 url = "~/Reports/";
                                 break;
+
+                            // *****************************************************
+                            // ****************** N E W L Y    A D D E D ***********
+                            // ****************** 2023-05-13 ***********************
+                            //******************************************************
+                            case "974":  // Health Emergency Allowance (HEA) - 'RE'
+                            case "975":  // Health Emergency Allowance (HEA) - 'CE'
+                            case "976":  // Health Emergency Allowance (HEA) - 'JO'
+                                printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA.rpt";
+                                url = "~/Reports/";
+                                break;
+
+                            case "243":  //  Health Emergency Allowance (HEA) - RE - Remittance
+                            case "244":  //  Health Emergency Allowance (HEA) - CE - Remittance
+                                printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_RECE.rpt";
+                                url = url + "~/Reports/";
+                                break;
+
+                            case "245":  //  Health Emergency Allowance (HEA) - JO - Remittance
+                                printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_JO.rpt";
+                                url = url + "~/Reports/";
+                                break;
                         }
 
 
