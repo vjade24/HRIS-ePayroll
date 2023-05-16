@@ -76,7 +76,6 @@
                                         
                                     </div>
                                     <div class="row" id="div_yr_mth" runat="server">
-
                                         <div class="col-3">
                                             <asp:Label runat="server" Text="Payroll Year:" ></asp:Label>
                                         </div>
@@ -87,6 +86,7 @@
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
+
                                         <div class="col-2">
                                             <asp:Label runat="server" Text="Payroll Month:" ></asp:Label>
                                         </div>
@@ -260,6 +260,7 @@
                         <div class="modal-footer" >
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
+                                    <asp:LinkButton ID="lnk_print_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_print_rep_Click"> <i class="fa fa-print"></i> Print </asp:LinkButton>
                                     <asp:LinkButton ID="lnk_generate_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_generate_rep_Click"> <i class="fa fa-qrcode"></i> Generate </asp:LinkButton>
                                     <asp:LinkButton ID="LinkButton1"  runat="server" data-dismiss="modal" Text ="Close" CssClass="btn btn-danger cancel-icon icn btn-sm" ></asp:LinkButton>  
 
@@ -272,7 +273,78 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
-
+        <!-- The Modal - Coaching and Mentoring -->
+        <asp:UpdatePanel ID="UpdatePanel29" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
+            <ContentTemplate>
+                <div class="modal fade" id="modal_coaching_mentoring" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#17a2b8;color:white">
+                            <h5 class="modal-title" ><asp:Label runat="server" Text="Coaching & Mentoring"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <asp:UpdatePanel ID="UpdatePanel30" runat="server">
+                            <ContentTemplate>
+                                <div class="modal-body with-background">
+                                    <div class="row">
+                                        <div class="col-6" >
+                                            <label>Payroll Year</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="payroll_year" Enabled="false"></asp:TextBox>
+                                        </div>
+                                        <div class="col-6" >
+                                            <label>Payroll Registry No</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="payroll_registry_nbr" Enabled="false"></asp:TextBox>
+                                        </div>
+                                        <div class="col-12">
+                                            <hr />
+                                        </div>
+                                        <div class="col-6" >
+                                            <label>Date of Coaching</label>
+                                            <asp:TextBox runat="server" CssClass="form-control my-date" ID="date_of_coaching" ></asp:TextBox>
+                                            <asp:Label ID="date_of_coaching_req" runat="server" CssClass="lbl_required" ></asp:Label>
+                                        </div>
+                                        <div class="col-12" >
+                                            <label>Subject</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" ID="subject"></asp:TextBox>
+                                            <asp:Label ID="subject_req" runat="server" CssClass="lbl_required" ></asp:Label>
+                                        </div>
+                                        <div class="col-12" >
+                                            <label>Particulars</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" ID="particulars"></asp:TextBox>
+                                            <asp:Label ID="particulars_req" runat="server" CssClass="lbl_required" ></asp:Label>
+                                        </div>
+                                        <div class="col-12" >
+                                            <label>Name of Incharge</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="name_of_incharge" Enabled="false"></asp:TextBox>
+                                        </div>
+                                        <div class="col-12" >
+                                            <label>Name of Supervisor</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="name_of_supervisor"></asp:TextBox>
+                                            <asp:Label ID="name_of_supervisor_req" runat="server" CssClass="lbl_required" ></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="modal-footer">
+                                    <span class="label label-danger">
+                                        <asp:Label ID="lbl_coaching_msg" runat="server" CssClass="smaller lbl_required" ></asp:Label>
+                                    </span>
+                                    <asp:LinkButton runat="server" CssClass="btn btn-success pull-left" ID="lnkbtn_print" OnClick="lnkbtn_print_Click"><i class="fa fa-print"></i> Print</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkbtn_save_coach" runat="server"  CssClass="btn btn-primary"  OnClick="lnkbtn_save_coach_Click"> <i class="fa fa-save"></i> Save </asp:LinkButton>
+                                    
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                     </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
         <!-- The Modal - Select Report -->
         <asp:UpdatePanel ID="UpdatePanel_id_receive_audit_post" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
@@ -407,8 +479,8 @@
                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <i class="fa-5x fa fa-check-circle text-success"></i>
-                                <h2 >Successfully</h2>
+                                <i runat="server" id="id_icon" class="fa-5x fa fa-check-circle text-success"></i>
+                                <h2 runat="server" id="id_header">Successfully</h2>
                                 <h6><asp:Label ID="SaveAddEdit" runat="server" Text="Save"></asp:Label></h6>
                             </div>
                         </ContentTemplate>
@@ -453,7 +525,7 @@
         </asp:UpdatePanel>
 
 
-       <asp:UpdatePanel ID="UpdatePanel7" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+        <asp:UpdatePanel ID="UpdatePanel7" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
             <ContentTemplate>
                 <!-- Modal Add/EditPage-->
                 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -731,7 +803,7 @@
         </div>
 
 
-     <div class="col-12">
+        <div class="col-12">
             <div class="row breadcrumb my-breadcrumb">
                 <div class="col-3"><strong style="font-family:Arial;font-size:18px;color:white;"><%: Master.page_title %></strong></div>
                 <div class="col-7">
@@ -760,6 +832,7 @@
                                 <div class="dropdown-menu" aria-labelledby="btn_payroll_per_employee">
                                     <asp:Button ID="btn_payroll_per_employee" runat="server" CssClass="dropdown-item btn-sm" OnClick="btn_payroll_per_employee_Click"  Text="Payroll Per Employee"/>
                                     <asp:Button ID="btn_annual_ovtm_rep" runat="server" CssClass="dropdown-item btn-sm" OnClick="btn_annual_ovtm_rep_Click"  Text="Annual Report for Overtime"/>
+                                    <asp:Button ID="btn_coaching_list" runat="server" CssClass="dropdown-item btn-sm" OnClick="btn_coaching_list_Click"  Text="Coaching & Mentoring List"/>
 
                                 </div>
                                 </div>
@@ -769,7 +842,7 @@
                 </div>
             </div>
         </div>
-    <div class="row">
+        <div class="row">
         <div class="col-12">
             <table class="table table-bordered  table-scroll">
                 <tbody class="my-tbody">
@@ -1054,6 +1127,14 @@
                                                                 <%  }
                                                                 %>
 
+                                                                <asp:ImageButton runat="server" ID="imgbtn_coaching" 
+                                                                    tooltip="Coaching & Mentoring"
+                                                                    OnCommand="imgbtn_coaching_Command"
+                                                                    ImageUrl="~/ResourceImages/add.png" 
+                                                                    style="padding-left: 0px !important;" 
+                                                                    CommandArgument='<%# Eval("payroll_year")+","+Eval("payroll_registry_nbr")%> ' 
+                                                                    CssClass="btn btn-info action" />
+
                                                               
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
@@ -1117,6 +1198,7 @@
             $('#<%= txtb_period_from.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
            $('#<%= txtb_period_to.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
            $('#<%= txtb_date_release.ClientID %>').datepicker({ format: 'yyyy-mm-dd HH:mm:ss' });
+           $('#<%= date_of_coaching.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
 
            if ($('#<%= txtb_period_from.ClientID %>').prop('disabled') == true)
             {
@@ -1225,6 +1307,31 @@
                 
             }, 800);
         };
+
+        function openCoaching()
+        {
+            $('#modal_coaching_mentoring').modal({
+                keyboard: false,
+                backdrop:"static"
+            });
+
+            $('#<%= date_of_coaching.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+        }
+
+        function closeCoaching()
+        {
+            $('#modal_coaching_mentoring').modal("hide");
+             $('#AddEditConfirm').modal({
+                 keyboard: false,
+                backdrop:"static"
+            });
+            setTimeout(function ()
+            {
+                $('#AddEditConfirm').modal("hide");
+                $('.modal-backdrop.show').remove();
+            }, 800);
+        };
+
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">

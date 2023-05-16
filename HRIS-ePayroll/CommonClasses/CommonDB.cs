@@ -2617,7 +2617,56 @@ namespace HRIS_Common
             gv.DataBind();
 
         }
-       
-    
+
+        public string UpdateToTable(string script)
+        {
+            SqlConnection conn = null;
+            string msg  = "";
+            
+            try
+            {
+                conn = ConnectDB();
+                conn.Open();
+                
+                SqlCommand updatecomd = new SqlCommand(script, conn);
+                int retvalue = updatecomd.ExecuteNonQuery();
+                if (retvalue != 0)
+                {
+                    msg = "Updated Successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                return 'X' + ex.Message;
+            }
+            
+            return msg;
+        }
+
+        public string InsertToTable(string script)
+        {
+            SqlConnection conn = null;
+            string msg = "";
+
+            try
+            {
+                conn = ConnectDB();
+                conn.Open();
+
+                SqlCommand updatecomd = new SqlCommand(script, conn);
+                int retvalue = updatecomd.ExecuteNonQuery();
+                if (retvalue != 0)
+                {
+                    msg = "Added Successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                return 'X' + ex.Message;
+            }
+
+            return msg;
+        }
+
     }
 }

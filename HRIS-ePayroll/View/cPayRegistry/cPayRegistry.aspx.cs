@@ -114,6 +114,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 ViewState["dt_payroll"] = value;
             }
         }
+        
         //********************************************************************
         //  BEGIN - VJA- 01/17/2019 - Public Variable used in Add/Edit Mode
         //********************************************************************
@@ -640,6 +641,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
                 MyCmn.DeleteBackEndData("payrollregistry_hdr_oth_tbl", "WHERE " + deleteExpression);
                 MyCmn.DeleteBackEndData("payrollregistry_dtl_othded_tbl", "WHERE " + deleteExpression);
+                MyCmn.DeleteBackEndData("payrollregistry_hdr_coaching_tbl", "WHERE " + deleteExpression);
 
                 DataRow[] row2Delete = dataListGrid.Select(deleteExpression);
                 dataListGrid.Rows.Remove(row2Delete[0]);
@@ -930,7 +932,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         nrow["payroll_registry_descr"] = txtb_registry_descr.Text.ToString().Trim();
                         nrow["post_status"] = ddl_post_status.SelectedValue.ToString();
                         nrow["post_status_descr"] = ddl_post_status.SelectedItem.ToString();
-                        nrow["payroll_period_descr"] = DateTime.Parse(txtb_period_from.Text).ToString("MM/dd") + " - " + DateTime.Parse(txtb_period_from.Text).ToString("MM/dd/yyyy");
+                        nrow["payroll_period_descr"] = DateTime.Parse(txtb_period_from.Text).ToString("MM/dd") + " - " + DateTime.Parse(txtb_period_to.Text).ToString("MM/dd/yyyy");
                         nrow["date_posted"] = txtb_date_release.Text == "" ? "1900-01-01" : txtb_date_release.Text;
                         nrow["gross_pay"]   = "0.00";
                         nrow["net_pay"]     = "0.00";
@@ -958,6 +960,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
                         RetrieveDataListGrid();
                         SaveAddEdit.Text = MyCmn.CONST_NEWREC;
+                        id_header.InnerHtml   = "Successfully";
                     }
                     if (saveRecord == MyCmn.CONST_EDIT)
                     {
@@ -973,7 +976,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         row2Edit[0]["payroll_registry_descr"] = txtb_registry_descr.Text.ToString().Trim();
                         row2Edit[0]["post_status"] = ddl_post_status.SelectedValue.ToString();
                         row2Edit[0]["post_status_descr"] = ddl_post_status.SelectedItem.ToString();
-                        row2Edit[0]["payroll_period_descr"] = DateTime.Parse(txtb_period_from.Text).ToString("MM/dd") + " - " + DateTime.Parse(txtb_period_from.Text).ToString("MM/dd/yyyy");
+                        row2Edit[0]["payroll_period_descr"] = DateTime.Parse(txtb_period_from.Text).ToString("MM/dd") + " - " + DateTime.Parse(txtb_period_to.Text).ToString("MM/dd/yyyy");
                         row2Edit[0]["date_posted"] = txtb_date_release.Text == "" ? "1900-01-01" : txtb_date_release.Text;
                         row2Edit[0]["gross_pay"] = ViewState["gross_pay"].ToString(); 
                         row2Edit[0]["net_pay"]   = ViewState["net_pay"].ToString();
@@ -997,7 +1000,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         row2Edit[0]["remarks"]          = txtb_remarks.Text;
 
                         MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
-                        SaveAddEdit.Text = MyCmn.CONST_EDITREC;
+                        id_header.InnerHtml = "Successfully";
                     }
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
@@ -2526,6 +2529,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             div_empl_type.Visible   = false;
             lnk_generate_rep.Visible = false;
             ddl_dep_modal.Enabled = false;
+            lnk_print_rep.Visible = false;
 
             ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
             ddl_year_modal.SelectedValue = ddl_year.SelectedValue.ToString();
@@ -2582,6 +2586,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             div_empl_type.Visible   = true;
             lnk_generate_rep.Visible= true;
             ddl_dep_modal.Enabled   = true;
+            lnk_print_rep.Visible   = false;
 
             ddl_month_modal.SelectedValue = "12";
             ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
@@ -2599,6 +2604,144 @@ namespace HRIS_ePayroll.View.cPayRegistry
             procedure   = "sp_payrollregistry_ovtm_annual_rep";
             url         = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_year," + ddl_year_modal.SelectedValue.ToString().Trim() + ",par_month," + ddl_month_modal.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type_modal.SelectedValue.ToString().Trim() + ",par_department_code," + ddl_dep_modal.SelectedValue.ToString().Trim();
             
+            if (url != "")
+            {
+                Response.Redirect(url);
+            }
+        }
+
+        protected void imgbtn_coaching_Command(object sender, CommandEventArgs e)
+        {
+            string[] commandarg = e.CommandArgument.ToString().Split(new char[] { ',' });
+            string editExpression = "payroll_year = '" + commandarg[0].ToString().Trim() + "' AND payroll_registry_nbr = '" + commandarg[1].ToString().Trim() + "'";
+            DataRow[] row2Edit = dataListGrid.Select(editExpression);
+
+            payroll_year.Text           = "";
+            payroll_registry_nbr.Text   = "";
+            date_of_coaching.Text       = "";
+            subject.Text                = "";
+            particulars.Text            = "";
+            name_of_incharge.Text       = "";
+            name_of_supervisor.Text     = "";
+            lbl_coaching_msg.Text       = "";
+            
+            DataTable chk = new DataTable();
+            string query = "SELECT * FROM payrollregistry_hdr_coaching_tbl WHERE payroll_year = '" + row2Edit[0]["payroll_year"].ToString() + "' AND payroll_registry_nbr = '" + row2Edit[0]["payroll_registry_nbr"].ToString() + "'";
+            chk = MyCmn.GetDatatable(query);
+
+            if (chk.Rows.Count > 0)
+            {
+                name_of_incharge.Text       = row2Edit[0]["name_of_incharge"].ToString();
+                name_of_supervisor.Text     = row2Edit[0]["name_of_supervisor"].ToString();
+            }
+            else
+            {
+                name_of_incharge.Text   = (Session["ep_first_name"].ToString() + " " + Session["ep_middle_name"].ToString().Substring(0,1) + ". " + Session["ep_last_name"].ToString()).ToUpper();
+                name_of_supervisor.Text = "VIVIAN S. ESPARAGOZA";
+            }
+
+            payroll_year.Text           = row2Edit[0]["payroll_year"].ToString();
+            payroll_registry_nbr.Text   = row2Edit[0]["payroll_registry_nbr"].ToString();
+            date_of_coaching.Text       = row2Edit[0]["date_of_coaching"].ToString();
+            subject.Text                = row2Edit[0]["subject"].ToString();
+            particulars.Text            = row2Edit[0]["particulars"].ToString();
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openCoaching", "openCoaching();", true);
+        }
+
+        protected void lnkbtn_save_coach_Click(object sender, EventArgs e)
+        {
+            DataTable chk   = new DataTable();
+            string query    = "SELECT * FROM payrollregistry_hdr_coaching_tbl WHERE payroll_year = '"+payroll_year.Text.ToString().Trim()+"' AND payroll_registry_nbr = '"+payroll_registry_nbr.Text.ToString().Trim()+"'";
+            chk             = MyCmn.GetDatatable(query);
+
+            if (chk.Rows.Count > 0)
+            {
+                string update_script = "UPDATE payrollregistry_hdr_coaching_tbl SET date_of_coaching = '"+ date_of_coaching.Text + "',subject = '"+ subject.Text.Replace("'","''") + "',particulars = '"+particulars.Text.Replace("'", "''") + "',name_of_incharge='"+name_of_incharge.Text.Replace("'", "''") + "',name_of_supervisor = '"+name_of_supervisor.Text.Replace("'", "''") + "' WHERE payroll_year = '" + payroll_year.Text.ToString().Trim() + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text.ToString().Trim() + "'";
+                SaveAddEdit.Text = MyCmn.UpdateToTable(update_script);
+            }
+            else
+            {
+                string insert_script = "INSERT INTO payrollregistry_hdr_coaching_tbl VALUES('"+ payroll_year.Text.ToString().Trim() + "','"+ payroll_registry_nbr.Text.ToString().Trim() + "','"+ date_of_coaching.Text.Replace("'", "''") + "','"+ subject.Text.Replace("'", "''") + "','"+ particulars.Text.Replace("'", "''") + "','"+ name_of_incharge.Text.Replace("'", "''") + "','"+ name_of_supervisor.Text.Replace("'", "''") + "')";
+                SaveAddEdit.Text = MyCmn.InsertToTable(insert_script);
+            }
+
+            string editExpression = "payroll_year = '" + payroll_year.Text + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text + "'";
+            DataRow[] row2Edit = dataListGrid.Select(editExpression);
+
+            row2Edit[0]["payroll_year"]           = payroll_year.Text          ; 
+            row2Edit[0]["payroll_registry_nbr"]   = payroll_registry_nbr.Text  ; 
+            row2Edit[0]["date_of_coaching"]       = date_of_coaching.Text      ; 
+            row2Edit[0]["subject"]                = subject.Text               ; 
+            row2Edit[0]["particulars"]            = particulars.Text           ; 
+            row2Edit[0]["name_of_incharge"]       = name_of_incharge.Text      ; 
+            row2Edit[0]["name_of_supervisor"]     = name_of_supervisor.Text;
+            lbl_coaching_msg.Text                 = "";
+
+            MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "closeCoaching", "closeCoaching();", true);
+        }
+        
+        protected void lnkbtn_print_Click(object sender, EventArgs e)
+        {
+            lbl_coaching_msg.Text = "";
+            DataTable chk = new DataTable();
+            string query = "SELECT * FROM payrollregistry_hdr_coaching_tbl WHERE payroll_year = '" + payroll_year.Text.ToString().Trim() + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text.ToString().Trim() + "'";
+            chk = MyCmn.GetDatatable(query);
+            if (chk.Rows.Count > 0)
+            {
+                Session["history_page"] = Request.Url.AbsolutePath;
+                Session["PreviousValuesonPage_cPayRegistry"] = ddl_year.SelectedValue.ToString() + "," + ddl_month.SelectedValue.ToString().Trim() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_payroll_template.SelectedValue.ToString() + "," + gv_dataListGrid.PageIndex + "," + DropDownListID.SelectedValue.ToString() + "," + "" + "," + "" + "," + txtb_search.Text.ToString().Trim();
+
+                string printreport;
+                string procedure;
+                string url  = "";
+                printreport = "/cryCoaching/cryCoaching.rpt";
+                procedure   = "sp_payrollregistry_hdr_coaching_tbl_rep";
+                url         = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_payroll_year," + payroll_year.Text.ToString().Trim() + ",p_payroll_registry_nbr," + payroll_registry_nbr.Text.ToString().Trim();
+
+                if (url != "")
+                {
+                    Response.Redirect(url);
+                }
+            }
+            else
+            {
+                lbl_coaching_msg.Text = "You cannot Print, Coaching & Mentoring data not Found!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDate", "show_date();", true);
+            }
+
+        }
+
+        protected void btn_coaching_list_Click(object sender, EventArgs e)
+        {
+            lbl_select_option.Text = "Coaching & Mentoring List";
+            div_name.Visible        = false;
+            div_yr_mth.Visible      = true;
+            div_dep.Visible         = false;
+            div_pyroll_lst.Visible  = false;
+            div_empl_type.Visible   = false;
+            lnk_generate_rep.Visible= false;
+            ddl_dep_modal.Enabled   = false;
+            lnk_print_rep.Visible   = true;
+
+            ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
+            ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_Payroll", "openModalPayroll();", true);
+        }
+
+        protected void lnk_print_rep_Click(object sender, EventArgs e)
+        {
+            Session["history_page"] = Request.Url.AbsolutePath;
+            Session["PreviousValuesonPage_cPayRegistry"] = ddl_year.SelectedValue.ToString() + "," + ddl_month.SelectedValue.ToString().Trim() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_payroll_template.SelectedValue.ToString() + "," + gv_dataListGrid.PageIndex + "," + DropDownListID.SelectedValue.ToString() + "," + "" + "," + "" + "," + txtb_search.Text.ToString().Trim();
+
+            string printreport;
+            string procedure;
+            string url = "";
+            printreport = "/cryCoachingList/cryCoachingList.rpt";
+            procedure = "sp_payrollregistry_hdr_coaching_tbl_rep";
+            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_payroll_year," + ddl_year_modal.SelectedValue.ToString().Trim() + ",p_payroll_registry_nbr," + "";
+
             if (url != "")
             {
                 Response.Redirect(url);
