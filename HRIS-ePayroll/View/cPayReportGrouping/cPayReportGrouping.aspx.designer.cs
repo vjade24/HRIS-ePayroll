@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HRIS_ePayroll.View.cPayReportGrouping
-{
-
-
-    public partial class cPayReportGrouping
-    {
-
+namespace HRIS_ePayroll.View.cPayReportGrouping {
+    
+    
+    public partial class cPayReportGrouping {
+        
         /// <summary>
         /// sm_Script control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager sm_Script;
-
+        
         /// <summary>
         /// UpdatePanel8 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel8;
-
+        
         /// <summary>
         /// SaveAddEdit control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label SaveAddEdit;
-
+        
         /// <summary>
         /// delete_confirm_popup control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel delete_confirm_popup;
-
+        
         /// <summary>
         /// UpdatePanel6 control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel6;
-
+        
         /// <summary>
         /// deleteRec1 control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label deleteRec1;
-
+        
         /// <summary>
         /// lnkBtnYes control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnYes;
-
+        
         /// <summary>
         /// LinkButton3 control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
-
+        
         /// <summary>
         /// UpdatePanel7 control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-
+        
         /// <summary>
         /// UpdatePanel5 control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
-
+        
         /// <summary>
         /// LabelAddEdit control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelAddEdit;
-
+        
         /// <summary>
         /// UpdatePanel13 control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel13;
-
+        
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-
+        
         /// <summary>
         /// lbl_group_no control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_group_no;
-
+        
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -148,7 +146,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-
+        
         /// <summary>
         /// UpdatePanel15 control.
         /// </summary>
@@ -157,7 +155,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel15;
-
+        
         /// <summary>
         /// txtb_group_descr control.
         /// </summary>
@@ -166,7 +164,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_group_descr;
-
+        
         /// <summary>
         /// LblRequired3 control.
         /// </summary>
@@ -175,7 +173,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired3;
-
+        
         /// <summary>
         /// id_employee control.
         /// </summary>
@@ -184,7 +182,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_employee;
-
+        
         /// <summary>
         /// UpdatePanel20 control.
         /// </summary>
@@ -193,7 +191,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel20;
-
+        
         /// <summary>
         /// ddl_special_group control.
         /// </summary>
@@ -202,7 +200,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_special_group;
-
+        
         /// <summary>
         /// LblRequired11 control.
         /// </summary>
@@ -211,7 +209,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired11;
-
+        
         /// <summary>
         /// UpdateDep control.
         /// </summary>
@@ -220,7 +218,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateDep;
-
+        
         /// <summary>
         /// ddl_dep control.
         /// </summary>
@@ -229,7 +227,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_dep;
-
+        
         /// <summary>
         /// LblRequired1 control.
         /// </summary>
@@ -238,7 +236,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired1;
-
+        
         /// <summary>
         /// UpdatePanel21 control.
         /// </summary>
@@ -247,7 +245,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel21;
-
+        
         /// <summary>
         /// ddl_subdep control.
         /// </summary>
@@ -256,7 +254,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_subdep;
-
+        
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -265,7 +263,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
+        
         /// <summary>
         /// ddl_division control.
         /// </summary>
@@ -274,7 +272,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_division;
-
+        
         /// <summary>
         /// UpdatePanel23 control.
         /// </summary>
@@ -283,7 +281,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel23;
-
+        
         /// <summary>
         /// ddl_section control.
         /// </summary>
@@ -292,7 +290,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_section;
-
+        
         /// <summary>
         /// UpdatePanel17 control.
         /// </summary>
@@ -301,7 +299,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel17;
-
+        
         /// <summary>
         /// ddl_fund_charges control.
         /// </summary>
@@ -310,7 +308,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_fund_charges;
-
+        
         /// <summary>
         /// LblRequired4 control.
         /// </summary>
@@ -319,7 +317,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired4;
-
+        
         /// <summary>
         /// UpdatePanel16 control.
         /// </summary>
@@ -328,7 +326,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel16;
-
+        
         /// <summary>
         /// ddl_function_code control.
         /// </summary>
@@ -337,7 +335,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_function_code;
-
+        
         /// <summary>
         /// LblRequired5 control.
         /// </summary>
@@ -346,7 +344,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired5;
-
+        
         /// <summary>
         /// UpdatePanel22 control.
         /// </summary>
@@ -355,7 +353,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel22;
-
+        
         /// <summary>
         /// txtb_charge_to control.
         /// </summary>
@@ -364,7 +362,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_charge_to;
-
+        
         /// <summary>
         /// UpdatePanel24 control.
         /// </summary>
@@ -373,7 +371,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel24;
-
+        
         /// <summary>
         /// txtb_sig_name control.
         /// </summary>
@@ -382,7 +380,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_sig_name;
-
+        
         /// <summary>
         /// LblRequired15 control.
         /// </summary>
@@ -391,7 +389,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired15;
-
+        
         /// <summary>
         /// UpdatePanel25 control.
         /// </summary>
@@ -400,7 +398,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel25;
-
+        
         /// <summary>
         /// txtb_sig_designation control.
         /// </summary>
@@ -409,7 +407,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_sig_designation;
-
+        
         /// <summary>
         /// LblRequired16 control.
         /// </summary>
@@ -418,7 +416,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired16;
-
+        
         /// <summary>
         /// UpdatePanel26 control.
         /// </summary>
@@ -427,7 +425,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel26;
-
+        
         /// <summary>
         /// txtb_sig2_name control.
         /// </summary>
@@ -436,7 +434,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_sig2_name;
-
+        
         /// <summary>
         /// LblRequired17 control.
         /// </summary>
@@ -445,7 +443,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired17;
-
+        
         /// <summary>
         /// UpdatePanel27 control.
         /// </summary>
@@ -454,7 +452,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel27;
-
+        
         /// <summary>
         /// txtb_sig2_designation control.
         /// </summary>
@@ -463,7 +461,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_sig2_designation;
-
+        
         /// <summary>
         /// LblRequired18 control.
         /// </summary>
@@ -472,7 +470,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired18;
-
+        
         /// <summary>
         /// UpdatePanel14 control.
         /// </summary>
@@ -481,7 +479,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel14;
-
+        
         /// <summary>
         /// ddl_empl_id control.
         /// </summary>
@@ -490,7 +488,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_empl_id;
-
+        
         /// <summary>
         /// LblRequired2 control.
         /// </summary>
@@ -499,7 +497,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired2;
-
+        
         /// <summary>
         /// UpdatePanel4 control.
         /// </summary>
@@ -508,7 +506,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
-
+        
         /// <summary>
         /// btn_add_empl control.
         /// </summary>
@@ -517,7 +515,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_add_empl;
-
+        
         /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
@@ -526,7 +524,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-
+        
         /// <summary>
         /// DropDownList1 control.
         /// </summary>
@@ -535,7 +533,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-
+        
         /// <summary>
         /// show_entries_dtl control.
         /// </summary>
@@ -544,7 +542,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label show_entries_dtl;
-
+        
         /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
@@ -553,7 +551,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-
+        
         /// <summary>
         /// txtb_search_details control.
         /// </summary>
@@ -562,7 +560,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_search_details;
-
+        
         /// <summary>
         /// updatepanel_details control.
         /// </summary>
@@ -571,7 +569,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updatepanel_details;
-
+        
         /// <summary>
         /// gv_details control.
         /// </summary>
@@ -580,7 +578,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gv_details;
-
+        
         /// <summary>
         /// LinkButton2 control.
         /// </summary>
@@ -589,7 +587,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
-
+        
         /// <summary>
         /// Button2 control.
         /// </summary>
@@ -598,7 +596,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
-
+        
         /// <summary>
         /// UpdatePanel19 control.
         /// </summary>
@@ -607,7 +605,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel19;
-
+        
         /// <summary>
         /// lnk_btn_retrieve control.
         /// </summary>
@@ -616,7 +614,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnk_btn_retrieve;
-
+        
         /// <summary>
         /// lnk_btn_keepit control.
         /// </summary>
@@ -625,7 +623,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnk_btn_keepit;
-
+        
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -634,7 +632,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-
+        
         /// <summary>
         /// UpdatePanel18 control.
         /// </summary>
@@ -643,7 +641,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel18;
-
+        
         /// <summary>
         /// msg_icon control.
         /// </summary>
@@ -652,7 +650,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msg_icon;
-
+        
         /// <summary>
         /// msg_header control.
         /// </summary>
@@ -661,7 +659,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msg_header;
-
+        
         /// <summary>
         /// lbl_details control.
         /// </summary>
@@ -670,7 +668,115 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_details;
-
+        
+        /// <summary>
+        /// UpdatePanel29 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel29;
+        
+        /// <summary>
+        /// UpdatePanel28 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel28;
+        
+        /// <summary>
+        /// employee_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox employee_name;
+        
+        /// <summary>
+        /// empl_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox empl_id;
+        
+        /// <summary>
+        /// include_exclude_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList include_exclude_status;
+        
+        /// <summary>
+        /// exclude_period_from control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox exclude_period_from;
+        
+        /// <summary>
+        /// exclude_period_from_req control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label exclude_period_from_req;
+        
+        /// <summary>
+        /// exclude_period_to control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox exclude_period_to;
+        
+        /// <summary>
+        /// exclude_period_to_req control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label exclude_period_to_req;
+        
+        /// <summary>
+        /// exclude_reason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox exclude_reason;
+        
+        /// <summary>
+        /// exclude_reason_req control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label exclude_reason_req;
+        
+        /// <summary>
+        /// btn_save_exclue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_save_exclue;
+        
         /// <summary>
         /// UpdatePanel11 control.
         /// </summary>
@@ -679,7 +785,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel11;
-
+        
         /// <summary>
         /// txtb_search control.
         /// </summary>
@@ -688,7 +794,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_search;
-
+        
         /// <summary>
         /// UpdatePanel9 control.
         /// </summary>
@@ -697,7 +803,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel9;
-
+        
         /// <summary>
         /// DropDownListID control.
         /// </summary>
@@ -706,7 +812,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListID;
-
+        
         /// <summary>
         /// show_pagesx control.
         /// </summary>
@@ -715,7 +821,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label show_pagesx;
-
+        
         /// <summary>
         /// ddl_year control.
         /// </summary>
@@ -724,7 +830,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_year;
-
+        
         /// <summary>
         /// ddl_empl_type control.
         /// </summary>
@@ -733,7 +839,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_empl_type;
-
+        
         /// <summary>
         /// UpdatePanel10 control.
         /// </summary>
@@ -742,7 +848,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel10;
-
+        
         /// <summary>
         /// btnAdd control.
         /// </summary>
@@ -751,7 +857,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAdd;
-
+        
         /// <summary>
         /// ddl_special_group_main control.
         /// </summary>
@@ -760,7 +866,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_special_group_main;
-
+        
         /// <summary>
         /// up_dataListGrid control.
         /// </summary>
@@ -769,7 +875,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel up_dataListGrid;
-
+        
         /// <summary>
         /// gv_dataListGrid control.
         /// </summary>
@@ -778,17 +884,15 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gv_dataListGrid;
-
+        
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new HRIS_ePayroll.MasterPage Master
-        {
-            get
-            {
+        public new HRIS_ePayroll.MasterPage Master {
+            get {
                 return ((HRIS_ePayroll.MasterPage)(base.Master));
             }
         }

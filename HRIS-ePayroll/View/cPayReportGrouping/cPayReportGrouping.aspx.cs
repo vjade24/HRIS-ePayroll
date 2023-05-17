@@ -1358,6 +1358,24 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
                             txtb_sig_designation.BorderColor = Color.Red;
                             break;
                         }
+                    case "exclude_period_from":
+                        {
+                            exclude_period_from_req.Text = MyCmn.CONST_RQDFLD;
+                            exclude_period_from.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "exclude_period_to":
+                        {
+                            exclude_period_to_req.Text = MyCmn.CONST_RQDFLD;
+                            exclude_period_to.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "exclude_reason":
+                        {
+                            exclude_reason_req.Text = MyCmn.CONST_RQDFLD;
+                            exclude_reason.BorderColor = Color.Red;
+                            break;
+                        }
                 }
             else if (!pMode)
             {
@@ -1373,6 +1391,10 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
                             LblRequired11.Text = "";
                             LblRequired15.Text = "";
                             LblRequired16.Text = "";
+                            exclude_period_from_req.Text = "";
+                            exclude_period_to_req.Text = "";
+                            exclude_reason_req.Text = "";
+
                             ddl_empl_id.BorderColor = Color.LightGray;
                             ddl_dep.BorderColor = Color.LightGray;
                             txtb_group_descr.BorderColor = Color.LightGray;
@@ -1381,6 +1403,10 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
                             ddl_special_group.BorderColor = Color.LightGray;
                             txtb_sig_name.BorderColor = Color.LightGray;
                             txtb_sig_designation.BorderColor = Color.LightGray;
+
+                            exclude_period_from.BorderColor = Color.LightGray;
+                            exclude_period_to.BorderColor = Color.LightGray;
+                            exclude_reason.BorderColor = Color.LightGray;
                             break;
                         }
 
@@ -1864,6 +1890,103 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
                 // ddl_fund_charges.SelectedValue  = "";
 
             }
+        }
+
+        protected void lbkbtn_group_dtl_Command(object sender, CommandEventArgs e)
+        {
+            string[] grp_data = e.CommandArgument.ToString().Split(new char[] { ',' });
+            string editExpression = "payroll_group_nbr = '" + grp_data[0].ToString().Trim() + "' AND empl_id = '" + grp_data[1].ToString().Trim() + "'";
+            DataRow[] row2Edit = dtSource_dtl.Select(editExpression);
+
+            DataTable chk = new DataTable();
+            string query = "SELECT * FROM payrollemployeegroupings_dtl_excludes_tbl WHERE payroll_group_nbr = '" + grp_data[0].ToString().Trim() + "' AND empl_id = '" + grp_data[1].ToString().Trim() + "' ORDER BY created_dttm DESC";
+            chk = MyCmn.GetDatatable(query);
+
+            employee_name.Text                      = row2Edit[0]["employee_name"].ToString().Trim();
+            empl_id.Text                            = row2Edit[0]["empl_id"].ToString().Trim();
+            include_exclude_status.SelectedValue    = (row2Edit[0]["emp_status"].ToString().Trim() == "True" || row2Edit[0]["emp_status"].ToString().Trim() == "true" ?  "1":"0");
+            exclude_period_from.Text                = "";
+            exclude_period_to.Text                  = "";
+            exclude_reason.Text                     = "";
+
+            if (chk.Rows.Count > 0)
+            {
+                employee_name.Text                      = chk.Rows[0]["employee_name"].ToString().Trim();
+                empl_id.Text                            = chk.Rows[0]["empl_id"].ToString().Trim();
+                exclude_period_from.Text                = DateTime.Parse(chk.Rows[0]["exclude_date_from"].ToString().Trim()).ToString("yyyy-MM-dd");
+                exclude_period_to.Text                  = DateTime.Parse(chk.Rows[0]["exclude_date_to"].ToString().Trim()).ToString("yyyy-MM-dd");
+                exclude_reason.Text                     = chk.Rows[0]["exclude_reason"].ToString().Trim();
+                include_exclude_status.SelectedValue    = chk.Rows[0]["emp_status"].ToString().Trim();
+            }
+            
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openModal_Exclude", "openModal_Exclude();", true);
+        }
+        
+        protected void btn_save_exclue_Click(object sender, EventArgs e)
+        {
+            FieldValidationColorChanged(false, "ALL");
+            if (IsDataValidated_Exclude())
+            {
+                string insert_script = "INSERT INTO payrollemployeegroupings_dtl_excludes_tbl VALUES('" + lbl_group_no.Text.ToString().Trim() + "','"+ empl_id.Text.Replace("'", "''") + "','"+ employee_name.Text.Replace("'", "''") + "','"+ exclude_period_from.Text.Replace("'", "''") + "','"+ exclude_period_to.Text.Replace("'", "''") + "','"+ exclude_reason.Text.Replace("'", "''") + "','"+ include_exclude_status.SelectedValue.ToString().Replace("'", "''") + "','"+DateTime.Now.ToString()+"','"+ Session["ep_user_id"] .ToString().Trim()+ "')";
+                MyCmn.InsertToTable(insert_script);
+
+                string update_script = "UPDATE payrollemployeegroupings_dtl_tbl SET emp_status = '"+ include_exclude_status.SelectedValue.ToString().Trim() + "' WHERE payroll_group_nbr = '" + lbl_group_no.Text.ToString().Trim() + "' AND empl_id = '" + empl_id.Text.ToString().Trim() + "'";
+                MyCmn.UpdateToTable(update_script);
+
+                string editExpression = "payroll_group_nbr = '" + lbl_group_no.Text.ToString().Trim() + "' AND empl_id = '"+ empl_id.Text .ToString().Trim()+ "'";
+                DataRow[] row2Edit = dtSource_dtl.Select(editExpression);
+            
+                row2Edit[0]["emp_status"]         = (include_exclude_status.SelectedValue.ToString().Trim() == "1"? 1:0 );
+                row2Edit[0]["emp_status_descr"]   = include_exclude_status.SelectedItem.ToString().Trim();
+
+                MyCmn.Sort(gv_details, dtSource_dtl, "employee_name", "ASC");
+                updatepanel_details.Update();
+
+                MyCmn.Sort(gv_details, dtSource_dtl, "employee_name", "ASC");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal_asd", "closeModal_Exclude();", true);
+            }
+        }
+
+        //**************************************************************************
+        //  BEGIN - VJA- 06/11/2019 - Objects data Validation  - For HEader
+        //*************************************************************************
+        private bool IsDataValidated_Exclude()  
+        {
+            bool validatedSaved = true;
+            if (exclude_period_from.Text == "")
+            {
+                FieldValidationColorChanged(true, "exclude_period_from");
+                exclude_period_from.Focus();
+                validatedSaved = false;
+            }
+            if (CommonCode.checkisdatetime(exclude_period_from.Text) == false)
+            {
+                exclude_period_from_req.Text    = "Invalid Date!";
+                exclude_period_from.BorderColor = Color.Red;
+                exclude_period_from.Focus();
+                validatedSaved = false;
+            }
+            if (exclude_period_to.Text == "")
+            {
+                FieldValidationColorChanged(true, "exclude_period_to");
+                exclude_period_to.Focus();
+                validatedSaved = false;
+            }
+            if (CommonCode.checkisdatetime(exclude_period_to.Text) == false)
+            {
+                exclude_period_to_req.Text    = "Invalid Date!";
+                exclude_period_to.BorderColor = Color.Red;
+                exclude_period_to.Focus();
+                validatedSaved = false;
+            }
+            if (exclude_reason.Text == "")
+            {
+                FieldValidationColorChanged(true, "exclude_reason");
+                exclude_reason.Focus();
+                validatedSaved = false;
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDate", "show_date();", true);
+            return validatedSaved;
         }
         //**************************************************************************
         //  BEGIN - VJA- 06/11/2019 - END OF CODE

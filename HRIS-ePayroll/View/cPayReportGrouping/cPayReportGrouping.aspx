@@ -27,6 +27,7 @@
                 </div>
               </div>
             </div>
+
         <asp:UpdatePanel ID="delete_confirm_popup" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
             <ContentTemplate>
               <!-- Modal Delete -->
@@ -369,32 +370,46 @@
                                                                     <HeaderStyle HorizontalAlign="Center" />
                                                                     <ItemStyle HorizontalAlign="left" />
                                                                 </asp:TemplateField>
-                                                               <%--<asp:TemplateField HeaderText="STATUS" SortExpression="emp_status_descr">
+                                                               
+                                                               <asp:TemplateField HeaderText="STATUS" SortExpression="emp_status_descr">
                                                                     <ItemTemplate>
                                                                         <asp:Label runat="server" Text='<%# Eval("emp_status_descr") %>'></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle Width="10%" />
                                                                     <HeaderStyle HorizontalAlign="Center" />
                                                                     <ItemStyle HorizontalAlign="Center" />
-                                                                </asp:TemplateField>--%>
-                                                                <%--<asp:TemplateField HeaderText="ACTION">
+                                                                </asp:TemplateField>
+                                                               
+                                                                <asp:TemplateField HeaderText="ACTION">
                                                                     <ItemTemplate>
                                                                         <asp:UpdatePanel ID="UpdatePanel12" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                                                                             <ContentTemplate>
-                                                                                <% 
+                                                                                <%--<% 
                                                                                     if (ViewState["page_allow_delete"].ToString() == "0")
                                                                                     {
                                                                                 %>
                                                                                     <asp:ImageButton ID="lnkbtn_delete_details" CssClass="btn btn-danger action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_delete.png" OnCommand="lnkbtn_delete_details_Command" CommandArgument='<%# Eval("empl_id") %>'/>
                                                                                 <% 
                                                                                     }
+                                                                                %>--%>
+
+
+                                                                                <% 
+                                                                                if (ddl_special_group.SelectedValue == "02" || ddl_special_group.SelectedValue == "03" ) // Communication Expense & RATA and Quarterly Allowance
+                                                                                {
                                                                                 %>
+
+                                                                                    <asp:ImageButton ID="lbkbtn_group_dtl" OnCommand="lbkbtn_group_dtl_Command" CssClass="btn btn-primary action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_edit.png" CommandArgument='<%# Eval("payroll_group_nbr") +","+Eval("empl_id")+","+Eval("employee_name")%> ' />
+<% 
+                                                                                }
+                                                                                %>
+
                                                                             </ContentTemplate>
                                                                         </asp:UpdatePanel>
                                                                     </ItemTemplate>
                                                                     <ItemStyle Width="8%" />
                                                                     <ItemStyle CssClass="text-center" />
-                                                                </asp:TemplateField>--%>
+                                                                </asp:TemplateField>
                                                             </Columns>
                                                             <PagerSettings  
                                                             Mode="NumericFirstLast" 
@@ -518,6 +533,69 @@
             </div>
         </div>
 
+        <!-- The Modal - Exclude to Groupings -->
+        <asp:UpdatePanel runat="server" ID="UpdatePanel29" ChildrenAsTriggers="false" UpdateMode="Conditional" >
+            <ContentTemplate>
+                <div class="modal fade" id="id_modal_exclude" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content ">
+                            <div class="modal-header" style="background-color:#007bff;color:white">
+                                <h5 class="modal-title" >Exclude/Include Payroll Groupings</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <asp:UpdatePanel ID="UpdatePanel28" runat="server">
+                                <ContentTemplate>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <label>Employee Name</label>
+                                                <asp:TextBox CssClass="form-control" runat="server" ID="employee_name" Enabled="false" Font-Bold="true"></asp:TextBox>
+                                            </div>
+                                            <div class="col-3">
+                                                <label>ID No</label>
+                                                <asp:TextBox CssClass="form-control" runat="server" ID="empl_id" Enabled="false" Font-Bold="true"></asp:TextBox>
+                                            </div>
+                                            <div class="col-12">
+                                                <hr />
+                                                <label>Status </label>
+                                                <asp:DropDownList runat="server" CssClass="form-control" ID="include_exclude_status">
+                                                    <asp:ListItem Text="In-Active" Value="0"></asp:ListItem>
+                                                    <asp:ListItem Text="Active" Value="1"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </div>
+                                            <div class="col-6">
+                                                <label>Exclude Date from</label>
+                                                <asp:TextBox CssClass="form-control my-date" runat="server" ID="exclude_period_from"></asp:TextBox>
+                                                <asp:Label ID="exclude_period_from_req" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                            </div>
+                                            <div class="col-6">
+                                                <label>Exclude Date to</label>
+                                                <asp:TextBox CssClass="form-control my-date" runat="server" ID="exclude_period_to"></asp:TextBox>
+                                                <asp:Label ID="exclude_period_to_req" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                            </div>
+                                            <div class="col-12">
+                                                <label>Reason</label>
+                                                <asp:TextBox CssClass="form-control" runat="server" ID="exclude_reason" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                                <asp:Label ID="exclude_reason_req" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <div class="modal-footer">
+                                <asp:LinkButton  runat="server" data-dismiss="modal"  CssClass="btn btn-dark"> <i class="fa fa-times"></i> Close </asp:LinkButton>
+                                <asp:LinkButton CssClass="btn btn-primary" runat="server" ID="btn_save_exclue" OnClick="btn_save_exclue_Click"> <i class="fa fa-save"></i> Save</asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <!-- The Modal - Exclude to Groupings -->
+
      <div class="col-12">
             <div class="row breadcrumb my-breadcrumb">
                 <div class="col-4"><strong style="font-family:Arial;font-size:18px;color:white;"><%: Master.page_title %></strong></div>
@@ -603,7 +681,7 @@
                                             
                                             <% if (ViewState["page_allow_add"].ToString() == "1")
                                                 {  %>
-                                                    <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
+                                                    <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
                                              <% }
                                                 %>     
                                         </ContentTemplate>
@@ -745,7 +823,31 @@
                 backdrop: "static"
             });
             $('#id_header').click()
-        };
+       };
+
+       function openModal_Exclude()
+       {
+            $('#id_modal_exclude').modal({
+                keyboard: false,
+                backdrop: "static"
+           });
+
+           $('#<%= exclude_period_from.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+           $('#<%= exclude_period_to.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+       };
+
+       function show_date()
+       {
+           $('#<%= exclude_period_from.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+           $('#<%= exclude_period_to.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+       }
+
+       function closeModal_Exclude()
+       {
+           $('#id_modal_exclude').modal("hide");
+            $('.modal-id_modal_exclude.show').remove();
+       };
+       
         
    </script>
     <script type="text/javascript">
