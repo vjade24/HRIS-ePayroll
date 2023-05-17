@@ -318,6 +318,7 @@
                                         <div class="col-12" >
                                             <label>Name of Incharge</label>
                                             <asp:TextBox runat="server" CssClass="form-control" ID="name_of_incharge" Enabled="false"></asp:TextBox>
+                                            <asp:Label ID="name_of_incharge_req" runat="server" CssClass="lbl_required" ></asp:Label>
                                         </div>
                                         <div class="col-12" >
                                             <label>Name of Supervisor</label>
@@ -347,7 +348,7 @@
         </asp:UpdatePanel>
 
         <!-- The Modal - Select Report -->
-        <asp:UpdatePanel ID="UpdatePanel_id_receive_audit_post" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
+        <%--<asp:UpdatePanel ID="UpdatePanel_id_receive_audit_post" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
             <ContentTemplate>
                 <div class="modal fade" id="id_receive_audit_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -406,7 +407,7 @@
                     </div>
                 </div>
             </ContentTemplate>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel>--%>
 
 
         <!-- The Modal - Select Report -->
@@ -843,7 +844,7 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-12">
+             <div class="col-12">
             <table class="table table-bordered  table-scroll">
                 <tbody class="my-tbody">
                     <tr>
@@ -1130,8 +1131,8 @@
                                                                 <asp:ImageButton runat="server" ID="imgbtn_coaching" 
                                                                     tooltip="Coaching & Mentoring"
                                                                     OnCommand="imgbtn_coaching_Command"
-                                                                    ImageUrl="~/ResourceImages/add.png" 
-                                                                    style="padding-left: 0px !important;" 
+                                                                    ImageUrl="~/ResourceImages/final_select.png" 
+                                                                    style="padding-left: 5px !important;padding-right: 5px !important;" 
                                                                     CommandArgument='<%# Eval("payroll_year")+","+Eval("payroll_registry_nbr")%> ' 
                                                                     CssClass="btn btn-info action" />
 
@@ -1181,7 +1182,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        </div>
 </form>
 
    <script type="text/javascript">
@@ -1273,13 +1274,13 @@
                 backdrop: "static"
             });
         }
-        function OpenRAP() {
+        //function OpenRAP() {
 
-            $('#id_receive_audit_post').modal({
-                keyboard: false,
-                backdrop: "static"
-            });
-        }
+        //    $('#id_receive_audit_post').modal({
+        //        keyboard: false,
+        //        backdrop: "static"
+        //    });
+        //}
         function closeNotification() {
 
             $('#notification').modal("hide");
@@ -1295,18 +1296,18 @@
        };
     </script>
     <script type="text/javascript">
-        function closeModal_RAP() {
-            $('#id_receive_audit_post').modal("hide");
-             $('#AddEditConfirm').modal({
-                 keyboard: false,
-                backdrop:"static"
-            });
-            setTimeout(function () {
-                $('#AddEditConfirm').modal("hide");
-                $('.modal-backdrop.show').remove();
+        //function closeModal_RAP() {
+        //    $('#id_receive_audit_post').modal("hide");
+        //     $('#AddEditConfirm').modal({
+        //         keyboard: false,
+        //        backdrop:"static"
+        //    });
+        //    setTimeout(function () {
+        //        $('#AddEditConfirm').modal("hide");
+        //        $('.modal-backdrop.show').remove();
                 
-            }, 800);
-        };
+        //    }, 800);
+        //};
 
         function openCoaching()
         {

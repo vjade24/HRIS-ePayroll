@@ -217,15 +217,15 @@ namespace HRIS_ePayroll.View.cPayRegistry
             RetrieveYear();
             RetrieveDataListGrid();
 
-            RetriveGroupings();
+            //RetriveGroupings();
             RetriveTemplate();
             RetriveEmploymentType();
             RetrieveBindingDep();
             RetrieveBindingFunction();
-            RetrieveEmployee();
+            //RetrieveEmployee();
 
             //Retrieve the last row of the Group when Add Header
-            RetrieveLastRegistryNumber();
+            //RetrieveLastRegistryNumber();
 
             btnAdd.Visible = false;
         }
@@ -1285,6 +1285,37 @@ namespace HRIS_ePayroll.View.cPayRegistry
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDate", "show_date();", true);
                             break;
                         }
+
+                    case "date_of_coaching":
+                        {
+                            date_of_coaching_req.Text    = MyCmn.CONST_RQDFLD;
+                            date_of_coaching.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "subject":
+                        {
+                            subject_req.Text = MyCmn.CONST_RQDFLD;
+                            subject.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "particulars":
+                        {
+                            particulars_req.Text = MyCmn.CONST_RQDFLD;
+                            particulars.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "name_of_incharge":
+                        {
+                            name_of_incharge_req.Text = MyCmn.CONST_RQDFLD;
+                            name_of_incharge.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "name_of_supervisor":
+                        {
+                            name_of_supervisor_req.Text = MyCmn.CONST_RQDFLD;
+                            name_of_supervisor.BorderColor = Color.Red;
+                            break;
+                        }
                 }
             else if (!pMode)
             {
@@ -1292,20 +1323,30 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 {
                     case "ALL":
                         {
-                            LblRequired1.Text = "";
-                            LblRequired2.Text = "";
-                            LblRequired3.Text = "";
-                            LblRequired5.Text = "";
-                            LblRequired6.Text = "";
-                            LblRequired300.Text = "";
+                            LblRequired1.Text           = "";
+                            LblRequired2.Text           = "";
+                            LblRequired3.Text           = "";
+                            LblRequired5.Text           = "";
+                            LblRequired6.Text           = "";
+                            LblRequired300.Text         = "";
+                            date_of_coaching_req.Text   = "";
+                            subject_req.Text            = "";
+                            particulars_req.Text        = "";
+                            name_of_incharge_req.Text   = "";
+                            name_of_supervisor_req.Text = "";
 
                             txtb_registry_descr.BorderColor = Color.LightGray;
-                            txtb_period_from.BorderColor = Color.LightGray;
-                            txtb_period_to.BorderColor = Color.LightGray;
-                            ddl_payroll_group.BorderColor = Color.LightGray;
-                            txtb_date_release.BorderColor = Color.LightGray;
-                            ddl_payment_mode.BorderColor = Color.LightGray;
-
+                            txtb_period_from.BorderColor    = Color.LightGray;
+                            txtb_period_to.BorderColor      = Color.LightGray;
+                            ddl_payroll_group.BorderColor   = Color.LightGray;
+                            txtb_date_release.BorderColor   = Color.LightGray;
+                            ddl_payment_mode.BorderColor    = Color.LightGray;
+                            date_of_coaching.BorderColor    = Color.LightGray;
+                            subject.BorderColor             = Color.LightGray;
+                            particulars.BorderColor         = Color.LightGray;
+                            name_of_incharge.BorderColor    = Color.LightGray;
+                            name_of_supervisor.BorderColor  = Color.LightGray;
+                            
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDate", "show_date();", true);
                             UpdateDateFrom.Update();
                             UpdateDateTo.Update();
@@ -1336,7 +1377,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 btnAdd.Visible = false;
             }
             RetriveTemplate();
-            RetriveGroupings();
+            //RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
 
@@ -1368,7 +1409,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             {
                 btnAdd.Visible = false;
             }
-            RetriveGroupings();
+            //RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
 
@@ -1401,7 +1442,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             {
                 btnAdd.Visible = false;
             }
-            RetriveGroupings();
+           // RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
 
@@ -1426,7 +1467,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             {
                 btnAdd.Visible = false;
             }
-            RetriveGroupings();
+            //RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
 
@@ -2533,6 +2574,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
             ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
             ddl_year_modal.SelectedValue = ddl_year.SelectedValue.ToString();
+            RetrieveEmployee();
             RetrievePayrollPerEmployee();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_Payroll", "openModalPayroll();", true);
         }
@@ -2651,35 +2693,39 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
         protected void lnkbtn_save_coach_Click(object sender, EventArgs e)
         {
-            DataTable chk   = new DataTable();
-            string query    = "SELECT * FROM payrollregistry_hdr_coaching_tbl WHERE payroll_year = '"+payroll_year.Text.ToString().Trim()+"' AND payroll_registry_nbr = '"+payroll_registry_nbr.Text.ToString().Trim()+"'";
-            chk             = MyCmn.GetDatatable(query);
-
-            if (chk.Rows.Count > 0)
+            FieldValidationColorChanged(false, "ALL");
+            if (IsDataValidated_Coaching())
             {
-                string update_script = "UPDATE payrollregistry_hdr_coaching_tbl SET date_of_coaching = '"+ date_of_coaching.Text + "',subject = '"+ subject.Text.Replace("'","''") + "',particulars = '"+particulars.Text.Replace("'", "''") + "',name_of_incharge='"+name_of_incharge.Text.Replace("'", "''") + "',name_of_supervisor = '"+name_of_supervisor.Text.Replace("'", "''") + "' WHERE payroll_year = '" + payroll_year.Text.ToString().Trim() + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text.ToString().Trim() + "'";
-                SaveAddEdit.Text = MyCmn.UpdateToTable(update_script);
+                DataTable chk   = new DataTable();
+                string query    = "SELECT * FROM payrollregistry_hdr_coaching_tbl WHERE payroll_year = '"+payroll_year.Text.ToString().Trim()+"' AND payroll_registry_nbr = '"+payroll_registry_nbr.Text.ToString().Trim()+"'";
+                chk             = MyCmn.GetDatatable(query);
+
+                if (chk.Rows.Count > 0)
+                {
+                    string update_script = "UPDATE payrollregistry_hdr_coaching_tbl SET date_of_coaching = '"+ date_of_coaching.Text + "',subject = '"+ subject.Text.Replace("'","''") + "',particulars = '"+particulars.Text.Replace("'", "''") + "',name_of_incharge='"+name_of_incharge.Text.Replace("'", "''") + "',name_of_supervisor = '"+name_of_supervisor.Text.Replace("'", "''") + "' WHERE payroll_year = '" + payroll_year.Text.ToString().Trim() + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text.ToString().Trim() + "'";
+                    SaveAddEdit.Text = MyCmn.UpdateToTable(update_script);
+                }
+                else
+                {
+                    string insert_script = "INSERT INTO payrollregistry_hdr_coaching_tbl VALUES('"+ payroll_year.Text.ToString().Trim() + "','"+ payroll_registry_nbr.Text.ToString().Trim() + "','"+ date_of_coaching.Text.Replace("'", "''") + "','"+ subject.Text.Replace("'", "''") + "','"+ particulars.Text.Replace("'", "''") + "','"+ name_of_incharge.Text.Replace("'", "''") + "','"+ name_of_supervisor.Text.Replace("'", "''") + "')";
+                    SaveAddEdit.Text = MyCmn.InsertToTable(insert_script);
+                }
+
+                string editExpression = "payroll_year = '" + payroll_year.Text + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text + "'";
+                DataRow[] row2Edit = dataListGrid.Select(editExpression);
+
+                row2Edit[0]["payroll_year"]           = payroll_year.Text          ; 
+                row2Edit[0]["payroll_registry_nbr"]   = payroll_registry_nbr.Text  ; 
+                row2Edit[0]["date_of_coaching"]       = date_of_coaching.Text      ; 
+                row2Edit[0]["subject"]                = subject.Text               ; 
+                row2Edit[0]["particulars"]            = particulars.Text           ; 
+                row2Edit[0]["name_of_incharge"]       = name_of_incharge.Text      ; 
+                row2Edit[0]["name_of_supervisor"]     = name_of_supervisor.Text;
+                lbl_coaching_msg.Text                 = "";
+
+                MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeCoaching", "closeCoaching();", true);
             }
-            else
-            {
-                string insert_script = "INSERT INTO payrollregistry_hdr_coaching_tbl VALUES('"+ payroll_year.Text.ToString().Trim() + "','"+ payroll_registry_nbr.Text.ToString().Trim() + "','"+ date_of_coaching.Text.Replace("'", "''") + "','"+ subject.Text.Replace("'", "''") + "','"+ particulars.Text.Replace("'", "''") + "','"+ name_of_incharge.Text.Replace("'", "''") + "','"+ name_of_supervisor.Text.Replace("'", "''") + "')";
-                SaveAddEdit.Text = MyCmn.InsertToTable(insert_script);
-            }
-
-            string editExpression = "payroll_year = '" + payroll_year.Text + "' AND payroll_registry_nbr = '" + payroll_registry_nbr.Text + "'";
-            DataRow[] row2Edit = dataListGrid.Select(editExpression);
-
-            row2Edit[0]["payroll_year"]           = payroll_year.Text          ; 
-            row2Edit[0]["payroll_registry_nbr"]   = payroll_registry_nbr.Text  ; 
-            row2Edit[0]["date_of_coaching"]       = date_of_coaching.Text      ; 
-            row2Edit[0]["subject"]                = subject.Text               ; 
-            row2Edit[0]["particulars"]            = particulars.Text           ; 
-            row2Edit[0]["name_of_incharge"]       = name_of_incharge.Text      ; 
-            row2Edit[0]["name_of_supervisor"]     = name_of_supervisor.Text;
-            lbl_coaching_msg.Text                 = "";
-
-            MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "closeCoaching", "closeCoaching();", true);
         }
         
         protected void lnkbtn_print_Click(object sender, EventArgs e)
@@ -2746,6 +2792,62 @@ namespace HRIS_ePayroll.View.cPayRegistry
             {
                 Response.Redirect(url);
             }
+        }
+
+        //**************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Objects data Validation
+        //*************************************************************************
+        private bool IsDataValidated_Coaching()
+        {
+            bool validatedSaved = true;
+            try
+            {
+                if (date_of_coaching.Text == "")
+                {
+                    FieldValidationColorChanged(true, "date_of_coaching");
+                    date_of_coaching.Focus();
+                    validatedSaved = false;
+                }
+                if (CommonCode.checkisdatetime(date_of_coaching.Text) == false)
+                {
+                    date_of_coaching_req.Text           = "Invalid date!";
+                    date_of_coaching.BorderColor        = Color.Red;
+                    date_of_coaching.Focus();
+                    validatedSaved = false;
+                }
+                if (subject.Text == "")
+                {
+                    FieldValidationColorChanged(true, "subject");
+                    subject.Focus();
+                    validatedSaved = false;
+                }
+                if (particulars.Text == "")
+                {
+                    FieldValidationColorChanged(true, "particulars");
+                    particulars.Focus();
+                    validatedSaved = false;
+                }
+                if (name_of_incharge.Text == "")
+                {
+                    FieldValidationColorChanged(true, "name_of_incharge");
+                    name_of_incharge.Focus();
+                    validatedSaved = false;
+                }
+                if (name_of_supervisor.Text == "")
+                {
+                    FieldValidationColorChanged(true, "name_of_supervisor");
+                    name_of_supervisor.Focus();
+                    validatedSaved = false;
+                }
+            }
+            catch (Exception e)
+            {
+                lbl_coaching_msg.Text   = e.Message.ToString();
+                validatedSaved = false;
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDate", "show_date();", true);
+            return validatedSaved;
         }
 
         //********************************************************************
