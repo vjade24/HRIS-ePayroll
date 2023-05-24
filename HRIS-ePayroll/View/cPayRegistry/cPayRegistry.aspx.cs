@@ -1069,6 +1069,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             dtSource1.Columns.Add("date_posted", typeof(System.String));
             dtSource1.Columns.Add("crud_name", typeof(System.String));
             dtSource1.Columns.Add("payment_mode", typeof(System.String));
+            dtSource1.Columns.Add("coaching_status", typeof(System.String));
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
             if (rows.Length > 0)

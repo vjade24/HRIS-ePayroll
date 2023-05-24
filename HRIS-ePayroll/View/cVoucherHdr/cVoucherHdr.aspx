@@ -1692,14 +1692,14 @@
                                                             </div>
 
                                                             <%-- BEGIN     - VJA - 2022-05-27 - RESERVED DEDUCTIONS--%>
-                                                        <div class="col-6">
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan1"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan1" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1707,14 +1707,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan2"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan2" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1722,14 +1722,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan3"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan3" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1737,14 +1737,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan4"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan4" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1752,14 +1752,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan5"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan5" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1767,14 +1767,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan6"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan6" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1782,14 +1782,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan7"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan7" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1797,14 +1797,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan8"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan8" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1812,14 +1812,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan9"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan9" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1827,14 +1827,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_loan10"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;padding-right:5px" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_loan10" CssClass="form-control form-control-sm text-right"></asp:TextBox>

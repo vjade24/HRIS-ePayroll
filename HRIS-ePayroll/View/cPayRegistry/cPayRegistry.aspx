@@ -1048,11 +1048,11 @@
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="STATUS" SortExpression="post_status_descr">
                                                     <ItemTemplate>
-                                                        <%# Eval("post_status_descr") %>
+                                                       &nbsp;&nbsp; <%# Eval("post_status_descr") %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="10%" />
-                                                    <HeaderStyle HorizontalAlign="Center" />
-                                                    <ItemStyle HorizontalAlign="Center" />
+                                                    <HeaderStyle HorizontalAlign="LEFT" />
+                                                    <ItemStyle HorizontalAlign="LEFT" />
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="ACTION">
                                                     <ItemTemplate>
@@ -1134,7 +1134,7 @@
                                                                     ImageUrl="~/ResourceImages/final_select.png" 
                                                                     style="padding-left: 5px !important;padding-right: 5px !important;" 
                                                                     CommandArgument='<%# Eval("payroll_year")+","+Eval("payroll_registry_nbr")%> ' 
-                                                                    CssClass="btn btn-info action" />
+                                                                    CssClass='<%# Eval("coaching_status").ToString() == "" ? "btn btn-danger action" : "btn btn-info action" %>' />
 
                                                               
                                                             </ContentTemplate>

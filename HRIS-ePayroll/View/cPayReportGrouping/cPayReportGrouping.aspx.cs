@@ -1735,6 +1735,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         {
             string searchExpression = "empl_id LIKE '%" + txtb_search_details.Text.Trim() + "%' " +
                 "OR employee_name LIKE '%" + txtb_search_details.Text.Trim() + "%'" +
+                "OR payroll_group_nbr LIKE '%" + txtb_search_details.Text.Trim() + "%'" +
                 "OR emp_status_descr LIKE '%" + txtb_search_details.Text.Trim() + "%'";
 
             DataTable dtSource1 = new DataTable();
@@ -1742,6 +1743,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
             dtSource1.Columns.Add("employee_name", typeof(System.String));
             dtSource1.Columns.Add("emp_status", typeof(System.String));
             dtSource1.Columns.Add("emp_status_descr", typeof(System.String));
+            dtSource1.Columns.Add("payroll_group_nbr", typeof(System.String));
             DataRow[] rows = dtSource_dtl.Select(searchExpression);
             dtSource1.Clear();
             if (rows.Length > 0)
