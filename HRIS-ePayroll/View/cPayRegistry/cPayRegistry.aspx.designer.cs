@@ -148,6 +148,33 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         protected global::System.Web.UI.WebControls.DropDownList ddl_dep_modal;
         
         /// <summary>
+        /// div_payrolltemplate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_payrolltemplate;
+        
+        /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        
+        /// <summary>
+        /// ddl_payrolltemplate_report control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_payrolltemplate_report;
+        
+        /// <summary>
         /// div_pyroll_lst control.
         /// </summary>
         /// <remarks>
@@ -335,6 +362,15 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_coaching_msg;
+        
+        /// <summary>
+        /// lnkbtn_delete_coach control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtn_delete_coach;
         
         /// <summary>
         /// lnkbtn_print control.

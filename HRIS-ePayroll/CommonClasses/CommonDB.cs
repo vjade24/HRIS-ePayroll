@@ -2667,6 +2667,29 @@ namespace HRIS_Common
 
             return msg;
         }
+        public string DeleteToTable(string script)
+        {
+            SqlConnection conn = null;
+            string msg = "";
 
+            try
+            {
+                conn = ConnectDB();
+                conn.Open();
+
+                SqlCommand updatecomd = new SqlCommand(script, conn);
+                int retvalue = updatecomd.ExecuteNonQuery();
+                if (retvalue != 0)
+                {
+                    msg = "Deleted Successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                return 'X' + ex.Message;
+            }
+
+            return msg;
+        }
     }
 }

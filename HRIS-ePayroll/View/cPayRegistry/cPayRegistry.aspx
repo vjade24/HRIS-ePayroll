@@ -94,6 +94,7 @@
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_month_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged">
+                                                        <asp:ListItem Value="" Text="All Month"></asp:ListItem>
                                                         <asp:ListItem Value="01" Text="January"></asp:ListItem>
                                                         <asp:ListItem Value="02" Text="February"></asp:ListItem>
                                                         <asp:ListItem Value="03" Text="March"></asp:ListItem>
@@ -120,7 +121,7 @@
                                         <div class="col-6 mt-1">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:DropDownList ID="ddl_empl_type_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" >
+                                                    <asp:DropDownList ID="ddl_empl_type_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_modal_SelectedIndexChanged" >
                                                     </asp:DropDownList>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -137,6 +138,22 @@
                                             <asp:UpdatePanel ID="UpdatePanel26" runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_dep_modal" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_dep_modal_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="row" id="div_payrolltemplate" runat="server">
+
+                                        <div class="col-3 mt-1" >
+                                            <asp:Label runat="server" Text="Payroll Template:" ></asp:Label>
+                                        </div>
+                                        <div class="col-9 mt-1">
+                                                    
+                                            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList ID="ddl_payrolltemplate_report" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
@@ -317,7 +334,7 @@
                                         </div>
                                         <div class="col-12" >
                                             <label>Name of Incharge</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="name_of_incharge" Enabled="false"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="name_of_incharge" ></asp:TextBox>
                                             <asp:Label ID="name_of_incharge_req" runat="server" CssClass="lbl_required" ></asp:Label>
                                         </div>
                                         <div class="col-12" >
@@ -335,9 +352,9 @@
                                     <span class="label label-danger">
                                         <asp:Label ID="lbl_coaching_msg" runat="server" CssClass="smaller lbl_required" ></asp:Label>
                                     </span>
-                                    <asp:LinkButton runat="server" CssClass="btn btn-success pull-left" ID="lnkbtn_print" OnClick="lnkbtn_print_Click"><i class="fa fa-print"></i> Print</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkbtn_save_coach" runat="server"  CssClass="btn btn-primary"  OnClick="lnkbtn_save_coach_Click"> <i class="fa fa-save"></i> Save </asp:LinkButton>
-                                    
+                                    <asp:LinkButton runat="server" CssClass="btn btn-danger pull-left" ID="lnkbtn_delete_coach" OnClick="lnkbtn_delete_coach_Click"><i class="fa fa-trash"></i> Delete Coaching</asp:LinkButton>
+                                    <asp:LinkButton runat="server" CssClass="btn btn-success pull-left" ID="lnkbtn_print" OnClick="lnkbtn_print_Click"><i class="fa fa-print"></i> Save and Print</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkbtn_save_coach" runat="server"  CssClass="btn btn-primary"  OnClick="lnkbtn_save_coach_Click"> <i class="fa fa-save"></i> Save Only</asp:LinkButton>
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -1002,7 +1019,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("payroll_registry_nbr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="7%" />
+                                                    <ItemStyle Width="5%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="center" />
                                                 </asp:TemplateField>
@@ -1010,7 +1027,7 @@
                                                     <ItemTemplate>
                                                         <%# "&nbsp; "+Eval("payroll_registry_descr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="29%" />
+                                                    <ItemStyle Width="25%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="LEFT" />
                                                 </asp:TemplateField>
@@ -1018,15 +1035,17 @@
                                                     <ItemTemplate>
                                                         <%# Eval("payroll_group_nbr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="7%" />
+                                                    <ItemStyle Width="8%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="center" />
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="PERIOD" SortExpression="payroll_period_descr">
                                                     <ItemTemplate>
-                                                        <%# Eval("payroll_period_descr") %>
+                                                        <small>
+                                                             <%# Eval("payroll_period_descr") %>
+                                                        </small>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="13%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="CENTER" />
                                                 </asp:TemplateField>
@@ -1034,7 +1053,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("gross_pay") %> &nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="10%" />
+                                                    <ItemStyle Width="8%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -1042,17 +1061,21 @@
                                                     <ItemTemplate>
                                                         <%# Eval("net_pay") %> &nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="10%" />
+                                                    <ItemStyle Width="8%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="STATUS" SortExpression="post_status_descr">
                                                     <ItemTemplate>
-                                                       &nbsp;&nbsp; <%# Eval("post_status_descr") %>
+                                                        <span class="badge <%# Eval("post_status").ToString().Trim() == "T" || Eval("post_status").ToString().Trim() == "N" ? "badge-danger" : "badge-primary" %>">
+                                                            <small>
+                                                                &nbsp;<%# Eval("post_status_descr") %>
+                                                            </small>
+                                                        </spa>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="10%" />
-                                                    <HeaderStyle HorizontalAlign="LEFT" />
-                                                    <ItemStyle HorizontalAlign="LEFT" />
+                                                    <ItemStyle Width="5%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="ACTION">
                                                     <ItemTemplate>
@@ -1065,7 +1088,7 @@
                                                                         ID="imgbtn_add_empl" 
                                                                         runat="server" 
                                                                         EnableTheming="true"  
-                                                                        CssClass="btn btn-warning action" 
+                                                                        CssClass="btn btn-warning action btn-sm" 
                                                                         ImageUrl="~/ResourceImages/add.png" 
                                                                         style="padding-left: 0px !important;" 
                                                                         OnCommand="imgbtn_add_empl_Command" 
@@ -1083,7 +1106,7 @@
                                                                 %>
                                                                     <asp:ImageButton 
                                                                         ID="imgbtn_editrow1" 
-                                                                        CssClass="btn btn-primary action" 
+                                                                        CssClass="btn btn-primary action btn-sm" 
                                                                         EnableTheming="true"  
                                                                         runat="server"  
                                                                         ImageUrl="~/ResourceImages/final_edit.png" 
@@ -1101,7 +1124,7 @@
                                                                 %>
                                                                     <asp:ImageButton 
                                                                         ID="lnkDeleteRow" 
-                                                                        CssClass="btn btn-danger action" 
+                                                                        CssClass="btn btn-danger action btn-sm" 
                                                                         EnableTheming="true" 
                                                                         runat="server"  
                                                                         ImageUrl='<%# Eval("post_status").ToString().Trim() == "T" ? "~/ResourceImages/void.png" : "~/ResourceImages/final_delete.png" %>'
@@ -1117,7 +1140,7 @@
                                                                     {
                                                                 %>
                                                                      <asp:ImageButton ID="imgbtn_print" 
-                                                                         CssClass="btn btn-success action" 
+                                                                         CssClass="btn btn-success action btn-sm" 
                                                                          EnableTheming="true" 
                                                                          runat="server" 
                                                                          ImageUrl="~/ResourceImages/print1.png" 
@@ -1134,7 +1157,7 @@
                                                                     ImageUrl="~/ResourceImages/final_select.png" 
                                                                     style="padding-left: 5px !important;padding-right: 5px !important;" 
                                                                     CommandArgument='<%# Eval("payroll_year")+","+Eval("payroll_registry_nbr")%> ' 
-                                                                    CssClass='<%# Eval("coaching_status").ToString() == "" ? "btn btn-danger action" : "btn btn-info action" %>' />
+                                                                    CssClass='<%# Eval("coaching_status").ToString() == "" ? "btn btn-info action btn-sm" : "btn btn-danger action btn-sm" %>' />
 
                                                               
                                                             </ContentTemplate>
