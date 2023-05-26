@@ -4482,6 +4482,18 @@ namespace HRIS_ePayroll.View
                     url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
                     break;
 
+                // *****************************************************
+                // ****************** N E W L Y    A D D E D ***********
+                // ****************** 2021-02-12 ***********************
+                //******************************************************
+                case "133":  // Fund Utilization Request and Status (FURS) - RE
+                case "134":  // Fund Utilization Request and Status (FURS) - CE
+                case "135":  // Fund Utilization Request and Status (FURS) - JO
+                    printreport = "/cryVoucher/cryOBR/cryFURS.rpt";
+                    procedure = "sp_voucher_obr_rep";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
+                    break;
+
                 case "": // Direct Print to Printer
                     url = "";
                     FieldValidationColorChanged(true, "ddl_select_report");

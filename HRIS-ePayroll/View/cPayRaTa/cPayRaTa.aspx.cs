@@ -1323,21 +1323,30 @@ namespace HRIS_ePayroll.View
                 //rate_basis = selected_employee[0]["rate_basis"].ToString();
                 //lbl_rate_basis_descr.Text = selected_employee[0]["rate_basis_descr"].ToString() + " Rate :";
 
-                string dt_from = dataListGrid.Rows[0]["payroll_period_from"].ToString();
-                string dt_to = dataListGrid.Rows[0]["payroll_period_to"].ToString();
+                DataTable chk_hdr = new DataTable();
+                string query_hdr = "SELECT * FROM payrollregistry_hdr_tbl WHERE payroll_year = '" + ddl_year.SelectedValue.ToString().Trim() + "' AND payroll_registry_nbr = '" + lbl_registry_number.Text.ToString().Trim() + "'";
+                chk_hdr = MyCmn.GetDatatable(query_hdr);
 
-                DataTable chk = new DataTable();
-                string query = "SELECT * FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X WHERE X.empl_id = '" + ddl_empl_id.SelectedValue.ToString().Trim() + "' AND   X.emp_status	= 0 AND   (CONVERT(date,'" + dt_from + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to) OR CONVERT(date,'" + dt_to + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to)) AND X.id	= (SELECT MAX(X1.id) FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X1 WHERE X1.empl_id = X.empl_id)";
-                chk = MyCmn.GetDatatable(query);
-
-                if (chk.Rows.Count > 0)
+                if (chk_hdr.Rows.Count > 0)
                 {
-                    msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
-                    msg_header.InnerText = "YOU EXCLUDE THIS EMPLOYEE (" + chk.Rows[0]["employee_name"].ToString().Trim() + ")";
-                    var lbl_descr = "Period covered: <br>" + DateTime.Parse(chk.Rows[0]["exclude_date_from"].ToString().Trim()).ToLongDateString() + " - " + DateTime.Parse(chk.Rows[0]["exclude_date_to"].ToString().Trim()).ToLongDateString() + "<br><br> Reason: <br>" + chk.Rows[0]["exclude_reason"].ToString().Trim();
-                    lbl_details.Text = lbl_descr;
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification();", true);
+                    string dt_from  = chk_hdr.Rows[0]["payroll_period_from"].ToString();
+                    string dt_to    = chk_hdr.Rows[0]["payroll_period_to"].ToString();
+
+                    DataTable chk = new DataTable();
+                    string query = "SELECT * FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X WHERE X.empl_id = '" + ddl_empl_id.SelectedValue.ToString().Trim() + "' AND   X.emp_status	= 0 AND   (CONVERT(date,'" + dt_from + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to) OR CONVERT(date,'" + dt_to + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to)) AND X.id	= (SELECT MAX(X1.id) FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X1 WHERE X1.empl_id = X.empl_id)";
+                    chk = MyCmn.GetDatatable(query);
+
+                    if (chk.Rows.Count > 0)
+                    {
+                        msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
+                        msg_header.InnerText = "YOU EXCLUDE THIS EMPLOYEE (" + chk.Rows[0]["employee_name"].ToString().Trim() + ")";
+                        var lbl_descr = "Period covered: <br>" + DateTime.Parse(chk.Rows[0]["exclude_date_from"].ToString().Trim()).ToLongDateString() + " - " + DateTime.Parse(chk.Rows[0]["exclude_date_to"].ToString().Trim()).ToLongDateString() + "<br><br> Reason: <br>" + chk.Rows[0]["exclude_reason"].ToString().Trim();
+                        lbl_details.Text = lbl_descr;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification();", true);
+                    }
+
                 }
+
 
                 set_empl_ratadetail();
                 header_details();

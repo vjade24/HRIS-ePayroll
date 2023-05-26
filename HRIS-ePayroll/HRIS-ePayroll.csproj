@@ -2240,6 +2240,12 @@
       <DependentUpon>cryMaternity.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryVoucher\cryOBR\cryFURS.cs">
+      <DependentUpon>cryFURS.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cryVoucher\cryOthClaims\cryOthClaims.cs">
       <DependentUpon>cryOthClaims.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -3866,6 +3872,10 @@
     <Content Include="Reports\cryVoucher\cryOthClaims\cryOthClaims.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryOthClaims.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryVoucher\cryOBR\cryFURS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryFURS.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryVoucher\cryTerminalLeave\cryTerminalLeaveOld.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
