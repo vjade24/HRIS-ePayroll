@@ -411,6 +411,18 @@ namespace HRIS_ePayroll.View
             int last_row1 = int.Parse(last_row) + 1;
             lbl_registry_no.Text = "V" + last_row1.ToString().PadLeft(5, '0');
         }
+
+        private string RetrieveLastVoucherNumber_Save()
+        {
+            string sql1 = "SELECT TOP 1 RIGHT(voucher_ctrl_nbr,5) from voucher_tbl where RIGHT(voucher_ctrl_nbr,5)=RIGHT(voucher_ctrl_nbr,5) order by voucher_ctrl_nbr DESC";
+            string last_row = MyCmn.GetLastRow_of_Table(sql1);
+            if (last_row.Trim() == "")
+            {
+                last_row = "0";
+            }
+            int last_row1 = int.Parse(last_row) + 1;
+            return "V" + last_row1.ToString().PadLeft(5, '0');
+        }
         //*************************************************************************
         //  BEGIN - VJA- 06/06/2019 - Populate Combo list for Template
         //*************************************************************************
@@ -1701,7 +1713,7 @@ namespace HRIS_ePayroll.View
                     dtSource.Rows[0]["net_pay"]                 = txtb_net_pay.Text.ToString().Trim();
                     dtSource.Rows[0]["post_status"]             = "N";
                     dtSource.Rows[0]["payroll_year"]            = ddl_year.SelectedValue.ToString().Trim();
-                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = lbl_registry_no.Text.ToString().Trim();
+                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = RetrieveLastVoucherNumber_Save().ToString().Trim();  // 2023-05-26 - VJA -- lbl_registry_no.Text.ToString().Trim();
                     dtSource.Rows[0]["rate_basis"]              = lbl_rate_basis_hidden.Text.ToString();
                     dtSource.Rows[0]["monthly_rate"]            = lbl_monthly_rate_hidden.Text.ToString().Trim();
                     dtSource.Rows[0]["daily_rate"]              = lbl_daily_rate_hidden.Text.ToString().Trim();
@@ -1975,7 +1987,7 @@ namespace HRIS_ePayroll.View
                         nrow["gross_pay"] = txtb_gross_pay.Text.ToString().Trim();
                         nrow["net_pay"] = txtb_net_pay.Text.ToString().Trim();
                         nrow["payroll_year"] = ddl_year.SelectedValue.ToString().Trim();
-                        nrow["voucher_ctrl_nbr"] = lbl_registry_no.Text.ToString().Trim();
+                        nrow["voucher_ctrl_nbr"] = RetrieveLastVoucherNumber_Save().ToString().Trim(); // 2023-05-26 - VJA -- lbl_registry_no.Text.ToString().Trim();
                         nrow["rate_basis"] = lbl_rate_basis_hidden.Text.ToString();
                         nrow["monthly_rate"] = lbl_monthly_rate_hidden.Text.ToString().Trim();
                         nrow["daily_rate"] = lbl_daily_rate_hidden.Text.ToString().Trim();
@@ -4492,6 +4504,14 @@ namespace HRIS_ePayroll.View
                     printreport = "/cryVoucher/cryOBR/cryFURS.rpt";
                     procedure = "sp_voucher_obr_rep";
                     url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
+                    break;
+
+                case "130": // New Attachment -  RE
+                case "131": // New Attachment -  CE
+                case "132": // New Attachment -  JO
+                    printreport = hidden_report_filename.Text;
+                    procedure = "sp_payrollregistry_header_footer_sub_rep";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.ToString().Trim();
                     break;
 
                 case "": // Direct Print to Printer
