@@ -390,7 +390,7 @@ namespace HRIS_ePayroll.View
                 txtb_memo.Visible               = false;
                 //div_gross_pay.Visible           = false;
                 lbl_net_pay.Text                = "Net Pay :";
-                dataList_employee               = MyCmn.RetrieveData("sp_personnelnames_combolist16", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", GetRegistry_NBR(), "par_month", ddl_month.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim());
+                dataList_employee               = MyCmn.RetrieveData("sp_personnelnames_combolist_monetization", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR());
                 lbl_other_amount.Text           = "No of Days:";
                 lbl_generic_notes.Text          = "Remarks:";
                 //div_monthly.Visible = true;

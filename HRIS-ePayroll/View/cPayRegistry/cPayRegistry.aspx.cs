@@ -286,7 +286,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "025" || // Monetization - RE
                     ddl_payroll_template.SelectedValue.ToString().Trim()  == "044")   // Monetization - CE
             {
-                special_group = "01";
+                special_group = "04";
             }
             else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "021" || // Hazard, Subsistence and Laundry Pay - RE
                     ddl_payroll_template.SelectedValue.ToString().Trim()  == "041")   // Hazard, Subsistence and Laundry Pay - CE

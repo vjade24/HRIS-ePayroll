@@ -231,6 +231,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
 
             ddl_empl_id.Items.Clear();
             if (ddl_special_group_main.SelectedValue    == "01"     // Common Groupings
+                || ddl_special_group_main.SelectedValue == "04"     // Monetization
                 || ddl_special_group_main.SelectedValue == "06"     // Overtime Pay 
                 || ddl_special_group_main.SelectedValue == "99")     // Other Payroll
 
@@ -253,11 +254,11 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
                 DataTable dt = MyCmn.RetrieveData("sp_personnelnames_combolist18", "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim());
                 ddl_empl_id.DataSource = dt;
             }
-            else if (ddl_special_group_main.SelectedValue == "04")
-            {
-                // This Combolist is for Monetization
-                ddl_empl_id.Items.Clear();
-            }
+            //else if (ddl_special_group_main.SelectedValue == "04")
+            //{
+            //    // This Combolist is for Monetization
+            //    ddl_empl_id.Items.Clear();
+            //}
             else if (ddl_special_group_main.SelectedValue == "05")
             {
                 // This Combolist is for Hazard, Subsistence and Laundry Pay
@@ -1439,7 +1440,10 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
             {
                 if (dtSource_dtl.Rows.Count > 0 && ddl_special_group.SelectedValue != "99")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
+                    if (ddl_special_group.SelectedValue != "04")
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
+                    }
                     
                 }
             }
@@ -1860,6 +1864,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
             if (ddl_special_group_main.SelectedValue == "01" ||       // Common Groupings
                 ddl_special_group_main.SelectedValue == "02" ||       // Communication Expense
                 ddl_special_group_main.SelectedValue == "03" ||       // RATA and Quarterly Allowance
+                ddl_special_group_main.SelectedValue == "04" ||       // Monetization
                 ddl_special_group_main.SelectedValue == "05" ||       // Hazard, Subsistence and Laundry Pay
                 ddl_special_group_main.SelectedValue == "06" ||       // Overtime Pay
                 ddl_special_group_main.SelectedValue == "07" ||       // Loyalty Bonus
