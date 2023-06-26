@@ -454,31 +454,13 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
-        /// div_daily control.
+        /// txtb_working_days control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_daily;
-        
-        /// <summary>
-        /// txtb_no_days_wordked control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtb_no_days_wordked;
-        
-        /// <summary>
-        /// LblRequired4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblRequired4;
+        protected global::System.Web.UI.WebControls.TextBox txtb_working_days;
         
         /// <summary>
         /// div_hourly control.
@@ -506,6 +488,33 @@ namespace HRIS_ePayroll.View {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired5;
+        
+        /// <summary>
+        /// div_daily control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_daily;
+        
+        /// <summary>
+        /// txtb_no_days_wordked control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_no_days_wordked;
+        
+        /// <summary>
+        /// LblRequired4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblRequired4;
         
         /// <summary>
         /// div7 control.

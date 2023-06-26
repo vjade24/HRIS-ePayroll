@@ -168,6 +168,18 @@ namespace HRIS_ePayroll.View
                     ddl_year.Enabled = false;
                     ddl_empl_type.Enabled = false;
 
+                    DataTable chk = new DataTable();
+                    string query = "SELECT * FROM payrollregistry_hdr_tbl WHERE payroll_year = '" + prevValues[0].ToString().Trim() + "' AND payroll_registry_nbr = '" + prevValues[7].ToString().Trim() + "'";
+                    chk = MyCmn.GetDatatable(query);
+                    if (chk.Rows.Count > 0)
+                    {
+                        txtb_working_days.Text = Double.Parse(chk.Rows[0]["nod_work_1st"].ToString()).ToString("#0.00");
+                    }
+                    else
+                    {
+                        txtb_working_days.Text = "0.00";
+                    }
+
                     RetrieveEmployeename();
                     RetrieveDataListGrid();
                     RetrieveRataRateSked();
@@ -364,7 +376,7 @@ namespace HRIS_ePayroll.View
             //txtb_net_pay.Text           = "0.00";
 
 
-            //txtb_no_days_leave.Text     = "0";
+            txtb_no_days_leave.Text     = "0.00";
             //txtb_no_days_wordked.Text   = "0";
             //txtb_wo_vehicle.Text        = "0";
 
@@ -594,10 +606,10 @@ namespace HRIS_ePayroll.View
             txtb_empl_name.Visible      = true;
             txtb_empl_name.Text         = row2Edit[0]["employee_name"].ToString().Trim();
 
-            txtb_no_days_wordked.Text   = row2Edit[0]["days_worked"].ToString().Trim();
-            txtb_no_days_leave.Text     = row2Edit[0]["days_leaved"].ToString().Trim();
+            txtb_no_days_wordked.Text   = double.Parse(row2Edit[0]["days_worked"].ToString().Trim()).ToString("#0.00");
+            txtb_no_days_leave.Text     = double.Parse(row2Edit[0]["days_leaved"].ToString().Trim()).ToString("#0.00");
             txtb_wo_vehicle.Text        = row2Edit[0]["days_wo_vehicle"].ToString().Trim();
-            txtb_net_qa_amount.Text     = row2Edit[0]["qa_amount"].ToString().Trim();
+            txtb_net_qa_amount.Text     = double.Parse(row2Edit[0]["qa_amount"].ToString().Trim()).ToString("###,##0.00");
             header_details();
 
             txtb_monthly_rate.Text      = row2Edit[0]["monthly_rate"].ToString();
@@ -1362,6 +1374,8 @@ namespace HRIS_ePayroll.View
 
         private string header_details()
         {
+            
+
             double total_gross  = 0;
             double percent_ta   = 0;
             double percent_rata = 0;
@@ -1405,7 +1419,9 @@ namespace HRIS_ePayroll.View
 
             // 2023-01-06 - VJA
             double no_days_worked = 0;
-            no_days_worked = double.Parse(txtb_no_days_wordked.Text.ToString().Trim()) - double.Parse(txtb_no_days_leave.Text.ToString().Trim());
+            //no_days_worked = double.Parse(txtb_no_days_wordked.Text.ToString().Trim()) - double.Parse(txtb_no_days_leave.Text.ToString().Trim());
+            no_days_worked = double.Parse(txtb_working_days.Text.ToString().Trim()) - double.Parse(txtb_no_days_leave.Text.ToString().Trim());
+            txtb_no_days_wordked.Text = no_days_worked.ToString("#0.00");
             // 2023-01-06 - VJA
 
             DataRow[] selected_employee = dataList_employee.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
@@ -1524,6 +1540,8 @@ namespace HRIS_ePayroll.View
             txtb_position.Text          = selected_employee[0]["position_title1"].ToString().Trim();
 
             txtb_no_days_wordked.Text   = selected_employee[0]["time_days_equi"].ToString();
+            txtb_no_days_leave.Text     = double.Parse(selected_employee[0]["days_leaved"].ToString()).ToString("###,##0.00");
+
             txtb_wo_vehicle.Text        = "0";
             if (selected_employee[0]["vehicle_flag"].ToString() == "N")
             {

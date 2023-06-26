@@ -134,10 +134,10 @@
                              
 
                             <div class="form-group row">
-                                <div class="col-3">
+                                <div class="col-lg-3">
                                      <asp:Label ID="Label2" runat="server" Text="Employee's Name:" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-6" style="padding-left:0px;">
+                                <div class="col-lg-6" style="padding-left:0px;">
                                     <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_empl_id" runat="server"  CssClass="form-control form-control-sm" Width="100%" OnTextChanged="ddl_empl_id_TextChanged" AutoPostBack="true" ></asp:DropDownList>
@@ -146,10 +146,10 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-1" style="padding-right: 0px;">
+                                <div class="col-lg-1" style="padding-right: 0px;">
                                      <asp:Label ID="Label9" runat="server" Text="ID No:" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-lg-2">
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server"  Font-Bold="true" ID="txtb_empl_id" CssClass="form-control form-control-sm font-weight-bold text-center"  Enabled="false"></asp:TextBox>
@@ -160,34 +160,34 @@
 
                             <hr style="margin-top:5px;margin-bottom:5px" />
                             <div class="form-group row">
-                                <div class="col-3">
+                                <div class="col-lg-3">
                                      <asp:Label ID="Label11" runat="server" Text="Position Title :" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-9" style="padding-left:0;">
+                                <div class="col-lg-9" style="padding-left:0;">
                                     <asp:UpdatePanel ID="UpdatePanel20" runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox ID="txtb_position" Font-Bold="true" CssClass="form-control form-control-sm" Width="100%" Enabled="false" runat="server"></asp:TextBox>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3" style="display:none;">
+                                <div class="col-lg-3" style="display:none;">
                                 </div>
                            </div>
 
 
                             <hr style="margin-top:5px;margin-bottom:5px" />
                             <div class="form-group row">
-                                <div class="col-3">
+                                <div class="col-lg-3">
                                      <asp:Label ID="Label15" runat="server" Text="Department :" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-9" style="padding-left:0;">
+                                <div class="col-lg-9" style="padding-left:0;">
                                     <asp:UpdatePanel ID="UpdatePanel22" runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox ID="txtb_department_descr" Font-Bold="true" CssClass="form-control form-control-sm" Width="100%" Enabled="false" runat="server"></asp:TextBox>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3" style="display:none;">
+                                <div class="col-lg-3" style="display:none;">
                                     <asp:UpdatePanel ID="UpdatePanel23" runat="server">
                                         <ContentTemplate>
                                              <asp:Label ID="Label18" runat="server" Text="Code:" CssClass="font-weight-bold" ></asp:Label>
@@ -202,7 +202,7 @@
                            <%--<hr style="margin-top:5px;margin-bottom:5px" />--%>
 
                             <div class="row" >
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
                             </div>
@@ -215,11 +215,11 @@
                             --%>
                             <div class="row" runat="server">
                                 
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                              <div class="form-group row" runat="server" id="div_monthly">
-                                                <div class="col-3">
+                                                <div class="col-lg-3">
                                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                                         <ContentTemplate>
                                                             <asp:Label ID="lbl_rate_basis_descr" CssClass="font-weight-bold" runat="server" Text="Monthly Rate :"></asp:Label>
@@ -227,7 +227,7 @@
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                                <div class="col-3" style="padding-left:0;">
+                                                <div class="col-lg-3" style="padding-left:0;">
                                                     <asp:UpdatePanel runat="server">
                                                         <ContentTemplate>
                                                             <asp:TextBox runat="server" ID="txtb_monthly_rate" Font-Bold="true" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -241,22 +241,20 @@
                                     </asp:UpdatePanel>
                                    
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                         <ContentTemplate>
-                                            
-                                            <div class="form-group row" runat="server" id="div_daily"  visible="true">
+                                            <div class="form-group row" runat="server" >
                                                 <div class="col-6">
-                                                    <asp:label runat="server" Font-Bold="true" Text="No. Days Worked :"></asp:label>
+                                                    <label class="font-weight-bold">No. Working Days:</label>
                                                 </div>
-                                                <div class="col-6 text-right" style="padding-left:0;">
+                                                <div class="col-6 text-right" style="padding-left:0px;">
                                                     <asp:UpdatePanel runat="server">
-                                                        <ContentTemplate> 
-                                                            <asp:TextBox runat="server" ID="txtb_no_days_wordked" Font-Bold="true" CssClass="form-control form-control-sm text-right"></asp:TextBox>
-                                                            <asp:Label ID="LblRequired4" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                                        <ContentTemplate>
+                                                            <asp:TextBox runat="server" ID="txtb_working_days" Font-Bold="true" CssClass="form-control form-control-sm text-right" Enabled="false"></asp:TextBox>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
@@ -274,6 +272,20 @@
                                                     </asp:UpdatePanel>
                                                 </div>
                                             </div>
+                                            <div class="form-group row" runat="server" id="div_daily"  visible="true">
+                                                <div class="col-6">
+                                                    <asp:label runat="server" Font-Bold="true" Text="No. Days Worked :"></asp:label>
+                                                </div>
+                                                <div class="col-6 text-right" style="padding-left:0;">
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate> 
+                                                            <asp:TextBox runat="server" ID="txtb_no_days_wordked" Font-Bold="true" CssClass="form-control form-control-sm text-right"></asp:TextBox>
+                                                            <asp:Label ID="LblRequired4" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                            </div>
+                                            
                                             <hr style="margin-top:5px;margin-bottom:5px" />
                                             <div class="form-group row" runat="server" id="div7"  visible="true">
                                                 <div class="col-6">
@@ -555,11 +567,15 @@
                     <tr>
                         <td>
                             <div class="row">
-                                <div class="col-3">
-                                    <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-                                        <ContentTemplate>
+                                <div class="col-lg-3">
+                                    <div class="form-group row">
+                                        <div class="col-lg-2">
                                             <asp:Label runat="server" Text="Show"></asp:Label>
-                                                <asp:DropDownList ID="DropDownListID" runat="server" CssClass="form-control-sm" AppendDataBoundItems="true" AutoPostBack="True" OnTextChanged="DropDownListID_TextChanged" Width="30%" ToolTip="Show entries per page">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                        <ContentTemplate>
+                                                <asp:DropDownList ID="DropDownListID" runat="server" CssClass="form-control-sm form-control" AppendDataBoundItems="true" AutoPostBack="True" OnTextChanged="DropDownListID_TextChanged" ToolTip="Show entries per page">
                                                     <asp:ListItem Text="5" Value="5" />
                                                     <asp:ListItem Text="10" Selected="True" Value="10" />
                                                     <asp:ListItem Text="15" Value="15" />
@@ -567,20 +583,24 @@
                                                     <asp:ListItem Text="50" Value="50" />
                                                     <asp:ListItem Text="100" Value="100" />
                                                 </asp:DropDownList>
-                                            <asp:Label runat="server" Text="Entries"></asp:Label>
-                                            |
-                                                     <asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9"></asp:Label>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <asp:Label runat="server" Text="Entries"></asp:Label> |<asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9"></asp:Label>
+                                        </div>
+                                    </div>
+
+                                    
                                 </div>
                                 
                                 
-                                <div class="col-3">
+                                <div class="col-lg-3">
                                     <div class="form-group row">
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                                 <asp:Label runat="server"  Text="Payroll Year:" ></asp:Label>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_year" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
@@ -589,12 +609,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-lg-2">
                                     <div class="form-group row">
-                                        <div class="col-4">
+                                        <div class="col-lg-4">
                                                 <asp:Label runat="server" Text="Month:" ></asp:Label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-lg-8">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_month" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged" AutoPostBack="true">
@@ -616,12 +636,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-lg-4">
                                     <div class="form-group row">
-                                        <div class="col-5">
+                                        <div class="col-lg-5">
                                             <asp:Label runat="server" Text="Employment Type:" ></asp:Label>
                                         </div>
-                                        <div class="col-7">
+                                        <div class="col-lg-7">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_empl_type" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged" AutoPostBack="true" ></asp:DropDownList>
@@ -630,13 +650,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3"></div>
-                                <div class="col-9">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-9">
                                     <div class="form-group row">
-                                        <div class="col-2" style="padding-right:0px;">
+                                        <div class="col-lg-2" >
                                             <asp:Label runat="server" Text="Payroll Template:" ></asp:Label>
                                         </div>
-                                        <div class="col-10">
+                                        <div class="col-lg-10">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_payroll_template" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
@@ -645,45 +665,45 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-lg-3">
                                     <div class="form-group row">
-                                        <div class="col-12">
+                                        <div class="col-lg-12">
                                             <a ID="lb_back" class="btn btn-info btn-sm font-weight-bold" href="/View/cPayRegistry/cPayRegistry.aspx" ><i class="fa fa-arrow-left"></i> Back To Payroll Registry</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-lg-9">
                                     <div class="form-group row">
-                                        <div class="col-2" style="padding-right:0px">
+                                        <div class="col-lg-2" >
                                             <asp:Label runat="server" Text="Payroll Group:" ></asp:Label>
                                         </div>
-                                        <div class="col-10">
+                                        <div class="col-lg-8">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:DropDownList ID="ddl_payroll_group" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged" AutoPostBack="true" style="float:right;width:97.5%" Enabled="false"></asp:DropDownList>
+                                                    <asp:DropDownList ID="ddl_payroll_group" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged" AutoPostBack="true" Enabled="false"></asp:DropDownList>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-1">
-                                    <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                        <ContentTemplate>
+                                        <div class="col-lg-2">
+                                            <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                                                <ContentTemplate>
                                             
-                                            <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                {  %>
-                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
-                                            <% }
-                                                %>     
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnAdd" />
-                                            <asp:AsyncPostBackTrigger ControlID="ddl_year" />
-                                            <asp:AsyncPostBackTrigger ControlID="ddl_month" />
-                                            <asp:AsyncPostBackTrigger ControlID="ddl_payroll_group" />
-                                            <asp:AsyncPostBackTrigger ControlID="ddl_payroll_template" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
+                                                    <% if (ViewState["page_allow_add"].ToString() == "1")
+                                                        {  %>
+                                                    <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
+                                                    <% }
+                                                        %>     
+                                                </ContentTemplate>
+                                                <Triggers>
+                                                    <asp:AsyncPostBackTrigger ControlID="btnAdd" />
+                                                    <asp:AsyncPostBackTrigger ControlID="ddl_year" />
+                                                    <asp:AsyncPostBackTrigger ControlID="ddl_month" />
+                                                    <asp:AsyncPostBackTrigger ControlID="ddl_payroll_group" />
+                                                    <asp:AsyncPostBackTrigger ControlID="ddl_payroll_template" />
+                                                </Triggers>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <asp:UpdatePanel ID="up_dataListGrid" class="mt10" UpdateMode="Conditional" runat="server" >
