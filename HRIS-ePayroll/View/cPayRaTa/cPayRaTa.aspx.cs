@@ -418,6 +418,7 @@ namespace HRIS_ePayroll.View
             txtb_position.Text           = "";
             txtb_status.Text             = "";
             lbl_post_status.Text             = "";
+            txtb_remarks.Text             = "";
 
             LabelAddEdit.Text = "Add Record: " + lbl_registry_number.Text.Trim();
             FieldValidationColorChanged(false, "ALL","");
@@ -449,6 +450,7 @@ namespace HRIS_ePayroll.View
             dtSource.Columns.Add("posted_by_user", typeof(System.String));
             dtSource.Columns.Add("created_dttm", typeof(System.String));
             dtSource.Columns.Add("updated_dttm", typeof(System.String));
+            dtSource.Columns.Add("remarks", typeof(System.String));
          }
 
         
@@ -483,6 +485,7 @@ namespace HRIS_ePayroll.View
             nrow["qa_amount"] = string.Empty;
             nrow["post_status"] = string.Empty;
             nrow["date_posted"] = string.Empty;
+            nrow["remarks"] = string.Empty;
             
             nrow["action"] = 1;
             nrow["retrieve"] = false;
@@ -618,6 +621,7 @@ namespace HRIS_ePayroll.View
             txtb_gross_pay.Text         = double.Parse(row2Edit[0]["gross_pay"].ToString().Trim()).ToString("###,##0.00");
 
             dtSource.Rows[0]["post_status"] = row2Edit[0]["post_status"].ToString().Trim();
+            txtb_remarks.Text           = row2Edit[0]["remarks"].ToString().Trim();
 
             LabelAddEdit.Text = "Edit Record | Registry No: " + lbl_registry_number.Text.Trim();
             ddl_empl_id.Enabled = false;
@@ -781,6 +785,7 @@ namespace HRIS_ePayroll.View
 
                     dtSource.Rows[0]["posted_by_user"]           = "";
                     dtSource.Rows[0]["date_posted"]              = "";
+                    dtSource.Rows[0]["remarks"]                  = txtb_remarks.Text.ToString().Trim();
                     // END - Add Field Again  - 06/20/2019
 
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource);
@@ -819,6 +824,7 @@ namespace HRIS_ePayroll.View
                         dtSource.Rows[0]["updated_dttm"]        = ViewState["updated_dttm"].ToString();
                     }
                     // END - Add Field Again  - 06/20/2019
+                    dtSource.Rows[0]["remarks"] = txtb_remarks.Text.ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.updatescript(dtSource);
                 }
@@ -867,6 +873,7 @@ namespace HRIS_ePayroll.View
                         nrow["posted_by_user"]          = "";
                         nrow["date_posted"]             = "";
                         nrow["position_title1"]         = txtb_position.Text.ToString().Trim();
+                        nrow["remarks"]                 = txtb_remarks.Text.ToString().Trim();
                         // END - Add Field Again  - 06/20/2019
 
                         dataListGrid.Rows.Add(nrow);
@@ -914,6 +921,8 @@ namespace HRIS_ePayroll.View
                             row2Edit[0]["updated_by_user"]       = ViewState["updated_by_user"].ToString();
                             row2Edit[0]["updated_dttm"]          = ViewState["updated_dttm"].ToString();
                         }
+
+                        row2Edit[0]["remarks"] = txtb_remarks.Text.ToString().Trim();
 
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;
                     }
@@ -980,6 +989,7 @@ namespace HRIS_ePayroll.View
             dtSource1.Columns.Add("position_title1", typeof(System.String));
             dtSource1.Columns.Add("post_status_descr", typeof(System.String));
             dtSource1.Columns.Add("date_posted", typeof(System.String));
+            dtSource1.Columns.Add("remarks", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -1548,6 +1558,8 @@ namespace HRIS_ePayroll.View
                 txtb_wo_vehicle.Enabled = false;
             }
             else txtb_wo_vehicle.Enabled = true;
+
+            txtb_remarks.Text           = selected_employee[0]["remarks"].ToString();
         }
 
         protected void btn_calculate_Click(object sender, EventArgs e)

@@ -461,6 +461,18 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:label runat="server" Font-Bold="true" Text="Remarks:"></asp:label>
+                                                    <asp:TextBox runat="server" Font-Bold="true" ID="txtb_remarks" CssClass="form-control form-control-sm" Font-Size="Small" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <hr style="margin-top:5px;margin-bottom:5px;" />
                             <div class="row">
