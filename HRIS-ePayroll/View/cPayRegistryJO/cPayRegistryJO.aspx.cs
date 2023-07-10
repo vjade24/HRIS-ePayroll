@@ -212,8 +212,8 @@ namespace HRIS_ePayroll.View
                     ddl_payroll_group.SelectedValue = prevValues[7].ToString();
                     lbl_registry_number.Text = prevValues[7].ToString();
                     RetrieveReserveDeduction();
-                    RetrieveDataListGrid();
-                    RetrieveEmployeename();
+                    //RetrieveDataListGrid();
+                    //RetrieveEmployeename();
 
                     ddl_payroll_template.Enabled            = false;
                     //ddl_payroll_group.Enabled               = false;
@@ -224,7 +224,7 @@ namespace HRIS_ePayroll.View
                     btn_editloan.Visible                    = false;
                     btn_contributions.Visible               = false;
 
-                    RetrieveEmployeename();
+                    //RetrieveEmployeename();
                     RetrieveDataListGrid();
 
                 }
@@ -289,7 +289,7 @@ namespace HRIS_ePayroll.View
             RetrieveBindingSubDep();
             RetrieveBindingDivision();
             RetrieveBindingSection();
-            RetrieveEmployeename();
+            //RetrieveEmployeename();
             RetrieveBindingFundcharges();
             // RetrieveYear();
             RetriveGroupings();
@@ -319,9 +319,12 @@ namespace HRIS_ePayroll.View
         //********************************************************************
         private void RetrieveEmployeename()
         {
+            string group_nbr = "";
+            group_nbr = dataListGrid.Rows[0]["payroll_group_nbr"].ToString().Trim();
+
             ddl_empl_id.Items.Clear();
-            dataList_employee   = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", GetRegistry_NBR().ToString().Trim());
-            
+            dataList_employee = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", group_nbr);
+
             ddl_empl_id.DataSource = dataList_employee;
             ddl_empl_id.DataValueField = "empl_id";
             ddl_empl_id.DataTextField = "employee_name";
@@ -1024,7 +1027,7 @@ namespace HRIS_ePayroll.View
             dtSource_dtl.Rows[0]["action"] = 2;
             dtSource_dtl.Rows[0]["retrieve"] = true;
             
-            RetrieveEmployeename();
+            //RetrieveEmployeename();
             RetrieveGetPremAndOther_flag();
 
             if (row2Edit[0]["department_code"].ToString() != string.Empty)
@@ -3319,8 +3322,8 @@ namespace HRIS_ePayroll.View
             //string str_gross_pay    = "";
             decimal lates_amount     = 0;
             string str_lates_amount = "";
-            if (dataList_employee.Rows != null || dataList_employee != null)
-            {
+            //if (dataList_employee.Rows != null || dataList_employee != null)
+            //{
                 // DataRow[] selected_employee = dataList_employee.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
                 lates_time = decimal.Parse((txtb_lates_and_undertime.Text.ToString().Trim() != "" ? txtb_lates_and_undertime.Text.ToString().Trim() : "0"));
                 lates_time = lates_time / 60;
@@ -3396,7 +3399,7 @@ namespace HRIS_ePayroll.View
                             break;
                         }
                 }
-            }
+            //}
             
             // OLD COMPUTATION ********** GE COMMENT : VJA **********
             // str_gross_pay       = gross_pay.ToString("###,##0.0000");

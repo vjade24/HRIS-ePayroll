@@ -2404,7 +2404,7 @@ namespace HRIS_ePayroll.View
                     string dt_to   = chk_hdr.Rows[0]["payroll_period_to"].ToString();
 
                     DataTable chk = new DataTable();
-                    string query = "SELECT * FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X WHERE X.empl_id = '" + ddl_empl_id.SelectedValue.ToString().Trim() + "' AND   X.emp_status	= 0 AND   (CONVERT(date,'" + dt_from + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to) OR CONVERT(date,'" + dt_to + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to)) AND X.id	= (SELECT MAX(X1.id) FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X1 WHERE X1.empl_id = X.empl_id)";
+                    string query = "SELECT * FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X WHERE X.empl_id = '" + ddl_empl_id.SelectedValue.ToString().Trim() + "' AND   X.emp_status	= 0 AND   (CONVERT(date,'" + dt_from + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to) OR CONVERT(date,'" + dt_to + "') BETWEEN CONVERT(date,X.exclude_date_from) AND CONVERT(date,X.exclude_date_to)) AND payroll_group_nbr = '"+ GetRegistry_NBR()+"' AND X.id	= (SELECT MAX(X1.id) FROM dbo.payrollemployeegroupings_dtl_excludes_tbl X1 WHERE X1.empl_id = X.empl_id)";
                     chk = MyCmn.GetDatatable(query);
 
                     if (chk.Rows.Count > 0)
