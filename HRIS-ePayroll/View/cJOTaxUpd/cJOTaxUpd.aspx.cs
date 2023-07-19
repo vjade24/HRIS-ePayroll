@@ -104,6 +104,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
         private void InitializePage()
         {
             Session["sortdirection"] = SortDirection.Ascending.ToString();
+            RetrieveYear();
             RetrieveDataListGrid();
         }
         //*************************************************************************
@@ -111,7 +112,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
         //*************************************************************************
         private void RetrieveDataListGrid()
         {
-            dataListGrid = MyCmn.RetrieveData("sp_payrollemployee_tax_tbl_for_apprvl");
+            dataListGrid = MyCmn.RetrieveData("sp_payrollemployee_tax_tbl_for_apprvl", "par_year",ddl_year.SelectedValue.ToString().Trim(), "par_rcrd_status", ddl_rcrd_status.SelectedValue.ToString().Trim());
             MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
             gv_dataListGrid.PageSize = Convert.ToInt32(DropDownListID.Text);
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
@@ -236,12 +237,14 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             {
                 btn_approve.Visible = false;
                 btn_reject.Visible  = false;
+                btn_set_new.Visible  = true;
                 lbl_status_descr.Text = "The Record Status is Already " + row2Edit[0]["rcrd_status_descr"].ToString() + ".";
             }
             else
             {
                 btn_approve.Visible = true;
                 btn_reject.Visible  = true;
+                btn_set_new.Visible = false;
                 lbl_status_descr.Text = "";
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopAddEdit", "openModal();", true);
@@ -412,6 +415,12 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
                 row2Edit[0]["rcrd_status"]       = var_status;
                 row2Edit[0]["rcrd_status_descr"] = "Rejected";
                 SaveAddEdit.Text                 = "The Record has been Rejected !";
+            }
+            else if (var_status == "N") // Set to New - 2023-07-19
+            {
+                row2Edit[0]["rcrd_status"]       = var_status;
+                row2Edit[0]["rcrd_status_descr"] = "New";
+                SaveAddEdit.Text                 = "The Record has set to New !";
             }
             string Table_name       = "payrollemployee_tax_tbl";
             string SetExpression    = "rcrd_status = '" + var_status + "', user_id_updated_by = '" + Session["ep_user_id"].ToString() + "',updated_dttm = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
@@ -598,6 +607,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             {
                 btn_approve.Visible = false;
                 btn_reject.Visible = false;
+                btn_set_new.Visible = true;
                 lbl_status_descr.Text = "The Record Status is Already " + row2Edit[0]["rcrd_status_descr"].ToString() + ".";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopAddEdit", "openModal();", true);
 
@@ -606,6 +616,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             {
                 btn_approve.Visible = true;
                 btn_reject.Visible = true;
+                btn_set_new.Visible = false;
                 lbl_status_descr.Text = "";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopModalApproval", "openModalApproval();", true);
             }
@@ -657,6 +668,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             {
                 btn_approve.Visible = false;
                 btn_reject.Visible = false;
+                btn_set_new.Visible = true;
                 lbl_status_descr.Text = "The Record Status is Already " + row2Edit[0]["rcrd_status_descr"].ToString() + ".";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopAddEdit", "openModal();", true);
 
@@ -665,6 +677,7 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             {
                 btn_approve.Visible = true;
                 btn_reject.Visible = true;
+                btn_set_new.Visible = false;
                 lbl_status_descr.Text = "";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopModalApproval", "openModalApproval();", true);
             }
@@ -723,6 +736,38 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             id_approveall_icn.Attributes.Add("class", "fa fa-check");
             ViewState.Remove("AddEdit_Mode");
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+        }
+        //*************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - Populate Combo list for Payroll Year
+        //*************************************************************************
+        private void RetrieveYear()
+        {
+            ddl_year.Items.Clear();
+            int years = Convert.ToInt32(DateTime.Now.Year);
+            int prev_year = years - 5;
+            for (int x = 0; x < 12; x++)
+            {
+                ListItem li2 = new ListItem(prev_year.ToString(), prev_year.ToString());
+                ddl_year.Items.Insert(x, li2);
+                if (prev_year == years)
+                {
+                    ListItem li3 = new ListItem((years + 1).ToString(), (years + 1).ToString());
+                    ddl_year.Items.Insert(x + 1, li3);
+                    ddl_year.SelectedValue = years.ToString();
+                    break;
+                }
+                prev_year = prev_year + 1;
+            }
+        }
+
+        protected void ddl_year_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RetrieveDataListGrid();
+        }
+
+        protected void btn_set_new_Click(object sender, EventArgs e)
+        {
+            ApproveReject("N");
         }
     }
 }

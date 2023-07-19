@@ -481,6 +481,15 @@ namespace HRIS_ePayroll.View.cJOTaxUpd {
         protected global::System.Web.UI.WebControls.LinkButton btn_reject;
         
         /// <summary>
+        /// btn_set_new control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_set_new;
+        
+        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>
@@ -623,6 +632,24 @@ namespace HRIS_ePayroll.View.cJOTaxUpd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label show_pagesx;
+        
+        /// <summary>
+        /// ddl_year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_year;
+        
+        /// <summary>
+        /// ddl_rcrd_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_rcrd_status;
         
         /// <summary>
         /// lnbtn_approve_all control.

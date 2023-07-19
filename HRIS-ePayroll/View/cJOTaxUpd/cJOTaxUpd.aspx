@@ -239,8 +239,9 @@
                                             <asp:Label ID="lbl_status_descr" runat="server" CssClass="badge badge-danger" ></asp:Label>
                                         </div>
                                         <div class="col-lg-12" style="padding-left:25px;padding-right:25px">
-                                            <asp:LinkButton ID="btn_approve" runat="server" OnClick="btn_approve_Click" CssClass="btn btn-primary pt-2" Width="200" Height="40"><i class="fa fa-thumbs-up"></i> Approve</asp:LinkButton>
-                                            <asp:LinkButton ID="btn_reject" runat="server"  OnClick="btn_reject_Click" CssClass="btn btn-danger pt-2" Width="200" Height="40" ><i class="fa fa-thumbs-down"></i> Reject</asp:LinkButton>
+                                            <asp:LinkButton ID="btn_approve" runat="server"  OnClick="btn_approve_Click" CssClass="btn btn-primary pt-2" Width="200" Height="40"><i class="fa fa-thumbs-up"></i> Approve</asp:LinkButton>
+                                            <asp:LinkButton ID="btn_reject" runat="server"   OnClick="btn_reject_Click" CssClass="btn btn-danger pt-2" Width="200" Height="40" ><i class="fa fa-thumbs-down"></i> Reject</asp:LinkButton>
+                                            <asp:LinkButton ID="btn_set_new" runat="server"  OnClick="btn_set_new_Click" CssClass="btn btn-success pt-2" Width="200" Height="40" ><i class="fa fa-user"></i> Set to New</asp:LinkButton>
                                         </div>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
@@ -415,8 +416,8 @@
 
         <div class="col-12">
             <div class="row breadcrumb my-breadcrumb">
-                <div class="col-6"><strong style="font-family:Arial;font-size:18px;color:white;padding-top:5px">For Review/Approval -> Tax Update for Job Order</strong></div>
-                <div class="col-6">
+                <div class="col-4"><strong style="font-family:Arial;font-size:18px;color:white;padding-top:5px">For Review/Approval -> Tax Update for Job Order</strong></div>
+                <div class="col-8">
                     <asp:UpdatePanel ID="UpdatePanel11" ChildrenAsTriggers="false" UpdateMode="Conditional"  runat="server">
                         <ContentTemplate>
                             <asp:TextBox ID="txtb_search" onInput="search_for(event);" runat="server" class="form-control" placeholder="Search.." Height="30px" 
@@ -439,30 +440,75 @@
                     <tr>
                         <td>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <asp:UpdatePanel ID="UpdatePanel9" runat="server">
                                         <ContentTemplate>
-                                            <asp:Label runat="server" Text="Show"></asp:Label>
-                                                <asp:DropDownList ID="DropDownListID" runat="server" CssClass="form-control-sm" AppendDataBoundItems="true" AutoPostBack="True" OnTextChanged="DropDownListID_TextChanged" Width="30%" ToolTip="Show entries per page">
-                                                    <asp:ListItem Text="5" Value="5" />
-                                                    <asp:ListItem Text="10" Selected="True" Value="10" />
-                                                    <asp:ListItem Text="15" Value="15" />
-                                                    <asp:ListItem Text="25" Value="25" />
-                                                    <asp:ListItem Text="50" Value="50" />
-                                                    <asp:ListItem Text="100" Value="100" />
-                                                </asp:DropDownList>
-                                            <asp:Label runat="server" Text="Entries" Font-Size="X-Small"></asp:Label>
-                                            |
-                                            <asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9"  Font-Size="X-Small"></asp:Label>
+                                            <div class="form-group row">
+                                                <div class="col-lg-1">
+                                                    <asp:Label runat="server" Text="Show"></asp:Label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <asp:DropDownList ID="DropDownListID" runat="server" CssClass="form-control-sm form-control" AppendDataBoundItems="true" AutoPostBack="True" OnTextChanged="DropDownListID_TextChanged" ToolTip="Show entries per page">
+                                                        <asp:ListItem Text="5" Value="5" />
+                                                        <asp:ListItem Text="10" Selected="True" Value="10" />
+                                                        <asp:ListItem Text="15" Value="15" />
+                                                        <asp:ListItem Text="25" Value="25" />
+                                                        <asp:ListItem Text="50" Value="50" />
+                                                        <asp:ListItem Text="100" Value="100" />
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9"  Font-Size="X-Small"></asp:Label>
+                                                </div>
+                                            </div>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-7"></div>
+                                <div class="col-6">
+                                    <div class="form-group row ">
+                                        <div class="col-1">
+                                            <asp:Label runat="server" CssClass="mt-3"  Text="Year:" ></asp:Label>
+                                        </div>
+                                        <div class="col-3">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList ID="ddl_year" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_year_SelectedIndexChanged"></asp:DropDownList>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                        <div class="col-1">
+                                                <asp:Label runat="server" CssClass="mt-3"  Text="Status:" ></asp:Label>
+                                        </div>
+                                        <div class="col-3">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList ID="ddl_rcrd_status" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true"  OnSelectedIndexChanged="ddl_year_SelectedIndexChanged">
+                                                        <asp:ListItem Text="New" Value="N" Selected="True"></asp:ListItem>
+                                                        <asp:ListItem Text="Approved" Value="A"></asp:ListItem>
+                                                        <asp:ListItem Text="Rejected" Value="R"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-2">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
-
-                                            <asp:LinkButton ID="lnbtn_approve_all"  runat="server" OnCommand="lnbtn_approve_all_Command" CssClass="btn btn-success btn-sm btn-block"> <i class="fa fa-thumbs-up"></i> <asp:Label ID="Label7" runat="server" CssClass="font-weight-bold" Text="Approve All"></asp:Label></asp:LinkButton>
+                                            <% if (ddl_rcrd_status.SelectedValue.ToString().Trim()  == "A" ||
+                                                    ddl_rcrd_status.SelectedValue.ToString().Trim() == "R")
+                                                {
+                                            %>
+                                            <% 
+                                                }
+                                                else
+                                                {
+                                            %> 
+                                                <asp:LinkButton ID="lnbtn_approve_all"  runat="server" OnCommand="lnbtn_approve_all_Command" CssClass="btn btn-success btn-sm btn-block"> <i class="fa fa-thumbs-up"></i> <asp:Label ID="Label7" runat="server" CssClass="font-weight-bold" Text="Approve All"></asp:Label></asp:LinkButton>
+                                            <%
+                                                }
+                                            %>
+                                            
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
@@ -593,6 +639,7 @@
                                                                         Oncommand ="approve_Command"
                                                                         CommandArgument='<%# Eval("empl_id") + "," + Eval("effective_date") + "," + Eval("payroll_year") %> ' 
                                                                         tooltip="Approve" 
+                                                                         Visible='<%# Eval("rcrd_status").ToString().Trim() == "A" ? false: true %>'
                                                                         />
 
                                                                         <asp:ImageButton 
@@ -604,6 +651,7 @@
                                                                         style="padding-left: -6px !important;padding-right: -6px !important;" 
                                                                         Oncommand ="reject_Command"
                                                                         CommandArgument='<%# Eval("empl_id") + "," + Eval("effective_date") + "," + Eval("payroll_year") %> ' 
+                                                                         Visible='<%# Eval("rcrd_status").ToString().Trim() == "A" ? false: true %>'
                                                                         tooltip="Reject" 
                                                                         />
                                                               
@@ -639,6 +687,8 @@
                                 <Triggers>
                                     <asp:AsyncPostBackTrigger ControlID="txtb_search" />
                                     <asp:AsyncPostBackTrigger ControlID="DropDownListID" />
+                                    <asp:AsyncPostBackTrigger ControlID="ddl_year" />
+                                    <asp:AsyncPostBackTrigger ControlID="ddl_rcrd_status" />
                                 </Triggers>
                             </asp:UpdatePanel>
                         </td>
