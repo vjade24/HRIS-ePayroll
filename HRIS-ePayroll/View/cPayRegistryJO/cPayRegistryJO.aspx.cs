@@ -221,8 +221,8 @@ namespace HRIS_ePayroll.View
                     ddl_year.Enabled                        = false;
                     ddl_empl_type.Enabled                   = false;
 
-                    btn_editloan.Visible                    = false;
-                    btn_contributions.Visible               = false;
+                    //btn_editloan.Visible                    = false;
+                    //btn_contributions.Visible               = false;
 
                     //RetrieveEmployeename();
                     RetrieveDataListGrid();
@@ -269,9 +269,9 @@ namespace HRIS_ePayroll.View
                 }
                 // END   - VJA : 02/01/2020 - Hide the ADD BUTTON IF THE STATUS ARE ;
 
+                RetrievePayrollInstallation();
+                Toogle_1st_Quincena();
             }
-            RetrievePayrollInstallation();
-            Toogle_1st_Quincena();
         }
 
         //********************************************************************
@@ -283,15 +283,13 @@ namespace HRIS_ePayroll.View
             Session["cPayRegistryJO"] = "cPayRegistryJO";
             
             RetrieveDataListGrid();
-            RetrieveEmploymentType();
+            //RetrieveEmploymentType();
             //Retrieve When Add
-            RetrieveBindingDep();
-            RetrieveBindingSubDep();
-            RetrieveBindingDivision();
-            RetrieveBindingSection();
-            //RetrieveEmployeename();
-            RetrieveBindingFundcharges();
-            // RetrieveYear();
+            //RetrieveBindingDep();
+            //RetrieveBindingSubDep();
+            //RetrieveBindingDivision();
+            //RetrieveBindingSection();
+            //RetrieveBindingFundcharges();
             RetriveGroupings();
             RetriveTemplate();
             
@@ -320,7 +318,14 @@ namespace HRIS_ePayroll.View
         private void RetrieveEmployeename()
         {
             string group_nbr = "";
-            group_nbr = dataListGrid.Rows[0]["payroll_group_nbr"].ToString().Trim();
+            if (dataListGrid.Rows.Count > 0)
+            {
+                group_nbr = dataListGrid.Rows[0]["payroll_group_nbr"].ToString().Trim();
+            }
+            else
+            {
+                group_nbr = GetRegistry_NBR();
+            }
 
             ddl_empl_id.Items.Clear();
             dataList_employee = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", group_nbr);
@@ -335,92 +340,92 @@ namespace HRIS_ePayroll.View
         //********************************************************************
         //  BEGIN - VJA- 05/25/2019 - Retrieve Department
         //********************************************************************
-        private void RetrieveBindingDep()
-        {
-            ddl_dep.Items.Clear();
-            ddl_dep.ClearSelection();
-            DataTable dt = MyCmn.RetrieveData("sp_departments_tbl_list", "par_include_history", "N");
+        //private void RetrieveBindingDep()
+        //{
+        //    ddl_dep.Items.Clear();
+        //    ddl_dep.ClearSelection();
+        //    DataTable dt = MyCmn.RetrieveData("sp_departments_tbl_list", "par_include_history", "N");
 
-            ddl_dep.DataSource = dt;
-            ddl_dep.DataValueField = "department_code";
-            ddl_dep.DataTextField = "department_name1";
-            ddl_dep.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_dep.Items.Insert(0, li);
-        }
-        //********************************************************************
-        //  BEGIN - VJA- 05/25/2019 - Retrieve SUb-Department
-        //********************************************************************
-        private void RetrieveBindingSubDep()
-        {
-            ddl_subdep.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData("sp_subdepartments_tbl_list");
+        //    ddl_dep.DataSource = dt;
+        //    ddl_dep.DataValueField = "department_code";
+        //    ddl_dep.DataTextField = "department_name1";
+        //    ddl_dep.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_dep.Items.Insert(0, li);
+        //}
+        ////********************************************************************
+        ////  BEGIN - VJA- 05/25/2019 - Retrieve SUb-Department
+        ////********************************************************************
+        //private void RetrieveBindingSubDep()
+        //{
+        //    ddl_subdep.Items.Clear();
+        //    DataTable dt = MyCmn.RetrieveData("sp_subdepartments_tbl_list");
 
-            ddl_subdep.DataSource = dt;
-            ddl_subdep.DataValueField = "subdepartment_code";
-            ddl_subdep.DataTextField = "subdepartment_short_name";
-            ddl_subdep.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_subdep.Items.Insert(0, li);
-        }
-        //********************************************************************
-        //  BEGIN - VJA- 05/25/2019 - Retrieve Division
-        //********************************************************************
-        private void RetrieveBindingDivision()
-        {
-            ddl_division.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData("sp_divisions_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString());
+        //    ddl_subdep.DataSource = dt;
+        //    ddl_subdep.DataValueField = "subdepartment_code";
+        //    ddl_subdep.DataTextField = "subdepartment_short_name";
+        //    ddl_subdep.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_subdep.Items.Insert(0, li);
+        //}
+        ////********************************************************************
+        ////  BEGIN - VJA- 05/25/2019 - Retrieve Division
+        ////********************************************************************
+        //private void RetrieveBindingDivision()
+        //{
+        //    ddl_division.Items.Clear();
+        //    DataTable dt = MyCmn.RetrieveData("sp_divisions_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString());
 
-            ddl_division.DataSource = dt;
-            ddl_division.DataValueField = "division_code";
-            ddl_division.DataTextField = "division_name1";
-            ddl_division.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_division.Items.Insert(0, li);
+        //    ddl_division.DataSource = dt;
+        //    ddl_division.DataValueField = "division_code";
+        //    ddl_division.DataTextField = "division_name1";
+        //    ddl_division.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_division.Items.Insert(0, li);
 
-        }
-        //********************************************************************
-        //  BEGIN - VJA- 05/25/2019 - Retrieve Section
-        //********************************************************************
-        private void RetrieveBindingSection()
-        {
-            ddl_section.Items.Clear();
-            // ddl_section.ClearSelection();
-            DataTable dt1 = MyCmn.RetrieveData("sp_sections_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString().Trim(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString(), "par_division_code", ddl_division.SelectedValue.ToString().Trim());
+        //}
+        ////********************************************************************
+        ////  BEGIN - VJA- 05/25/2019 - Retrieve Section
+        ////********************************************************************
+        //private void RetrieveBindingSection()
+        //{
+        //    ddl_section.Items.Clear();
+        //    // ddl_section.ClearSelection();
+        //    DataTable dt1 = MyCmn.RetrieveData("sp_sections_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString().Trim(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString(), "par_division_code", ddl_division.SelectedValue.ToString().Trim());
 
-            ddl_section.DataSource = dt1;
-            ddl_section.DataValueField = "section_code";
-            ddl_section.DataTextField = "section_name1";
-            ddl_section.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_section.Items.Insert(0, li);
-        }
-        //********************************************************************
-        //  BEGIN - VJA- 05/25/2019 - Retrieve Fund Charges
-        //********************************************************************
-        private void RetrieveBindingFundcharges()
-        {
-            ddl_fund_charges.Items.Clear();
-            // ddl_section.ClearSelection();
-            DataTable dt1 = MyCmn.RetrieveData("sp_fundcharges_tbl_list");
+        //    ddl_section.DataSource = dt1;
+        //    ddl_section.DataValueField = "section_code";
+        //    ddl_section.DataTextField = "section_name1";
+        //    ddl_section.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_section.Items.Insert(0, li);
+        //}
+        ////********************************************************************
+        ////  BEGIN - VJA- 05/25/2019 - Retrieve Fund Charges
+        ////********************************************************************
+        //private void RetrieveBindingFundcharges()
+        //{
+        //    ddl_fund_charges.Items.Clear();
+        //    // ddl_section.ClearSelection();
+        //    DataTable dt1 = MyCmn.RetrieveData("sp_fundcharges_tbl_list");
 
-            ddl_fund_charges.DataSource = dt1;
-            ddl_fund_charges.DataValueField = "fund_code";
-            ddl_fund_charges.DataTextField = "fund_description";
-            ddl_fund_charges.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_fund_charges.Items.Insert(0, li);
-        }
+        //    ddl_fund_charges.DataSource = dt1;
+        //    ddl_fund_charges.DataValueField = "fund_code";
+        //    ddl_fund_charges.DataTextField = "fund_description";
+        //    ddl_fund_charges.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_fund_charges.Items.Insert(0, li);
+        //}
         //*************************************************************************
         //  BEGIN - VJA- 09/09/2018 - Hard Coded Employment Type - JO Only
         //*************************************************************************
-        private void RetrieveEmploymentType()
-        {
-            ddl_empl_type.Items.Clear();
-            ListItem li = new ListItem("Job Order Employee", "JO");
-            ddl_empl_type.Items.Insert(0, li);
-            ddl_empl_type.Enabled = false;
-        }
+        //private void RetrieveEmploymentType()
+        //{
+        //    ddl_empl_type.Items.Clear();
+        //    ListItem li = new ListItem("Job Order Employee", "JO");
+        //    ddl_empl_type.Items.Insert(0, li);
+        //    ddl_empl_type.Enabled = false;
+        //}
         //*************************************************************************
         //  BEGIN - VJA- 09/09/2018 - Populate Combo list for Payroll Year
         //*************************************************************************
@@ -526,8 +531,8 @@ namespace HRIS_ePayroll.View
             txtb_voucher_nbr.Enabled    = false;
 
             btn_calculate.Visible       = true;
-            btn_contributions.Visible   = true;
-            btn_editloan.Visible        = true;
+            //btn_contributions.Visible   = true;
+            //btn_editloan.Visible        = true;
             LabelAddEdit.Text   = "Add New Record | Registry No : " + lbl_registry_number.Text;
 
             RetrieveGetPremAndOther_flag();
@@ -536,8 +541,8 @@ namespace HRIS_ePayroll.View
 
             txtb_employeename.Visible = false;
             ddl_empl_id.Visible = true;
-            btn_editloan.Visible = false;
-            btn_contributions.Visible = false;
+            //btn_editloan.Visible = false;
+            //btn_contributions.Visible = false;
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
@@ -687,11 +692,12 @@ namespace HRIS_ePayroll.View
             txtb_loyalty_card.Text          = "0.00";
             
             ddl_empl_id.SelectedIndex       = -1;
-            ddl_dep.SelectedIndex           = -1;
-            ddl_subdep.SelectedIndex        = -1;
-            ddl_division.SelectedIndex      = -1;
-            ddl_section.SelectedIndex       = -1;
-            ddl_fund_charges.SelectedIndex  = -1;
+            txtb_department_name1.Text      = "";
+            //ddl_dep.SelectedIndex           = -1;
+            //ddl_subdep.SelectedIndex        = -1;
+            //ddl_division.SelectedIndex      = -1;
+            //ddl_section.SelectedIndex       = -1;
+            //ddl_fund_charges.SelectedIndex  = -1;
 
             lbl_rate_basis_descr.Text   = "Rate Basis:";
 
@@ -1030,36 +1036,37 @@ namespace HRIS_ePayroll.View
             //RetrieveEmployeename();
             RetrieveGetPremAndOther_flag();
 
-            if (row2Edit[0]["department_code"].ToString() != string.Empty)
-            {
-                ddl_dep.SelectedValue = row2Edit[0]["department_code"].ToString();
-            }
-            if (row2Edit[0]["subdepartment_code"].ToString() != string.Empty)
-            {
-                ddl_subdep.SelectedValue = row2Edit[0]["subdepartment_code"].ToString();
-            }
-            else
-            {
-                ddl_subdep.SelectedIndex = -1;
-            }
-            RetrieveBindingDivision();
+            //if (row2Edit[0]["department_code"].ToString() != string.Empty)
+            //{
+            //    ddl_dep.SelectedValue = row2Edit[0]["department_code"].ToString();
+            //}
+            //if (row2Edit[0]["subdepartment_code"].ToString() != string.Empty)
+            //{
+            //    ddl_subdep.SelectedValue = row2Edit[0]["subdepartment_code"].ToString();
+            //}
+            //else
+            //{
+            //    ddl_subdep.SelectedIndex = -1;
+            //}
+            //RetrieveBindingDivision();
 
-            if (row2Edit[0]["division_code"].ToString() != string.Empty && row2Edit[0]["division_code"].ToString() != "")
-            {
-                ddl_division.SelectedValue = row2Edit[0]["division_code"].ToString();
-            }
-            else
-            {
-                ddl_division.SelectedIndex = -1;
-            }
-            RetrieveBindingSection();
+            //if (row2Edit[0]["division_code"].ToString() != string.Empty && row2Edit[0]["division_code"].ToString() != "")
+            //{
+            //    ddl_division.SelectedValue = row2Edit[0]["division_code"].ToString();
+            //}
+            //else
+            //{
+            //    ddl_division.SelectedIndex = -1;
+            //}
+            //RetrieveBindingSection();
 
-            if (row2Edit[0]["section_code"].ToString() != string.Empty)
-            {
-                ddl_section.SelectedValue = row2Edit[0]["section_code"].ToString();
-            }
+            //if (row2Edit[0]["section_code"].ToString() != string.Empty)
+            //{
+            //    ddl_section.SelectedValue = row2Edit[0]["section_code"].ToString();
+            //}
 
-            ddl_fund_charges.SelectedValue = row2Edit[0]["fund_code"].ToString();
+            //ddl_fund_charges.SelectedValue = row2Edit[0]["fund_code"].ToString();
+            txtb_department_name1.Text = row2Edit[0]["department_name1"].ToString();
 
             txtb_empl_id.Text = svalues[0].ToString().Trim();
             txtb_employeename.Text = row2Edit[0]["employee_name"].ToString();
@@ -1192,8 +1199,8 @@ namespace HRIS_ePayroll.View
             txtb_gross_pay.Text = double.Parse(row2Edit[0]["gross_pay"].ToString().Trim()).ToString("###,##0.00");
             Calculate_AmountDue();
             
-            btn_editloan.Visible = true;
-            btn_contributions.Visible = true;
+            //btn_editloan.Visible = true;
+            //btn_contributions.Visible = true;
 
             LabelAddEdit.Text = "Edit Record | Registry No : " + lbl_registry_number.Text;
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_EDIT);
@@ -1240,8 +1247,8 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Close";
                 txtb_voucher_nbr.Enabled = false;
                 lbl_if_dateposted_yes.Text = "This Payroll Already Posted, You cannot Edit!";
-                btn_contributions.Visible = false;
-                btn_editloan.Visible = false;
+                //btn_contributions.Visible = false;
+                //btn_editloan.Visible = false;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = row2Edit[0]["date_posted"].ToString();
@@ -1255,8 +1262,8 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Cancel";
                 lbl_if_dateposted_yes.Text = "";
                 txtb_voucher_nbr.Enabled = true;
-                btn_contributions.Visible = false;
-                btn_editloan.Visible = false;
+                //btn_contributions.Visible = false;
+                //btn_editloan.Visible = false;
                 btnSave.Text = "Post to Card";
                 txtb_voucher_nbr.Enabled = true;
                 txtb_date_posted.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -1274,8 +1281,8 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Close";
                 txtb_voucher_nbr.Enabled = false;
                 lbl_if_dateposted_yes.Text = "This Payroll Already " + row2Edit[0]["post_status_descr"].ToString() + ", You cannot Edit!";
-                btn_contributions.Visible = false;
-                btn_editloan.Visible = false;
+                //btn_contributions.Visible = false;
+                //btn_editloan.Visible = false;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = row2Edit[0]["date_posted"].ToString();
@@ -1289,8 +1296,8 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Cancel";
                 txtb_voucher_nbr.Enabled = true;
                 lbl_if_dateposted_yes.Text = "";
-                btn_contributions.Visible = true;
-                btn_editloan.Visible = true;
+                //btn_contributions.Visible = true;
+                //btn_editloan.Visible = true;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = "";
@@ -1576,12 +1583,13 @@ namespace HRIS_ePayroll.View
                         nrow["gross_pay"]                   = txtb_gross_pay.Text.ToString().Trim();
                         nrow["uniform_amt"]                 = txtb_uniform.Text.ToString().Trim();
                         nrow["hdmf_loyalty_card"]           = txtb_loyalty_card.Text.ToString().Trim();
-                        
-                        nrow["department_code"]             = ddl_dep.SelectedValue.ToString().Trim();
-                        nrow["subdepartment_code"]          = ddl_subdep.SelectedValue.ToString().Trim();
-                        nrow["division_code"]               = ddl_division.SelectedValue.ToString().Trim();
-                        nrow["section_code"]                = ddl_section.SelectedValue.ToString().Trim();
-                        nrow["fund_code"]                   = ddl_fund_charges.SelectedValue.ToString().Trim();
+
+                        nrow["department_name1"]             = txtb_department_name1.Text.ToString().Trim();
+                        //nrow["department_code"]             = ddl_dep.SelectedValue.ToString().Trim();
+                        //nrow["subdepartment_code"]          = ddl_subdep.SelectedValue.ToString().Trim();
+                        //nrow["division_code"]               = ddl_division.SelectedValue.ToString().Trim();
+                        //nrow["section_code"]                = ddl_section.SelectedValue.ToString().Trim();
+                        //nrow["fund_code"]                   = ddl_fund_charges.SelectedValue.ToString().Trim();
 
                         // BEGIN - Add Field Again  - 06/20/2019
                         nrow["post_status"]             = "N";
@@ -1687,11 +1695,12 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["uniform_amt"]          = txtb_uniform.Text.ToString().Trim();
                         row2Edit[0]["hdmf_loyalty_card"]    = txtb_loyalty_card.Text.ToString().Trim();
 
-                        row2Edit[0]["department_code"]      = ddl_dep.SelectedValue.ToString().Trim();
-                        row2Edit[0]["subdepartment_code"]   = ddl_subdep.SelectedValue.ToString().Trim();
-                        row2Edit[0]["division_code"]        = ddl_division.SelectedValue.ToString().Trim();
-                        row2Edit[0]["section_code"]         = ddl_section.SelectedValue.ToString().Trim();
-                        row2Edit[0]["fund_code"]            = ddl_fund_charges.SelectedValue.ToString().Trim();
+                        row2Edit[0]["department_name1"]     = txtb_department_name1.Text.ToString().Trim();
+                        //row2Edit[0]["department_code"]      = ddl_dep.SelectedValue.ToString().Trim();
+                        //row2Edit[0]["subdepartment_code"]   = ddl_subdep.SelectedValue.ToString().Trim();
+                        //row2Edit[0]["division_code"]        = ddl_division.SelectedValue.ToString().Trim();
+                        //row2Edit[0]["section_code"]         = ddl_section.SelectedValue.ToString().Trim();
+                        //row2Edit[0]["fund_code"]            = ddl_fund_charges.SelectedValue.ToString().Trim();
 
                         // BEGIN - Add Field Again  - 06/20/2019
                         row2Edit[0]["created_by_user"]         = ViewState["created_by_user"].ToString();
@@ -1866,13 +1875,14 @@ namespace HRIS_ePayroll.View
         private bool IsDataValidated2()
         {
             bool validatedSaved = true;
-            if (ddl_dep.SelectedValue == "")
-            {
-                FieldValidationColorChanged(true, "ddl_dep");
-                ddl_dep.Focus();
-                validatedSaved = false;
-            }
-            else if (ddl_empl_id.SelectedValue == "")
+            //if (ddl_dep.SelectedValue == "")
+            //{
+            //    FieldValidationColorChanged(true, "ddl_dep");
+            //    ddl_dep.Focus();
+            //    validatedSaved = false;
+            //}
+            //else 
+            if (ddl_empl_id.SelectedValue == "")
             {
                 FieldValidationColorChanged(true, "ddl_empl_id");
                 ddl_empl_id.Focus();
@@ -3014,70 +3024,70 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Employment Type
         //*************************************************************************
-        protected void ddl_empl_type_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddl_empl_type.SelectedValue != "" && ddl_payroll_group.SelectedValue.ToString().Trim() != "" && ddl_year.SelectedValue.ToString().Trim() != "" && ddl_month.SelectedValue != "" && ddl_payroll_template.SelectedValue != "")
-            {
+        //protected void ddl_empl_type_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddl_empl_type.SelectedValue != "" && ddl_payroll_group.SelectedValue.ToString().Trim() != "" && ddl_year.SelectedValue.ToString().Trim() != "" && ddl_month.SelectedValue != "" && ddl_payroll_template.SelectedValue != "")
+        //    {
                
-                btnAdd.Visible = true;
-            }
-            else
-            {
-                btnAdd.Visible = false;
-            }
+        //        btnAdd.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        btnAdd.Visible = false;
+        //    }
 
-            RetrieveDataListGrid();
-            RetrieveEmployeename();
-            UpdatePanel10.Update();
-        }
+        //    RetrieveDataListGrid();
+        //    RetrieveEmployeename();
+        //    UpdatePanel10.Update();
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Department 
         //*************************************************************************
-        protected void ddl_dep_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddl_dep.SelectedValue != "")
-            {
-                RetrieveBindingSubDep();
-                RetrieveBindingDivision();
-                RetrieveBindingSection();
-                RetrieveEmployeename();
-                if (dtSource_dtl_for_display.Rows.Count > 0)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
+        //protected void ddl_dep_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddl_dep.SelectedValue != "")
+        //    {
+        //        RetrieveBindingSubDep();
+        //        RetrieveBindingDivision();
+        //        RetrieveBindingSection();
+        //        RetrieveEmployeename();
+        //        if (dtSource_dtl_for_display.Rows.Count > 0)
+        //        {
+        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
 
-                }
-            }
-            else
-            {
-                FieldValidationColorChanged(true, "ddl_dep");
-            }
-        }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        FieldValidationColorChanged(true, "ddl_dep");
+        //    }
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Sub-Department
         //*************************************************************************
-        protected void ddl_subdep_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetrieveBindingDivision();
-            RetrieveBindingSection();
-            RetrieveEmployeename();
-            ddl_subdep.Focus();
-        }
+        //protected void ddl_subdep_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    RetrieveBindingDivision();
+        //    RetrieveBindingSection();
+        //    RetrieveEmployeename();
+        //    ddl_subdep.Focus();
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Division
         //*************************************************************************
-        protected void ddl_division_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetrieveBindingSection();
-            RetrieveEmployeename();
-            ddl_division.Focus();
-        }
+        //protected void ddl_division_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    RetrieveBindingSection();
+        //    RetrieveEmployeename();
+        //    ddl_division.Focus();
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Section
         //*************************************************************************
-        protected void ddl_section_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetrieveEmployeename();
-        }
+        //protected void ddl_section_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    RetrieveEmployeename();
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Payroll Year
         //*************************************************************************
@@ -3088,11 +3098,11 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Click No Keep It!
         //*************************************************************************
-        protected void lnk_btn_keepit_Command(object sender, CommandEventArgs e)
-        {
-            ddl_dep.SelectedValue = e.CommandArgument.ToString();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop7", "closeNotification1();", true);
-        }
+        //protected void lnk_btn_keepit_Command(object sender, CommandEventArgs e)
+        //{
+        //    ddl_dep.SelectedValue = e.CommandArgument.ToString();
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop7", "closeNotification1();", true);
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Employee Name
         //*************************************************************************
@@ -3124,8 +3134,8 @@ namespace HRIS_ePayroll.View
                 // *************************************************************************************************************
 
                 header_details();
-                btn_editloan.Visible = true;
-                btn_contributions.Visible = true;
+                //btn_editloan.Visible = true;
+                //btn_contributions.Visible = true;
 
                 Update_days_worked.Update();
                 Update_hours_worked.Update();
@@ -3137,7 +3147,7 @@ namespace HRIS_ePayroll.View
                 Calculate_Absent();
                 //Calculate_PHIC();
                 CheckIfNotEqualto_AmountDue();
-                Calculate_Taxes();
+                //Calculate_Taxes();
                 calculate_total_loans();
                 calculate_total_mandatory();
                 calculate_total_optional();
@@ -3146,8 +3156,8 @@ namespace HRIS_ePayroll.View
             else
             {
                 ClearEntry();
-                btn_editloan.Visible = false;
-                btn_contributions.Visible = false;
+                //btn_editloan.Visible = false;
+                //btn_contributions.Visible = false;
             }
         }
         //**************************************************************************
@@ -3163,21 +3173,22 @@ namespace HRIS_ePayroll.View
             
             if (selected_employee.Length > 0)
             {
-                RetrieveBindingDep();
+                //RetrieveBindingDep();
 
-                ddl_dep.SelectedValue               = selected_employee[0]["department_code"].ToString();
-                RetrieveBindingSubDep();
+                //ddl_dep.SelectedValue               = selected_employee[0]["department_code"].ToString();
+                //RetrieveBindingSubDep();
 
-                ddl_subdep.SelectedValue            = selected_employee[0]["subdepartment_code"].ToString();
-                RetrieveBindingDivision();
+                //ddl_subdep.SelectedValue            = selected_employee[0]["subdepartment_code"].ToString();
+                //RetrieveBindingDivision();
 
-                ddl_division.SelectedValue          = selected_employee[0]["division_code"].ToString();
-                RetrieveBindingSection();
+                //ddl_division.SelectedValue          = selected_employee[0]["division_code"].ToString();
+                //RetrieveBindingSection();
 
-                ddl_section.SelectedValue           = selected_employee[0]["section_code"].ToString();
-                RetrieveBindingFundcharges();
+                //ddl_section.SelectedValue           = selected_employee[0]["section_code"].ToString();
+                //RetrieveBindingFundcharges();
 
-                ddl_fund_charges.SelectedValue      = selected_employee[0]["fund_code"].ToString();
+                //ddl_fund_charges.SelectedValue      = selected_employee[0]["fund_code"].ToString();
+                txtb_department_name1.Text          = selected_employee[0]["department_name1"].ToString();
                 rate_basis                          = selected_employee[0]["rate_basis"].ToString();
                 
                 lbl_rate_basis_descr.Text           = selected_employee[0]["rate_basis_descr"].ToString() + " Rate :";
@@ -3666,21 +3677,21 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Redirect to Account Ledger Page
         //**************************************************************************
-        protected void btn_editloan_Click(object sender, EventArgs e)
-        {
-            // BEGIN - Pass Value
-            // Employee ID      [0]
-            // Registry         [1]
-            // Year             [2]
-            // Employment Type  [3]
-            // Department       [4]
-            // END   - Pass Value
+        //protected void btn_editloan_Click(object sender, EventArgs e)
+        //{
+        //    // BEGIN - Pass Value
+        //    // Employee ID      [0]
+        //    // Registry         [1]
+        //    // Year             [2]
+        //    // Employment Type  [3]
+        //    // Department       [4]
+        //    // END   - Pass Value
 
-            string url = "";
-            Session["PreviousValuesonPage_cPayRegistry_RECEJO"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString();
-            url = "/View/cPayAccountLedger/cPayAccountLedger.aspx";
-            Response.Redirect(url);
-        }
+        //    string url = "";
+        //    Session["PreviousValuesonPage_cPayRegistry_RECEJO"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString();
+        //    url = "/View/cPayAccountLedger/cPayAccountLedger.aspx";
+        //    Response.Redirect(url);
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Hidden Button Trriggers When Back To this Page
         //**************************************************************************
@@ -3705,23 +3716,23 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Redirect to Other Contribution Page
         //**************************************************************************
-        protected void btn_contributions_Click(object sender, EventArgs e)
-        {
-            // BEGIN - Pass Value
-            // Employee ID      [0]
-            // Registry         [1]
-            // Year             [2]
-            // Employment Type  [3]
-            // Department       [4]
-            // Employee Name    [5]
-            // END  - Pass Value
+        //protected void btn_contributions_Click(object sender, EventArgs e)
+        //{
+        //    // BEGIN - Pass Value
+        //    // Employee ID      [0]
+        //    // Registry         [1]
+        //    // Year             [2]
+        //    // Employment Type  [3]
+        //    // Department       [4]
+        //    // Employee Name    [5]
+        //    // END  - Pass Value
 
-            string url = "";
-            Session["PreviousValuesonPage_cPayRegistry_RECEJO_OthContributions"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString() + "," + txtb_employeename.Text.ToString(); ;
-            Session["PreviousValuesonPage_EmployeeName"] = txtb_employeename.Text.ToString();
-            url = "/View/cPayOthContributions_AddEdit/cPayOthContributions_AddEdit.aspx";
-            Response.Redirect(url);
-        }
+        //    string url = "";
+        //    Session["PreviousValuesonPage_cPayRegistry_RECEJO_OthContributions"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString() + "," + txtb_employeename.Text.ToString(); ;
+        //    Session["PreviousValuesonPage_EmployeeName"] = txtb_employeename.Text.ToString();
+        //    url = "/View/cPayOthContributions_AddEdit/cPayOthContributions_AddEdit.aspx";
+        //    Response.Redirect(url);
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Toogle All Textbox 
         //**************************************************************************
@@ -3954,67 +3965,6 @@ namespace HRIS_ePayroll.View
 
             if (selected_employee.Length > 0)
             {
-                //**************************************************************
-                //*** VJA - Tax Computation for With and Without Sworn 
-                //**************************************************************
-
-                //if (selected_employee[0]["with_sworn"].ToString() == "1" ||
-                //    selected_employee[0]["with_sworn"].ToString() == "True")
-                //{
-                //    switch (selected_employee[0]["tax_perc"].ToString()) // With Sworn //CHANGE TO TAX PERCENTAGE FROM WITH SWORN PERCENTAGE: JORGE RUSTOM VILLANUEVA: 2022-04-06
-                //    {
-                //        case "2":
-                //            tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .02; 
-                //            break;
-                //        case "1":
-                //            tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .01; 
-                //            break;
-                //        case "3":
-                //            tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .03;
-                //            break;
-                //        case "5":
-                //            tax5 = tax5 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .05;
-                //            break;
-                //        case "8":
-                //            tax8 = tax8 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .08;
-                //            break;
-                //        case "10":
-                //            tax10 = tax10 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .10;
-                //            break;
-                //        case "15":
-                //            tax15 = tax15 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .15;
-                //            break;
-                //    }
-                //}
-                //else if(selected_employee[0]["with_sworn"].ToString() == "0" ||
-                //        selected_employee[0]["with_sworn"].ToString() == "False")
-                //{
-                //    switch (selected_employee[0]["tax_perc"].ToString()) // Without Sworn
-                //    {
-                //        case "2":
-                //            tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .02;
-                //            break;
-                //        case "1":
-                //            tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .01;
-                //            break;
-                //        case "3":
-                //            tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .03;
-                //            break;
-                //        case "5":
-                //            tax5 = tax5 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .05;
-                //            break;
-                //        case "8":
-                //            tax8 = tax8 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .08;
-                //            break;
-                //        case "10":
-                //            tax10 = tax10 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .10;
-                //            break;
-                //        case "15":
-                //            tax15 = tax15 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .15;
-                //            break;
-                //    }
-                //}
-
                 // **************************************************************
                 // *** VJA - Compute VAT
                 // **************************************************************

@@ -373,7 +373,8 @@
                                                                 </div>
                                             
                                                                 <div class="col-6">
-                                                                    <% if (Convert.ToDateTime(ddl_year.SelectedValue + "-" + ddl_month.SelectedValue + "-" + "01") > Convert.ToDateTime("2021-03-30"))
+                                                                    <% if (Convert.ToDateTime(ddl_year.SelectedValue + "-" + ddl_month.SelectedValue + "-" + "01") > Convert.ToDateTime("2021-03-30")&&
+                                                                           Convert.ToDateTime(ddl_year.SelectedValue + "-" + ddl_month.SelectedValue + "-" + "01") < Convert.ToDateTime("2023-07-01"))
                                                                     {
                                                                     %>
                                                                        <label class="font-weight-bold">BIR Tax (1%):</label>
@@ -382,7 +383,7 @@
                                                                         else
                                                                         {
                                                                     %> 
-                                                                        <label class="font-weight-bold">BIR Tax (1%):</label>
+                                                                        <label class="font-weight-bold">BIR Tax (3%):</label>
                                                                     <%
                                                                         }
                                                                     %>
@@ -407,7 +408,21 @@
                                                                     </asp:UpdatePanel>
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <label class="font-weight-bold">BIR Tax (8%):</label>
+                                                                    <% if (Convert.ToDateTime(ddl_year.SelectedValue + "-" + ddl_month.SelectedValue + "-" + "01") > Convert.ToDateTime("2021-03-30")&&
+                                                                           Convert.ToDateTime(ddl_year.SelectedValue + "-" + ddl_month.SelectedValue + "-" + "01") < Convert.ToDateTime("2023-07-01"))
+                                                                    {
+                                                                    %>
+                                                                       <label class="font-weight-bold">BIR Tax (8%):</label>
+                                                                    <% 
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                    %> 
+                                                                        <label class="font-weight-bold">BIR Tax (5%VAT):</label>
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                                    
                                                                 </div>
                                                                 <div class="col-6 text-right">
                                                                     <asp:UpdatePanel runat="server">
@@ -692,10 +707,10 @@
                                                                     OnPageIndexChanging="gv_dataListGrid_brkdwn_PageIndexChanging"
                                                                     PagerStyle-Width="3" 
                                                                     PagerStyle-Wrap="false" 
-                                                                    pagesize="30"
+                                                                    pagesize="100"
                                                                     Width="100%" 
                                                                     Font-Names="Century gothic"
-                                                                    Font-Size="Medium" 
+                                                                    Font-Size="Small" 
                                                                     RowStyle-Width="5%" 
                                                                     AlternatingRowStyle-Width="10%"
                                                                     CellPadding="2"

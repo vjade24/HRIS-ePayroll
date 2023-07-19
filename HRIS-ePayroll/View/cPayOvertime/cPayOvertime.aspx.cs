@@ -360,7 +360,7 @@ namespace HRIS_ePayroll.View
         private void RetrieveDataListGrid_Brkdwn()
         {
             InitializeTable_brkdwn();
-            dtSource_dtl_brkdwn = MyCmn.RetrieveData("sp_payrollregistry_dtl_ovtm_brkdwn_tbl_list", "par_payroll_registry_nbr", ddl_payroll_group.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim());
+            dtSource_dtl_brkdwn = MyCmn.RetrieveData("sp_payrollregistry_dtl_ovtm_brkdwn_tbl_list", "par_payroll_registry_nbr", ddl_payroll_group.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim(), "par_ot_year", ddl_year.SelectedValue.ToString().Trim());
             AddPrimaryKeys_brkdwn();
 
             foreach (DataRow nrow1 in dtSource_dtl_brkdwn.Rows)
@@ -2285,7 +2285,7 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         private void RetrieveDataListGrid_Oth()
         {
-            DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_dtl_ovtm_brkdwn_tbl_list", "par_payroll_registry_nbr", "", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
+            DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_dtl_ovtm_brkdwn_tbl_list", "par_payroll_registry_nbr", "", "par_empl_id", txtb_empl_id.Text.ToString().Trim(), "par_ot_year",ddl_year.SelectedValue.ToString().Trim());
             
             MyCmn.Sort(gv_dataListGrid_oth, dt, "ot_date", Session["SortOrder"].ToString());
             up_dataListGrid_oth.Update();

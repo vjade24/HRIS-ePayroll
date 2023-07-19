@@ -2190,31 +2190,31 @@ namespace HRIS_ePayroll.View
             DataRow[] selected_employee = null;
 
             double tax_rate = 0;
-            double tax1 = 0;
-            double tax2 = 0;
-            double tax5 = 0;
-            double tax8 = 0;
-            double tax10 = 0;
-            double tax15 = 0;
+            //double tax1 = 0;
+            //double tax2 = 0;
+            //double tax5 = 0;
+            //double tax8 = 0;
+            //double tax10 = 0;
+            //double tax15 = 0;
 
-            double txtb_tax1  = 0;
-            double txtb_tax2  = 0;
-            double txtb_tax5  = 0;
-            double txtb_tax8  = 0;
-            double txtb_tax10 = 0;
-            double txtb_tax15 = 0;
+            //double txtb_tax1  = 0;
+            //double txtb_tax2  = 0;
+            //double txtb_tax5  = 0;
+            //double txtb_tax8  = 0;
+            //double txtb_tax10 = 0;
+            //double txtb_tax15 = 0;
 
             if (ViewState["AddEdit_Mode"].ToString() == MyCmn.CONST_ADD)
             {
                 selected_employee = dataList_employee.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
                 tax_rate = double.Parse(selected_employee[0]["tax_rate"].ToString());
 
-                tax1     = double.Parse(selected_employee[0]["wtax_1perc"].ToString());
-                tax2     = double.Parse(selected_employee[0]["wtax_2perc"].ToString());
-                tax5     = double.Parse(selected_employee[0]["wtax_5perc"].ToString());
-                tax8     = double.Parse(selected_employee[0]["wtax_8perc"].ToString());
-                tax10    = double.Parse(selected_employee[0]["wtax_10perc"].ToString());
-                tax15    = double.Parse(selected_employee[0]["wtax_15perc"].ToString());
+                //tax1     = double.Parse(selected_employee[0]["wtax_1perc"].ToString());
+                //tax2     = double.Parse(selected_employee[0]["wtax_2perc"].ToString());
+                //tax5     = double.Parse(selected_employee[0]["wtax_5perc"].ToString());
+                //tax8     = double.Parse(selected_employee[0]["wtax_8perc"].ToString());
+                //tax10    = double.Parse(selected_employee[0]["wtax_10perc"].ToString());
+                //tax15    = double.Parse(selected_employee[0]["wtax_15perc"].ToString());
             }
 
             if (ddl_payroll_template.SelectedValue == "922" ||  // Special Risk Allowance I - RE
@@ -2411,23 +2411,32 @@ namespace HRIS_ePayroll.View
                     }
                     else if (ddl_empl_type.SelectedValue.ToString().Trim() == "JO")
                     {
-                        amount_4 = gross_pay * ((tax1 + tax2 + tax5 + tax8 + tax10 + tax15) / 100);
+                        //amount_4 = gross_pay * ((tax1 + tax2 + tax5 + tax8 + tax10 + tax15) / 100);
 
-                        txtb_tax1 = gross_pay * (tax1 / 100);
-                        txtb_tax2 = gross_pay * (tax2 / 100);
-                        txtb_tax5 = gross_pay * (tax5 / 100);
-                        txtb_tax8 = gross_pay * (tax8 / 100);
-                        txtb_tax10 = gross_pay * (tax10 / 100);
-                        txtb_tax15 = gross_pay * (tax15 / 100);
+                        //txtb_tax1 = gross_pay * (tax1 / 100);
+                        //txtb_tax2 = gross_pay * (tax2 / 100);
+                        //txtb_tax5 = gross_pay * (tax5 / 100);
+                        //txtb_tax8 = gross_pay * (tax8 / 100);
+                        //txtb_tax10 = gross_pay * (tax10 / 100);
+                        //txtb_tax15 = gross_pay * (tax15 / 100);
 
+                        //txtb_other_amount4.Text = amount_4.ToString("###,##0.00");
+
+                        //txtb_other_ded_mand1.Text = txtb_tax1.ToString("###,##0.00");
+                        //txtb_other_ded_mand2.Text = txtb_tax2.ToString("###,##0.00");
+                        //txtb_other_ded_mand3.Text = txtb_tax5.ToString("###,##0.00");
+                        //txtb_other_ded_mand4.Text = txtb_tax8.ToString("###,##0.00");
+                        //txtb_other_ded_mand5.Text = txtb_tax10.ToString("###,##0.00");
+                        //txtb_other_ded_mand6.Text = txtb_tax15.ToString("###,##0.00");
+
+                        Calculate_Taxes();
+                        amount_4 = double.Parse(txtb_other_ded_mand1.Text) 
+                                 + double.Parse(txtb_other_ded_mand2.Text) 
+                                 + double.Parse(txtb_other_ded_mand3.Text) 
+                                 + double.Parse(txtb_other_ded_mand4.Text) 
+                                 + double.Parse(txtb_other_ded_mand5.Text) 
+                                 + double.Parse(txtb_other_ded_mand6.Text);
                         txtb_other_amount4.Text = amount_4.ToString("###,##0.00");
-
-                        txtb_other_ded_mand1.Text = txtb_tax1.ToString("###,##0.00");
-                        txtb_other_ded_mand2.Text = txtb_tax2.ToString("###,##0.00");
-                        txtb_other_ded_mand3.Text = txtb_tax5.ToString("###,##0.00");
-                        txtb_other_ded_mand4.Text = txtb_tax8.ToString("###,##0.00");
-                        txtb_other_ded_mand5.Text = txtb_tax10.ToString("###,##0.00");
-                        txtb_other_ded_mand6.Text = txtb_tax15.ToString("###,##0.00");
                     }
                 }
                 else
@@ -2837,6 +2846,117 @@ namespace HRIS_ePayroll.View
                 {
                 }
             }
+        }
+        //***********************************************************************************
+        //  BEGIN - VJA- 2020-09-26 - Calculate Taxes During Add and Calculate Individually
+        //***********************************************************************************
+        private void Calculate_Taxes()
+        {
+            double tax2     = 0;
+            double tax3     = 0;
+            double tax5     = 0;
+            double tax8     = 0;
+            double tax10    = 0;
+            double tax15    = 0;
+
+            DataRow[] selected_employee = dataList_employee.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
+
+            if (selected_employee.Length > 0)
+            {
+                // **************************************************************
+                // *** VJA - Compute VAT
+                // **************************************************************
+                switch (selected_employee[0]["tax_perc"].ToString())
+                {
+                    case "2":
+                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
+                        break;
+                    case "1":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                        break;
+                    case "3":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
+                        break;
+                    case "5":
+                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text)) * .05;
+                        break;
+                    case "8":
+                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text)) * .08;
+                        break;
+                    case "10":
+                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text)) * .10;
+                        break;
+                    case "15":
+                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text)) * .15;
+                        break;
+                }
+
+                // **************************************************************
+                // *** VJA - Compute VAT
+                // **************************************************************
+
+                switch (selected_employee[0]["vat_perc"].ToString())
+                {
+                    case "2":
+                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
+                        break;
+                    case "1":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                        break;
+                    case "3":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
+                        break;
+                    case "5":
+                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text)) * .05;
+                        break;
+                    case "8":
+                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text)) * .08;
+                        break;
+                    case "10":
+                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text)) * .10;
+                        break;
+                    case "15":
+                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text)) * .15;
+                        break;
+                }
+                // **************************************************************
+                // *** VJA - 2022-04-05 Additional Computation for 3 Percentage - Special Case without Sworn       
+                // **************************************************************
+
+                switch (selected_employee[0]["additional_vat_perc"].ToString())
+                {
+                    case "2":
+                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) ) * .02;
+                        break;
+                    case "1":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                        break;
+                    case "3":
+                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
+                        break;
+                    case "5":
+                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text)) * .05;
+                        break;
+                    case "8":
+                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text)) * .08;
+                        break;
+                    case "10":
+                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text)) * .10;
+                        break;
+                    case "15":
+                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text)) * .15;
+                        break;
+                }
+
+            }
+
+            txtb_other_ded_mand1.Text = tax2.ToString("###,##0.00");
+            txtb_other_ded_mand2.Text = tax3.ToString("###,##0.00");
+            txtb_other_ded_mand3.Text = tax5.ToString("###,##0.00");
+            txtb_other_ded_mand4.Text = tax8.ToString("###,##0.00");
+            txtb_other_ded_mand5.Text = tax10.ToString("###,##0.00");
+            txtb_other_ded_mand6.Text = tax15.ToString("###,##0.00");
+            
         }
         /* ---------------------- END OF THE CODE------------------------------*/
     }
