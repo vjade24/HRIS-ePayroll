@@ -547,6 +547,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             LblRequired1.Text = "";
 
             var message_descr = "";
+            var post_status_descr = "";
             if (ddl_select_report.SelectedValue == "01")
             {
                 switch (ddl_empl_type.SelectedValue)
@@ -560,29 +561,56 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                             double total_net_pay = 0;
                             for (int x = 0; x < dt_NTHP_CHK.Rows.Count; x++)
                             {
-                                total_net_pay += total_net_pay + double.Parse(dt_NTHP_CHK.Rows[x]["net_pay"].ToString());
-                                if (dt_NTHP_CHK.Rows[x]["post_status"].ToString() == "Y" && total_net_pay >= 5000)
+                                total_net_pay     += double.Parse(dt_NTHP_CHK.Rows[x]["net_pay"].ToString());
+                                message_descr     += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["net_pay"].ToString() + " <br>";
+                                
+                                if (dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() != "POSTED")
                                 {
-                                    printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
-                                    procedure = "sp_payrollregistry_takehome";
-                                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
-                                    can_print = true;
+                                    post_status_descr += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() + " <br>";
                                 }
-                                else if (total_net_pay < 5000)
-                                {
-                                    message_descr     += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["net_pay"].ToString() + " <br>";
-                                    LblRequired1.Text = message_descr + " Net Pay is Below 5k";
-                                    can_print = false;
-                                    return;
-                                }
-                                else
-                                {
-                                    message_descr += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() + " <br>";
-                                    LblRequired1.Text = message_descr;
-                                    can_print = false;
-                                    return;
-                                }
+
+                                //if (dt_NTHP_CHK.Rows[x]["post_status"].ToString() == "Y" && total_net_pay >= 5000)
+                                //{
+                                //    printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
+                                //    procedure = "sp_payrollregistry_takehome";
+                                //    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
+                                //    can_print = true;
+                                //}
+                                //else if (total_net_pay < 5000)
+                                //{
+                                //    message_descr     += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["net_pay"].ToString() + " <br>";
+                                //    LblRequired1.Text = message_descr + " Net Pay is Below 5k";
+                                //    can_print = false;
+                                //    return;
+                                //}
+                                //else
+                                //{
+                                //    message_descr += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() + " <br>";
+                                //    LblRequired1.Text = message_descr;
+                                //    can_print = false;
+                                //    return;
+                                //}
                             }
+                            if (total_net_pay < 5000)
+                            {
+                                LblRequired1.Text = message_descr + " Net Pay is Below 5k";
+                                can_print = false;
+                                return;
+                            }
+                            else if (post_status_descr != "")
+                            {
+                                LblRequired1.Text = post_status_descr;
+                                can_print = false;
+                                return;
+                            }
+                            else
+                            {
+                                printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
+                                procedure = "sp_payrollregistry_takehome";
+                                url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
+                                can_print = true;
+                            }
+
                         }
                         else
                         {
