@@ -79,7 +79,7 @@
                                         <asp:DropDownList ID="ddl_department_report" CssClass="form-control form-control-sm" runat="server" Width="100%" ></asp:DropDownList>
                                     </div>
                                     <div class="col-6" runat="server" id="div_age" style="width:100% !important">
-                                        <Label class="small"><strong>Age:</strong></Label>
+                                        <Label class="small"><strong>Age: <span class="text-danger"> >=</span></strong></Label>
                                         <asp:TextBox runat="server" ID="txtb_age" CssClass="form-control form-control-sm"></asp:TextBox>
                                     </div>
                                     <div class="col-12" style="margin-top:5px !important">

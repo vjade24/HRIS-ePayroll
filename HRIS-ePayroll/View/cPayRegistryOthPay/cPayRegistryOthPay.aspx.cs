@@ -2428,7 +2428,7 @@ namespace HRIS_ePayroll.View
                         //txtb_other_ded_mand4.Text = txtb_tax8.ToString("###,##0.00");
                         //txtb_other_ded_mand5.Text = txtb_tax10.ToString("###,##0.00");
                         //txtb_other_ded_mand6.Text = txtb_tax15.ToString("###,##0.00");
-
+                        txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
                         Calculate_Taxes();
                         amount_4 = double.Parse(txtb_other_ded_mand1.Text) 
                                  + double.Parse(txtb_other_ded_mand2.Text) 
@@ -2950,8 +2950,8 @@ namespace HRIS_ePayroll.View
 
             }
 
-            txtb_other_ded_mand1.Text = tax2.ToString("###,##0.00");
-            txtb_other_ded_mand2.Text = tax3.ToString("###,##0.00");
+            txtb_other_ded_mand1.Text = tax3.ToString("###,##0.00");
+            txtb_other_ded_mand2.Text = tax2.ToString("###,##0.00");
             txtb_other_ded_mand3.Text = tax5.ToString("###,##0.00");
             txtb_other_ded_mand4.Text = tax8.ToString("###,##0.00");
             txtb_other_ded_mand5.Text = tax10.ToString("###,##0.00");

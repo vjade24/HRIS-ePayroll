@@ -426,12 +426,16 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             string SetExpression    = "rcrd_status = '" + var_status + "', user_id_updated_by = '" + Session["ep_user_id"].ToString() + "',updated_dttm = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
             string WhereExpression = "WHERE " + editExpression;
             MyCmn.UpdateTable(Table_name, SetExpression, WhereExpression);
-
             up_dataListGrid.Update();
             MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
             ViewState.Remove("AddEdit_Mode");
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+            // ***************************************************************************************************
+            // *** VJA - 2023-07-21 - Update the payrollemployee_tax_hdr_tbl on HRIS_ACT db - Kuya Marvin  *******
+            // ***************************************************************************************************
+            DataTable upd_act = new DataTable();
+            upd_act = MyCmn.RetrieveData("sp_payrollemployee_tax_hdr_tbl_update", "par_empl_id", txtb_empl_id.Text.ToString().Trim(), "par_effective_date", txtb_effective_date.Text.ToString().Trim(), "par_rcrd_status", var_status, "par_user_id_updated_by", Session["ep_user_id"].ToString());
         }
         //*****************************************************************************
         //  BEGIN - VJA- 04/22/2020 - Button to Approve 
@@ -563,6 +567,11 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop1", "closeModal();", true);
             ViewState.Remove("AddEdit_Mode");
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+            // ***************************************************************************************************
+            // *** VJA - 2023-07-21 - Update the payrollemployee_tax_hdr_tbl on HRIS_ACT db - Kuya Marvin  *******
+            // ***************************************************************************************************
+            DataTable upd_act = new DataTable();
+            upd_act = MyCmn.RetrieveData("sp_payrollemployee_tax_hdr_tbl_update", "par_empl_id", par_empl_id.Trim(), "par_effective_date", par_effective_date.Trim(), "par_rcrd_status", par_status, "par_user_id_updated_by", Session["ep_user_id"].ToString());
         }
 
         //**********************************************************************************
@@ -722,6 +731,11 @@ namespace HRIS_ePayroll.View.cJOTaxUpd
                     string SetExpression = "rcrd_status = '" + par_status + "', user_id_updated_by = '" + Session["ep_user_id"].ToString() + "',updated_dttm = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
                     string WhereExpression = "WHERE " + editExpression;
                     MyCmn.UpdateTable(Table_name, SetExpression, WhereExpression);
+                    // ***************************************************************************************************
+                    // *** VJA - 2023-07-21 - Update the payrollemployee_tax_hdr_tbl on HRIS_ACT db - Kuya Marvin  *******
+                    // ***************************************************************************************************
+                    DataTable upd_act = new DataTable();
+                    upd_act = MyCmn.RetrieveData("sp_payrollemployee_tax_hdr_tbl_update", "par_empl_id", dataListGrid.Rows[x]["empl_id"].ToString(), "par_effective_date", dataListGrid.Rows[x]["effective_date"].ToString(), "par_rcrd_status","A", "par_user_id_updated_by", Session["ep_user_id"].ToString());
                 }
             }
 
