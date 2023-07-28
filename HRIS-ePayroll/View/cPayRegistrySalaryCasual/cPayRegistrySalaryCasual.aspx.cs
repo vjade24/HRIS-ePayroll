@@ -3492,7 +3492,8 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan9.Text    = row2Edit2[0]["other_ded_loan9"].ToString();
             txtb_other_ded_loan10.Text   = row2Edit2[0]["other_ded_loan10"].ToString();
 
-
+            txtb_no_days_lwopay.Text     = row2Edit2[0]["lowpay_day"].ToString();
+            txtb_remarks.Text            = row2Edit2[0]["remarks"].ToString();
         }
         //**************************************************************************
         //  BEGIN - VJA- 04/06/2019 - Calculate Button
@@ -3556,11 +3557,10 @@ namespace HRIS_ePayroll.View
             lwo_amount_monthly = float.Parse(txtb_rate_amount.Text.ToString().Trim()) * float.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
             
             float lwo_amount_monthly_override = float.Parse(txtb_lwo_pay.Text);
-            if ((lwo_amount_monthly_override == lwo_amount_monthly) )
-            //if ((lwo_amount_monthly_override == lwo_amount_monthly))
-            {
+            //if ((lwo_amount_monthly_override == lwo_amount_monthly) )
+            //{
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
-            }
+            //}
             
             double wages_net = 0;
             wages_net = double.Parse(txtb_wages_amt.Text.ToString()) - (double.Parse(txtb_lates_undertime_in_minute_in_amt.Text.ToString()) + double.Parse(txtb_lwo_pay.Text.ToString()));
