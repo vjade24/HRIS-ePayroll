@@ -2626,7 +2626,8 @@ namespace HRIS_ePayroll.View
                     break;
                 //MONETIZATION | 2023-08-03 - Daily Rate (X) 22 (X) Number of Days (X) Monetization Constant Factor (ref. Installation Table) 
                 case "044":
-                    net_pay = double.Parse(txtb_daily_rate.Text) * 22 * double.Parse(txtb_other_amount.Text);
+                    txtb_monthly_rate.Text = (double.Parse(txtb_daily_rate.Text) * 22).ToString("###,##0.00");
+                    net_pay = double.Parse(txtb_monthly_rate.Text) * double.Parse(txtb_other_amount.Text);
                     net_pay = net_pay * double.Parse(hidden_mone_constant_factor.Value);
                     txtb_gross_pay.Text = net_pay.ToString("###,##0.00");
                     break;
