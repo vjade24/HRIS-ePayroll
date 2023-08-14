@@ -3524,20 +3524,20 @@ namespace HRIS_ePayroll.View
             lates_time = double.Parse((txtb_lates_in_min.Text.ToString().Trim() != "" ? txtb_lates_in_min.Text.ToString().Trim() : "0"));
             lates_time = lates_time / 60;
 
-            lates_amount = double.Parse(txtb_rate_amount.Text.ToString()) / float.Parse(lbl_lastday_hidden.Text.ToString()) *  (lates_time / float.Parse(lbl_hours_in_1day.Text));
+            lates_amount = double.Parse(txtb_rate_amount.Text.ToString()) / 22 *  (lates_time / double.Parse(lbl_hours_in_1day.Text));
 
-            float lates_amount_override = 0;
-            lates_amount_override = float.Parse(txtb_late_in_amount.Text);
+            double lates_amount_override = 0;
+            lates_amount_override = double.Parse(txtb_late_in_amount.Text);
             if ((lates_amount_override == lates_amount) || lates_amount_override == 0 )
             {
                 txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
             }
-            
-            float lwo_amount_monthly = 0;
-            lwo_amount_monthly = float.Parse(txtb_rate_amount.Text.ToString().Trim()) / float.Parse(lbl_lastday_hidden.Text.ToString()) * float.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
 
-            float lwo_amount_monthly_override = 0;
-            lwo_amount_monthly_override = float.Parse(txtb_lwo_pay.Text);
+            double lwo_amount_monthly = 0;
+            lwo_amount_monthly = double.Parse(txtb_rate_amount.Text.ToString().Trim()) / 22 * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
+
+            double lwo_amount_monthly_override = 0;
+            lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
             if ((lwo_amount_monthly_override == lwo_amount_monthly) || lwo_amount_monthly_override == 0)
             {
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
@@ -3558,7 +3558,7 @@ namespace HRIS_ePayroll.View
             lates_time = double.Parse((txtb_lates_in_min.Text.ToString().Trim() != "" ? txtb_lates_in_min.Text.ToString().Trim() : "0"));
             lates_time = lates_time / 60;
             
-            lates_amount = (double.Parse(txtb_pera_amount.Text.ToString()) / float.Parse(lbl_lastday_hidden.Text.ToString())) * (lates_time / float.Parse(lbl_hours_in_1day.Text));
+            lates_amount = (double.Parse(txtb_pera_amount.Text.ToString()) / 22) * (lates_time / double.Parse(lbl_hours_in_1day.Text));
 
             //float lates_amount_override = 0;
             //lates_amount_override = float.Parse(txtb_late_in_amount_pera.Text);
@@ -3569,10 +3569,10 @@ namespace HRIS_ePayroll.View
 
             // Update Computation By : Barro 09-26-2019
             double lwo_amount_pera = 0;
-            lwo_amount_pera = double.Parse(txtb_pera_amount.Text.ToString()) / float.Parse(lbl_lastday_hidden.Text.ToString()) * float.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
+            lwo_amount_pera = double.Parse(txtb_pera_amount.Text.ToString()) / 22 * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
 
-            float lwo_amount_monthly_override = 0;
-            lwo_amount_monthly_override = float.Parse(txtb_lwop_amount_pera.Text);
+            double lwo_amount_monthly_override = 0;
+            lwo_amount_monthly_override = double.Parse(txtb_lwop_amount_pera.Text);
             if ((lwo_amount_monthly_override == lwo_amount_pera) || lwo_amount_monthly_override == 0)
             {
                 txtb_lwop_amount_pera.Text = lwo_amount_pera.ToString("###,##0.00").Trim();
