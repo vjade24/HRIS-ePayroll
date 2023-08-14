@@ -1531,7 +1531,7 @@ namespace HRIS_ePayroll.View
                 btnSave.Visible = true;
                 lbl_if_dateposted_yes.Text = "";
             }
-
+            ViewState.Add("AddEdit_Mode", MyCmn.CONST_EDIT);
             // VJA - 2020-10-28 - Voucher Details
             if (ddl_payroll_template.SelectedValue == "608" || // Template Code for : Maternity
                 ddl_payroll_template.SelectedValue == "708" || // Template Code for : Maternity
@@ -1556,7 +1556,7 @@ namespace HRIS_ePayroll.View
            
             ddl_empl_id.Enabled = false;
             LabelAddEdit.Text = "Edit Record | Voucher Ctrl No : " + lbl_registry_no.Text.Trim();
-            ViewState.Add("AddEdit_Mode", MyCmn.CONST_EDIT);
+            
             ViewState.Add("AddEdit_Mode_BrkDwn", "BRK_EDIT");
             lbl_addeditmode_hidden.Text = MyCmn.CONST_EDIT;
 
@@ -3772,18 +3772,18 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         protected void ddl_empl_type_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RetriveTemplate();
             if (ddl_year.SelectedValue != "" && ddl_month.SelectedValue != "" && ddl_empl_type.SelectedValue != "" && ddl_payroll_template.SelectedValue != "" && ddl_dep.SelectedValue != "")
             {
-                RetrieveDataListGrid();
+                RetrieveLoanPremiums_Visible();
+                RetrieveEmployeename();
                 btnAdd.Visible = true;
             }
             else
             {
                 btnAdd.Visible = false;
             }
-            RetrieveLoanPremiums_Visible();
-            RetriveTemplate();
-            RetrieveEmployeename();
+            RetrieveDataListGrid();
             UpdatePanel10.Update();
         }
         //*************************************************************************
@@ -4046,6 +4046,32 @@ namespace HRIS_ePayroll.View
                 case "603":
                 case "703":
                 case "803":
+                    // *************************************************************************************************************
+                    // ******* BEGIN : 2022-09-23 - Check the Terminal Voucher Validations *****************************************
+                    // *************************************************************************************************************
+                    if (ViewState["AddEdit_Mode"].ToString() == MyCmn.CONST_ADD)
+                    {
+                        DataTable dt = new DataTable();
+                        string query_dt = "SELECT TOP 1 * FROM HRIS_ATS.dbo.lv_ledger_hdr_tbl A INNER JOIN HRIS_ATS.dbo.vw_personnelnames_tbl_HRIS_ATS B ON B.empl_id = A.empl_id WHERE A.leavetype_code = 'TL' AND  A.approval_status = 'F' AND A.empl_id = '"+txtb_empl_id.Text.ToString().Trim()+"'  ORDER BY  date_applied DESC";
+                        dt = MyCmn.GetDatatable(query_dt);
+                        double no_of_days = 0;
+                        if (dt.Rows.Count > 0)
+                        {
+                            no_of_days = double.Parse(dt.Rows[0]["lv_nodays"].ToString());
+                            txtb_no_of_days.Text = no_of_days.ToString("##,##0.####");
+                        }
+                        else
+                        {
+                            msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
+                            msg_header.InnerText = "YOU SELECT " + ddl_empl_id.SelectedItem.ToString().Trim();
+                            var lbl_descr = "Please check the Terminal Leave if Approved";
+                            lbl_details.Text = lbl_descr;
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification();", true);
+                        }
+                    }
+                    // *************************************************************************************************************
+                    // ******* BEGIN : 2022-09-23 - Check the Terminal Voucher Validations *****************************************
+                    // *************************************************************************************************************
 
                     // Switch For Employment Type
                     switch (ddl_empl_type.SelectedValue)
@@ -4512,6 +4538,14 @@ namespace HRIS_ePayroll.View
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_payrollregistry_header_footer_sub_rep";
                     url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.ToString().Trim();
+                    break;
+                    
+                case "136": // Document Tracking History - RE'
+                case "137": // Document Tracking History - CE'
+                case "138": // Document Tracking History - JO'
+                    printreport = "/cryDocTracking/cryDocsHistory.rpt";
+                    procedure = "sp_edocument_trk_tbl_history";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_doc_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",p_docmnt_type," + "01-V";
                     break;
 
                 case "": // Direct Print to Printer
@@ -5071,6 +5105,78 @@ namespace HRIS_ePayroll.View
                     txtb_other_ded_loan8.Visible     = dt.Rows[0]["other_ded_loan8_descr"].ToString()       == "" ? false : true;
                     txtb_other_ded_loan9.Visible     = dt.Rows[0]["other_ded_loan9_descr"].ToString()       == "" ? false : true;
                     txtb_other_ded_loan10.Visible    = dt.Rows[0]["other_ded_loan10_descr"].ToString()      == "" ? false : true;
+                }
+                else
+                {
+                    // MANDATORY DEDUCTION
+                    lbl_other_ded_mand1.Visible  = false;
+                    lbl_other_ded_mand2.Visible   = false;
+                    lbl_other_ded_mand3.Visible   = false;
+                    lbl_other_ded_mand4.Visible   = false;
+                    lbl_other_ded_mand5.Visible   = false;
+                    lbl_other_ded_mand6.Visible   = false;
+                    lbl_other_ded_mand7.Visible   = false;
+                    lbl_other_ded_mand8.Visible   = false;
+                    lbl_other_ded_mand9.Visible   = false;
+                    lbl_other_ded_mand10.Visible  = false;
+                
+                    txtb_other_ded_mand1.Visible  = false;
+                    txtb_other_ded_mand2.Visible   = false;
+                    txtb_other_ded_mand3.Visible   = false;
+                    txtb_other_ded_mand4.Visible   = false;
+                    txtb_other_ded_mand5.Visible   = false;
+                    txtb_other_ded_mand6.Visible   = false;
+                    txtb_other_ded_mand7.Visible   = false;
+                    txtb_other_ded_mand8.Visible   = false;
+                    txtb_other_ded_mand9.Visible   = false;
+                    txtb_other_ded_mand10.Visible  = false;
+                
+                    // OPTIONAL DEDUCTION
+                    lbl_other_ded_prem1.Visible   = false;
+                    lbl_other_ded_prem2.Visible   = false; 
+                    lbl_other_ded_prem3.Visible   = false; 
+                    lbl_other_ded_prem4.Visible   = false; 
+                    lbl_other_ded_prem5.Visible   = false; 
+                    lbl_other_ded_prem6.Visible   = false; 
+                    lbl_other_ded_prem7.Visible   = false; 
+                    lbl_other_ded_prem8.Visible   = false; 
+                    lbl_other_ded_prem9.Visible   = false; 
+                    lbl_other_ded_prem10.Visible  = false; 
+                
+                    txtb_other_ded_prem1.Visible  = false;
+                    txtb_other_ded_prem2.Visible   = false;
+                    txtb_other_ded_prem3.Visible   = false;
+                    txtb_other_ded_prem4.Visible   = false;
+                    txtb_other_ded_prem5.Visible   = false;
+                    txtb_other_ded_prem6.Visible   = false;
+                    txtb_other_ded_prem7.Visible   = false;
+                    txtb_other_ded_prem8.Visible   = false;
+                    txtb_other_ded_prem9.Visible   = false;
+                    txtb_other_ded_prem10.Visible  = false;
+                
+                    // LOAN DEDUCTION
+                    lbl_other_ded_loan1.Visible   = false;
+                    lbl_other_ded_loan2.Visible   = false;
+                    lbl_other_ded_loan3.Visible   = false;
+                    lbl_other_ded_loan4.Visible   = false;
+                    lbl_other_ded_loan5.Visible   = false;
+                    lbl_other_ded_loan6.Visible   = false;
+                    lbl_other_ded_loan7.Visible   = false;
+                    lbl_other_ded_loan8.Visible   = false;
+                    lbl_other_ded_loan9.Visible   = false;
+                    lbl_other_ded_loan10.Visible  = false;
+                
+                    txtb_other_ded_loan1.Visible   = false;
+                    txtb_other_ded_loan2.Visible   = false;
+                    txtb_other_ded_loan3.Visible   = false;
+                    txtb_other_ded_loan4.Visible   = false;
+                    txtb_other_ded_loan5.Visible   = false;
+                    txtb_other_ded_loan6.Visible   = false;
+                    txtb_other_ded_loan7.Visible   = false;
+                    txtb_other_ded_loan8.Visible   = false;
+                    txtb_other_ded_loan9.Visible   = false;
+                    txtb_other_ded_loan10.Visible  = false;
+
                 }
             }
         }
