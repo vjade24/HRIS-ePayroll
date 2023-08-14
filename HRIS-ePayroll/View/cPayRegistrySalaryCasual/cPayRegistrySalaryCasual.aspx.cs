@@ -3278,7 +3278,7 @@ namespace HRIS_ePayroll.View
         protected void ddl_empl_id_SelectedIndexChanged(object sender, EventArgs e)
         {
             FieldValidationColorChanged(false, "ALL");
-            float leave_earned_amt = 0;
+            double leave_earned_amt = 0;
             if (ddl_empl_id.SelectedValue != "")
             {
 
@@ -3318,7 +3318,7 @@ namespace HRIS_ePayroll.View
                 calculate_netpays();
 
                 // Leave Earned Computataion  - Daily Rate * Insatallation MOnthly Salary Conversion / 8 (Eight)
-                leave_earned_amt = float.Parse(txtb_rate_amount.Text.ToString().Trim()) * float.Parse(lbl_installation_monthly_conv_hidden.Text.ToString()) / 8;
+                leave_earned_amt = double.Parse(txtb_rate_amount.Text.ToString().Trim()) * double.Parse(lbl_installation_monthly_conv_hidden.Text.ToString()) / 8;
                 txtb_leave_earned.Text = leave_earned_amt.ToString("###,##0.00").Trim();
             }
             else
@@ -3524,7 +3524,7 @@ namespace HRIS_ePayroll.View
         private void calculate_wages()
         {
             double total_wages = 0;
-            total_wages = float.Parse(txtb_rate_amount.Text.ToString().Trim()) * float.Parse(txtb_no_days_worked.Text.ToString().Trim());
+            total_wages = double.Parse(txtb_rate_amount.Text.ToString().Trim()) * double.Parse(txtb_no_days_worked.Text.ToString().Trim());
             lbl_wages_amt_hidden.Text   = total_wages.ToString("###,##0.00").Trim();
             txtb_wages_amt.Text         = total_wages.ToString("###,##0.00").Trim();
         }
@@ -3541,22 +3541,21 @@ namespace HRIS_ePayroll.View
             lates_time = double.Parse((txtb_lates_undertime_in_minute.Text.ToString().Trim() != "" ? txtb_lates_undertime_in_minute.Text.ToString().Trim() : "0"));
             lates_time = lates_time / 60;
 
-            double late_amount_override = 0;
-            late_amount_override = double.Parse(txtb_lates_undertime_in_minute_in_amt.Text);
-            lates_amount = double.Parse(txtb_rate_amount.Text.ToString()) * (lates_time / float.Parse(hidden_hoursin1day.Text));
-            if ((late_amount_override == lates_amount) )
-            //if ((late_amount_override == lates_amount))
-            {
+            //double late_amount_override = 0;
+            //late_amount_override = double.Parse(txtb_lates_undertime_in_minute_in_amt.Text);
+            lates_amount = double.Parse(txtb_rate_amount.Text.ToString()) * (lates_time / double.Parse(hidden_hoursin1day.Text));
+            //if ((late_amount_override == lates_amount) )
+            //{
                 txtb_lates_undertime_in_minute_in_amt.Text = lates_amount.ToString("###,##0.00").Trim();
-            }
-            else
-            {
-                txtb_lates_undertime_in_minute_in_amt.Text = late_amount_override.ToString("###,##0.00").Trim();
-            }
-            float lwo_amount_monthly = 0;
-            lwo_amount_monthly = float.Parse(txtb_rate_amount.Text.ToString().Trim()) * float.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
-            
-            float lwo_amount_monthly_override = float.Parse(txtb_lwo_pay.Text);
+            //}
+            //else
+            //{
+            //    txtb_lates_undertime_in_minute_in_amt.Text = late_amount_override.ToString("###,##0.00").Trim();
+            //}
+            double lwo_amount_monthly = 0;
+            lwo_amount_monthly = double.Parse(txtb_rate_amount.Text.ToString().Trim()) * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
+
+            double lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
             //if ((lwo_amount_monthly_override == lwo_amount_monthly) )
             //{
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
@@ -3580,7 +3579,7 @@ namespace HRIS_ePayroll.View
 
             double late_amount_override = 0;
             late_amount_override = double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text);
-            lates_amount = (double.Parse(txtb_pera_amount.Text.ToString()) / float.Parse(lbl_installation_PERA_conv_hidden.Text.ToString())) * (lates_time / float.Parse(hidden_hoursin1day.Text));
+            lates_amount = (double.Parse(txtb_pera_amount.Text.ToString()) / double.Parse(lbl_installation_PERA_conv_hidden.Text.ToString())) * (lates_time / double.Parse(hidden_hoursin1day.Text));
             if ((late_amount_override == lates_amount) )
             {
                 txtb_lates_undertime_in_minute_in_amt_pera.Text = lates_amount.ToString("###,##0.00").Trim();
@@ -3588,16 +3587,15 @@ namespace HRIS_ePayroll.View
             // -----------------------------------------------------------------------------
 
             // Update Computation By : Barro 09-26-2019
-            float lwo_amount_pera = 0;
-            lwo_amount_pera = float.Parse(txtb_rate_amount.Text.ToString().Trim())  * float.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
-            
-            float lwo_amount_monthly_override = 0;
-            lwo_amount_monthly_override = float.Parse(txtb_lwop_amount_pera.Text);
-            if ((lwo_amount_monthly_override == lwo_amount_pera) )
-            //if ((lwo_amount_monthly_override == lwo_amount_pera))
-            {
-                txtb_lwop_amount_pera.Text = lwo_amount_pera.ToString("###,##0.00").Trim();
-            }
+            double lwo_amount_pera = 0;
+            lwo_amount_pera = double.Parse(txtb_pera_amount.Text.ToString().Trim()) / 22  * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
+
+            //double lwo_amount_monthly_override = 0;
+            //lwo_amount_monthly_override = double.Parse(txtb_lwop_amount_pera.Text);
+            //if ((lwo_amount_monthly_override == lwo_amount_pera) )
+            //{
+            //}
+            txtb_lwop_amount_pera.Text = lwo_amount_pera.ToString("###,##0.00").Trim();
 
 
             double pera_net = 0;
@@ -3611,10 +3609,10 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void leaveearned_computation()
         {
-            float leave_earned_amt = 0;
+            double leave_earned_amt = 0;
             
             // Leave Earned Computataion  - Daily Rate * Insatallation MOnthly Salary Conversion / 8 (Eight)
-            leave_earned_amt = float.Parse(txtb_rate_amount.Text.ToString().Trim()) * float.Parse(lbl_installation_monthly_conv_hidden.Text.ToString()) / 8;
+            leave_earned_amt = double.Parse(txtb_rate_amount.Text.ToString().Trim()) * double.Parse(lbl_installation_monthly_conv_hidden.Text.ToString()) / 8;
             // Leave Earn Override
             if (txtb_leave_earned.Text == leave_earned_amt.ToString("###,##0.00").Trim())
             {
@@ -3626,8 +3624,8 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void calculate_gross()
         {
-            float total_gross = 0;
-            total_gross = float.Parse(txtb_wages_amt_net.Text.ToString().Trim()) + float.Parse(txtb_pera_amount_net.Text.ToString().Trim());
+            double total_gross = 0;
+            total_gross = double.Parse(txtb_wages_amt_net.Text.ToString().Trim()) + double.Parse(txtb_pera_amount_net.Text.ToString().Trim());
             txtb_gross_pay.Text = total_gross.ToString("###,##0.00").Trim();
             id_days_hours.Visible = true;
         }
@@ -3658,9 +3656,9 @@ namespace HRIS_ePayroll.View
                 // or If the Lates in Minutes have amount
             
 
-            if (double.Parse(txtb_pera_amount.Text.ToString()) < 2000 || double.Parse(txtb_lwop_amount_pera.Text.ToString()) > 0 || float.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()) > 0)
+            if (double.Parse(txtb_pera_amount.Text.ToString()) < 2000 || double.Parse(txtb_lwop_amount_pera.Text.ToString()) > 0 || double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()) > 0)
             {
-                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString()) - (double.Parse(txtb_lwop_amount_pera.Text.ToString()) - float.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()));
+                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString()) - (double.Parse(txtb_lwop_amount_pera.Text.ToString()) - double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()));
                 total_netpay1 = (total_netpay - total_pera_amount) / 2;
                 total_netpay1 = total_netpay1 - (total_netpay1 % 1);
                 total_netpay1 = total_netpay1 + total_pera_amount;
@@ -3742,23 +3740,23 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void calculate_mandatory()
         {
-            float total_mandatory = 0;
-            total_mandatory = total_mandatory + float.Parse(txtb_gsis_ps.Text.ToString());
+            double total_mandatory = 0;
+            total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
             //total_mandatory = total_mandatory + float.Parse(txtb_gsis_sif.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_hdmf_ps.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_phic_ps.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_bir_tax.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_hdmf_ps.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_phic_ps.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_bir_tax.Text.ToString());
 
             // Add Field Again - 2022-05-30
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand2.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand3.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand4.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand5.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand6.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand7.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand8.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand9.Text.ToString());
-            total_mandatory = total_mandatory + float.Parse(txtb_other_ded_mand10.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand2.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand3.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand4.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand5.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand6.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand7.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand8.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand9.Text.ToString());
+            total_mandatory = total_mandatory + double.Parse(txtb_other_ded_mand10.Text.ToString());
 
             txtb_total_mandatory.Text = total_mandatory.ToString("###,##0.00");
         }
@@ -3767,39 +3765,39 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void calculate_optional()
         {
-            float total_optional = 0;
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli45.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli50.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli55.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli60.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ouli65.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_sss.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_hdmf_addl.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_philam.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ehp.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_hip.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_ceap.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_gsis_add.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_otherpremium_no1.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_otherpremium_no2.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_otherpremium_no3.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_otherpremium_no4.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_otherpremium_no5.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_hdmf_mp2.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_hdmf_loyalty_card.Text.ToString());
+            double total_optional = 0;
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli45.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli50.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli55.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli60.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ouli65.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_sss.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_hdmf_addl.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_philam.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ehp.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_hip.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_ceap.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_gsis_add.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_otherpremium_no1.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_otherpremium_no2.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_otherpremium_no3.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_otherpremium_no4.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_otherpremium_no5.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_hdmf_mp2.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_hdmf_loyalty_card.Text.ToString());
 
             // Add Field Again - 2022-05-30
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem1.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem2.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem3.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem4.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem5.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem6.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem7.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem8.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem9.Text.ToString());
-            total_optional = total_optional + float.Parse(txtb_other_ded_prem10.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem1.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem2.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem3.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem4.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem5.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem6.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem7.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem8.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem9.Text.ToString());
+            total_optional = total_optional + double.Parse(txtb_other_ded_prem10.Text.ToString());
 
             txtb_total_optional.Text = total_optional.ToString("###,##0.00");
         }
@@ -3808,42 +3806,42 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void calculate_loans()
         {
-            float total_loans = 0;
-            total_loans = total_loans + float.Parse(txtb_gsis_consolidated.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_policy_regular.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_policy_optional.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_ouli_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_emer_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_ecard_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_educ_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_real_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_sos_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_hdmf_mpl_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_hdmf_house_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_hdmf_cal_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_ccmpc_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_nico_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_networkbank_loan.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_otherloan_no1.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_otherloan_no2.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_otherloan_no3.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_otherloan_no4.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_otherloan_no5.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_nhmfc_hsng.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_nafc.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_help.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_gsis_housing_loan.Text.ToString());
+            double total_loans = 0;
+            total_loans = total_loans + double.Parse(txtb_gsis_consolidated.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_policy_regular.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_policy_optional.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_ouli_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_emer_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_ecard_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_educ_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_real_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_sos_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_hdmf_mpl_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_hdmf_house_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_hdmf_cal_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_ccmpc_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_nico_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_networkbank_loan.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_otherloan_no1.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_otherloan_no2.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_otherloan_no3.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_otherloan_no4.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_otherloan_no5.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_nhmfc_hsng.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_nafc.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_help.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_gsis_housing_loan.Text.ToString());
             // Add Field Again - 2022-05-30
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan1.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan2.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan3.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan4.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan5.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan6.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan7.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan8.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan9.Text.ToString());
-            total_loans = total_loans + float.Parse(txtb_other_ded_loan10.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan1.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan2.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan3.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan4.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan5.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan6.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan7.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan8.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan9.Text.ToString());
+            total_loans = total_loans + double.Parse(txtb_other_ded_loan10.Text.ToString());
 
             txtb_total_loans.Text = total_loans.ToString("###,##0.00");
         }
@@ -4120,10 +4118,10 @@ namespace HRIS_ePayroll.View
 
             if (dt.Rows.Count > 0)
             {
-                float total_hdmf_ps = 0;
+                double total_hdmf_ps = 0;
 
                 // Update : 2020-09-08 - Ana si Sir, (Daily Rate X 22 X PS Computation)
-                float fixed_days = 22;
+                double fixed_days = 22;
 
 
                 //float total_hdmf_ps_new = 0;
@@ -4162,7 +4160,7 @@ namespace HRIS_ePayroll.View
                 //{
                 if (dt.Rows[0]["maximum_ps_type"].ToString() == "F")
                     {
-                        total_hdmf_ps = float.Parse(dt.Rows[0]["maximum_ps"].ToString());
+                        total_hdmf_ps = double.Parse(dt.Rows[0]["maximum_ps"].ToString());
                     }
                     else
                     {
@@ -4175,7 +4173,7 @@ namespace HRIS_ePayroll.View
                     // txtb_hdmf_ps.Text = total_str_total_hdmf_ps.Split('.')[0] + "."  + total_str_total_hdmf_ps.Split('.')[1].Substring(0, 2);
 
                     // New Computation that Round off to the Nearest 3 - OLD : 2020-09-10 3:30 PM
-                    total_hdmf_ps = (float.Parse(txtb_rate_amount.Text) * fixed_days) * (float.Parse(dt.Rows[0]["personal_share"].ToString()) / 100);
+                    total_hdmf_ps = (double.Parse(txtb_rate_amount.Text) * fixed_days) * (double.Parse(dt.Rows[0]["personal_share"].ToString()) / 100);
 
                 }
                     txtb_hdmf_ps.Text = total_hdmf_ps.ToString("###,##0.00");
@@ -4190,21 +4188,21 @@ namespace HRIS_ePayroll.View
         private void HDMF_GS_Computation()
         {
             DataTable dt = MyCmn.RetrieveData("sp_gsishdmfsif_tbl_list1", "p_source_code", "H", "p_payroll_year", ddl_year.SelectedValue.ToString(), "p_payroll_registry_nbr", lbl_registry_no.Text.ToString());
-            float total_hdmf_gs = 0;
+            double total_hdmf_gs = 0;
 
             // Update : 2020-09-08 - Ana si Sir, (Daily Rate X 22 X PS Computation)
-            float fixed_days = 22;
+            double fixed_days = 22;
 
             if (dt.Rows.Count > 0)
             {
                 if (dt.Rows[0]["maximum_gs_type"].ToString() == "F")
                 {
-                    total_hdmf_gs = float.Parse(dt.Rows[0]["maximum_gs"].ToString());
+                    total_hdmf_gs = double.Parse(dt.Rows[0]["maximum_gs"].ToString());
                 }
                 else
                 {
                     // New Computation that Round off to the Nearest 3 - OLD : 2020-09-10 3:30 PM
-                    total_hdmf_gs = (float.Parse(txtb_rate_amount.Text) * fixed_days) * (float.Parse(dt.Rows[0]["government_share"].ToString()) / 100);
+                    total_hdmf_gs = (double.Parse(txtb_rate_amount.Text) * fixed_days) * (double.Parse(dt.Rows[0]["government_share"].ToString()) / 100);
 
                 }
                 txtb_hdmf_gs.Text = total_hdmf_gs.ToString("###,##0.00");
