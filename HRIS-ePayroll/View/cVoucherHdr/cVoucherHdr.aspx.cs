@@ -481,7 +481,7 @@ namespace HRIS_ePayroll.View
             lbl_addeditmode_hidden.Text = MyCmn.CONST_ADD;
             FieldValidationColorChanged(false, "ALL");
             RetrieveEmployeename();
-
+            RetrieveLoanPremiums_Visible();
             // This is To Toogle Modal When Add or Edit Based from Template Code
             ToogleModal();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -1561,7 +1561,7 @@ namespace HRIS_ePayroll.View
             lbl_addeditmode_hidden.Text = MyCmn.CONST_EDIT;
 
             FieldValidationColorChanged(false, "ALL");
-
+            RetrieveLoanPremiums_Visible();
             // Add Field Again - 06/20/2019
             // Convert.ToDateTime(row2Edit[0]["payroll_dttm_created"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
             txtb_voucher_nbr.Text               = row2Edit[0]["voucher_nbr"].ToString();
