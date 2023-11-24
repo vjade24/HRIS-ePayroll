@@ -23,7 +23,6 @@ namespace HRIS_ePayroll.View
         //********************************************************************
         //  BEGIN - VJA- 05/25/2019 - Data Place holder creation 
         //********************************************************************
-        
         DataTable dtSource_dtl
         {
             get
@@ -212,19 +211,10 @@ namespace HRIS_ePayroll.View
                     ddl_payroll_group.SelectedValue = prevValues[7].ToString();
                     lbl_registry_number.Text = prevValues[7].ToString();
                     RetrieveReserveDeduction();
-                    //RetrieveDataListGrid();
-                    //RetrieveEmployeename();
-
                     ddl_payroll_template.Enabled            = false;
-                    //ddl_payroll_group.Enabled               = false;
                     ddl_month.Enabled                       = false;
                     ddl_year.Enabled                        = false;
                     ddl_empl_type.Enabled                   = false;
-
-                    //btn_editloan.Visible                    = false;
-                    //btn_contributions.Visible               = false;
-
-                    //RetrieveEmployeename();
                     RetrieveDataListGrid();
 
                 }
@@ -283,13 +273,6 @@ namespace HRIS_ePayroll.View
             Session["cPayRegistryJO"] = "cPayRegistryJO";
             
             RetrieveDataListGrid();
-            //RetrieveEmploymentType();
-            //Retrieve When Add
-            //RetrieveBindingDep();
-            //RetrieveBindingSubDep();
-            //RetrieveBindingDivision();
-            //RetrieveBindingSection();
-            //RetrieveBindingFundcharges();
             RetriveGroupings();
             RetriveTemplate();
             
@@ -308,7 +291,6 @@ namespace HRIS_ePayroll.View
             if (dt.Rows.Count > 0)
             {
                 hidden_monthly_days.Value      = dt.Rows[0]["monthly_salary_days_conv"].ToString();
-                //lbl_minimum_netpay_hidden.Text = dt.Rows[0]["minimum_net_pay"].ToString();
                 hidden_hrs_in1day.Value        = dt.Rows[0]["hours_in_1day_conv"].ToString();
             }
         }
@@ -337,95 +319,6 @@ namespace HRIS_ePayroll.View
             ListItem li = new ListItem("-- Select Here --", "");
             ddl_empl_id.Items.Insert(0, li);
         }
-        //********************************************************************
-        //  BEGIN - VJA- 05/25/2019 - Retrieve Department
-        //********************************************************************
-        //private void RetrieveBindingDep()
-        //{
-        //    ddl_dep.Items.Clear();
-        //    ddl_dep.ClearSelection();
-        //    DataTable dt = MyCmn.RetrieveData("sp_departments_tbl_list", "par_include_history", "N");
-
-        //    ddl_dep.DataSource = dt;
-        //    ddl_dep.DataValueField = "department_code";
-        //    ddl_dep.DataTextField = "department_name1";
-        //    ddl_dep.DataBind();
-        //    ListItem li = new ListItem("-- Select Here --", "");
-        //    ddl_dep.Items.Insert(0, li);
-        //}
-        ////********************************************************************
-        ////  BEGIN - VJA- 05/25/2019 - Retrieve SUb-Department
-        ////********************************************************************
-        //private void RetrieveBindingSubDep()
-        //{
-        //    ddl_subdep.Items.Clear();
-        //    DataTable dt = MyCmn.RetrieveData("sp_subdepartments_tbl_list");
-
-        //    ddl_subdep.DataSource = dt;
-        //    ddl_subdep.DataValueField = "subdepartment_code";
-        //    ddl_subdep.DataTextField = "subdepartment_short_name";
-        //    ddl_subdep.DataBind();
-        //    ListItem li = new ListItem("-- Select Here --", "");
-        //    ddl_subdep.Items.Insert(0, li);
-        //}
-        ////********************************************************************
-        ////  BEGIN - VJA- 05/25/2019 - Retrieve Division
-        ////********************************************************************
-        //private void RetrieveBindingDivision()
-        //{
-        //    ddl_division.Items.Clear();
-        //    DataTable dt = MyCmn.RetrieveData("sp_divisions_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString());
-
-        //    ddl_division.DataSource = dt;
-        //    ddl_division.DataValueField = "division_code";
-        //    ddl_division.DataTextField = "division_name1";
-        //    ddl_division.DataBind();
-        //    ListItem li = new ListItem("-- Select Here --", "");
-        //    ddl_division.Items.Insert(0, li);
-
-        //}
-        ////********************************************************************
-        ////  BEGIN - VJA- 05/25/2019 - Retrieve Section
-        ////********************************************************************
-        //private void RetrieveBindingSection()
-        //{
-        //    ddl_section.Items.Clear();
-        //    // ddl_section.ClearSelection();
-        //    DataTable dt1 = MyCmn.RetrieveData("sp_sections_tbl_combolist", "par_department_code", ddl_dep.SelectedValue.ToString().Trim(), "par_subdepartment_code", ddl_subdep.SelectedValue.ToString(), "par_division_code", ddl_division.SelectedValue.ToString().Trim());
-
-        //    ddl_section.DataSource = dt1;
-        //    ddl_section.DataValueField = "section_code";
-        //    ddl_section.DataTextField = "section_name1";
-        //    ddl_section.DataBind();
-        //    ListItem li = new ListItem("-- Select Here --", "");
-        //    ddl_section.Items.Insert(0, li);
-        //}
-        ////********************************************************************
-        ////  BEGIN - VJA- 05/25/2019 - Retrieve Fund Charges
-        ////********************************************************************
-        //private void RetrieveBindingFundcharges()
-        //{
-        //    ddl_fund_charges.Items.Clear();
-        //    // ddl_section.ClearSelection();
-        //    DataTable dt1 = MyCmn.RetrieveData("sp_fundcharges_tbl_list");
-
-        //    ddl_fund_charges.DataSource = dt1;
-        //    ddl_fund_charges.DataValueField = "fund_code";
-        //    ddl_fund_charges.DataTextField = "fund_description";
-        //    ddl_fund_charges.DataBind();
-        //    ListItem li = new ListItem("-- Select Here --", "");
-        //    ddl_fund_charges.Items.Insert(0, li);
-        //}
-        //*************************************************************************
-        //  BEGIN - VJA- 09/09/2018 - Hard Coded Employment Type - JO Only
-        //*************************************************************************
-        //private void RetrieveEmploymentType()
-        //{
-        //    ddl_empl_type.Items.Clear();
-        //    ListItem li = new ListItem("Job Order Employee", "JO");
-        //    ddl_empl_type.Items.Insert(0, li);
-        //    ddl_empl_type.Enabled = false;
-        //}
         //*************************************************************************
         //  BEGIN - VJA- 09/09/2018 - Populate Combo list for Payroll Year
         //*************************************************************************
@@ -517,8 +410,7 @@ namespace HRIS_ePayroll.View
         {
             btnSave.Visible = true;
             ClearEntry();
-            
-            //initialize table for saving in payrollregistry_jo_dtl_tbl
+
             InitializeTable_dtl();
             AddPrimaryKeys_dtl();
             AddNewRow_dtl();
@@ -531,8 +423,6 @@ namespace HRIS_ePayroll.View
             txtb_voucher_nbr.Enabled    = false;
 
             btn_calculate.Visible       = true;
-            //btn_contributions.Visible   = true;
-            //btn_editloan.Visible        = true;
             LabelAddEdit.Text   = "Add New Record | Registry No : " + lbl_registry_number.Text;
 
             RetrieveGetPremAndOther_flag();
@@ -541,9 +431,6 @@ namespace HRIS_ePayroll.View
 
             txtb_employeename.Visible = false;
             ddl_empl_id.Visible = true;
-            //btn_editloan.Visible = false;
-            //btn_contributions.Visible = false;
-
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
         //*************************************************************************
@@ -693,11 +580,6 @@ namespace HRIS_ePayroll.View
             
             ddl_empl_id.SelectedIndex       = -1;
             txtb_department_name1.Text      = "";
-            //ddl_dep.SelectedIndex           = -1;
-            //ddl_subdep.SelectedIndex        = -1;
-            //ddl_division.SelectedIndex      = -1;
-            //ddl_section.SelectedIndex       = -1;
-            //ddl_fund_charges.SelectedIndex  = -1;
 
             lbl_rate_basis_descr.Text   = "Rate Basis:";
 
@@ -1033,46 +915,14 @@ namespace HRIS_ePayroll.View
             dtSource_dtl.Rows[0]["action"] = 2;
             dtSource_dtl.Rows[0]["retrieve"] = true;
             
-            //RetrieveEmployeename();
             RetrieveGetPremAndOther_flag();
+            
+            txtb_department_name1.Text  = row2Edit[0]["department_name1"].ToString();
+            txtb_empl_id.Text           = svalues[0].ToString().Trim();
+            txtb_employeename.Text      = row2Edit[0]["employee_name"].ToString();
 
-            //if (row2Edit[0]["department_code"].ToString() != string.Empty)
-            //{
-            //    ddl_dep.SelectedValue = row2Edit[0]["department_code"].ToString();
-            //}
-            //if (row2Edit[0]["subdepartment_code"].ToString() != string.Empty)
-            //{
-            //    ddl_subdep.SelectedValue = row2Edit[0]["subdepartment_code"].ToString();
-            //}
-            //else
-            //{
-            //    ddl_subdep.SelectedIndex = -1;
-            //}
-            //RetrieveBindingDivision();
-
-            //if (row2Edit[0]["division_code"].ToString() != string.Empty && row2Edit[0]["division_code"].ToString() != "")
-            //{
-            //    ddl_division.SelectedValue = row2Edit[0]["division_code"].ToString();
-            //}
-            //else
-            //{
-            //    ddl_division.SelectedIndex = -1;
-            //}
-            //RetrieveBindingSection();
-
-            //if (row2Edit[0]["section_code"].ToString() != string.Empty)
-            //{
-            //    ddl_section.SelectedValue = row2Edit[0]["section_code"].ToString();
-            //}
-
-            //ddl_fund_charges.SelectedValue = row2Edit[0]["fund_code"].ToString();
-            txtb_department_name1.Text = row2Edit[0]["department_name1"].ToString();
-
-            txtb_empl_id.Text = svalues[0].ToString().Trim();
-            txtb_employeename.Text = row2Edit[0]["employee_name"].ToString();
-
-            txtb_employeename.Visible = true;
-            ddl_empl_id.Visible = false;
+            txtb_employeename.Visible   = true;
+            ddl_empl_id.Visible         = false;
             
             txtb_bir_tax_10percent.Text         = row2Edit[0]["wtax_10perc"].ToString().Trim();
             txtb_bir_tax_15percent.Text         = row2Edit[0]["wtax_15perc"].ToString().Trim();
@@ -1080,14 +930,9 @@ namespace HRIS_ePayroll.View
             txtb_bir_tax_3percent.Text          = row2Edit[0]["wtax_3perc"].ToString().Trim();
             txtb_bir_tax_5percent.Text          = row2Edit[0]["wtax_5perc"].ToString().Trim();
             txtb_bir_tax_8percent.Text          = row2Edit[0]["wtax_8perc"].ToString().Trim();
-
             txtb_ccmpc_loan.Text                = row2Edit[0]["ccmpc_ln"].ToString().Trim();
-
-            //*******************************??????start?????*******************************
             txtb_hdmf_addl.Text                 = row2Edit[0]["hdmf_ps2"].ToString().Trim();
             txtb_hdmf_mp2.Text                  = row2Edit[0]["hdmf_mp2"].ToString().Trim();
-            //*******************************??????end?????*********************************
-
             txtb_hdmf_cal_loan.Text             = row2Edit[0]["hdmf_cal_ln"].ToString().Trim();
             txtb_hdmf_gs.Text                   = row2Edit[0]["hdmf_gs"].ToString().Trim();
             txtb_hdmf_house_loan.Text           = row2Edit[0]["hdmf_hse_ln"].ToString().Trim();
@@ -1095,18 +940,13 @@ namespace HRIS_ePayroll.View
             txtb_hdmf_ps.Text                   = row2Edit[0]["hdmf_ps"].ToString().Trim();
             txtb_less.Text                      = double.Parse(row2Edit[0]["lates_mh_amount"].ToString().Trim()).ToString("###,##0.00");
             txtb_lates_and_undertime.Text       = row2Edit[0]["lates_mins_hrs"].ToString().Trim();
-
-
             txtb_networkbank_loan.Text          = row2Edit[0]["network_ln"].ToString().Trim();
             txtb_net_pay.Text                   = double.Parse(row2Edit[0]["net_pay"].ToString().Trim()).ToString("###,##0.00");
-
             txtb_nico_loan.Text                 = row2Edit[0]["nico_ln"].ToString().Trim();
             txtb_no_days_worked.Text            = row2Edit[0]["days_worked"].ToString().Trim();
             txtb_no_hours_worked.Text           = row2Edit[0]["hours_worked"].ToString().Trim();
-
             Update_days_worked.Update();
             Update_hours_worked.Update();
-
             txtb_otherloan_no1.Text             = row2Edit[0]["other_loan1"].ToString().Trim();
             txtb_otherloan_no2.Text             = row2Edit[0]["other_loan2"].ToString().Trim();
             txtb_otherloan_no3.Text             = row2Edit[0]["other_loan3"].ToString().Trim();
@@ -1185,7 +1025,6 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan9.Text   =  row2Edit[0]["other_ded_loan9"].ToString();
             txtb_other_ded_loan10.Text  =  row2Edit[0]["other_ded_loan10"].ToString();
 
-
             CheckIfNotEqualto_AmountDue();
             calculate_total_mandatory();
             calculate_total_loans();
@@ -1198,15 +1037,11 @@ namespace HRIS_ePayroll.View
             else { lbl_if_dateposted_yes.Text = ""; btnSave.Visible = true; }
             txtb_gross_pay.Text = double.Parse(row2Edit[0]["gross_pay"].ToString().Trim()).ToString("###,##0.00");
             Calculate_AmountDue();
-            
-            //btn_editloan.Visible = true;
-            //btn_contributions.Visible = true;
 
             LabelAddEdit.Text = "Edit Record | Registry No : " + lbl_registry_number.Text;
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_EDIT);
             ddl_empl_id.Enabled = false;
             FieldValidationColorChanged(false, "ALL");
-
             
             // Add Field Again - 06/20/2019
             txtb_voucher_nbr.Text           = row2Edit[0]["voucher_nbr"].ToString();
@@ -1247,8 +1082,6 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Close";
                 txtb_voucher_nbr.Enabled = false;
                 lbl_if_dateposted_yes.Text = "This Payroll Already Posted, You cannot Edit!";
-                //btn_contributions.Visible = false;
-                //btn_editloan.Visible = false;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = row2Edit[0]["date_posted"].ToString();
@@ -1262,8 +1095,6 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Cancel";
                 lbl_if_dateposted_yes.Text = "";
                 txtb_voucher_nbr.Enabled = true;
-                //btn_contributions.Visible = false;
-                //btn_editloan.Visible = false;
                 btnSave.Text = "Post to Card";
                 txtb_voucher_nbr.Enabled = true;
                 txtb_date_posted.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -1271,7 +1102,6 @@ namespace HRIS_ePayroll.View
             }
             // IF the Post Status is Released 
             else if (row2Edit[0]["post_status"].ToString()   == "R"
-                    //|| row2Edit[0]["post_status"].ToString() == "T"
                     || row2Edit[0]["post_status"].ToString() == "X"
                     )
             {
@@ -1281,8 +1111,6 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Close";
                 txtb_voucher_nbr.Enabled = false;
                 lbl_if_dateposted_yes.Text = "This Payroll Already " + row2Edit[0]["post_status_descr"].ToString() + ", You cannot Edit!";
-                //btn_contributions.Visible = false;
-                //btn_editloan.Visible = false;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = row2Edit[0]["date_posted"].ToString();
@@ -1296,8 +1124,6 @@ namespace HRIS_ePayroll.View
                 Linkbtncancel.Text = "Cancel";
                 txtb_voucher_nbr.Enabled = true;
                 lbl_if_dateposted_yes.Text = "";
-                //btn_contributions.Visible = true;
-                //btn_editloan.Visible = true;
                 btnSave.Text = "Save";
                 txtb_voucher_nbr.Enabled = false;
                 txtb_date_posted.Text = "";
@@ -1387,22 +1213,14 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["payroll_registry_nbr"]    = lbl_registry_number.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["empl_id"]                 = ddl_empl_id.SelectedValue.ToString().Trim();
                     dtSource_dtl.Rows[0]["rate_basis"]              = hidden_rate_basis.Value;
-
                     dtSource_dtl.Rows[0]["days_worked"]             = txtb_no_days_worked.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hours_worked"]            = txtb_no_hours_worked.Text.ToString().Trim();
-                   
                     dtSource_dtl.Rows[0]["monthly_rate"]            =  hidden_monthly_rate.Value; 
                     dtSource_dtl.Rows[0]["daily_rate"]              =  hidden_daily_rate.Value;
                     dtSource_dtl.Rows[0]["hourly_rate"]             =  hidden_hourly_rate.Value;
                     dtSource_dtl.Rows[0]["net_pay"]                 = txtb_net_pay.Text.ToString().Trim();
-                    //dtSource_dtl.Rows[0]["net_pay1"]              = txtb_net_pay_1h.Text.ToString().Trim();
-                    //dtSource_dtl.Rows[0]["net_pay2"]              = txtb_net_pay_2h.Text.ToString().Trim();
-
-                    //*******************???????????????????******************************
                     dtSource_dtl.Rows[0]["lates_mins_hrs"]          = txtb_lates_and_undertime.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["lates_mh_amount"]         = txtb_less.Text.ToString().Trim();
-                    //*******************???????end????????????***************************
-
                     dtSource_dtl.Rows[0]["hdmf_gs"]                 = txtb_hdmf_gs.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hdmf_ps"]                 = txtb_hdmf_ps.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["phic_gs"]                 = txtb_phic_gs.Text.ToString().Trim();
@@ -1432,24 +1250,18 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["gross_pay"]               = txtb_gross_pay.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["uniform_amt"]             = txtb_uniform.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hdmf_loyalty_card"]       = txtb_loyalty_card.Text.ToString().Trim();
-
                     dtSource_dtl.Rows[0]["post_status"]             = "N";
-                    // BEGIN - Add Field Again  - 06/20/2019
                     dtSource_dtl.Rows[0]["voucher_nbr"]             = txtb_voucher_nbr.Text.ToString();
                     dtSource_dtl.Rows[0]["created_by_user"]         = Session["ep_user_id"].ToString();
                     dtSource_dtl.Rows[0]["updated_by_user"]         = "";
-                    
                     dtSource_dtl.Rows[0]["created_dttm"]            = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     dtSource_dtl.Rows[0]["updated_dttm"]            = "";
-
                     dtSource_dtl.Rows[0]["posted_by_user"]          = "";
                     dtSource_dtl.Rows[0]["date_posted"]             = "";
                     dtSource_dtl.Rows[0]["nbr_days_absent"]         = txtb_no_absent_2nd.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hours_ot"]                = txtb_no_hours_ot.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hours_sal"]               = txtb_no_hours_sal.Text.ToString().Trim();
-
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource_dtl);
-
                 }
                 else if (saveRecord == MyCmn.CONST_EDIT)
                 {
@@ -1459,19 +1271,12 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["rate_basis"]              = hidden_rate_basis.Value;
                     dtSource_dtl.Rows[0]["days_worked"]             = txtb_no_days_worked.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hours_worked"]            = txtb_no_hours_worked.Text.ToString().Trim();
-
                     dtSource_dtl.Rows[0]["monthly_rate"]            = hidden_monthly_rate.Value;  
                     dtSource_dtl.Rows[0]["daily_rate"]              = hidden_daily_rate.Value;
                     dtSource_dtl.Rows[0]["hourly_rate"]             = hidden_hourly_rate.Value;
                     dtSource_dtl.Rows[0]["net_pay"]                 = txtb_net_pay.Text.ToString().Trim();
-                    //dtSource_dtl.Rows[0]["net_pay1"]              = txtb_net_pay_1h.Text.ToString().Trim();
-                    //dtSource_dtl.Rows[0]["net_pay2"]              = txtb_net_pay_2h.Text.ToString().Trim();
-
-                    //*******************???????????????????******************************
                     dtSource_dtl.Rows[0]["lates_mins_hrs"]          = txtb_lates_and_undertime.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["lates_mh_amount"]         = txtb_less.Text.ToString().Trim();
-                    //*******************???????end????????????***************************
-
                     dtSource_dtl.Rows[0]["hdmf_gs"]                 = txtb_hdmf_gs.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["hdmf_ps"]                 = txtb_hdmf_ps.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["phic_gs"]                 = txtb_phic_gs.Text.ToString().Trim();
@@ -1499,10 +1304,8 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["other_loan2"]             = txtb_otherloan_no2.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["other_loan3"]             = txtb_otherloan_no3.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["gross_pay"]               = txtb_gross_pay.Text.ToString().Trim();
-                    dtSource_dtl.Rows[0]["uniform_amt"] = txtb_uniform.Text.ToString().Trim();
-                    dtSource_dtl.Rows[0]["hdmf_loyalty_card"] = txtb_loyalty_card.Text.ToString().Trim();
-
-
+                    dtSource_dtl.Rows[0]["uniform_amt"]             = txtb_uniform.Text.ToString().Trim();
+                    dtSource_dtl.Rows[0]["hdmf_loyalty_card"]       = txtb_loyalty_card.Text.ToString().Trim();
                     // BEGIN - Add Field Again  - 06/20/2019
                     dtSource_dtl.Rows[0]["created_by_user"]         = ViewState["created_by_user"].ToString();
                     dtSource_dtl.Rows[0]["updated_by_user"]         = Session["ep_user_id"].ToString();
@@ -1583,30 +1386,20 @@ namespace HRIS_ePayroll.View
                         nrow["gross_pay"]                   = txtb_gross_pay.Text.ToString().Trim();
                         nrow["uniform_amt"]                 = txtb_uniform.Text.ToString().Trim();
                         nrow["hdmf_loyalty_card"]           = txtb_loyalty_card.Text.ToString().Trim();
-
-                        nrow["department_name1"]             = txtb_department_name1.Text.ToString().Trim();
-                        //nrow["department_code"]             = ddl_dep.SelectedValue.ToString().Trim();
-                        //nrow["subdepartment_code"]          = ddl_subdep.SelectedValue.ToString().Trim();
-                        //nrow["division_code"]               = ddl_division.SelectedValue.ToString().Trim();
-                        //nrow["section_code"]                = ddl_section.SelectedValue.ToString().Trim();
-                        //nrow["fund_code"]                   = ddl_fund_charges.SelectedValue.ToString().Trim();
-
-                        // BEGIN - Add Field Again  - 06/20/2019
-                        nrow["post_status"]             = "N";
-                        nrow["post_status_descr"]       = "NOT POSTED";
-                        nrow["voucher_nbr"]             = txtb_voucher_nbr.Text.ToString();
-                        nrow["created_by_user"]         = Session["ep_user_id"].ToString();
-                        nrow["updated_by_user"]         = "";
-                        nrow["created_dttm"]            = DateTime.Now;
-                        nrow["updated_dttm"]            = Convert.ToDateTime("1900-01-01");
-                        nrow["posted_by_user"]          = "";
-                        nrow["date_posted"]             = "";
-                        nrow["position_title1"]         = txtb_position.Text.ToString();
-                        nrow["hours_ot"]                = txtb_no_hours_ot.Text.ToString().Trim();
-                        nrow["hours_sal"]                = txtb_no_hours_sal.Text.ToString().Trim();
-
-                        nrow["nbr_days_absent"] = txtb_no_absent_2nd.Text.ToString().Trim();
-
+                        nrow["department_name1"]            = txtb_department_name1.Text.ToString().Trim();
+                        nrow["post_status"]                 = "N";
+                        nrow["post_status_descr"]           = "NOT POSTED";
+                        nrow["voucher_nbr"]                 = txtb_voucher_nbr.Text.ToString();
+                        nrow["created_by_user"]             = Session["ep_user_id"].ToString();
+                        nrow["updated_by_user"]             = "";
+                        nrow["created_dttm"]                = DateTime.Now;
+                        nrow["updated_dttm"]                = Convert.ToDateTime("1900-01-01");
+                        nrow["posted_by_user"]              = "";
+                        nrow["date_posted"]                 = "";
+                        nrow["position_title1"]             = txtb_position.Text.ToString();
+                        nrow["hours_ot"]                    = txtb_no_hours_ot.Text.ToString().Trim();
+                        nrow["hours_sal"]                   = txtb_no_hours_sal.Text.ToString().Trim();
+                        nrow["nbr_days_absent"]             = txtb_no_absent_2nd.Text.ToString().Trim();
                         // Add Field  2022-05-30
                         nrow["other_ded_mand1"]       = txtb_other_ded_mand1.Text.ToString().Trim();
                         nrow["other_ded_mand2"]       = txtb_other_ded_mand2.Text.ToString().Trim();
@@ -1638,7 +1431,6 @@ namespace HRIS_ePayroll.View
                         nrow["other_ded_loan8"]       = txtb_other_ded_loan8.Text.ToString().Trim();
                         nrow["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         nrow["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
-
                         nrow["hours_ot_010"]          = txtb_no_hours_ot_010.Text;
                         nrow["hours_sal_010"]         = txtb_no_hours_sal_010.Text;
 
@@ -1694,14 +1486,7 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["gross_pay"]            = txtb_gross_pay.Text.ToString().Trim();
                         row2Edit[0]["uniform_amt"]          = txtb_uniform.Text.ToString().Trim();
                         row2Edit[0]["hdmf_loyalty_card"]    = txtb_loyalty_card.Text.ToString().Trim();
-
                         row2Edit[0]["department_name1"]     = txtb_department_name1.Text.ToString().Trim();
-                        //row2Edit[0]["department_code"]      = ddl_dep.SelectedValue.ToString().Trim();
-                        //row2Edit[0]["subdepartment_code"]   = ddl_subdep.SelectedValue.ToString().Trim();
-                        //row2Edit[0]["division_code"]        = ddl_division.SelectedValue.ToString().Trim();
-                        //row2Edit[0]["section_code"]         = ddl_section.SelectedValue.ToString().Trim();
-                        //row2Edit[0]["fund_code"]            = ddl_fund_charges.SelectedValue.ToString().Trim();
-
                         // BEGIN - Add Field Again  - 06/20/2019
                         row2Edit[0]["created_by_user"]         = ViewState["created_by_user"].ToString();
                         row2Edit[0]["updated_by_user"]         = Session["ep_user_id"].ToString();
@@ -1753,7 +1538,6 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["other_ded_loan8"]       = txtb_other_ded_loan8.Text.ToString().Trim();
                         row2Edit[0]["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         row2Edit[0]["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
-
                         row2Edit[0]["hours_ot_010"]          = txtb_no_hours_ot_010.Text;
                         row2Edit[0]["hours_sal_010"]         = txtb_no_hours_sal_010.Text;
 
@@ -1875,13 +1659,6 @@ namespace HRIS_ePayroll.View
         private bool IsDataValidated2()
         {
             bool validatedSaved = true;
-            //if (ddl_dep.SelectedValue == "")
-            //{
-            //    FieldValidationColorChanged(true, "ddl_dep");
-            //    ddl_dep.Focus();
-            //    validatedSaved = false;
-            //}
-            //else 
             if (ddl_empl_id.SelectedValue == "")
             {
                 FieldValidationColorChanged(true, "ddl_empl_id");
@@ -2944,7 +2721,6 @@ namespace HRIS_ePayroll.View
                             txtb_no_absent_2nd.BorderColor          = Color.LightGray;
                             txtb_no_hours_ot.BorderColor            = Color.LightGray;
                             txtb_no_hours_sal.BorderColor            = Color.LightGray;
-
                             
                             req_other_ded_mand1.Text = "";
                             req_other_ded_mand2.Text = "";
@@ -3022,87 +2798,12 @@ namespace HRIS_ePayroll.View
             }
         }
         //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Select Employment Type
-        //*************************************************************************
-        //protected void ddl_empl_type_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (ddl_empl_type.SelectedValue != "" && ddl_payroll_group.SelectedValue.ToString().Trim() != "" && ddl_year.SelectedValue.ToString().Trim() != "" && ddl_month.SelectedValue != "" && ddl_payroll_template.SelectedValue != "")
-        //    {
-               
-        //        btnAdd.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        btnAdd.Visible = false;
-        //    }
-
-        //    RetrieveDataListGrid();
-        //    RetrieveEmployeename();
-        //    UpdatePanel10.Update();
-        //}
-        //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Select Department 
-        //*************************************************************************
-        //protected void ddl_dep_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (ddl_dep.SelectedValue != "")
-        //    {
-        //        RetrieveBindingSubDep();
-        //        RetrieveBindingDivision();
-        //        RetrieveBindingSection();
-        //        RetrieveEmployeename();
-        //        if (dtSource_dtl_for_display.Rows.Count > 0)
-        //        {
-        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop6", "openNotification1();", true);
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        FieldValidationColorChanged(true, "ddl_dep");
-        //    }
-        //}
-        //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Select Sub-Department
-        //*************************************************************************
-        //protected void ddl_subdep_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    RetrieveBindingDivision();
-        //    RetrieveBindingSection();
-        //    RetrieveEmployeename();
-        //    ddl_subdep.Focus();
-        //}
-        //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Select Division
-        //*************************************************************************
-        //protected void ddl_division_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    RetrieveBindingSection();
-        //    RetrieveEmployeename();
-        //    ddl_division.Focus();
-        //}
-        //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Select Section
-        //*************************************************************************
-        //protected void ddl_section_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    RetrieveEmployeename();
-        //}
-        //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Payroll Year
         //*************************************************************************
         protected void ddl_year_SelectedIndexChanged(object sender, EventArgs e)
         {
             RetrieveDataListGrid();
         }
-        //**************************************************************************
-        //  BEGIN - VJA- 05/25/2019 -Triggers When Click No Keep It!
-        //*************************************************************************
-        //protected void lnk_btn_keepit_Command(object sender, CommandEventArgs e)
-        //{
-        //    ddl_dep.SelectedValue = e.CommandArgument.ToString();
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop7", "closeNotification1();", true);
-        //}
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 -Triggers When Select Employee Name
         //*************************************************************************
@@ -3112,7 +2813,6 @@ namespace HRIS_ePayroll.View
 
             if (ddl_empl_id.SelectedValue.ToString().Trim() != "")
             {
-
                 // *************************************************************************************************************
                 // ******* BEGIN : 2022-09-23 - Check the Payroll Validations **************************************************
                 // *************************************************************************************************************
@@ -3134,20 +2834,12 @@ namespace HRIS_ePayroll.View
                 // *************************************************************************************************************
 
                 header_details();
-                //btn_editloan.Visible = true;
-                //btn_contributions.Visible = true;
-
                 Update_days_worked.Update();
                 Update_hours_worked.Update();
-                // Calculate_Days_worked_Ded_Absent();
-                // Calculate_PHIC();
-                // Calculate_Taxes();
                 Calculate_Days_worked_Ded_Absent();
                 calculate_grossamount();
                 Calculate_Absent();
-                //Calculate_PHIC();
                 CheckIfNotEqualto_AmountDue();
-                //Calculate_Taxes();
                 calculate_total_loans();
                 calculate_total_mandatory();
                 calculate_total_optional();
@@ -3156,8 +2848,6 @@ namespace HRIS_ePayroll.View
             else
             {
                 ClearEntry();
-                //btn_editloan.Visible = false;
-                //btn_contributions.Visible = false;
             }
         }
         //**************************************************************************
@@ -3173,36 +2863,15 @@ namespace HRIS_ePayroll.View
             
             if (selected_employee.Length > 0)
             {
-                //RetrieveBindingDep();
-
-                //ddl_dep.SelectedValue               = selected_employee[0]["department_code"].ToString();
-                //RetrieveBindingSubDep();
-
-                //ddl_subdep.SelectedValue            = selected_employee[0]["subdepartment_code"].ToString();
-                //RetrieveBindingDivision();
-
-                //ddl_division.SelectedValue          = selected_employee[0]["division_code"].ToString();
-                //RetrieveBindingSection();
-
-                //ddl_section.SelectedValue           = selected_employee[0]["section_code"].ToString();
-                //RetrieveBindingFundcharges();
-
-                //ddl_fund_charges.SelectedValue      = selected_employee[0]["fund_code"].ToString();
                 txtb_department_name1.Text          = selected_employee[0]["department_name1"].ToString();
                 rate_basis                          = selected_employee[0]["rate_basis"].ToString();
-                
                 lbl_rate_basis_descr.Text           = selected_employee[0]["rate_basis_descr"].ToString() + " Rate :";
-
                 hidden_monthly_rate.Value           = selected_employee[0]["monthly_rate"].ToString();
                 hidden_hourly_rate.Value            = selected_employee[0]["hourly_rate"].ToString();
                 hidden_daily_rate.Value             = selected_employee[0]["daily_rate"].ToString();
                 hidden_rate_basis.Value             = selected_employee[0]["rate_basis"].ToString();
-
-                txtb_lates_and_undertime.Text   = selected_employee[0]["under_time"].ToString();
-                // txtb_no_days_worked.Text        = selected_employee[0]["time_days_equi"].ToString();
-                // txtb_no_hours_worked.Text       = selected_employee[0]["time_hours_equi"].ToString();
-
-                txtb_no_days_worked.Text        = selected_employee[0]["no_of_workdays"].ToString();
+                txtb_lates_and_undertime.Text       = selected_employee[0]["under_time"].ToString();
+                txtb_no_days_worked.Text            = selected_employee[0]["no_of_workdays"].ToString();
                 calculate_hours_worked();
 
                 txtb_empl_id.Text = selected_employee[0]["empl_id"].ToString();
@@ -3261,14 +2930,6 @@ namespace HRIS_ePayroll.View
                 }
 
             // BEGIN - VJA : 05/22/2019         - Populate Details During Add Mode
-
-            //txtb_bir_tax_10percent.Text         = selected_employee[0]["wtax_10perc"].ToString().Trim();  -- Maong Ge Comment ni Kay Wala sa SP "sp_personnelnames_combolist_preg_jo"
-            //txtb_bir_tax_15percent.Text         = selected_employee[0]["wtax_15perc"].ToString().Trim();  -- 
-            //txtb_bir_tax_2percent.Text          = selected_employee[0]["wtax_2perc"].ToString().Trim();   -- 
-            //txtb_bir_tax_3percent.Text          = selected_employee[0]["wtax_3perc"].ToString().Trim();   -- 
-            //txtb_bir_tax_5percent.Text          = selected_employee[0]["wtax_5perc"].ToString().Trim();   -- 
-            //txtb_bir_tax_8percent.Text          = selected_employee[0]["wtax_8perc"].ToString().Trim();   -- 
-
             txtb_ccmpc_loan.Text                = selected_employee[0]["ccmpc_ln"].ToString().Trim();
             txtb_hdmf_addl.Text                 = selected_employee[0]["hdmf_ps2"].ToString().Trim();
             txtb_hdmf_mp2.Text                  = selected_employee[0]["hdmf_mp2"].ToString().Trim();
@@ -3291,20 +2952,11 @@ namespace HRIS_ePayroll.View
             txtb_sss.Text                       = selected_employee[0]["sss_ps"].ToString().Trim();
             txtb_uniform.Text                   = selected_employee[0]["uniform_amt"].ToString().Trim();
             txtb_loyalty_card.Text              = selected_employee[0]["hdmf_loyalty_card"].ToString().Trim();
-
-            txtb_position.Text              = selected_employee[0]["position_title1"].ToString().Trim();
-            // END - VJA : 05/22/2019         - Populate Details During Add Mode
-            
-            // VJA : 2020-10-07 - New Added Textboxes
-            // txtb_no_working_1st.Text        = selected_employee[0]["nod_work_1st_010"].ToString();
-            txtb_no_absent_1st.Text         = selected_employee[0]["nbr_days_absent_010"].ToString();
-            txtb_no_worked_1st.Text         = selected_employee[0]["days_worked_010"].ToString();
-            txtb_no_hours_worked_1st.Text   = selected_employee[0]["hours_worked_010"].ToString();
-
-            // VJA : 2022-09-26 - Additional Populate field for Absent
-            txtb_no_absent_2nd.Text = selected_employee[0]["nbr_days_absent"].ToString();
-            // VJA : 2022-09-26 - Additional Populate field for Absent
-
+            txtb_position.Text                  = selected_employee[0]["position_title1"].ToString().Trim();
+            txtb_no_absent_1st.Text             = selected_employee[0]["nbr_days_absent_010"].ToString();
+            txtb_no_worked_1st.Text             = selected_employee[0]["days_worked_010"].ToString();
+            txtb_no_hours_worked_1st.Text       = selected_employee[0]["hours_worked_010"].ToString();
+            txtb_no_absent_2nd.Text             = selected_employee[0]["nbr_days_absent"].ToString();
 
             Update_lates_and_undertime.Update();
             Update_rate_amount.Update();
@@ -3329,13 +2981,9 @@ namespace HRIS_ePayroll.View
         private void calculate_grossamount()
         {
             decimal lates_time       = 0;
-            double gross_pay        = 0;
-            //string str_gross_pay    = "";
+            double gross_pay         = 0;
             decimal lates_amount     = 0;
-            string str_lates_amount = "";
-            //if (dataList_employee.Rows != null || dataList_employee != null)
-            //{
-                // DataRow[] selected_employee = dataList_employee.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
+            string str_lates_amount  = "";
                 lates_time = decimal.Parse((txtb_lates_and_undertime.Text.ToString().Trim() != "" ? txtb_lates_and_undertime.Text.ToString().Trim() : "0"));
                 lates_time = lates_time / 60;
 
@@ -3348,59 +2996,38 @@ namespace HRIS_ePayroll.View
                 {
                     case "M": // Rate basis = Monthly Rate is Daily Rate * No of days Worked
                         {
-                            //if (txtb_no_days_worked.Text.ToString().Trim() != "" && txtb_no_days_worked.Text.ToString().Trim() != "0" && txtb_no_days_worked.Text.ToString().Trim('0') != "")
-                            //{
-                            //    gross_pay = double.Parse(txtb_rate_amount.Text.ToString()) * double.Parse(txtb_no_days_worked.Text.ToString().Trim());
-                            //}
-                            //else
-                            //{
-                            //}
-                            gross_pay = double.Parse(txtb_rate_amount.Text.ToString());
-                            lates_amount = decimal.Parse(hidden_daily_rate.Value.ToString()) * (lates_time / decimal.Parse(hidden_hrs_in1day.Value));
-                            //txtb_rate_amount.Text   = selected_employee[0]["monthly_rate"].ToString();
-                            
+                            gross_pay                   = double.Parse(txtb_rate_amount.Text.ToString());
+                            lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) * (lates_time / decimal.Parse(hidden_hrs_in1day.Value));
                             decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);
                             lates_amount                = decimal.Parse(str_lates_amount_1) * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-
-                            hidden_monthly_rate.Value = txtb_rate_amount.Text.ToString();
-                            
+                            hidden_monthly_rate.Value   = txtb_rate_amount.Text.ToString();
                             break;
                         }
                     case "D": // Rate basis = Daily Rate is Daily Rate * No of days Worked
                         {
-                            //lates_amount = double.Parse(selected_employee[0]["daily_rate"].ToString()) * (lates_time / double.Parse(hidden_hrs_in1day.Value));
-                            lates_amount = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-
+                            lates_amount                = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
                             decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);
                             lates_amount                = decimal.Parse(str_lates_amount_1) * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-
-                            gross_pay = double.Parse(txtb_rate_amount.Text.ToString()) * double.Parse(txtb_no_days_worked.Text.ToString().Trim() != "" ? txtb_no_days_worked.Text.ToString().Trim() : "0");
-                            txtb_rate_amount.Text = txtb_rate_amount.Text;
-
+                            gross_pay                   = double.Parse(txtb_rate_amount.Text.ToString()) * double.Parse(txtb_no_days_worked.Text.ToString().Trim() != "" ? txtb_no_days_worked.Text.ToString().Trim() : "0");
+                            txtb_rate_amount.Text       = txtb_rate_amount.Text;
                             hidden_daily_rate.Value     = txtb_rate_amount.Text.ToString(); 
-
                             break;
                         }
                     case "H":// Rate basis = Hourlky Rate is Hourly Rate * No of Hours Worked
                         {
-                            //txtb_rate_amount.Text   = selected_employee[0]["hourly_rate"].ToString();
-                            //lates_amount            = double.Parse(selected_employee[0]["daily_rate"].ToString()) * (lates_time / double.Parse(hidden_hrs_in1day.Value));
-                            lates_amount = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-                            
+                            lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
                             decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);
                             lates_amount                = decimal.Parse(str_lates_amount_1) * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-
-                            gross_pay = double.Parse(txtb_rate_amount.Text) * double.Parse(txtb_no_hours_worked.Text.ToString());
-
+                            gross_pay                   = double.Parse(txtb_rate_amount.Text) * double.Parse(txtb_no_hours_worked.Text.ToString());
                             hidden_hourly_rate.Value = txtb_rate_amount.Text.ToString();
                             break;
                         }
@@ -3410,19 +3037,11 @@ namespace HRIS_ePayroll.View
                             break;
                         }
                 }
-            //}
-            
-            // OLD COMPUTATION ********** GE COMMENT : VJA **********
-            // str_gross_pay       = gross_pay.ToString("###,##0.0000");
-            // str_gross_pay       = str_gross_pay.Split('.')[0] + "." + str_gross_pay.Split('.')[1].Substring(0, 2);
-            // txtb_gross_pay.Text = str_gross_pay.ToString();
-
             // NEW COMPUTATION **************************************
             txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
-
-            str_lates_amount = lates_amount.ToString("###,##0.00");
-            str_lates_amount = str_lates_amount.Split('.')[0] + "." + str_lates_amount.Split('.')[1].Substring(0, 2);
-            txtb_less.Text = str_lates_amount;
+            str_lates_amount    = lates_amount.ToString("###,##0.00");
+            str_lates_amount    = str_lates_amount.Split('.')[0] + "." + str_lates_amount.Split('.')[1].Substring(0, 2);
+            txtb_less.Text      = str_lates_amount;
         }
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 - Triggers When Click Calculate Button
@@ -3431,7 +3050,6 @@ namespace HRIS_ePayroll.View
         {
             if (IsDataValidated())
             {
-                //Calculate_Days_worked_Ded_Absent();
                 calculate_grossamount();
                 Calculate_Absent();
                 Calculate_AmountDue();
@@ -3573,35 +3191,29 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         protected void txtb_no_hours_worked_TextChanged(object sender, EventArgs e)
         {
-            //if (IsDataValidated())
-            //{
-                calculate_days_worked();
-                CheckIfNotEqualto_AmountDue();
+            calculate_days_worked();
+            CheckIfNotEqualto_AmountDue();
 
-                if (ddl_payroll_template.SelectedValue == "009" 
-                    //|| ddl_payroll_template.SelectedValue == "010" 
-                    //|| ddl_payroll_template.SelectedValue == "011"
-                    )
-                {
-                    calculate_grossamount();
-                    Calculate_Absent();
-                    Calculate_AmountDue();
-                    Calculate_PHIC();
-                    Calculate_Taxes();
-                    calculate_total_loans();
-                    calculate_total_mandatory();
-                    calculate_total_optional();
-                    calculate_netpay();
-                }
+            if (ddl_payroll_template.SelectedValue == "009")
+            {
+                calculate_grossamount();
+                Calculate_Absent();
+                Calculate_AmountDue();
+                Calculate_PHIC();
+                Calculate_Taxes();
+                calculate_total_loans();
+                calculate_total_mandatory();
+                calculate_total_optional();
+                calculate_netpay();
+            }
 
-                txtb_no_hours_sal.Text = txtb_no_hours_worked.Text;
+            txtb_no_hours_sal.Text = txtb_no_hours_worked.Text;
             Calculate_Hours_OT();
             Update_txtb_no_hours_sal.Update();
 
-                Update_days_worked.Update();
-                txtb_no_hours_worked.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
-                txtb_no_hours_worked.Focus();
-            //}
+            Update_days_worked.Update();
+            txtb_no_hours_worked.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+            txtb_no_hours_worked.Focus();
         }
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 - Triggers When Put Value on Textbox  : txtb_no_days_worked
@@ -3611,10 +3223,7 @@ namespace HRIS_ePayroll.View
             calculate_hours_worked();
             CheckIfNotEqualto_AmountDue();
 
-            if (ddl_payroll_template.SelectedValue == "009"
-                //|| ddl_payroll_template.SelectedValue == "010" 
-                //|| ddl_payroll_template.SelectedValue == "011"
-                )
+            if (ddl_payroll_template.SelectedValue == "009")
             {
                 calculate_grossamount();
                 Calculate_Absent();
@@ -3675,24 +3284,6 @@ namespace HRIS_ePayroll.View
             }
         }
         //**************************************************************************
-        //  BEGIN - VJA- 09/12/2018 - Redirect to Account Ledger Page
-        //**************************************************************************
-        //protected void btn_editloan_Click(object sender, EventArgs e)
-        //{
-        //    // BEGIN - Pass Value
-        //    // Employee ID      [0]
-        //    // Registry         [1]
-        //    // Year             [2]
-        //    // Employment Type  [3]
-        //    // Department       [4]
-        //    // END   - Pass Value
-
-        //    string url = "";
-        //    Session["PreviousValuesonPage_cPayRegistry_RECEJO"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString();
-        //    url = "/View/cPayAccountLedger/cPayAccountLedger.aspx";
-        //    Response.Redirect(url);
-        //}
-        //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Hidden Button Trriggers When Back To this Page
         //**************************************************************************
         protected void btn_edit_hidden_Click(object sender, EventArgs e)
@@ -3713,26 +3304,6 @@ namespace HRIS_ePayroll.View
                 Session["PreviousValuesonPage_EmployeeName"] = "";
             }
         }
-        //**************************************************************************
-        //  BEGIN - VJA- 09/12/2018 - Redirect to Other Contribution Page
-        //**************************************************************************
-        //protected void btn_contributions_Click(object sender, EventArgs e)
-        //{
-        //    // BEGIN - Pass Value
-        //    // Employee ID      [0]
-        //    // Registry         [1]
-        //    // Year             [2]
-        //    // Employment Type  [3]
-        //    // Department       [4]
-        //    // Employee Name    [5]
-        //    // END  - Pass Value
-
-        //    string url = "";
-        //    Session["PreviousValuesonPage_cPayRegistry_RECEJO_OthContributions"] = txtb_empl_id.Text.ToString() + "," + lbl_registry_number.Text.ToString() + "," + ddl_year.SelectedValue.ToString() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_dep.SelectedValue.ToString() + "," + txtb_employeename.Text.ToString(); ;
-        //    Session["PreviousValuesonPage_EmployeeName"] = txtb_employeename.Text.ToString();
-        //    url = "/View/cPayOthContributions_AddEdit/cPayOthContributions_AddEdit.aspx";
-        //    Response.Redirect(url);
-        //}
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Toogle All Textbox 
         //**************************************************************************
@@ -3755,7 +3326,6 @@ namespace HRIS_ePayroll.View
             txtb_less.Enabled                 = ifenable;
             txtb_lates_and_undertime.Enabled  = ifenable;
             txtb_networkbank_loan.Enabled     = ifenable;
-            //txtb_net_pay.Enabled              = ifenable;
             txtb_nico_loan.Enabled            = ifenable;
             txtb_no_days_worked.Enabled       = ifenable;
             txtb_no_hours_worked.Enabled      = ifenable;
@@ -3771,11 +3341,8 @@ namespace HRIS_ePayroll.View
             txtb_sss.Enabled                  = ifenable;
             txtb_uniform.Enabled              = ifenable;
             txtb_loyalty_card.Enabled         = ifenable;
-
-            txtb_rate_amount.Enabled    = ifenable;
-            txtb_no_absent_2nd.Enabled  = ifenable;
-
-            
+            txtb_rate_amount.Enabled          = ifenable;
+            txtb_no_absent_2nd.Enabled        = ifenable;
             txtb_other_ded_mand1.Enabled      = ifenable;
             txtb_other_ded_mand2.Enabled      = ifenable;
             txtb_other_ded_mand3.Enabled      = ifenable;
@@ -3814,7 +3381,6 @@ namespace HRIS_ePayroll.View
         private void Calculate_PHIC()
         {
             double phic_ps_amt = 0;
-
             
             DataTable dt_perc = MyCmn.RetrieveData("sp_philhealth_tbl_list");
             string selectExpression = "effective_date = '" + ddl_year.SelectedValue.ToString().Trim() + "-01-01" + "'";
@@ -3825,10 +3391,7 @@ namespace HRIS_ePayroll.View
             {
                 var date_selected = ddl_year.SelectedValue.ToString().Trim() + '-' + ddl_month.SelectedValue.ToString().Trim() + "-01";
 
-                if (DateTime.Parse(date_selected).Year >= 2022
-                     //&&
-                    //DateTime.Parse(date_selected).Month >= 03
-                    )
+                if (DateTime.Parse(date_selected).Year >= 2022)
                 {
                     double gross_ded_lates = 0;
                     gross_ded_lates = double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text);
@@ -3858,29 +3421,8 @@ namespace HRIS_ePayroll.View
             }
             else 
             {
-                // DataTable dt = MyCmn.RetrieveData("sp_phic_compute_indv_jo", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "p_empl_id", txtb_empl_id.Text.ToString().Trim(), "p_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "p_gross_pay", txtb_gross_pay.Text.ToString().Trim());
-                // if (dt.Rows != null || dt != null)
-                // {
-                //     txtb_phic_ps.Text = dt.Rows[0]["phic_ps"].ToString().Trim();
-                // }
-
                 txtb_phic_ps.Text = "0.00";
-                // 2020-09-03
-                // Monthly Payroll - Job-Order Employees kay dedukan sila sa PHIC share
-                // Confirm ni Cy.x sa HR (Maam Medldrid)
             }
-            
-            // -------------------OLD COMPUTATION IS THIS ----- VJA as of 2020-08-12
-
-            // if (ddl_payroll_template.SelectedValue == "010" ||  // 1st Quincena Payroll
-            //     ddl_payroll_template.SelectedValue == "011")    // 2nd Quincena Payroll
-            // {
-            //     DataTable dt = MyCmn.RetrieveData("sp_phic_compute_indv_jo", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "p_empl_id", txtb_empl_id.Text.ToString().Trim(), "p_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "p_gross_pay", txtb_gross_pay.Text.ToString().Trim());
-            //     if (dt.Rows != null || dt != null)
-            //     {
-            //         txtb_phic_ps.Text = dt.Rows[0]["phic_ps"].ToString().Trim();
-            //     }
-            // }
         }
 
         //***************************************************************************
@@ -4275,11 +3817,6 @@ namespace HRIS_ePayroll.View
             double ot_amt_010   = 0;
             double ot_sal_010   = 0;
 
-            // ot_amt       = double.Parse(txtb_no_hours_ot.Text)      * double.Parse(hidden_hourly_rate.Value.ToString());
-            // ot_sal       = double.Parse(txtb_no_hours_sal.Text)     * double.Parse(hidden_hourly_rate.Value.ToString());
-            // ot_amt_010   = double.Parse(txtb_no_hours_ot_010.Text)  * double.Parse(hidden_hourly_rate.Value.ToString());
-            // ot_sal_010   = double.Parse(txtb_no_hours_sal_010.Text) * double.Parse(hidden_hourly_rate.Value.ToString());
-            
             switch (hidden_rate_basis.Value.ToString().Trim())
             {
                 case "H":
@@ -4289,11 +3826,7 @@ namespace HRIS_ePayroll.View
                     ot_sal_010   = double.Parse(txtb_no_hours_sal_010.Text) * double.Parse(txtb_rate_amount.Text.ToString());
                     break;
                 case "D":
-                    // ot_amt       = double.Parse(txtb_no_hours_ot.Text)      * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
-                    // ot_sal       = double.Parse(txtb_no_hours_sal.Text)     * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
-                    // ot_amt_010   = double.Parse(txtb_no_hours_ot_010.Text)  * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
-                    // ot_sal_010   = double.Parse(txtb_no_hours_sal_010.Text) * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
-
+                   
                     ot_amt       = (double.Parse(txtb_no_hours_ot.Text).ToString()      == "" ? 0 :double.Parse(txtb_no_hours_ot.Text)     ) * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
                     ot_sal       = (double.Parse(txtb_no_hours_sal.Text).ToString()     == "" ? 0 :double.Parse(txtb_no_hours_sal.Text)    ) * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
                     ot_amt_010   = (double.Parse(txtb_no_hours_ot_010.Text).ToString()  == "" ? 0 :double.Parse(txtb_no_hours_ot_010.Text) ) * (double.Parse(txtb_rate_amount.Text.ToString()) / double.Parse(hidden_hrs_in1day.Value));
@@ -4326,26 +3859,18 @@ namespace HRIS_ePayroll.View
 
         protected void txtb_no_hours_ot_TextChanged(object sender, EventArgs e)
         {
-            //if (IsDataValidated())
-            //{
-                Calculate_Hours_OT();
-
-                Update_txtb_no_hours_ot.Update();
-                txtb_no_hours_ot.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
-                txtb_no_hours_ot.Focus();
-           // }
+            Calculate_Hours_OT();
+            Update_txtb_no_hours_ot.Update();
+            txtb_no_hours_ot.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+            txtb_no_hours_ot.Focus();
         }
 
         protected void txtb_no_hours_sal_TextChanged(object sender, EventArgs e)
         {
-            //if (IsDataValidated())
-            //{
-                Calculate_Hours_OT();
-
-                Update_txtb_no_hours_sal.Update();
-                txtb_no_hours_sal.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
-                txtb_no_hours_sal.Focus();
-            //}
+            Calculate_Hours_OT();
+            Update_txtb_no_hours_sal.Update();
+            txtb_no_hours_sal.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+            txtb_no_hours_sal.Focus();
         }
 
         //*****************************************************************
