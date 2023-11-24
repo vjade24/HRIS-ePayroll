@@ -101,7 +101,7 @@
           <li >
               <div class="row">
                 <div class="col-12 text-center profile-container">
-                    <img alt="" id="img_profile" src="<%= ResolveUrl("~/View/image_dbretriever.ashx?id="+Session["ep_empl_id"].ToString()) %>" Width="155px" Height="155px" />
+                    <img alt="" id="img_profile" src="<%= ResolveUrl("http://192.168.5.218/storage/images"+Session["ep_photo"].ToString()) %>" Width="155px" Height="155px" />
                 </div>
               </div>
           </li>

@@ -1706,7 +1706,7 @@ namespace HRIS_ePayroll.View.cPayReportGrouping
         private void GetTheGroupDescription()
         {
             gv_details.PageIndex = 0;
-            MyCmn.Sort(gv_details, dtSource_dtl, "employee_name", Session["SortOrder"].ToString());
+            MyCmn.Sort(gv_details, dtSource_dtl, "employee_name", "ASC");
 
             // VJA - If one Employee - No ET. AL. on Description
             if (dtSource_dtl.Rows.Count == 1)
