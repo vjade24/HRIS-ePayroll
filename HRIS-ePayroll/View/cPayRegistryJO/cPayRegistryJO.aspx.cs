@@ -216,7 +216,7 @@ namespace HRIS_ePayroll.View
                     ddl_year.Enabled                        = false;
                     ddl_empl_type.Enabled                   = false;
                     RetrieveDataListGrid();
-
+                    ViewState["payroll_group_nbr"] = prevValues[6].ToString().Trim();
                 }
                 // BEGIN - Pass Value
                 // Employee ID      [0]
@@ -300,15 +300,15 @@ namespace HRIS_ePayroll.View
         private void RetrieveEmployeename()
         {
             string group_nbr = "";
-            if (dataListGrid.Rows.Count > 0)
-            {
-                group_nbr = dataListGrid.Rows[0]["payroll_group_nbr"].ToString().Trim();
-            }
-            else
-            {
-                group_nbr = GetRegistry_NBR();
-            }
-
+            //if (dataListGrid.Rows.Count > 0)
+            //{
+            //    group_nbr = dataListGrid.Rows[0]["payroll_group_nbr"].ToString().Trim();
+            //}
+            //else
+            //{
+            //    group_nbr = GetRegistry_NBR();
+            //}
+            group_nbr = ViewState["payroll_group_nbr"].ToString().Trim();
             ddl_empl_id.Items.Clear();
             dataList_employee = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", group_nbr);
 
@@ -396,7 +396,7 @@ namespace HRIS_ePayroll.View
         private void RetrieveDataListGrid()
         {
             GetRegistry_NBR();
-            dataListGrid = MyCmn.RetrieveData("sp_payrollregistry_hdr_jo_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month",ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr",lbl_registry_number.Text, "par_payrolltemplate_code",ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR());
+            dataListGrid = MyCmn.RetrieveData("sp_payrollregistry_hdr_jo_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month",ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr",lbl_registry_number.Text, "par_payrolltemplate_code",ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR().ToString().Trim());
             MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
             gv_dataListGrid.PageSize    = Convert.ToInt32(DropDownListID.Text);
             show_pagesx.Text            = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
@@ -3502,7 +3502,7 @@ namespace HRIS_ePayroll.View
             double tax10    = 0;
             double tax15    = 0;
 
-            dataList_employee_tax       = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_for_tax", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", GetRegistry_NBR().ToString().Trim());
+            dataList_employee_tax       = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_for_tax", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim());
             DataRow[] selected_employee = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
 
             if (selected_employee.Length > 0)
@@ -3686,7 +3686,7 @@ namespace HRIS_ePayroll.View
         private void CalculateManExemption()
         {
             DataTable dataList_employee_flag = new DataTable();
-            dataList_employee_flag = MyCmn.RetrieveData("sp_personnelnames_combolist_flag_expt", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", GetRegistry_NBR().ToString().Trim());
+            dataList_employee_flag = MyCmn.RetrieveData("sp_personnelnames_combolist_flag_expt", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim());
             DataRow[] selected_employee = dataList_employee_flag.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
 
             if (selected_employee.Length > 0)
