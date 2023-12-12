@@ -198,6 +198,12 @@ namespace HRIS_ePayroll.View
             //{
             //    special_group = "07";
             //}
+            else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "957" || // SERVICE RECOGNITION INCENTIVE - CASUAL
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "962")   // SERVICE RECOGNITION INCENTIVE - PERMANENT
+            {
+                special_group = "01";
+
+            }
             else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "" ||
                     ddl_payroll_template.SelectedValue.ToString().Trim().Substring(0, 1) == "9") // Other Payroll Template Starts With 9 (Other Payroll)
             {
