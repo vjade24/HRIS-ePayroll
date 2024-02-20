@@ -103,6 +103,8 @@
                                                     <asp:ListItem Value="BDO Loan" Text="BDO Loan"></asp:ListItem>
                                                     <asp:ListItem Value="LBP eSL" Text="LBP eSL"></asp:ListItem>
                                                     <asp:ListItem Value="Tagum Coop." Text="Tagum Coop."></asp:ListItem>
+                                                    <asp:ListItem Value="HDMF-MPL" Text="HDMF-MPL"></asp:ListItem>
+                                                    <asp:ListItem Value="HDMF-Calamity Loan" Text="HDMF-Calamity Loan"></asp:ListItem>
                                                     <asp:ListItem Value="" Text="Other Loan"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ContentTemplate>
