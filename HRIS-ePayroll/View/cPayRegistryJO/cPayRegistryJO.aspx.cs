@@ -3712,7 +3712,7 @@ namespace HRIS_ePayroll.View
                     if (ddl_payroll_template.SelectedValue == "010" ||
                         ddl_payroll_template.SelectedValue == "009")
                     {
-                        txtb_hdmf_ps.Text = "200.00";
+                        txtb_hdmf_ps.Text = "400.00";
                     }
                 }
 
