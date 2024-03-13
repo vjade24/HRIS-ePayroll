@@ -3381,9 +3381,9 @@ namespace HRIS_ePayroll.View
         private void Calculate_PHIC()
         {
             double phic_ps_amt = 0;
-            
+            var effective_date = ddl_year.SelectedValue.ToString().Trim() + "-" + ddl_month.SelectedValue.ToString().Trim() + "-01";
             DataTable dt_perc = MyCmn.RetrieveData("sp_philhealth_tbl_list");
-            string selectExpression = "effective_date = '" + ddl_year.SelectedValue.ToString().Trim() + "-01-01" + "'";
+            string selectExpression = "effective_date = '" + effective_date + "'";
             DataRow[] row2Select = dt_perc.Select(selectExpression);
 
             // COMPUTATION FOR PHIC PS on 1st Quincena and 2nd Quincena = GROSS PAY - LATES AMOUNT * PHIC PERCENTAGE
@@ -3421,7 +3421,26 @@ namespace HRIS_ePayroll.View
             }
             else 
             {
-                txtb_phic_ps.Text = "0.00";
+                DataTable chk = new DataTable();
+                string query = "SELECT * FROM payrollemployeemaster_hdr_tbl A WHERE A.empl_id = '"+ txtb_empl_id.Text.ToString().Trim() + "' AND   A.emp_rcrd_status = 1 AND   A.effective_date = (SELECT MAX(A1.effective_date) FROM payrollemployeemaster_hdr_tbl A1 WHERE A1.empl_id = A.empl_id AND A1.emp_rcrd_status = A.emp_rcrd_status AND A1.effective_date  <= CONVERT(date,'"+ effective_date + "'))";
+                chk = MyCmn.GetDatatable(query);
+                if (chk.Rows.Count > 0)
+                {
+                    if (Boolean.Parse(chk.Rows[0]["flag_expt_phic"].ToString()) == false)
+                    {
+                        double gross_ded_lates = 0;
+                        gross_ded_lates = double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text);
+                        DataTable dt = MyCmn.RetrieveData("sp_phic_compute_indv_jo", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "p_empl_id", txtb_empl_id.Text.ToString().Trim(), "p_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "p_gross_pay", gross_ded_lates.ToString("###,##0.00"));
+                        if (dt.Rows != null || dt != null)
+                        {
+                            txtb_phic_ps.Text = dt.Rows[0]["phic_ps"].ToString().Trim();
+                        }
+                    }
+                }
+                else
+                {
+                    txtb_phic_ps.Text = "0.00";
+                }
             }
         }
 
