@@ -3521,7 +3521,8 @@ namespace HRIS_ePayroll.View
             double tax10    = 0;
             double tax15    = 0;
 
-            dataList_employee_tax       = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_for_tax", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim());
+            //dataList_employee_tax       = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_for_tax", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim());
+            dataList_employee_tax       = MyCmn.RetrieveData("sp_jo_for_tax", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
             DataRow[] selected_employee = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
 
             if (selected_employee.Length > 0)
