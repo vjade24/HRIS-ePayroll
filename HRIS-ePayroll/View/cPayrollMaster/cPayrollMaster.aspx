@@ -245,7 +245,7 @@
                                         <div class="col-6">
                                             <asp:UpdatePanel runat="server"  >
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_monthly_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" ></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_monthly_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" Enabled="false"></asp:TextBox>
                                                     <asp:Label ID="LblRequired20" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -275,7 +275,7 @@
                                         <div class="col-6">
                                             <asp:UpdatePanel runat="server"  >
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_daily_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" ></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_daily_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true"  Enabled="false"></asp:TextBox>
                                                     <asp:Label ID="LblRequired21" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -306,7 +306,7 @@
                                         <div class="col-6">
                                             <asp:UpdatePanel runat="server"  >
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_hourly_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" ></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_hourly_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true"  Enabled="false"></asp:TextBox>
                                                     <asp:Label ID="LblRequired22" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -365,58 +365,84 @@
                                 </div>
                                 
 
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="form-group row">
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <asp:UpdatePanel ID="UpdatePanel31" runat="server">
                                                 <ContentTemplate>
-                                                    <label ID="Label4" runat="server" class="container" style="font-size:14px !important;font-weight:bold">
-                                                        GSIS <asp:CheckBox ID="chckbox_flag_gsis"  Autopostback="true" runat="server" />
+                                                    <label ID="Label4" runat="server" class="container" style="font-size:12px !important;font-weight:bold">
+                                                        GSIS <asp:CheckBox ID="chckbox_flag_gsis"  Autopostback="true" runat="server" OnCheckedChanged="chckbox_flag_hdmf_CheckedChanged" />
                                                         <span class="checkmark" ></span>
                                                     </label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <asp:UpdatePanel ID="UpdatePanel32" runat="server">
                                                 <ContentTemplate>
                                             
-                                                    <label ID="Label5" runat="server" class="container" style="font-size:14px !important;font-weight:bold">
-                                                        PHIC <asp:CheckBox ID="chckbox_flag_phic"  Autopostback="true" runat="server" />
+                                                    <label ID="Label5" runat="server" class="container" style="font-size:12px !important;font-weight:bold">
+                                                        PHIC <asp:CheckBox ID="chckbox_flag_phic"  Autopostback="true" runat="server" OnCheckedChanged="chckbox_flag_hdmf_CheckedChanged"/>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
+                                        
+                                    </div>
+                                </div>   
+                                <div class="col-9">
+                                    <div class="form-group row">
                                         <div class="col-4">
                                             <asp:UpdatePanel ID="UpdatePanel33" runat="server">
                                                 <ContentTemplate>
                                            
-                                                    <label ID="Label6" runat="server" class="container" style="font-size:14px !important;font-weight:bold">
-                                                         HDMF<asp:CheckBox ID="chckbox_flag_hdmf"  Autopostback="true" runat="server" />
+                                                    <label ID="Label6" runat="server" class="container" style="font-size:12px !important;font-weight:bold">
+                                                         HDMF (PS)<asp:CheckBox ID="chckbox_flag_hdmf"  Autopostback="true" runat="server" OnCheckedChanged="chckbox_flag_hdmf_CheckedChanged" />
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
+                                        <div class="col-4">
+                                            <strong><asp:Label style="font-size:12px !important;font-weight:bold" runat="server" Text="HDMF (PS) FIX RATE:"></asp:Label></strong>
+                                        </div>
+                                        <div class="col-3">
+                                            <asp:UpdatePanel runat="server" ID="updatepanelfixrate">
+                                                <ContentTemplate>
+                                                    <asp:TextBox runat="server" onInput="input_fix_rate(event);" ID="txtb_hdmf_fix_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" Text="0.00" OnTextChanged="txtb_hdmf_fix_rate_TextChanged" AutoPostBack="true" ></asp:TextBox>
+                                                    <asp:Label ID="LblRequired300" runat="server" CssClass="lbl_required" Text=""></asp:Label>
+                                                    <script type="text/javascript">
+                                                    function input_fix_rate(key) {
+                                                            __doPostBack("<%= txtb_hdmf_fix_rate.ClientID %>", "");
+                                                    }
+                                                </script>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                        <div class="col-1">
+                                            <div role="group">
+                                                <button id="btnGroupDrop1" type="button" class="pull-right btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-navicon"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                    <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="btn_add_remarks1" OnClick="btn_add_remarks1_Click">Add Remarks</asp:LinkButton>
+                                                    <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="lnkbtn_view_remarks"  OnClick="lnkbtn_view_remarks_Click1"  ToolTip="View/Add Remarks" >View Remarks</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-2" style="padding-right:0px !important">
-                                    <strong><asp:Label runat="server" Text="(PS) FIX RATE:" style="font-size:13px !important"></asp:Label></strong>
-                                </div>      
-                                <div class="col-3">
-                                    <strong><asp:Label runat="server" Text="Exempted Deduction:"></asp:Label></strong>
+                                <div class="col-12" runat="server"  >
+                                    <div class="alert alert-success smaller" role="alert">
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:Label runat="server" ID="txtb_remarks"></asp:Label>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
                                 </div>
-                                <div class="col-3 ">
-                                    <asp:UpdatePanel runat="server"  >
-                                        <ContentTemplate>
-                                            <asp:TextBox runat="server" ID="txtb_hdmf_fix_rate" CssClass="form-control form-control-sm text-right" Font-Bold="true" Text="0.00"></asp:TextBox>
-                                            <asp:Label ID="LblRequired300" runat="server" CssClass="lbl_required" Text=""></asp:Label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-                                
-                                <div class="col-12">
+                                <div class="col-12"> 
                                     <hr style="margin-bottom:3px;margin-top:0px"/>
                                 </div>
                                 
@@ -447,7 +473,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdateDep" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_dep" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_dep_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_dep" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_dep_SelectedIndexChanged"  Enabled="false"></asp:DropDownList>
                                                         <asp:Label ID="LblRequired1" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
@@ -458,7 +484,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_subdep" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_subdep_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_subdep" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_subdep_SelectedIndexChanged"  Enabled="false"></asp:DropDownList>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -468,7 +494,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel13" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_division" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_division_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_division" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_division_SelectedIndexChanged"  Enabled="false"></asp:DropDownList>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -478,7 +504,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_section" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_section" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -488,7 +514,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel17" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_fund_charges" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_fund_charges" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>
                                                         <asp:Label ID="LblRequired4" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
@@ -499,7 +525,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel16" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_function_code" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_function_code" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>
                                                         <asp:Label ID="LblRequired5" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
@@ -513,7 +539,7 @@
                                             <div class="col-9">
                                                 <asp:UpdatePanel ID="UpdatePanel15" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList ID="ddl_position" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddl_position" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>
                                                         <asp:Label ID="LblRequired6" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
@@ -1261,29 +1287,7 @@
     </asp:UpdatePanel>
 
     
-        <!-- The Modal - Add Confirmation -->
-        <div class="modal fade" id="AddEditConfirm">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <!-- Modal body -->
-                <asp:UpdatePanel ID="UpdatePanel25" runat="server">
-                    <ContentTemplate>
-                    <div class="modal-body">
-                        <i runat="server" id="i_icon_display" class="fa-5x fa fa-check-circle text-success"></i>
-                        <h2 runat="server" id="h2_status" ></h2>
-                        <h6><asp:Label ID="SaveAddEdit" runat="server"></asp:Label></h6>
-                    </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-                <!-- Modal footer -->
-                <div style="margin-bottom:30px">
-                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"> <i class="fa fa-check"></i> OK</span>
-                    </button>
-                </div>
-            </div>
-            </div>
-        </div>
+
     
     <!-- The Modal - Pop-Up Modal for Reprocess to Plantilla -->
     <asp:UpdatePanel ID="UpdatePanel8" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
@@ -1344,7 +1348,176 @@
     </asp:UpdatePanel>
 
 
-     <div class="col-12">
+    <!-- Modal Vew Remarks-->
+    <div class="modal fade" id="modal_view_remarks" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h6 class="modal-title" >View Remarks</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                
+                <div class="col-12 mt-2">
+                    <asp:UpdatePanel ID="UpdatePanel36" UpdateMode="Conditional" runat="server" >
+                        <ContentTemplate>
+                            <asp:GridView 
+                                    ID="GridView1" 
+                                    runat="server" 
+                                    allowpaging="false" 
+                                    AllowSorting="false" 
+                                    AutoGenerateColumns="False" 
+                                    EnableSortingAndPagingCallbacks="True"
+                                    ForeColor="#333333" 
+                                    GridLines="Both" height="100%" 
+                                    PagerStyle-Width="3" 
+                                    PagerStyle-Wrap="false" 
+                                    pagesize="5"
+                                    Width="100%" 
+                                    Font-Names="Century gothic"
+                                    Font-Size="Small" 
+                                    RowStyle-Width="5%" 
+                                    AlternatingRowStyle-Width="10%"
+                                    CellPadding="2"
+                                    ShowHeaderWhenEmpty="True"
+                                    EmptyDataText="NO DATA FOUND"
+                                    EmptyDataRowStyle-ForeColor="Red"
+                                    EmptyDataRowStyle-CssClass="no-data-found">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="TYPE" SortExpression="remarks_type">
+                                            <ItemTemplate>
+                                                <%# Eval("remarks_type") %>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="20%" />
+                                            <HeaderStyle HorizontalAlign="Center" />
+                                            <ItemStyle HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="DESCRIPTION" SortExpression="remarks_descr">
+                                            <ItemTemplate>
+                                                <%# Eval("remarks_descr") %>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="40%" />
+                                            <HeaderStyle HorizontalAlign="Center" />
+                                            <ItemStyle HorizontalAlign="LEFT" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="CREATED BY" SortExpression="created_by">
+                                            <ItemTemplate>
+                                                <%# Eval("created_by_name") %>
+                                                <br />
+                                                <span class="badge badge-secondary">
+                                                 <%# DateTime.Parse(Eval("created_dttm").ToString()).ToString("MMMM dd, yyyy hh:mm:ss") %>
+                                                </span>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="40%" />
+                                            <HeaderStyle HorizontalAlign="Center" />
+                                            <ItemStyle HorizontalAlign="left" />
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <PagerSettings  
+                                    Mode="NumericFirstLast" 
+                                    FirstPageText="First" 
+                                    PreviousPageText="Previous" 
+                                    NextPageText="Next" 
+                                    LastPageText="Last" 
+                                    PageButtonCount="1" 
+                                    Position="Bottom" 
+                                    Visible="True" />
+                                    <AlternatingRowStyle BackColor="White" />
+                                    <EditRowStyle BackColor="#2461BF" />
+                                    <FooterStyle BackColor="#007bff" Font-Bold="True" ForeColor="White" Height="10%" />
+                                    <HeaderStyle BackColor="#007bff" ForeColor="White" VerticalAlign="Middle" Font-Size="14px" CssClass="td-header" />
+                                    <PagerStyle CssClass="pagination-ys" BackColor="#2461BF" ForeColor="White" HorizontalAlign="right" VerticalAlign="NotSet" Wrap="True" />
+                                    <RowStyle BackColor="#EFF3FB" />
+                                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                                </asp:GridView>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddl_empl_name" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!-- Modal Vew Remarks-->
+
+        
+    <!-- Modal Add Remarks-->
+        <div class="modal fade" id="modal_add_remarks" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h6 class="modal-title" >Add Remarks</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="small">Remarks Type:</label>
+                                        <asp:DropDownList runat="server" CssClass="form-control" Font-Size="Small" ID="ddl_remarks_type">
+                                            <asp:ListItem Value="PHIC" Text="PHIC" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Value="GSIS" Text="GSIS"></asp:ListItem>
+                                            <asp:ListItem Value="HDMF (PS)" Text="HDMF (PS)"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="small">Description:</label>
+                                        <asp:TextBox runat="server" CssClass="form-control" Font-Size="Small" Rows="3" TextMode="MultiLine" ID="txtb_remarks_descr"> </asp:TextBox>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:Button runat="server" CssClass="btn btn-primary pull-right btn-sm" Text="Save" id="btnSaveRemarks" OnClick="btnSaveRemarks_Click" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Modal Add Remarks-->
+
+    <!-- The Modal - Add Confirmation -->
+    <div class="modal fade" id="AddEditConfirm">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <!-- Modal body -->
+            <asp:UpdatePanel ID="UpdatePanel25" runat="server">
+                <ContentTemplate>
+                <div class="modal-body">
+                    <i runat="server" id="i_icon_display" class="fa-5x fa fa-check-circle text-success"></i>
+                    <h2 runat="server" id="h2_status" ></h2>
+                    <h6><asp:Label ID="SaveAddEdit" runat="server"></asp:Label></h6>
+                </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <!-- Modal footer -->
+            <div style="margin-bottom:30px">
+                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"> <i class="fa fa-check"></i> OK</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-12">
             <div class="row breadcrumb my-breadcrumb">
                 <div class="col-4"><strong style="font-family:Arial;font-size:19px;color:white;"><%: Master.page_title %></strong></div>
                 <div class="col-8">
@@ -1495,7 +1668,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("empl_id") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="08%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="CENTER" />
                                                 </asp:TemplateField>
@@ -1503,15 +1676,58 @@
                                                     <ItemTemplate>
                                                         &nbsp;&nbsp;<%#  Eval("employee_name") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="47%" />
+                                                    <ItemStyle Width="30%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="LEFT" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="STATUS" SortExpression="emp_rcrd_status">
+                                                    <ItemTemplate>
+                                                        &nbsp;
+                                                        <span class='<%# Eval("emp_rcrd_status").ToString() == "0" ?"badge badge-danger":"badge badge-success" %>''>
+                                                            <%# Eval("emp_rcrd_status").ToString() == "0" ? "In-Active" : "Active"%>
+                                                        </span>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="5%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="left" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="GSIS" SortExpression="flag_expt_gsis">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" Checked='<%# Eval("flag_expt_gsis").ToString() == "0" ? false : true %>' Enabled="false" />
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="5%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="PHIC" SortExpression="flag_expt_phic">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" Checked='<%# Eval("flag_expt_phic").ToString() == "0" ? false : true %>' Enabled="false"/>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="5%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="HDMF" SortExpression="flag_expt_hdmf">
+                                                    <ItemTemplate>
+                                                         <asp:CheckBox runat="server" Checked='<%# Eval("flag_expt_hdmf").ToString() == "0" ? false : true %>' Enabled="false"/>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="5%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="HDMF RATE" SortExpression="hdmf_fix_rate">
+                                                    <ItemTemplate>
+                                                        <%#  Eval("hdmf_fix_rate") %>&nbsp;&nbsp;
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="10%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Right" />
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="RATE BASIS" SortExpression="rate_basis_descr" >
                                                     <ItemTemplate>
                                                         <%# Eval("rate_basis_descr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="15%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="CENTER" />
                                                 </asp:TemplateField>
@@ -1524,13 +1740,13 @@
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="EFF. DATE" SortExpression="effective_date" >
-                                                            <ItemTemplate>
-                                                                <%# Eval("effective_date") %>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="10%" />
-                                                            <HeaderStyle HorizontalAlign="Center" />
-                                                            <ItemStyle HorizontalAlign="CENTER" />
-                                                        </asp:TemplateField>
+                                                        <ItemTemplate>
+                                                            <%# Eval("effective_date") %>
+                                                        </ItemTemplate>
+                                                        <ItemStyle Width="10%" />
+                                                        <HeaderStyle HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="CENTER" />
+                                                    </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="ACTION">
                                                     <ItemTemplate>
                                                         <asp:UpdatePanel ID="UpdatePanel12" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
@@ -1565,7 +1781,7 @@
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="10%" />
+                                                    <ItemStyle Width="5%" />
                                                     <ItemStyle CssClass="text-center" />
                                                 </asp:TemplateField>
                                             </Columns>
@@ -1763,6 +1979,26 @@
                 keyboard: false,
                 backdrop: "static"
             });
+        }
+        function openModalViewRemarks()
+        {
+            $('#modal_view_remarks').modal({
+                keyboard: false,
+                backdrop: "static"
+            });
+            
+        }
+        function openModalAddRemarks()
+        {
+            $('#modal_add_remarks').modal({
+                keyboard: false,
+                backdrop: "static"
+            });
+            
+        }
+        function closeModalAddRemarks()
+        {
+            $('#modal_add_remarks').modal("hide");
         }
     </script>
 </asp:Content>

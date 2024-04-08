@@ -652,6 +652,15 @@ namespace HRIS_ePayroll.View.cPayrollMaster {
         protected global::System.Web.UI.WebControls.CheckBox chckbox_flag_hdmf;
         
         /// <summary>
+        /// updatepanelfixrate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatepanelfixrate;
+        
+        /// <summary>
         /// txtb_hdmf_fix_rate control.
         /// </summary>
         /// <remarks>
@@ -668,6 +677,33 @@ namespace HRIS_ePayroll.View.cPayrollMaster {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired300;
+        
+        /// <summary>
+        /// btn_add_remarks1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_add_remarks1;
+        
+        /// <summary>
+        /// lnkbtn_view_remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtn_view_remarks;
+        
+        /// <summary>
+        /// txtb_remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtb_remarks;
         
         /// <summary>
         /// UpdateDep control.
@@ -1183,42 +1219,6 @@ namespace HRIS_ePayroll.View.cPayrollMaster {
         protected global::System.Web.UI.WebControls.Label lbl_notification;
         
         /// <summary>
-        /// UpdatePanel25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel25;
-        
-        /// <summary>
-        /// i_icon_display control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl i_icon_display;
-        
-        /// <summary>
-        /// h2_status control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h2_status;
-        
-        /// <summary>
-        /// SaveAddEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SaveAddEdit;
-        
-        /// <summary>
         /// UpdatePanel8 control.
         /// </summary>
         /// <remarks>
@@ -1298,6 +1298,87 @@ namespace HRIS_ePayroll.View.cPayrollMaster {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
+        
+        /// <summary>
+        /// UpdatePanel36 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel36;
+        
+        /// <summary>
+        /// GridView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// ddl_remarks_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_remarks_type;
+        
+        /// <summary>
+        /// txtb_remarks_descr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_remarks_descr;
+        
+        /// <summary>
+        /// btnSaveRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveRemarks;
+        
+        /// <summary>
+        /// UpdatePanel25 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel25;
+        
+        /// <summary>
+        /// i_icon_display control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl i_icon_display;
+        
+        /// <summary>
+        /// h2_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h2_status;
+        
+        /// <summary>
+        /// SaveAddEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SaveAddEdit;
         
         /// <summary>
         /// UpdatePanel11 control.

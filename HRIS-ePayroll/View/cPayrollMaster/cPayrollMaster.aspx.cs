@@ -224,6 +224,11 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             RetrieveYear();
             RetrieveBindingBudgetYear();
             btnAdd.Visible = false;
+
+            ViewState["prev_chckbox_flag_gsis"]   = false;
+            ViewState["prev_chckbox_flag_phic"]   = false;
+            ViewState["prev_chckbox_flag_hdmf"]   = false;
+            ViewState["prev_txtb_hdmf_fix_rate"]  = 0;
         }
 
         //*************************************************************************
@@ -369,6 +374,10 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             txtb_effective_date.Text = DateTime.Now.ToString("yyyy-MM-dd");
             ViewState["payroll_group_nbr"] = "";
 
+            ViewState["prev_chckbox_flag_gsis"]   = false;
+            ViewState["prev_chckbox_flag_phic"]   = false;
+            ViewState["prev_chckbox_flag_hdmf"]   = false;
+            ViewState["prev_txtb_hdmf_fix_rate"]  = 0;
             
             LabelAddEdit.Text = "Add New Record";
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_ADD);
@@ -415,7 +424,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             txtb_date_of_assumption.Text = "";
             txtb_salary_grade.Text = "";
             txtb_birth_date.Text = "";
-
+            txtb_remarks.Text = "";
+            
             UpdatePanelTo.Update();
             UpdatePanelFrom.Update();
             UpdatePanelEffec.Update();
@@ -683,6 +693,11 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             ViewState["AddEdit_Mode"] = MyCmn.CONST_EDIT;
             ViewState["old_group_nbr"] = "";
 
+            ViewState["prev_chckbox_flag_gsis"]   = chckbox_flag_gsis.Checked;
+            ViewState["prev_chckbox_flag_phic"]   = chckbox_flag_phic.Checked;
+            ViewState["prev_chckbox_flag_hdmf"]   = chckbox_flag_hdmf.Checked;
+            ViewState["prev_txtb_hdmf_fix_rate"]  = txtb_hdmf_fix_rate.Text;
+            
             txtb_effective_date.Enabled = false;
             ddl_empl_name.Visible = false;
             txtb_empl_name.Visible = true;
@@ -859,6 +874,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     if (scriptInsertUpdate == string.Empty) return;
                     string msg1 = MyCmn.insertdata(scriptInsertUpdate);
                     if (msg1 == "") return;
+
+                    SaveRemarks("");
 
                     if (msg1.Substring(0, 1) == "X")
                     {
@@ -1157,6 +1174,42 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             {
                 FieldValidationColorChanged(true, "txtb_hdmf_fix_rate");
                 validatedSaved = false;
+            }
+            else
+            {
+                if (chckbox_flag_hdmf.Checked == true && (double.Parse(txtb_hdmf_fix_rate.Text) > 0  && double.Parse(txtb_hdmf_fix_rate.Text) < 200 ))
+                {
+                    LblRequired300.Text = "Input zero (0) for HDMF exemption or greater than 200!";
+                    txtb_hdmf_fix_rate.BorderColor = Color.Red;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop5", "show_date();", true);
+                    txtb_hdmf_fix_rate.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+                    txtb_hdmf_fix_rate.Focus();
+                    validatedSaved = false;
+                }
+                if (chckbox_flag_hdmf.Checked == false && double.Parse(txtb_hdmf_fix_rate.Text) > 0)
+                {
+                    LblRequired300.Text = "Please check the hdmf!";
+                    txtb_hdmf_fix_rate.BorderColor = Color.Red;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop5", "show_date();", true);
+                    txtb_hdmf_fix_rate.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+                    txtb_hdmf_fix_rate.Focus();
+                    validatedSaved = false;
+                }
+                //if (ViewState["AddEdit_Mode"].ToString() == MyCmn.CONST_EDIT)
+                //{
+                //    if (Boolean.Parse(ViewState["prev_chckbox_flag_gsis"].ToString())   != chckbox_flag_gsis.Checked
+                //     || Boolean.Parse(ViewState["prev_chckbox_flag_phic"].ToString())   != chckbox_flag_phic.Checked
+                //     || Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString())   != chckbox_flag_hdmf.Checked
+                //     || double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString())   != double.Parse(txtb_hdmf_fix_rate.Text)
+                //    )
+                //    {
+                //        SaveAddEdit.Text = "Please Input Remarks to continue!";
+                //        h2_status.InnerText = "YOU CANNOT CONTINUE!";
+                //        i_icon_display.Attributes.Add("class", "fa-5x fa fa-times-circle text-danger");
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Popopen_Dynamic_Notification", "open_Dynamic_Notification();", true);
+                //        validatedSaved = false;
+                //    }
+                //}
             }
             // if (CommonCode.checkisdatetime(txtb_date_of_assumption) == false)
             // {
@@ -1641,6 +1694,11 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             dtSource1.Columns.Add("section_code", typeof(System.String));
             dtSource1.Columns.Add("function_code", typeof(System.String));
             dtSource1.Columns.Add("fund_code", typeof(System.String));
+            dtSource1.Columns.Add("flag_expt_gsis", typeof(System.String));
+            dtSource1.Columns.Add("flag_expt_hdmf", typeof(System.String));
+            dtSource1.Columns.Add("flag_expt_phic", typeof(System.String));
+            dtSource1.Columns.Add("hdmf_fix_rate", typeof(System.String));
+            dtSource1.Columns.Add("emp_rcrd_status", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -1710,6 +1768,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                         h2_status.InnerText = "SUCCESSFULLY REPROCESSED!";
                         i_icon_display.Attributes.Add("class", "fa-5x fa fa-check-circle text-success");
                         SaveAddEdit.Text = dtSource_reProcess.Rows[0]["result_flag_message"].ToString();
+
+
                         break;
                     default:
                         h2_status.InnerText = "SOMETHING ERROR!";
@@ -1917,6 +1977,80 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                 div_department.Visible      = false;
                 lbl_year.InnerText          = "Effective Year:";
             }
+        }
+        
+        protected void lnkbtn_view_remarks_Click1(object sender, EventArgs e)
+        {
+            DataTable dt_payrollremarks = new DataTable();
+            string query = "SELECT * FROM payrollemployeemaster_remarks_tbl WHERE empl_id = '" + txtb_empl_id.Text.ToString().Trim() + "' ORDER BY created_dttm DESC";
+            dt_payrollremarks = MyCmn.GetDatatable(query);
+            CommonCode.GridViewBind(ref this.GridView1, dt_payrollremarks);
+            UpdatePanel36.Update();
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReportModalViewRemarks", "openModalViewRemarks()", true);
+        }
+        
+        protected void btn_add_remarks1_Click(object sender, EventArgs e)
+        {
+            txtb_remarks_descr.Text = "";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReportModalAddRemarks123", "openModalAddRemarks()", true);
+        }
+
+        protected void chckbox_flag_hdmf_CheckedChanged(object sender, EventArgs e)
+        {
+            payrollmasterremarks();
+        }
+        protected void payrollmasterremarks()
+        {
+                var remarks = "";
+            if (IsDataValidated())
+            {
+                if (Boolean.Parse(ViewState["prev_chckbox_flag_gsis"].ToString())  != chckbox_flag_gsis.Checked
+                || Boolean.Parse(ViewState["prev_chckbox_flag_phic"].ToString())   != chckbox_flag_phic.Checked
+                || Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString())   != chckbox_flag_hdmf.Checked
+                || double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString())   != double.Parse(txtb_hdmf_fix_rate.Text)
+                )
+                {
+                    remarks += Boolean.Parse(ViewState["prev_chckbox_flag_gsis"].ToString())  != chckbox_flag_gsis.Checked             ? "GSIS      changed from " + (Boolean.Parse(ViewState["prev_chckbox_flag_gsis"].ToString()) == true ? " checked " : " unchecked ") + " to "+ (chckbox_flag_gsis.Checked == true ? " checked " : " unchecked ") + ", "              : "";
+                    remarks += Boolean.Parse(ViewState["prev_chckbox_flag_phic"].ToString())  != chckbox_flag_phic.Checked             ? "PHIC      changed from " + (Boolean.Parse(ViewState["prev_chckbox_flag_phic"].ToString()) == true ? " checked " : " unchecked ") + " to "+ (chckbox_flag_phic.Checked == true ? " checked " : " unchecked ") + ", "              : "";
+                    remarks += Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString())  != chckbox_flag_hdmf.Checked             ? "HDMF      changed from " + (Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString()) == true ? " checked " : " unchecked ") + " to "+ (chckbox_flag_hdmf.Checked == true ? " checked " : " unchecked ") + ", "              : "";
+                    remarks += double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString())  != double.Parse(txtb_hdmf_fix_rate.Text) ? "HDMF RATE changed from " + double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString()) + " to " + double.Parse(txtb_hdmf_fix_rate.Text) + ") ," : "";
+                }
+            }
+            txtb_remarks.Text = remarks;
+        }
+        
+        protected void txtb_hdmf_fix_rate_TextChanged(object sender, EventArgs e)
+        {
+            payrollmasterremarks();
+            txtb_hdmf_fix_rate.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
+            txtb_hdmf_fix_rate.Focus();
+        }
+
+        protected void SaveRemarks(string action_type)
+        {
+            if (action_type == "SAVE-INDIVIDUAL")
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "PopocloseModalAddRemarks", "closeModalAddRemarks();", true);
+                string insert_script    = "INSERT INTO payrollemployeemaster_remarks_tbl VALUES('" + txtb_empl_id.Text.ToString().Trim() + "','" + txtb_effective_date.Text.ToString().Trim() + "','" + ddl_remarks_type.SelectedValue.Replace("'", "''") + "','" + txtb_remarks_descr.Text.Replace("'", "''") + "','" + DateTime.Now.ToString() + "','" + Session["ep_user_id"].ToString().Replace("'", "''") + "','" + Session["ep_owner_fullname"].ToString().Replace("'", "''") + "')";
+                SaveAddEdit.Text        = MyCmn.InsertToTable(insert_script);
+                h2_status.InnerText     = "SUCESSFULLY ADDED!";
+                i_icon_display.Attributes.Add("class", "fa-5x fa fa-check-circle text-success");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Popopen_Dynamic_Notification", "open_Dynamic_Notification();", true);
+            }
+            else
+            {
+                if (txtb_remarks.Text.ToString() != "")
+                {
+                    string insert_script = "INSERT INTO payrollemployeemaster_remarks_tbl VALUES('" + txtb_empl_id.Text.ToString().Trim() + "','" + txtb_effective_date.Text.ToString().Trim() + "','" + "" + "','" + txtb_remarks.Text.Replace("'", "''") + "','" + DateTime.Now.ToString() + "','" + Session["ep_user_id"].ToString().Replace("'", "''") + "','" + Session["ep_owner_fullname"].ToString().Replace("'", "''") + "')";
+                    SaveAddEdit.Text = MyCmn.InsertToTable(insert_script);
+                }
+            }
+        }
+
+        protected void btnSaveRemarks_Click(object sender, EventArgs e)
+        {
+            SaveRemarks("SAVE-INDIVIDUAL");
         }
         //*************************************************************************
         //  END OF CODE

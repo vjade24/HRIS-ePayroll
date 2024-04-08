@@ -106,7 +106,7 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="form-group col-md-12" style="display:none">
+                                <div class="form-group col-md-12" >
                                     <asp:Label ID="Label6" runat="server" CssClass="font-weight-bold"  Text="Report Filename:"></asp:Label>
                                     <asp:UpdatePanel ID="UpdatePanel13" runat="server">
                                         <ContentTemplate>
@@ -133,7 +133,15 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                
+                                <div class="form-group col-md-12">
+                                    <asp:Label ID="Label9" runat="server" CssClass="font-weight-bold"  Text="CRUD Name:"></asp:Label>
+                                    <asp:UpdatePanel ID="UpdatePanel15" runat="server">
+                                        <ContentTemplate>
+                                            <asp:TextBox ID="txtb_crud_name" TextMode="MultiLine" Height = "80px" runat="server" MaxLength="255"  Width="100%" CssClass="form-control"></asp:TextBox>
+                                            <asp:Label ID="Label10" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
                            </div>
                         </div>
                         <div class="modal-footer">

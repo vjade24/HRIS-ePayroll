@@ -315,7 +315,7 @@ namespace HRIS_ePayroll.View.cPayTemplate
             ddl_payroll_type.SelectedValue        = ddl_template_type.SelectedValue.ToString();       
             ddl_payroll_type.Enabled              = false;
             txtb_report_filename.Text             = row2Edit[0]["report_filename"].ToString();
-            dtSource.Rows[0]["crud_name"]         = row2Edit[0]["crud_name"].ToString();
+            txtb_crud_name.Text                   = row2Edit[0]["crud_name"].ToString();
             ddl_payment_mode.SelectedValue        = row2Edit[0]["payment_mode"].ToString();
 
             txtb_code.ReadOnly = true;
@@ -390,7 +390,7 @@ namespace HRIS_ePayroll.View.cPayTemplate
                     dtSource.Rows[0]["payrolltemplate_type"]        = ddl_payroll_type.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["employment_type"]             = ddl_empl_type.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["report_filename"]             = txtb_report_filename.Text.ToString().Trim();
-                    dtSource.Rows[0]["crud_name"]                   = dtSource.Rows[0]["crud_name"].ToString().Trim();
+                    dtSource.Rows[0]["crud_name"]                   = txtb_crud_name.Text.ToString().Trim();
                     dtSource.Rows[0]["payment_mode"]                = ddl_payment_mode.SelectedValue.ToString().Trim();
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource);
 
@@ -403,7 +403,7 @@ namespace HRIS_ePayroll.View.cPayTemplate
                     dtSource.Rows[0]["payrolltemplate_type"]        = ddl_payroll_type.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["employment_type"]             = ddl_empl_type.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["report_filename"]             = txtb_report_filename.Text.ToString().Trim();
-                    dtSource.Rows[0]["crud_name"]                   = dtSource.Rows[0]["crud_name"].ToString().Trim();
+                    dtSource.Rows[0]["crud_name"]                   = txtb_crud_name.Text.ToString().Trim();
                     dtSource.Rows[0]["payment_mode"]                = ddl_payment_mode.SelectedValue.ToString().Trim();
                     scriptInsertUpdate = MyCmn.updatescript(dtSource);
                 }
@@ -424,7 +424,7 @@ namespace HRIS_ePayroll.View.cPayTemplate
                         nrow["payrolltemplate_descr"]       = txtb_descr.Text.ToString();
                         nrow["payrolltemplate_type"]        = ddl_payroll_type.SelectedValue.ToString().Trim();
                         nrow["report_filename"]             = txtb_report_filename.Text.ToString().Trim();
-                        nrow["crud_name"]                   = dtSource.Rows[0]["crud_name"].ToString().Trim();
+                        nrow["crud_name"]                   = txtb_crud_name.Text.ToString().Trim();
                         nrow["payment_mode"]                = ddl_payment_mode.SelectedValue.ToString().Trim();
                         dataListGrid.Rows.Add(nrow);
                         gv_dataListGrid.SetPageIndex(gv_dataListGrid.PageCount);
@@ -441,7 +441,7 @@ namespace HRIS_ePayroll.View.cPayTemplate
                         row2Edit[0]["payrolltemplate_descr"]        = txtb_descr.Text.ToString();
                         row2Edit[0]["payrolltemplate_type"]         = ddl_payroll_type.SelectedValue.ToString().Trim();
                         row2Edit[0]["report_filename"]              = txtb_report_filename.Text.ToString().Trim();
-                        row2Edit[0]["crud_name"]                    = dtSource.Rows[0]["crud_name"].ToString().Trim();
+                        row2Edit[0]["crud_name"]                    = txtb_crud_name.Text.ToString().Trim();
                         row2Edit[0]["payment_mode"]                 = ddl_payment_mode.SelectedValue.ToString().Trim();
                         CommonCode.GridViewBind(ref this.gv_dataListGrid, dataListGrid);
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;

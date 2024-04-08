@@ -310,6 +310,42 @@ namespace HRIS_ePayroll.View.cPayTemplate {
         protected global::System.Web.UI.WebControls.Label LblRequired2;
         
         /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// UpdatePanel15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel15;
+        
+        /// <summary>
+        /// txtb_crud_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_crud_name;
+        
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
+        
+        /// <summary>
         /// LinkButton2 control.
         /// </summary>
         /// <remarks>
