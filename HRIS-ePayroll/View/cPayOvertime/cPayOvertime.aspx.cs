@@ -1656,7 +1656,7 @@ namespace HRIS_ePayroll.View
             //}
             //else
             //{
-                daily_rate = (ddl_empl_type.SelectedValue == "JO" ? double.Parse(txtb_daily_rate.Text) : double.Parse(txtb_monthly_rate.Text) / 22);
+                daily_rate = (ddl_empl_type.SelectedValue == "JO" || ddl_empl_type.SelectedValue == "CE" ? double.Parse(txtb_daily_rate.Text) : double.Parse(txtb_monthly_rate.Text) / 22);
                 txtb_daily_rate.Text = daily_rate.ToString("###,##0.00");
 
                 hourly_rate = double.Parse(txtb_daily_rate.Text) / double.Parse(hidden_hours_in_days.Value);
