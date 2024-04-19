@@ -2040,7 +2040,7 @@ namespace HRIS_ePayroll.View
 
                 }
 
-                txtb_gross_pay.Text = (net_pay + deductions).ToString("#,##0.00");
+                txtb_gross_pay.Text = (net_pay).ToString("#,##0.00");
                 txtb_net_pay.Text = (net_pay - deductions).ToString("#,##0.00");
 
                 if (ddl_payroll_template.SelectedValue == "968" ||  // ONE COVID-19 ALLOWANCE (OCA) - RE
