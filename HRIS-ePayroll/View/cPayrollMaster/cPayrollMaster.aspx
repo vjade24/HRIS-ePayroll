@@ -421,15 +421,19 @@
                                             </asp:UpdatePanel>
                                         </div>
                                         <div class="col-1">
-                                            <div role="group">
-                                                <button id="btnGroupDrop1" type="button" class="pull-right btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-navicon"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                    <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="btn_add_remarks1" OnClick="btn_add_remarks1_Click">Add Remarks</asp:LinkButton>
-                                                    <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="lnkbtn_view_remarks"  OnClick="lnkbtn_view_remarks_Click1"  ToolTip="View/Add Remarks" >View Remarks</asp:LinkButton>
+                                            <% if (ViewState["page_allow_add"].ToString() == "1" || ViewState["page_allow_edit"].ToString() == "1")
+                                            {  %>
+                                                <div role="group">
+                                                    <button id="btnGroupDrop1" type="button" class="pull-right btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-navicon"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="btn_add_remarks1" OnClick="btn_add_remarks1_Click">Add Remarks</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" CssClass="dropdown-item" Font-Size="Smaller" ID="lnkbtn_view_remarks"  OnClick="lnkbtn_view_remarks_Click1"  ToolTip="View/Add Remarks" >View Remarks</asp:LinkButton>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            <% }
+                                            %> 
                                         </div>
                                     </div>
                                 </div>
@@ -1760,7 +1764,7 @@
                                                                 <%   }
                                                                 %>
 
-                                                                <% if (ViewState["page_allow_delete"].ToString() == "0")
+                                                                <% if (ViewState["page_allow_delete"].ToString() == "1")
                                                                     {
                                                                 %>
                                                                     <asp:ImageButton 
