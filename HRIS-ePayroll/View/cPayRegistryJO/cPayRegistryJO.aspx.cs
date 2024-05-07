@@ -3719,8 +3719,8 @@ namespace HRIS_ePayroll.View
                     txtb_phic_gs.Text = "0.00";
                 }
 
-                if (selected_employee[0]["flag_expt_hdmf"].ToString() == "1" ||
-                selected_employee[0]["flag_expt_hdmf"].ToString() == "True")
+                if ((selected_employee[0]["flag_expt_hdmf"].ToString() == "1" ||
+                selected_employee[0]["flag_expt_hdmf"].ToString() == "True") && double.Parse(selected_employee[0]["hdmf_fix_rate"].ToString()) == 0)
                 {
                     txtb_hdmf_ps.Text = "0.00";
                     txtb_hdmf_gs.Text = "0.00";
