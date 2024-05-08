@@ -1546,6 +1546,10 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 msg_header.InnerText = "PRINT PREVIEW ONLY!";
                 lbl_details.Text = chk_reg_hdr.Rows[0]["validation_msg"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopNotif", "openNotification();", true);
+
+                RetrieveRelatedTemplate();
+                lnkPrint.CommandArgument = e.CommandArgument.ToString();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
                 return;
             }
             // ************************************************************************************************************
