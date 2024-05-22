@@ -1168,6 +1168,8 @@ namespace HRIS_ePayroll.View
                         nrow["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         nrow["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
 
+                        nrow["department_code"]      = txtb_department_code.Text.ToString().Trim();
+
 
                         dataListGrid.Rows.Add(nrow);
                         SaveAddEdit.Text = MyCmn.CONST_NEWREC;
@@ -1249,7 +1251,7 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["other_ded_loan8"]       = txtb_other_ded_loan8.Text.ToString().Trim();
                         row2Edit[0]["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         row2Edit[0]["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
-                        
+
                         // END - Add Field Again  - 06/20/2019
                         //if (Session["ep_post_authority"].ToString() == "1")
                         //{
@@ -1261,7 +1263,7 @@ namespace HRIS_ePayroll.View
                         //    row2Edit[0]["updated_by_user"]  = ViewState["updated_by_user"].ToString();
                         //    row2Edit[0]["updated_dttm"]     = ViewState["updated_dttm"].ToString();
                         //}
-
+                        row2Edit[0]["department_code"]       = txtb_department_code.Text.ToString().Trim();
 
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;
                     }
