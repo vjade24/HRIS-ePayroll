@@ -904,6 +904,15 @@ namespace HRIS_ePayroll.View.cPayrollMaster {
         protected global::System.Web.UI.WebControls.TextBox txtb_hazard_pay_override_hidden;
         
         /// <summary>
+        /// txtb_item_no control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_item_no;
+        
+        /// <summary>
         /// update_details control.
         /// </summary>
         /// <remarks>

@@ -211,7 +211,7 @@
                                         <div class="col-6">
                                             <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                                                 <ContentTemplate>
-                                                    <asp:DropDownList ID="ddl_group_nbr" CssClass="form-control form-control-sm" Width="100%" runat="server"></asp:DropDownList>
+                                                    <asp:DropDownList ID="ddl_group_nbr" CssClass="form-control form-control-sm" Width="100%" runat="server" OnSelectedIndexChanged="ddl_group_nbr_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                                     <%--<span class="text-primary smaller font-weight-bold" style="padding-bottom:0px !important;padding-bottom:0px !important;margin-bottom:0px !important;margin-bottom:0px !important;"> <i class="fa fa-info-circle"></i> </span>--%>
                                                     <i class="fa fa-info-circle text-primary lbl_required pull-left text-left p-5" style="padding:2px !important"></i><asp:Label ID="Label2" CssClass="lbl_required text-primary" runat="server" Text=" &nbsp;Group number list is filtered by Department."></asp:Label>
                                                 </ContentTemplate>
@@ -258,9 +258,9 @@
                                             <strong><asp:Label runat="server" Text="Period From :"></asp:Label></strong>
                                         </div>
                                         <div class="col-6">
-                                            <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="UpdatePanelFrom">
+                                            <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="UpdatePanelFrom" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_period_from" CssClass="form-control form-control-sm my-date text-center"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_period_from" CssClass="form-control form-control-sm my-date text-center" OnTextChanged="text_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                     <asp:Label ID="LblRequired14" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -288,9 +288,9 @@
                                             <strong><asp:Label runat="server" Text="Period To :"></asp:Label></strong>
                                         </div>
                                         <div class="col-6">
-                                            <asp:UpdatePanel runat="server"  UpdateMode="Conditional" ID="UpdatePanelTo">
+                                            <asp:UpdatePanel runat="server"  UpdateMode="Conditional" ID="UpdatePanelTo" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_period_to" CssClass="form-control form-control-sm my-date text-center"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_period_to" CssClass="form-control form-control-sm my-date text-center" OnTextChanged="text_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                     <asp:Label ID="LblRequired15" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -337,9 +337,9 @@
                                             <strong><asp:Label runat="server" Text="Date of Assumption:"></asp:Label></strong>
                                         </div>
                                         <div class="col-6">
-                                            <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="UpdatePanel34">
+                                            <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="UpdatePanel34" ChildrenAsTriggers="false">
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" ID="txtb_date_of_assumption" CssClass="form-control form-control-sm my-date text-center"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtb_date_of_assumption" CssClass="form-control form-control-sm my-date text-center" OnTextChanged="text_TextChanged"  AutoPostBack="true"></asp:TextBox>
                                                     <asp:Label ID="LblRequired1000" runat="server" CssClass="lbl_required" Text=""></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -565,11 +565,20 @@
                                             <div class="col-2">
                                                 <asp:UpdatePanel ID="UpdatePanel19" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:TextBox runat="server" CssClass="form-control form-control-sm text-right" ID="txtb_hazard_pay_override_hidden"></asp:TextBox>
+                                                        <asp:TextBox runat="server" CssClass="form-control form-control-sm text-right" ID="txtb_hazard_pay_override_hidden" ></asp:TextBox>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
-
+                                            <div class="col-3">
+                                                <label class="font-weight-bold">Item No:</label>
+                                            </div>
+                                            <div class="col-2">
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:TextBox runat="server" CssClass="form-control form-control-sm text-center" ID="txtb_item_no" Enabled="false"></asp:TextBox>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="optional_tab" role="tabpanel" aria-labelledby="id_optional" style="padding-right: 20px;padding-left: 20px;">

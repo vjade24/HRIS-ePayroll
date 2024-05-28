@@ -229,6 +229,13 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             ViewState["prev_chckbox_flag_phic"]   = false;
             ViewState["prev_chckbox_flag_hdmf"]   = false;
             ViewState["prev_txtb_hdmf_fix_rate"]  = 0;
+
+            ViewState["prev_payroll_group_nbr"]    = "";
+            ViewState["prev_emp_rcrd_status"]      = "";
+            ViewState["prev_period_from"]          = "";
+            ViewState["prev_period_to"]            = "";
+            ViewState["prev_date_of_assumption"]   = "";
+            //ViewState["prev_hazard_pay_override"]  = "";
         }
 
         //*************************************************************************
@@ -378,7 +385,14 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             ViewState["prev_chckbox_flag_phic"]   = false;
             ViewState["prev_chckbox_flag_hdmf"]   = false;
             ViewState["prev_txtb_hdmf_fix_rate"]  = 0;
-            
+
+            ViewState["prev_payroll_group_nbr"]         = "";
+            ViewState["prev_emp_rcrd_status"]           = "";
+            ViewState["prev_period_from"]               = "";
+            ViewState["prev_period_to"]                 = "";
+            ViewState["prev_date_of_assumption"]        = "";
+            //ViewState["prev_hazard_pay_override"]       = "";
+
             LabelAddEdit.Text = "Add New Record";
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_ADD);
             FieldValidationColorChanged(false, "ALL");
@@ -397,34 +411,35 @@ namespace HRIS_ePayroll.View.cPayrollMaster
         //*************************************************************************
         private void ClearEntry()
         {
-            ddl_empl_name.SelectedIndex = 0;
-            txtb_period_from.Text = "";
-            txtb_period_to.Text = "";
-            txtb_monthly_rate.Text = "";
-            txtb_daily_rate.Text = "";
-            txtb_hourly_rate.Text = "";
-            txtb_empl_id.Text = "";
+            ddl_empl_name.SelectedIndex     = 0;
+            txtb_period_from.Text           = "";
+            txtb_period_to.Text             = "";
+            txtb_monthly_rate.Text          = "";
+            txtb_daily_rate.Text            = "";
+            txtb_hourly_rate.Text           = "";
+            txtb_empl_id.Text               = "";
             
-            ddl_dep.SelectedIndex           = -1;
-            ddl_subdep.SelectedIndex        = -1;
-            ddl_division.SelectedIndex      = -1;
-            ddl_section.SelectedIndex       = -1;
-            ddl_function_code.SelectedIndex = -1;
-            ddl_fund_charges.SelectedIndex  = -1;
-            ddl_position.SelectedIndex      = -1;
-            ddl_emp_status.SelectedValue    = "1";
+            ddl_dep.SelectedIndex                   = -1;
+            ddl_subdep.SelectedIndex                = -1;
+            ddl_division.SelectedIndex              = -1;
+            ddl_section.SelectedIndex               = -1;
+            ddl_function_code.SelectedIndex         = -1;
+            ddl_fund_charges.SelectedIndex          = -1;
+            ddl_position.SelectedIndex              = -1;
+            ddl_emp_status.SelectedValue            = "1";
 
-            txtb_hazard_pay_override_hidden.Text = "";
-            txtb_rate_basis_hidden.Text          = "";
+            txtb_hazard_pay_override_hidden.Text    = "";
+            txtb_rate_basis_hidden.Text             = "";
 
-            chckbox_flag_gsis.Checked = false;
-            chckbox_flag_phic.Checked = false;
-            chckbox_flag_hdmf.Checked = false;
-            txtb_hdmf_fix_rate.Text = "0.00";
-            txtb_date_of_assumption.Text = "";
-            txtb_salary_grade.Text = "";
-            txtb_birth_date.Text = "";
-            txtb_remarks.Text = "";
+            chckbox_flag_gsis.Checked               = false;
+            chckbox_flag_phic.Checked               = false;
+            chckbox_flag_hdmf.Checked               = false;
+            txtb_hdmf_fix_rate.Text                 = "0.00";
+            txtb_date_of_assumption.Text            = "";
+            txtb_salary_grade.Text                  = "";
+            txtb_birth_date.Text                    = "";
+            txtb_remarks.Text                       = "";
+            txtb_item_no.Text                       = "";
             
             UpdatePanelTo.Update();
             UpdatePanelFrom.Update();
@@ -470,6 +485,13 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             dtSource.Columns.Add("hdmf_fix_rate", typeof(System.String));
             dtSource.Columns.Add("date_of_assumption", typeof(System.String));
             // END   - Update : JADE  2021-03-26 -- Add Fields by Sir
+
+            dtSource.Columns.Add("item_no", typeof(System.String));
+            dtSource.Columns.Add("salary_grade", typeof(System.String));
+            dtSource.Columns.Add("created_dttm", typeof(System.DateTime));
+            dtSource.Columns.Add("created_by", typeof(System.String));
+            dtSource.Columns.Add("updated_dttm", typeof(System.DateTime));
+            dtSource.Columns.Add("updated_by", typeof(System.String));
         }
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Initialized datasource fields/columns - Details
@@ -562,6 +584,12 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             nrow["hdmf_fix_rate"] = string.Empty;
             nrow["date_of_assumption"] = string.Empty;
             // END   - Update : JADE  05/20/2019 -- Add Fields by Sir
+            nrow["item_no"] = string.Empty;
+            nrow["salary_grade"] = string.Empty;
+            //nrow["created_dttm"] = typeof(System.DateTime);
+            nrow["created_by"] = string.Empty;
+            //nrow["updated_dttm"] = typeof(System.DateTime);
+            nrow["updated_by"] = string.Empty;
             
             nrow["action"] = 1;
             nrow["retrieve"] = false;
@@ -681,6 +709,7 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             txtb_date_of_assumption.Text = row2Edit[0]["date_of_assumption"].ToString();
             txtb_salary_grade.Text       = row2Edit[0]["salary_grade"].ToString();
             txtb_birth_date.Text         = row2Edit[0]["birth_date"].ToString();
+            txtb_item_no.Text            = row2Edit[0]["item_no"].ToString();
             
             Retrieve_FromMaster();
             RetrieveDataListGrid_dtl();
@@ -697,7 +726,14 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             ViewState["prev_chckbox_flag_phic"]   = chckbox_flag_phic.Checked;
             ViewState["prev_chckbox_flag_hdmf"]   = chckbox_flag_hdmf.Checked;
             ViewState["prev_txtb_hdmf_fix_rate"]  = txtb_hdmf_fix_rate.Text;
-            
+
+            ViewState["prev_payroll_group_nbr"]    = ddl_group_nbr.SelectedItem.ToString().ToString();
+            ViewState["prev_emp_rcrd_status"]      = ddl_emp_status.SelectedItem.ToString().Trim();
+            ViewState["prev_period_from"]          = txtb_period_from.Text;
+            ViewState["prev_period_to"]            = txtb_period_to.Text;
+            ViewState["prev_date_of_assumption"]   = txtb_date_of_assumption.Text;
+            //ViewState["prev_hazard_pay_override"]  = txtb_hazard_pay_override_hidden.Text;
+
             txtb_effective_date.Enabled = false;
             ddl_empl_name.Visible = false;
             txtb_empl_name.Visible = true;
@@ -798,6 +834,10 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     dtSource_pos.Rows[0]["position_code"]       = ddl_position.SelectedValue.ToString();        
                     dtSource_pos.Rows[0]["hazard_pay_override"] = txtb_hazard_pay_override_hidden.Text.ToString().Trim();
                     // END  -  Separate Table for Payroll Master Reference - Table Name : payrollemployeemaster_pos_tbl
+                    dtSource.Rows[0]["item_no"]         = txtb_item_no.Text.ToString().Trim();
+                    dtSource.Rows[0]["salary_grade"]    = txtb_salary_grade.Text.ToString().Trim();
+                    dtSource.Rows[0]["created_dttm"]    = DateTime.Now;
+                    dtSource.Rows[0]["created_by"]      = Session["ep_user_id"].ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource);
                     scriptInsertUpdate_pos = MyCmn.get_insertscript(dtSource_pos);
@@ -836,6 +876,10 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     dtSource_pos.Rows[0]["position_code"]       = ddl_position.SelectedValue.ToString();        
                     dtSource_pos.Rows[0]["hazard_pay_override"] = txtb_hazard_pay_override_hidden.Text.ToString().Trim();
                     // END  -  Separate Table for Payroll Master Reference - Table Name : payrollemployeemaster_pos_tbl
+                    dtSource.Rows[0]["item_no"]         = txtb_item_no.Text.ToString().Trim();
+                    dtSource.Rows[0]["salary_grade"]    = txtb_salary_grade.Text.ToString().Trim();
+                    dtSource.Rows[0]["updated_dttm"]    = DateTime.Now;
+                    dtSource.Rows[0]["updated_by"]      = Session["ep_user_id"].ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.updatescript(dtSource);
                     scriptInsertUpdate_pos = MyCmn.updatescript(dtSource_pos);
@@ -983,6 +1027,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                         //nrow["position_code"]       = ddl_position.SelectedValue.ToString();
                         //nrow["hazard_pay_override"] = txtb_hazard_pay_override_hidden.Text.ToString().Trim();
                         // END  -  Separate Table for Payroll Master Reference - Table Name : payrollemployeemaster_pos_tbl
+                        nrow["item_no"]             = txtb_item_no.Text.ToString().Trim();
+                        nrow["salary_grade"]        = txtb_salary_grade.Text.ToString().Trim();
 
                         dataListGrid.Rows.Add(nrow);
                         gv_dataListGrid.SetPageIndex(gv_dataListGrid.PageCount);
@@ -1031,7 +1077,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                         // END  -  Separate Table for Payroll Master Reference - Table Name : payrollemployeemaster_pos_tbl
                         
                         row2Edit[0]["employee_name"]        = txtb_empl_name.Text.ToString().Trim();
-
+                        row2Edit[0]["item_no"]              = txtb_item_no.Text.ToString().Trim();
+                        row2Edit[0]["salary_grade"]         = txtb_salary_grade.Text.ToString().Trim();
                         MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
                         SaveAddEdit.Text    = MyCmn.CONST_EDITREC;
                         h2_status.InnerText = "SUCCESSFULLY UPDATED!";
@@ -1573,6 +1620,7 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                 ddl_group_nbr.SelectedValue = "";
                 ddl_group_nbr.Enabled = false;
             }
+            payrollmasterremarks();
         }
         //*************************************************************************
         //  BEGIN - VJA- 10/23/2019 - To In-Active or ctive Employees
@@ -1699,6 +1747,8 @@ namespace HRIS_ePayroll.View.cPayrollMaster
             dtSource1.Columns.Add("flag_expt_phic", typeof(System.String));
             dtSource1.Columns.Add("hdmf_fix_rate", typeof(System.String));
             dtSource1.Columns.Add("emp_rcrd_status", typeof(System.String));
+            dtSource1.Columns.Add("item_no", typeof(System.String));
+            dtSource1.Columns.Add("salary_grade", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -2016,6 +2066,22 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     remarks += Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString())  != chckbox_flag_hdmf.Checked             ? "HDMF      changed from " + (Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString()) == true ? " checked " : " unchecked ") + " to "+ (chckbox_flag_hdmf.Checked == true ? " checked " : " unchecked ") + ", "              : "";
                     remarks += double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString())  != double.Parse(txtb_hdmf_fix_rate.Text) ? "HDMF RATE changed from " + double.Parse(ViewState["prev_txtb_hdmf_fix_rate"].ToString()) + " to " + (Boolean.Parse(ViewState["prev_chckbox_flag_hdmf"].ToString()) == true && chckbox_flag_hdmf.Checked  ==false && double.Parse(txtb_hdmf_fix_rate.Text)==0?"2%": double.Parse(txtb_hdmf_fix_rate.Text).ToString()) + ") ," : "";
                 }
+
+                if (ViewState["prev_payroll_group_nbr"].ToString().Trim()   != ddl_group_nbr.SelectedItem.ToString().Trim()
+                 || ViewState["prev_emp_rcrd_status"].ToString().Trim()     != ddl_emp_status.SelectedItem.ToString().Trim()
+                 || ViewState["prev_period_from"].ToString().Trim()         != txtb_period_from.Text.Trim()
+                 || ViewState["prev_period_to"].ToString().Trim()           != txtb_period_to.Text.Trim()
+                 || ViewState["prev_date_of_assumption"].ToString().Trim()  != txtb_date_of_assumption.Text.Trim()
+                 //|| ViewState["prev_hazard_pay_override"].ToString().Trim() != txtb_hazard_pay_override_hidden.Text.Trim()
+                )
+                {
+                    remarks += ViewState["prev_payroll_group_nbr"].ToString().Trim()   != ddl_group_nbr.SelectedItem.ToString().Trim()  ? "Payroll group changed from "      + (ViewState["prev_payroll_group_nbr"].ToString().Trim() == "-- Select Here --" ? " blank " : ViewState["prev_payroll_group_nbr"].ToString().Trim())  + " to " + (ddl_group_nbr.SelectedItem.ToString().Trim() == "-- Select Here --" ? " blank " : ddl_group_nbr.SelectedItem.ToString().Trim())  + ", " : "";
+                    remarks += ViewState["prev_emp_rcrd_status"].ToString().Trim()     != ddl_emp_status.SelectedItem.ToString().Trim() ? "Record Status changed from "      + ViewState["prev_emp_rcrd_status"].ToString().Trim()    + " to " + ddl_emp_status.SelectedItem.ToString().Trim()  + "," : "";
+                    remarks += ViewState["prev_period_from"].ToString().Trim()         != txtb_period_from.Text.Trim()                  ? "Period From changed from "        + ViewState["prev_period_from"].ToString().Trim()        + " to " + txtb_period_from.Text.Trim()                   + ", " : "";
+                    remarks += ViewState["prev_period_to"].ToString().Trim()           != txtb_period_to.Text.Trim()                    ? "Period To changed from "          + ViewState["prev_period_to"].ToString().Trim()          + " to " + txtb_period_to.Text.Trim()                     + ", " : "";
+                    remarks += ViewState["prev_date_of_assumption"].ToString().Trim()  != txtb_date_of_assumption.Text.Trim()           ? "Date of assumption changed from " + ViewState["prev_date_of_assumption"].ToString().Trim() + " to " + txtb_date_of_assumption.Text.Trim()            + ", " : "";
+                    //remarks += ViewState["prev_hazard_pay_override"].ToString().Trim() != txtb_hazard_pay_override_hidden.Text.Trim()   ? "Hazard Percent changed from "     + ViewState["prev_hazard_pay_override"].ToString().Trim()+ " to " + txtb_hazard_pay_override_hidden.Text.Trim()    + ", " : "";
+                }
             }
             txtb_remarks.Text = remarks;
         }
@@ -2051,6 +2117,17 @@ namespace HRIS_ePayroll.View.cPayrollMaster
         protected void btnSaveRemarks_Click(object sender, EventArgs e)
         {
             SaveRemarks("SAVE-INDIVIDUAL");
+        }
+
+        protected void text_TextChanged(object sender, EventArgs e)
+        {
+            payrollmasterremarks();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Popshowdate", "show_date();", true);
+        }
+
+        protected void ddl_group_nbr_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            payrollmasterremarks();
         }
         //*************************************************************************
         //  END OF CODE
