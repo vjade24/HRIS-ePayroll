@@ -2156,7 +2156,8 @@
                                             <div class="col-10">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
-                                                            <asp:DropDownList ID="ddl_header" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>
+                                                        <asp:TextBox runat="server" ID="voucher_nbr" CssClass="form-control form-control-sm" Width="100%" Enabled="false"></asp:TextBox>
+                                                        <%--<asp:DropDownList ID="ddl_header" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true"  Enabled="false"></asp:DropDownList>--%>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>

@@ -178,8 +178,9 @@ namespace HRIS_ePayroll.View
                     ddl_payroll_template.SelectedValue  = prevValues[3].ToString();
                     DropDownListID.SelectedValue        = prevValues[5].ToString();
                     ddl_dep.SelectedValue               = Session["PreviousValuesonPage_cVoucherHdr_department"].ToString().Trim();
-                    RetrieveHeader();
-                    ddl_header.SelectedValue            = prevValues[6].ToString();
+                    //RetrieveHeader();
+                    //ddl_header.SelectedValue            = prevValues[6].ToString();
+                    voucher_nbr.Text                    = prevValues[6].ToString();
                     txtb_empl_id.Text                   = prevValues[7].ToString();
                     RetrieveDataListGrid();
                     gv_dataListGrid.PageIndex           = int.Parse(prevValues[4].ToString());
@@ -252,7 +253,7 @@ namespace HRIS_ePayroll.View
             //RetrieveEmployeename();
             //RetrieveBindingFundcharges();
             //RetrieveLastVoucherNumber();
-            RetrieveHeader();
+            //RetrieveHeader();
 
             btnAdd.Visible = false;
         }
@@ -326,29 +327,29 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         //  BEGIN - VJA- 06/06/2019 - Retrieve back end data and load to GridView
         //*************************************************************************
-        private void RetrieveHeader()
-        {
-            ddl_header.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData("sp_voucher_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_department_code", Session["PreviousValuesonPage_cVoucherHdr_department_grid"].ToString().Trim());
-            ddl_header.DataSource = dt;
-            ddl_header.DataValueField = "voucher_ctrl_nbr";
-            ddl_header.DataTextField  = "voucher_ctrl_nbr";
-            ddl_header.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_header.Items.Insert(0, li);
+        //private void RetrieveHeader()
+        //{
+        //    ddl_header.Items.Clear();
+        //    DataTable dt = MyCmn.RetrieveData("sp_voucher_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_department_code", Session["PreviousValuesonPage_cVoucherHdr_department_grid"].ToString().Trim());
+        //    ddl_header.DataSource = dt;
+        //    ddl_header.DataValueField = "voucher_ctrl_nbr";
+        //    ddl_header.DataTextField  = "voucher_ctrl_nbr";
+        //    ddl_header.DataBind();
+        //    ListItem li = new ListItem("-- Select Here --", "");
+        //    ddl_header.Items.Insert(0, li);
 
-        }
+        //}
         //*************************************************************************
         //  BEGIN - VJA- 06/06/2019 - Retrieve back end data and load to GridView
         //*************************************************************************
         private void RetrieveDataListGrid()
         {
-            dataListGrid = MyCmn.RetrieveData("sp_voucher_dtl_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_voucher_ctrl_nbr",ddl_header.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim());
+            dataListGrid = MyCmn.RetrieveData("sp_voucher_dtl_tbl_list", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_voucher_ctrl_nbr", voucher_nbr.Text.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim());
             MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
             gv_dataListGrid.PageSize = Convert.ToInt32(DropDownListID.Text);
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
             
-            string editExpression = "voucher_ctrl_nbr = '" + ddl_header.SelectedValue.ToString().Trim() + "' ";
+            string editExpression = "voucher_ctrl_nbr = '" + voucher_nbr.Text.ToString().Trim() + "' ";
             DataRow[] row2Edit = dataListGrid.Select(editExpression);
             
             // txtb_empl_id.Text               = dataListGrid.Rows[0]["empl_id"].ToString();
@@ -405,7 +406,7 @@ namespace HRIS_ePayroll.View
             lbl_if_dateposted_yes.Text = "";
             ToogleTextbox(true);
 
-            LabelAddEdit.Text = "Add Record | Voucher Ctrl No: " + ddl_header.SelectedValue.ToString().Trim();
+            LabelAddEdit.Text = "Add Record | Voucher Ctrl No: " + voucher_nbr.Text.ToString().Trim();
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_ADD);
             ViewState.Add("AddEdit_Mode_BrkDwn", "BRK_ADD");
             lbl_addeditmode_hidden.Text = MyCmn.CONST_ADD;
@@ -1203,7 +1204,7 @@ namespace HRIS_ePayroll.View
             nrow1["retrieve"] = true;
             dtSource.Rows.Add(nrow1);
 
-            ddl_header.SelectedValue    = svalues[1].ToString().Trim();
+            voucher_nbr.Text            = svalues[1].ToString().Trim();
             txtb_employeename.Text      = row2Edit[0]["employee_name"].ToString();
             txtb_empl_id.Text           = svalues[0].ToString().Trim();
             
@@ -1342,7 +1343,7 @@ namespace HRIS_ePayroll.View
             // ***************BEGIN*******************************************************
             //                OTHER CLAIMS/REFUND
             // ***************************************************************************
-            dtSource_oth_claims              = MyCmn.RetrieveData("voucher_dtl_oth_claims_tbl_list", "par_voucher_ctrl_nbr", ddl_header.SelectedValue.ToString().Trim());
+            dtSource_oth_claims              = MyCmn.RetrieveData("voucher_dtl_oth_claims_tbl_list", "par_voucher_ctrl_nbr", voucher_nbr.Text.ToString().Trim());
             string editExpression_oth_claims = "empl_id = '" + svalues[0].ToString().Trim() + "' AND voucher_ctrl_nbr = '" + svalues[1].ToString().Trim() + "' AND seq_no = '" + svalues[3].ToString().Trim() + "'";
             DataRow[] row2Edit2              = dtSource_oth_claims.Select(editExpression_oth_claims);
             
@@ -1398,7 +1399,7 @@ namespace HRIS_ePayroll.View
             calculate_netpays();
 
             //ddl_empl_id.Enabled = false;
-            LabelAddEdit.Text = "Edit Record | Voucher Ctrl No : " + ddl_header.SelectedValue.Trim();
+            LabelAddEdit.Text = "Edit Record | Voucher Ctrl No : " + voucher_nbr.Text.Trim();
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_EDIT);
             ViewState.Add("AddEdit_Mode_BrkDwn", "BRK_EDIT");
             lbl_addeditmode_hidden.Text = MyCmn.CONST_EDIT;
@@ -1526,7 +1527,7 @@ namespace HRIS_ePayroll.View
                 {
                     // BEGIN - VJA : 05/29/2019 - Header
                     dtSource.Rows[0]["payroll_year"]            = ddl_year.SelectedValue.ToString().Trim();
-                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = ddl_header.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = voucher_nbr.Text.ToString().Trim();
                     dtSource.Rows[0]["seq_no"]                  = hidden_seq_no.Text;
                     dtSource.Rows[0]["voucher_period_from"]     = txtb_period_from.Text.ToString().Trim();
                     dtSource.Rows[0]["voucher_period_to"]       = txtb_period_to.Text.ToString().Trim();
@@ -1615,7 +1616,7 @@ namespace HRIS_ePayroll.View
                     // ***************BEGIN*******************************************************
                     //                OTHER CLAIMS/REFUND
                     // ***************************************************************************
-                    dtSource_oth_claims.Rows[0]["voucher_ctrl_nbr"]     = ddl_header.SelectedValue.ToString().Trim();
+                    dtSource_oth_claims.Rows[0]["voucher_ctrl_nbr"]     = voucher_nbr.Text.ToString().Trim();
                     dtSource_oth_claims.Rows[0]["seq_no"]               = hidden_seq_no.Text;
                     dtSource_oth_claims.Rows[0]["empl_id"]              = txtb_empl_id.Text.ToString().Trim();
                     dtSource_oth_claims.Rows[0]["payroll_descr_amt1"]   = txtb_payroll_descr1.Text;         
@@ -1644,7 +1645,7 @@ namespace HRIS_ePayroll.View
                 {
                     // BEGIN - VJA : 05/29/2019 - Header
                     dtSource.Rows[0]["payroll_year"]            = ddl_year.SelectedValue.ToString().Trim();
-                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = ddl_header.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["voucher_ctrl_nbr"]        = voucher_nbr.Text.ToString().Trim();
                     dtSource.Rows[0]["seq_no"]                  = hidden_seq_no.Text;
                     dtSource.Rows[0]["voucher_period_from"]     = txtb_period_from.Text.ToString().Trim();
                     dtSource.Rows[0]["voucher_period_to"]       = txtb_period_to.Text.ToString().Trim();
@@ -1732,7 +1733,7 @@ namespace HRIS_ePayroll.View
                     // ***************BEGIN*******************************************************
                     //                OTHER CLAIMS/REFUND
                     // ***************************************************************************
-                    dtSource_oth_claims.Rows[0]["voucher_ctrl_nbr"]     = ddl_header.SelectedValue.ToString().Trim();
+                    dtSource_oth_claims.Rows[0]["voucher_ctrl_nbr"]     = voucher_nbr.Text.ToString().Trim();
                     dtSource_oth_claims.Rows[0]["seq_no"]               = hidden_seq_no.Text;
                     dtSource_oth_claims.Rows[0]["empl_id"]              = txtb_empl_id.Text.ToString().Trim();
                     dtSource_oth_claims.Rows[0]["payroll_descr_amt1"]   = txtb_payroll_descr1.Text;         
@@ -1781,7 +1782,7 @@ namespace HRIS_ePayroll.View
                         DataRow nrow = dataListGrid.NewRow();
                         // BEGIN - VJA : 05/29/2019 - Header
                         nrow["payroll_year"]            = ddl_year.SelectedValue.ToString().Trim();
-                        nrow["voucher_ctrl_nbr"]        = ddl_header.SelectedValue.ToString().Trim();
+                        nrow["voucher_ctrl_nbr"]        = voucher_nbr.Text.ToString().Trim();
                         nrow["seq_no"]                  = hidden_seq_no.Text;
                         nrow["voucher_period_from"]     = txtb_period_from.Text.ToString().Trim();
                         nrow["voucher_period_to"]       = txtb_period_to.Text.ToString().Trim();
@@ -1908,12 +1909,12 @@ namespace HRIS_ePayroll.View
                     }
                     if (saveRecord == MyCmn.CONST_EDIT)
                     {
-                        string editExpression = "empl_id = '" + txtb_empl_id.Text.ToString().Trim() + "' AND voucher_ctrl_nbr = '" + ddl_header.SelectedValue.ToString().Trim() + "' AND seq_no = '" + hidden_seq_no.Text.ToString().Trim() + "'";
+                        string editExpression = "empl_id = '" + txtb_empl_id.Text.ToString().Trim() + "' AND voucher_ctrl_nbr = '" + voucher_nbr.Text.ToString().Trim() + "' AND seq_no = '" + hidden_seq_no.Text.ToString().Trim() + "'";
                         DataRow[] row2Edit = dataListGrid.Select(editExpression);
                         
                         // BEGIN - VJA : 05/29/2019 - Header
                         row2Edit[0]["payroll_year"]            = ddl_year.SelectedValue.ToString().Trim();
-                        row2Edit[0]["voucher_ctrl_nbr"]        = ddl_header.SelectedValue.ToString().Trim();
+                        row2Edit[0]["voucher_ctrl_nbr"]        = voucher_nbr.Text.ToString().Trim();
                         row2Edit[0]["seq_no"]                  = hidden_seq_no.Text;
                         row2Edit[0]["voucher_period_from"]     = txtb_period_from.Text.ToString().Trim();
                         row2Edit[0]["voucher_period_to"]       = txtb_period_to.Text.ToString().Trim();
@@ -4684,7 +4685,7 @@ namespace HRIS_ePayroll.View
         private void InsertUpdateOtherDeduction()
         {
 
-            DataTable dt = MyCmn.RetrieveData("payrollregistry_dtl_othded_chk", "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString(), "par_payroll_year", ddl_year.SelectedValue.ToString() , "par_payroll_month", ddl_month.SelectedValue.ToString(), "par_payroll_registry_nbr", ddl_header.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString(), "par_seq_no", hidden_seq_no.Text.ToString().Trim());
+            DataTable dt = MyCmn.RetrieveData("payrollregistry_dtl_othded_chk", "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString(), "par_payroll_year", ddl_year.SelectedValue.ToString() , "par_payroll_month", ddl_month.SelectedValue.ToString(), "par_payroll_registry_nbr", voucher_nbr.Text.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString(), "par_seq_no", hidden_seq_no.Text.ToString().Trim());
             if (dt != null)
             {
                 string insert_update_script = "";
@@ -4760,7 +4761,7 @@ namespace HRIS_ePayroll.View
                                             +         "payrolltemplate_code = '" + ddl_payroll_template.SelectedValue.ToString() + "'"
                                             + "AND " + "payroll_year= '"          + ddl_year.SelectedValue.ToString() + "'"
                                             + "AND " + "payroll_month= '"         + ddl_month.SelectedValue.ToString() + "'"
-                                            + "AND " + "payroll_registry_nbr= '"  + ddl_header.SelectedValue.ToString().Trim() + "'"
+                                            + "AND " + "payroll_registry_nbr= '"  + voucher_nbr.Text.ToString().Trim() + "'"
                                             + "AND " + "empl_id= '"               + txtb_empl_id.Text + "'"
                                             + "AND " + "seq_no= '"                + hidden_seq_no.Text.ToString().Trim() + "'";
 
@@ -4773,7 +4774,7 @@ namespace HRIS_ePayroll.View
                                          +       "'" + ddl_payroll_template.SelectedValue.ToString() + "'"
                                          + "," + "'" + ddl_year.SelectedValue.ToString()             + "'"
                                          + "," + "'" + ddl_month.SelectedValue.ToString()            + "'"
-                                         + "," + "'" + ddl_header.SelectedValue.ToString().Trim()    + "'"
+                                         + "," + "'" + voucher_nbr.Text.ToString().Trim()    + "'"
                                          + "," + "'" + txtb_empl_id.Text                             + "'"
                                          + "," + txtb_other_ded_mand1.Text.ToString().Trim().Replace(",","")
                                          + "," + txtb_other_ded_mand2.Text.ToString().Trim().Replace(",","")

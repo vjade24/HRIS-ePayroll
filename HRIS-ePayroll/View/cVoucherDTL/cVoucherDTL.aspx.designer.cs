@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HRIS_ePayroll.View
-{
-
-
-    public partial class cVoucherDTL
-    {
-
+namespace HRIS_ePayroll.View {
+    
+    
+    public partial class cVoucherDTL {
+        
         /// <summary>
         /// sm_Script control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager sm_Script;
-
+        
         /// <summary>
         /// UpdatePanel16 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel16;
-
+        
         /// <summary>
         /// UpdatePanel19 control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel19;
-
+        
         /// <summary>
         /// UpdatePanel8 control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel8;
-
+        
         /// <summary>
         /// SaveAddEdit control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label SaveAddEdit;
-
+        
         /// <summary>
         /// delete_confirm_popup control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel delete_confirm_popup;
-
+        
         /// <summary>
         /// UpdatePanel6 control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel6;
-
+        
         /// <summary>
         /// deleteRec0 control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl deleteRec0;
-
+        
         /// <summary>
         /// deleteRec1 control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label deleteRec1;
-
+        
         /// <summary>
         /// lbl_unposting control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_unposting;
-
+        
         /// <summary>
         /// txtb_reason control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_reason;
-
+        
         /// <summary>
         /// LblRequired205 control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired205;
-
+        
         /// <summary>
         /// lnkBtnYes control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnYes;
-
+        
         /// <summary>
         /// LinkButton3 control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
-
+        
         /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
@@ -148,7 +146,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-
+        
         /// <summary>
         /// UpdatePanel4 control.
         /// </summary>
@@ -157,7 +155,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
-
+        
         /// <summary>
         /// Label4 control.
         /// </summary>
@@ -166,7 +164,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
-
+        
         /// <summary>
         /// UpdatePanel7 control.
         /// </summary>
@@ -175,7 +173,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-
+        
         /// <summary>
         /// UpdatePanel5 control.
         /// </summary>
@@ -184,7 +182,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
-
+        
         /// <summary>
         /// LabelAddEdit control.
         /// </summary>
@@ -193,7 +191,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelAddEdit;
-
+        
         /// <summary>
         /// txtb_status control.
         /// </summary>
@@ -202,7 +200,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_status;
-
+        
         /// <summary>
         /// Label7 control.
         /// </summary>
@@ -211,7 +209,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
-
+        
         /// <summary>
         /// txtb_date_posted control.
         /// </summary>
@@ -220,7 +218,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_date_posted;
-
+        
         /// <summary>
         /// txtb_voucher_nbr control.
         /// </summary>
@@ -229,7 +227,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_voucher_nbr;
-
+        
         /// <summary>
         /// LblRequired22 control.
         /// </summary>
@@ -238,7 +236,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired22;
-
+        
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -247,7 +245,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-
+        
         /// <summary>
         /// UpdatePanel14 control.
         /// </summary>
@@ -256,7 +254,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel14;
-
+        
         /// <summary>
         /// txtb_employeename control.
         /// </summary>
@@ -265,7 +263,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_employeename;
-
+        
         /// <summary>
         /// LblRequired60 control.
         /// </summary>
@@ -274,7 +272,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired60;
-
+        
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -283,7 +281,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
-
+        
         /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
@@ -292,7 +290,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-
+        
         /// <summary>
         /// txtb_empl_id control.
         /// </summary>
@@ -301,7 +299,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_empl_id;
-
+        
         /// <summary>
         /// lbl_rate_descr control.
         /// </summary>
@@ -310,7 +308,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_rate_descr;
-
+        
         /// <summary>
         /// txtb_rate_amount control.
         /// </summary>
@@ -319,7 +317,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_rate_amount;
-
+        
         /// <summary>
         /// txtb_lates_min control.
         /// </summary>
@@ -328,7 +326,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_lates_min;
-
+        
         /// <summary>
         /// LblRequired100 control.
         /// </summary>
@@ -337,7 +335,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired100;
-
+        
         /// <summary>
         /// div_no_of_days control.
         /// </summary>
@@ -346,7 +344,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_no_of_days;
-
+        
         /// <summary>
         /// txtb_no_of_days control.
         /// </summary>
@@ -355,7 +353,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_no_of_days;
-
+        
         /// <summary>
         /// LblRequired1 control.
         /// </summary>
@@ -364,7 +362,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired1;
-
+        
         /// <summary>
         /// div_summary_and_tab control.
         /// </summary>
@@ -373,7 +371,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_summary_and_tab;
-
+        
         /// <summary>
         /// div_amount1 control.
         /// </summary>
@@ -382,7 +380,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_amount1;
-
+        
         /// <summary>
         /// lbl_other_amount1_descr control.
         /// </summary>
@@ -391,7 +389,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_amount1_descr;
-
+        
         /// <summary>
         /// txtb_other_amount1 control.
         /// </summary>
@@ -400,7 +398,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_amount1;
-
+        
         /// <summary>
         /// LblRequired68 control.
         /// </summary>
@@ -409,7 +407,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired68;
-
+        
         /// <summary>
         /// div_amount2 control.
         /// </summary>
@@ -418,7 +416,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_amount2;
-
+        
         /// <summary>
         /// lbl_other_amount2_descr control.
         /// </summary>
@@ -427,7 +425,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_amount2_descr;
-
+        
         /// <summary>
         /// txtb_other_amount2 control.
         /// </summary>
@@ -436,7 +434,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_amount2;
-
+        
         /// <summary>
         /// LblRequired69 control.
         /// </summary>
@@ -445,7 +443,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired69;
-
+        
         /// <summary>
         /// div_amount3 control.
         /// </summary>
@@ -454,7 +452,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_amount3;
-
+        
         /// <summary>
         /// lbl_other_amount3_descr control.
         /// </summary>
@@ -463,7 +461,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_amount3_descr;
-
+        
         /// <summary>
         /// txtb_other_amount3 control.
         /// </summary>
@@ -472,7 +470,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_amount3;
-
+        
         /// <summary>
         /// LblRequired70 control.
         /// </summary>
@@ -481,7 +479,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired70;
-
+        
         /// <summary>
         /// div_gross control.
         /// </summary>
@@ -490,7 +488,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_gross;
-
+        
         /// <summary>
         /// txtb_lates_amount control.
         /// </summary>
@@ -499,7 +497,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_lates_amount;
-
+        
         /// <summary>
         /// LblRequired101 control.
         /// </summary>
@@ -508,7 +506,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired101;
-
+        
         /// <summary>
         /// txtb_gross_pay control.
         /// </summary>
@@ -517,7 +515,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gross_pay;
-
+        
         /// <summary>
         /// LblRequired4 control.
         /// </summary>
@@ -526,7 +524,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired4;
-
+        
         /// <summary>
         /// div_amount4 control.
         /// </summary>
@@ -535,7 +533,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_amount4;
-
+        
         /// <summary>
         /// lbl_other_amount4_descr control.
         /// </summary>
@@ -544,7 +542,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_amount4_descr;
-
+        
         /// <summary>
         /// txtb_other_amount4 control.
         /// </summary>
@@ -553,7 +551,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_amount4;
-
+        
         /// <summary>
         /// LblRequired102 control.
         /// </summary>
@@ -562,7 +560,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired102;
-
+        
         /// <summary>
         /// div_lwop control.
         /// </summary>
@@ -571,7 +569,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_lwop;
-
+        
         /// <summary>
         /// txtb_lwo_pay control.
         /// </summary>
@@ -580,7 +578,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_lwo_pay;
-
+        
         /// <summary>
         /// LblRequired6 control.
         /// </summary>
@@ -589,7 +587,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired6;
-
+        
         /// <summary>
         /// txtb_lwop_amount_pera control.
         /// </summary>
@@ -598,7 +596,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_lwop_amount_pera;
-
+        
         /// <summary>
         /// LblRequired71 control.
         /// </summary>
@@ -607,7 +605,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired71;
-
+        
         /// <summary>
         /// div_tax control.
         /// </summary>
@@ -616,7 +614,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_tax;
-
+        
         /// <summary>
         /// txtb_birtax_summary control.
         /// </summary>
@@ -625,7 +623,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_birtax_summary;
-
+        
         /// <summary>
         /// Label5 control.
         /// </summary>
@@ -634,7 +632,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-
+        
         /// <summary>
         /// div_deductions control.
         /// </summary>
@@ -643,7 +641,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_deductions;
-
+        
         /// <summary>
         /// txtb_total_mandatory control.
         /// </summary>
@@ -652,7 +650,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_total_mandatory;
-
+        
         /// <summary>
         /// LblRequired7 control.
         /// </summary>
@@ -661,7 +659,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired7;
-
+        
         /// <summary>
         /// txtb_total_optional control.
         /// </summary>
@@ -670,7 +668,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_total_optional;
-
+        
         /// <summary>
         /// LblRequired8 control.
         /// </summary>
@@ -679,7 +677,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired8;
-
+        
         /// <summary>
         /// txtb_total_loans control.
         /// </summary>
@@ -688,7 +686,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_total_loans;
-
+        
         /// <summary>
         /// LblRequired9 control.
         /// </summary>
@@ -697,7 +695,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired9;
-
+        
         /// <summary>
         /// div_netpay control.
         /// </summary>
@@ -706,7 +704,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_netpay;
-
+        
         /// <summary>
         /// lbl_netpay_descr control.
         /// </summary>
@@ -715,7 +713,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_netpay_descr;
-
+        
         /// <summary>
         /// txtb_net_pay control.
         /// </summary>
@@ -724,7 +722,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_net_pay;
-
+        
         /// <summary>
         /// LblRequired10 control.
         /// </summary>
@@ -733,7 +731,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired10;
-
+        
         /// <summary>
         /// div_alltab control.
         /// </summary>
@@ -742,7 +740,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_alltab;
-
+        
         /// <summary>
         /// id_header control.
         /// </summary>
@@ -751,7 +749,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_header;
-
+        
         /// <summary>
         /// id_mandatory control.
         /// </summary>
@@ -760,7 +758,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_mandatory;
-
+        
         /// <summary>
         /// id_optional control.
         /// </summary>
@@ -769,7 +767,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_optional;
-
+        
         /// <summary>
         /// id_loans control.
         /// </summary>
@@ -778,7 +776,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_loans;
-
+        
         /// <summary>
         /// id_oth_claims_refund control.
         /// </summary>
@@ -787,7 +785,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_oth_claims_refund;
-
+        
         /// <summary>
         /// UpdateDateFrom control.
         /// </summary>
@@ -796,7 +794,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateDateFrom;
-
+        
         /// <summary>
         /// txtb_period_from control.
         /// </summary>
@@ -805,7 +803,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_period_from;
-
+        
         /// <summary>
         /// LblRequired203 control.
         /// </summary>
@@ -814,7 +812,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired203;
-
+        
         /// <summary>
         /// UpdateDateTo control.
         /// </summary>
@@ -823,7 +821,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateDateTo;
-
+        
         /// <summary>
         /// txtb_period_to control.
         /// </summary>
@@ -832,7 +830,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_period_to;
-
+        
         /// <summary>
         /// LblRequired204 control.
         /// </summary>
@@ -841,7 +839,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired204;
-
+        
         /// <summary>
         /// txtb_gsis_gs control.
         /// </summary>
@@ -850,7 +848,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_gs;
-
+        
         /// <summary>
         /// LblRequired13 control.
         /// </summary>
@@ -859,7 +857,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired13;
-
+        
         /// <summary>
         /// txtb_gsis_ps control.
         /// </summary>
@@ -868,7 +866,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_ps;
-
+        
         /// <summary>
         /// LblRequired15 control.
         /// </summary>
@@ -877,7 +875,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired15;
-
+        
         /// <summary>
         /// txtb_gsis_sif control.
         /// </summary>
@@ -886,7 +884,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_sif;
-
+        
         /// <summary>
         /// LblRequired16 control.
         /// </summary>
@@ -895,7 +893,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired16;
-
+        
         /// <summary>
         /// txtb_hdmf_gs control.
         /// </summary>
@@ -904,7 +902,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_gs;
-
+        
         /// <summary>
         /// LblRequired17 control.
         /// </summary>
@@ -913,7 +911,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired17;
-
+        
         /// <summary>
         /// txtb_hdmf_ps control.
         /// </summary>
@@ -922,7 +920,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_ps;
-
+        
         /// <summary>
         /// LblRequired18 control.
         /// </summary>
@@ -931,7 +929,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired18;
-
+        
         /// <summary>
         /// txtb_phic_gs control.
         /// </summary>
@@ -940,7 +938,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_phic_gs;
-
+        
         /// <summary>
         /// LblRequired19 control.
         /// </summary>
@@ -949,7 +947,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired19;
-
+        
         /// <summary>
         /// txtb_phic_ps control.
         /// </summary>
@@ -958,7 +956,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_phic_ps;
-
+        
         /// <summary>
         /// LblRequired20 control.
         /// </summary>
@@ -967,7 +965,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired20;
-
+        
         /// <summary>
         /// txtb_bir_tax control.
         /// </summary>
@@ -976,7 +974,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_bir_tax;
-
+        
         /// <summary>
         /// LblRequired21 control.
         /// </summary>
@@ -985,7 +983,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired21;
-
+        
         /// <summary>
         /// lbl_other_ded_mand1 control.
         /// </summary>
@@ -994,7 +992,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand1;
-
+        
         /// <summary>
         /// txtb_other_ded_mand1 control.
         /// </summary>
@@ -1003,7 +1001,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand1;
-
+        
         /// <summary>
         /// req_other_ded_mand1 control.
         /// </summary>
@@ -1012,7 +1010,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand1;
-
+        
         /// <summary>
         /// lbl_other_ded_mand2 control.
         /// </summary>
@@ -1021,7 +1019,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand2;
-
+        
         /// <summary>
         /// txtb_other_ded_mand2 control.
         /// </summary>
@@ -1030,7 +1028,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand2;
-
+        
         /// <summary>
         /// req_other_ded_mand2 control.
         /// </summary>
@@ -1039,7 +1037,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand2;
-
+        
         /// <summary>
         /// lbl_other_ded_mand3 control.
         /// </summary>
@@ -1048,7 +1046,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand3;
-
+        
         /// <summary>
         /// txtb_other_ded_mand3 control.
         /// </summary>
@@ -1057,7 +1055,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand3;
-
+        
         /// <summary>
         /// req_other_ded_mand3 control.
         /// </summary>
@@ -1066,7 +1064,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand3;
-
+        
         /// <summary>
         /// lbl_other_ded_mand4 control.
         /// </summary>
@@ -1075,7 +1073,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand4;
-
+        
         /// <summary>
         /// txtb_other_ded_mand4 control.
         /// </summary>
@@ -1084,7 +1082,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand4;
-
+        
         /// <summary>
         /// req_other_ded_mand4 control.
         /// </summary>
@@ -1093,7 +1091,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand4;
-
+        
         /// <summary>
         /// lbl_other_ded_mand5 control.
         /// </summary>
@@ -1102,7 +1100,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand5;
-
+        
         /// <summary>
         /// txtb_other_ded_mand5 control.
         /// </summary>
@@ -1111,7 +1109,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand5;
-
+        
         /// <summary>
         /// req_other_ded_mand5 control.
         /// </summary>
@@ -1120,7 +1118,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand5;
-
+        
         /// <summary>
         /// lbl_other_ded_mand6 control.
         /// </summary>
@@ -1129,7 +1127,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand6;
-
+        
         /// <summary>
         /// txtb_other_ded_mand6 control.
         /// </summary>
@@ -1138,7 +1136,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand6;
-
+        
         /// <summary>
         /// req_other_ded_mand6 control.
         /// </summary>
@@ -1147,7 +1145,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand6;
-
+        
         /// <summary>
         /// lbl_other_ded_mand7 control.
         /// </summary>
@@ -1156,7 +1154,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand7;
-
+        
         /// <summary>
         /// txtb_other_ded_mand7 control.
         /// </summary>
@@ -1165,7 +1163,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand7;
-
+        
         /// <summary>
         /// req_other_ded_mand7 control.
         /// </summary>
@@ -1174,7 +1172,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand7;
-
+        
         /// <summary>
         /// lbl_other_ded_mand8 control.
         /// </summary>
@@ -1183,7 +1181,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand8;
-
+        
         /// <summary>
         /// txtb_other_ded_mand8 control.
         /// </summary>
@@ -1192,7 +1190,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand8;
-
+        
         /// <summary>
         /// req_other_ded_mand8 control.
         /// </summary>
@@ -1201,7 +1199,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand8;
-
+        
         /// <summary>
         /// lbl_other_ded_mand9 control.
         /// </summary>
@@ -1210,7 +1208,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand9;
-
+        
         /// <summary>
         /// txtb_other_ded_mand9 control.
         /// </summary>
@@ -1219,7 +1217,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand9;
-
+        
         /// <summary>
         /// req_other_ded_mand9 control.
         /// </summary>
@@ -1228,7 +1226,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand9;
-
+        
         /// <summary>
         /// lbl_other_ded_mand10 control.
         /// </summary>
@@ -1237,7 +1235,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_mand10;
-
+        
         /// <summary>
         /// txtb_other_ded_mand10 control.
         /// </summary>
@@ -1246,7 +1244,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_mand10;
-
+        
         /// <summary>
         /// req_other_ded_mand10 control.
         /// </summary>
@@ -1255,7 +1253,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_mand10;
-
+        
         /// <summary>
         /// txtb_sss control.
         /// </summary>
@@ -1264,7 +1262,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_sss;
-
+        
         /// <summary>
         /// LblRequired28 control.
         /// </summary>
@@ -1273,7 +1271,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired28;
-
+        
         /// <summary>
         /// txtb_hdmf_addl control.
         /// </summary>
@@ -1282,7 +1280,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_addl;
-
+        
         /// <summary>
         /// LblRequired29 control.
         /// </summary>
@@ -1291,7 +1289,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired29;
-
+        
         /// <summary>
         /// txtb_hdmf_mp2 control.
         /// </summary>
@@ -1300,7 +1298,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_mp2;
-
+        
         /// <summary>
         /// LblRequired66 control.
         /// </summary>
@@ -1309,7 +1307,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired66;
-
+        
         /// <summary>
         /// txtb_hdmf_loyalty_card control.
         /// </summary>
@@ -1318,7 +1316,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_loyalty_card;
-
+        
         /// <summary>
         /// LblRequired67 control.
         /// </summary>
@@ -1327,7 +1325,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired67;
-
+        
         /// <summary>
         /// txtb_philam control.
         /// </summary>
@@ -1336,7 +1334,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_philam;
-
+        
         /// <summary>
         /// LblRequired30 control.
         /// </summary>
@@ -1345,7 +1343,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired30;
-
+        
         /// <summary>
         /// txtb_gsis_ehp control.
         /// </summary>
@@ -1354,7 +1352,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_ehp;
-
+        
         /// <summary>
         /// LblRequired31 control.
         /// </summary>
@@ -1363,7 +1361,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired31;
-
+        
         /// <summary>
         /// txtb_gsis_hip control.
         /// </summary>
@@ -1372,7 +1370,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_hip;
-
+        
         /// <summary>
         /// LblRequired32 control.
         /// </summary>
@@ -1381,7 +1379,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired32;
-
+        
         /// <summary>
         /// txtb_gsis_ceap control.
         /// </summary>
@@ -1390,7 +1388,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_ceap;
-
+        
         /// <summary>
         /// LblRequired33 control.
         /// </summary>
@@ -1399,7 +1397,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired33;
-
+        
         /// <summary>
         /// txtb_gsis_add control.
         /// </summary>
@@ -1408,7 +1406,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_add;
-
+        
         /// <summary>
         /// LblRequired34 control.
         /// </summary>
@@ -1417,7 +1415,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired34;
-
+        
         /// <summary>
         /// lbl_other_prem1 control.
         /// </summary>
@@ -1426,7 +1424,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_prem1;
-
+        
         /// <summary>
         /// txtb_otherpremium_no1 control.
         /// </summary>
@@ -1435,7 +1433,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherpremium_no1;
-
+        
         /// <summary>
         /// LblRequired35 control.
         /// </summary>
@@ -1444,7 +1442,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired35;
-
+        
         /// <summary>
         /// lbl_other_prem2 control.
         /// </summary>
@@ -1453,7 +1451,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_prem2;
-
+        
         /// <summary>
         /// txtb_otherpremium_no2 control.
         /// </summary>
@@ -1462,7 +1460,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherpremium_no2;
-
+        
         /// <summary>
         /// LblRequired36 control.
         /// </summary>
@@ -1471,7 +1469,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired36;
-
+        
         /// <summary>
         /// lbl_other_prem3 control.
         /// </summary>
@@ -1480,7 +1478,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_prem3;
-
+        
         /// <summary>
         /// txtb_otherpremium_no3 control.
         /// </summary>
@@ -1489,7 +1487,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherpremium_no3;
-
+        
         /// <summary>
         /// LblRequired37 control.
         /// </summary>
@@ -1498,7 +1496,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired37;
-
+        
         /// <summary>
         /// lbl_other_prem4 control.
         /// </summary>
@@ -1507,7 +1505,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_prem4;
-
+        
         /// <summary>
         /// txtb_otherpremium_no4 control.
         /// </summary>
@@ -1516,7 +1514,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherpremium_no4;
-
+        
         /// <summary>
         /// LblRequired38 control.
         /// </summary>
@@ -1525,7 +1523,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired38;
-
+        
         /// <summary>
         /// lbl_other_prem5 control.
         /// </summary>
@@ -1534,7 +1532,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_prem5;
-
+        
         /// <summary>
         /// txtb_otherpremium_no5 control.
         /// </summary>
@@ -1543,7 +1541,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherpremium_no5;
-
+        
         /// <summary>
         /// LblRequired39 control.
         /// </summary>
@@ -1552,7 +1550,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired39;
-
+        
         /// <summary>
         /// lbl_other_ded_prem1 control.
         /// </summary>
@@ -1561,7 +1559,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem1;
-
+        
         /// <summary>
         /// txtb_other_ded_prem1 control.
         /// </summary>
@@ -1570,7 +1568,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem1;
-
+        
         /// <summary>
         /// req_other_ded_prem1 control.
         /// </summary>
@@ -1579,7 +1577,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem1;
-
+        
         /// <summary>
         /// lbl_other_ded_prem2 control.
         /// </summary>
@@ -1588,7 +1586,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem2;
-
+        
         /// <summary>
         /// txtb_other_ded_prem2 control.
         /// </summary>
@@ -1597,7 +1595,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem2;
-
+        
         /// <summary>
         /// req_other_ded_prem2 control.
         /// </summary>
@@ -1606,7 +1604,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem2;
-
+        
         /// <summary>
         /// lbl_other_ded_prem3 control.
         /// </summary>
@@ -1615,7 +1613,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem3;
-
+        
         /// <summary>
         /// txtb_other_ded_prem3 control.
         /// </summary>
@@ -1624,7 +1622,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem3;
-
+        
         /// <summary>
         /// req_other_ded_prem3 control.
         /// </summary>
@@ -1633,7 +1631,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem3;
-
+        
         /// <summary>
         /// lbl_other_ded_prem4 control.
         /// </summary>
@@ -1642,7 +1640,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem4;
-
+        
         /// <summary>
         /// txtb_other_ded_prem4 control.
         /// </summary>
@@ -1651,7 +1649,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem4;
-
+        
         /// <summary>
         /// req_other_ded_prem4 control.
         /// </summary>
@@ -1660,7 +1658,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem4;
-
+        
         /// <summary>
         /// lbl_other_ded_prem5 control.
         /// </summary>
@@ -1669,7 +1667,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem5;
-
+        
         /// <summary>
         /// txtb_other_ded_prem5 control.
         /// </summary>
@@ -1678,7 +1676,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem5;
-
+        
         /// <summary>
         /// req_other_ded_prem5 control.
         /// </summary>
@@ -1687,7 +1685,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem5;
-
+        
         /// <summary>
         /// lbl_other_ded_prem6 control.
         /// </summary>
@@ -1696,7 +1694,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem6;
-
+        
         /// <summary>
         /// txtb_other_ded_prem6 control.
         /// </summary>
@@ -1705,7 +1703,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem6;
-
+        
         /// <summary>
         /// req_other_ded_prem6 control.
         /// </summary>
@@ -1714,7 +1712,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem6;
-
+        
         /// <summary>
         /// lbl_other_ded_prem7 control.
         /// </summary>
@@ -1723,7 +1721,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem7;
-
+        
         /// <summary>
         /// txtb_other_ded_prem7 control.
         /// </summary>
@@ -1732,7 +1730,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem7;
-
+        
         /// <summary>
         /// req_other_ded_prem7 control.
         /// </summary>
@@ -1741,7 +1739,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem7;
-
+        
         /// <summary>
         /// lbl_other_ded_prem8 control.
         /// </summary>
@@ -1750,7 +1748,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem8;
-
+        
         /// <summary>
         /// txtb_other_ded_prem8 control.
         /// </summary>
@@ -1759,7 +1757,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem8;
-
+        
         /// <summary>
         /// req_other_ded_prem8 control.
         /// </summary>
@@ -1768,7 +1766,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem8;
-
+        
         /// <summary>
         /// lbl_other_ded_prem9 control.
         /// </summary>
@@ -1777,7 +1775,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem9;
-
+        
         /// <summary>
         /// txtb_other_ded_prem9 control.
         /// </summary>
@@ -1786,7 +1784,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem9;
-
+        
         /// <summary>
         /// req_other_ded_prem9 control.
         /// </summary>
@@ -1795,7 +1793,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem9;
-
+        
         /// <summary>
         /// lbl_other_ded_prem10 control.
         /// </summary>
@@ -1804,7 +1802,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_prem10;
-
+        
         /// <summary>
         /// txtb_other_ded_prem10 control.
         /// </summary>
@@ -1813,7 +1811,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_prem10;
-
+        
         /// <summary>
         /// req_other_ded_prem10 control.
         /// </summary>
@@ -1822,7 +1820,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_prem10;
-
+        
         /// <summary>
         /// txtb_gsis_consolidated control.
         /// </summary>
@@ -1831,7 +1829,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_consolidated;
-
+        
         /// <summary>
         /// LblRequired40 control.
         /// </summary>
@@ -1840,7 +1838,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired40;
-
+        
         /// <summary>
         /// txtb_gsis_policy_regular control.
         /// </summary>
@@ -1849,7 +1847,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_policy_regular;
-
+        
         /// <summary>
         /// LblRequired41 control.
         /// </summary>
@@ -1858,7 +1856,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired41;
-
+        
         /// <summary>
         /// txtb_gsis_policy_optional control.
         /// </summary>
@@ -1867,7 +1865,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_policy_optional;
-
+        
         /// <summary>
         /// LblRequired42 control.
         /// </summary>
@@ -1876,7 +1874,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired42;
-
+        
         /// <summary>
         /// txtb_gsis_ouli_loan control.
         /// </summary>
@@ -1885,7 +1883,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_ouli_loan;
-
+        
         /// <summary>
         /// LblRequired43 control.
         /// </summary>
@@ -1894,7 +1892,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired43;
-
+        
         /// <summary>
         /// txtb_gsis_emer_loan control.
         /// </summary>
@@ -1903,7 +1901,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_emer_loan;
-
+        
         /// <summary>
         /// LblRequired44 control.
         /// </summary>
@@ -1912,7 +1910,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired44;
-
+        
         /// <summary>
         /// txtb_gsis_ecard_loan control.
         /// </summary>
@@ -1921,7 +1919,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_ecard_loan;
-
+        
         /// <summary>
         /// LblRequired45 control.
         /// </summary>
@@ -1930,7 +1928,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired45;
-
+        
         /// <summary>
         /// txtb_gsis_educ_loan control.
         /// </summary>
@@ -1939,7 +1937,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_educ_loan;
-
+        
         /// <summary>
         /// LblRequired46 control.
         /// </summary>
@@ -1948,7 +1946,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired46;
-
+        
         /// <summary>
         /// txtb_gsis_real_loan control.
         /// </summary>
@@ -1957,7 +1955,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_real_loan;
-
+        
         /// <summary>
         /// LblRequired47 control.
         /// </summary>
@@ -1966,7 +1964,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired47;
-
+        
         /// <summary>
         /// txtb_gsis_sos_loan control.
         /// </summary>
@@ -1975,7 +1973,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_sos_loan;
-
+        
         /// <summary>
         /// LblRequired48 control.
         /// </summary>
@@ -1984,7 +1982,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired48;
-
+        
         /// <summary>
         /// txtb_hdmf_mpl_loan control.
         /// </summary>
@@ -1993,7 +1991,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_mpl_loan;
-
+        
         /// <summary>
         /// LblRequired49 control.
         /// </summary>
@@ -2002,7 +2000,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired49;
-
+        
         /// <summary>
         /// txtb_hdmf_house_loan control.
         /// </summary>
@@ -2011,7 +2009,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_house_loan;
-
+        
         /// <summary>
         /// LblRequired50 control.
         /// </summary>
@@ -2020,7 +2018,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired50;
-
+        
         /// <summary>
         /// txtb_hdmf_cal_loan control.
         /// </summary>
@@ -2029,7 +2027,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_hdmf_cal_loan;
-
+        
         /// <summary>
         /// LblRequired51 control.
         /// </summary>
@@ -2038,7 +2036,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired51;
-
+        
         /// <summary>
         /// txtb_ccmpc_loan control.
         /// </summary>
@@ -2047,7 +2045,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_ccmpc_loan;
-
+        
         /// <summary>
         /// LblRequired52 control.
         /// </summary>
@@ -2056,7 +2054,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired52;
-
+        
         /// <summary>
         /// txtb_nico_loan control.
         /// </summary>
@@ -2065,7 +2063,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_nico_loan;
-
+        
         /// <summary>
         /// LblRequired53 control.
         /// </summary>
@@ -2074,7 +2072,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired53;
-
+        
         /// <summary>
         /// txtb_networkbank_loan control.
         /// </summary>
@@ -2083,7 +2081,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_networkbank_loan;
-
+        
         /// <summary>
         /// LblRequired54 control.
         /// </summary>
@@ -2092,7 +2090,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired54;
-
+        
         /// <summary>
         /// txtb_nhmfc_hsng control.
         /// </summary>
@@ -2101,7 +2099,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_nhmfc_hsng;
-
+        
         /// <summary>
         /// LblRequired62 control.
         /// </summary>
@@ -2110,7 +2108,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired62;
-
+        
         /// <summary>
         /// txtb_nafc control.
         /// </summary>
@@ -2119,7 +2117,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_nafc;
-
+        
         /// <summary>
         /// LblRequired63 control.
         /// </summary>
@@ -2128,7 +2126,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired63;
-
+        
         /// <summary>
         /// txtb_gsis_help control.
         /// </summary>
@@ -2137,7 +2135,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_help;
-
+        
         /// <summary>
         /// LblRequired64 control.
         /// </summary>
@@ -2146,7 +2144,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired64;
-
+        
         /// <summary>
         /// txtb_gsis_housing_loan control.
         /// </summary>
@@ -2155,7 +2153,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_gsis_housing_loan;
-
+        
         /// <summary>
         /// LblRequired65 control.
         /// </summary>
@@ -2164,7 +2162,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired65;
-
+        
         /// <summary>
         /// lbl_loan1 control.
         /// </summary>
@@ -2173,7 +2171,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_loan1;
-
+        
         /// <summary>
         /// txtb_otherloan_no1 control.
         /// </summary>
@@ -2182,7 +2180,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherloan_no1;
-
+        
         /// <summary>
         /// LblRequired55 control.
         /// </summary>
@@ -2191,7 +2189,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired55;
-
+        
         /// <summary>
         /// lbl_loan2 control.
         /// </summary>
@@ -2200,7 +2198,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_loan2;
-
+        
         /// <summary>
         /// txtb_otherloan_no2 control.
         /// </summary>
@@ -2209,7 +2207,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherloan_no2;
-
+        
         /// <summary>
         /// LblRequired56 control.
         /// </summary>
@@ -2218,7 +2216,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired56;
-
+        
         /// <summary>
         /// lbl_loan3 control.
         /// </summary>
@@ -2227,7 +2225,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_loan3;
-
+        
         /// <summary>
         /// txtb_otherloan_no3 control.
         /// </summary>
@@ -2236,7 +2234,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherloan_no3;
-
+        
         /// <summary>
         /// LblRequired57 control.
         /// </summary>
@@ -2245,7 +2243,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired57;
-
+        
         /// <summary>
         /// lbl_loan4 control.
         /// </summary>
@@ -2254,7 +2252,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_loan4;
-
+        
         /// <summary>
         /// txtb_otherloan_no4 control.
         /// </summary>
@@ -2263,7 +2261,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherloan_no4;
-
+        
         /// <summary>
         /// LblRequired58 control.
         /// </summary>
@@ -2272,7 +2270,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired58;
-
+        
         /// <summary>
         /// lbl_loan5 control.
         /// </summary>
@@ -2281,7 +2279,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_loan5;
-
+        
         /// <summary>
         /// txtb_otherloan_no5 control.
         /// </summary>
@@ -2290,7 +2288,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_otherloan_no5;
-
+        
         /// <summary>
         /// LblRequired59 control.
         /// </summary>
@@ -2299,7 +2297,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired59;
-
+        
         /// <summary>
         /// lbl_other_ded_loan1 control.
         /// </summary>
@@ -2308,7 +2306,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan1;
-
+        
         /// <summary>
         /// txtb_other_ded_loan1 control.
         /// </summary>
@@ -2317,7 +2315,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan1;
-
+        
         /// <summary>
         /// req_other_ded_loan1 control.
         /// </summary>
@@ -2326,7 +2324,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan1;
-
+        
         /// <summary>
         /// lbl_other_ded_loan2 control.
         /// </summary>
@@ -2335,7 +2333,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan2;
-
+        
         /// <summary>
         /// txtb_other_ded_loan2 control.
         /// </summary>
@@ -2344,7 +2342,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan2;
-
+        
         /// <summary>
         /// req_other_ded_loan2 control.
         /// </summary>
@@ -2353,7 +2351,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan2;
-
+        
         /// <summary>
         /// lbl_other_ded_loan3 control.
         /// </summary>
@@ -2362,7 +2360,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan3;
-
+        
         /// <summary>
         /// txtb_other_ded_loan3 control.
         /// </summary>
@@ -2371,7 +2369,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan3;
-
+        
         /// <summary>
         /// req_other_ded_loan3 control.
         /// </summary>
@@ -2380,7 +2378,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan3;
-
+        
         /// <summary>
         /// lbl_other_ded_loan4 control.
         /// </summary>
@@ -2389,7 +2387,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan4;
-
+        
         /// <summary>
         /// txtb_other_ded_loan4 control.
         /// </summary>
@@ -2398,7 +2396,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan4;
-
+        
         /// <summary>
         /// req_other_ded_loan4 control.
         /// </summary>
@@ -2407,7 +2405,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan4;
-
+        
         /// <summary>
         /// lbl_other_ded_loan5 control.
         /// </summary>
@@ -2416,7 +2414,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan5;
-
+        
         /// <summary>
         /// txtb_other_ded_loan5 control.
         /// </summary>
@@ -2425,7 +2423,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan5;
-
+        
         /// <summary>
         /// req_other_ded_loan5 control.
         /// </summary>
@@ -2434,7 +2432,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan5;
-
+        
         /// <summary>
         /// lbl_other_ded_loan6 control.
         /// </summary>
@@ -2443,7 +2441,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan6;
-
+        
         /// <summary>
         /// txtb_other_ded_loan6 control.
         /// </summary>
@@ -2452,7 +2450,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan6;
-
+        
         /// <summary>
         /// req_other_ded_loan6 control.
         /// </summary>
@@ -2461,7 +2459,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan6;
-
+        
         /// <summary>
         /// lbl_other_ded_loan7 control.
         /// </summary>
@@ -2470,7 +2468,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan7;
-
+        
         /// <summary>
         /// txtb_other_ded_loan7 control.
         /// </summary>
@@ -2479,7 +2477,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan7;
-
+        
         /// <summary>
         /// req_other_ded_loan7 control.
         /// </summary>
@@ -2488,7 +2486,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan7;
-
+        
         /// <summary>
         /// lbl_other_ded_loan8 control.
         /// </summary>
@@ -2497,7 +2495,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan8;
-
+        
         /// <summary>
         /// txtb_other_ded_loan8 control.
         /// </summary>
@@ -2506,7 +2504,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan8;
-
+        
         /// <summary>
         /// req_other_ded_loan8 control.
         /// </summary>
@@ -2515,7 +2513,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan8;
-
+        
         /// <summary>
         /// lbl_other_ded_loan9 control.
         /// </summary>
@@ -2524,7 +2522,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan9;
-
+        
         /// <summary>
         /// txtb_other_ded_loan9 control.
         /// </summary>
@@ -2533,7 +2531,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan9;
-
+        
         /// <summary>
         /// req_other_ded_loan9 control.
         /// </summary>
@@ -2542,7 +2540,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan9;
-
+        
         /// <summary>
         /// lbl_other_ded_loan10 control.
         /// </summary>
@@ -2551,7 +2549,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_other_ded_loan10;
-
+        
         /// <summary>
         /// txtb_other_ded_loan10 control.
         /// </summary>
@@ -2560,7 +2558,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_other_ded_loan10;
-
+        
         /// <summary>
         /// req_other_ded_loan10 control.
         /// </summary>
@@ -2569,7 +2567,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label req_other_ded_loan10;
-
+        
         /// <summary>
         /// txtb_payroll_descr1 control.
         /// </summary>
@@ -2578,7 +2576,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_descr1;
-
+        
         /// <summary>
         /// LblRequired300 control.
         /// </summary>
@@ -2587,7 +2585,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired300;
-
+        
         /// <summary>
         /// ddl_payroll_type_1 control.
         /// </summary>
@@ -2596,7 +2594,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_type_1;
-
+        
         /// <summary>
         /// txtb_payroll_amt1 control.
         /// </summary>
@@ -2605,7 +2603,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_amt1;
-
+        
         /// <summary>
         /// LblRequired301 control.
         /// </summary>
@@ -2614,7 +2612,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired301;
-
+        
         /// <summary>
         /// txtb_payroll_descr2 control.
         /// </summary>
@@ -2623,7 +2621,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_descr2;
-
+        
         /// <summary>
         /// LblRequired302 control.
         /// </summary>
@@ -2632,7 +2630,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired302;
-
+        
         /// <summary>
         /// ddl_payroll_type_2 control.
         /// </summary>
@@ -2641,7 +2639,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_type_2;
-
+        
         /// <summary>
         /// txtb_payroll_amt2 control.
         /// </summary>
@@ -2650,7 +2648,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_amt2;
-
+        
         /// <summary>
         /// LblRequired303 control.
         /// </summary>
@@ -2659,7 +2657,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired303;
-
+        
         /// <summary>
         /// txtb_payroll_descr3 control.
         /// </summary>
@@ -2668,7 +2666,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_descr3;
-
+        
         /// <summary>
         /// LblRequired304 control.
         /// </summary>
@@ -2677,7 +2675,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired304;
-
+        
         /// <summary>
         /// ddl_payroll_type_3 control.
         /// </summary>
@@ -2686,7 +2684,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_type_3;
-
+        
         /// <summary>
         /// txtb_payroll_amt3 control.
         /// </summary>
@@ -2695,7 +2693,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_amt3;
-
+        
         /// <summary>
         /// LblRequired305 control.
         /// </summary>
@@ -2704,7 +2702,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired305;
-
+        
         /// <summary>
         /// txtb_payroll_descr4 control.
         /// </summary>
@@ -2713,7 +2711,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_descr4;
-
+        
         /// <summary>
         /// LblRequired306 control.
         /// </summary>
@@ -2722,7 +2720,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired306;
-
+        
         /// <summary>
         /// ddl_payroll_type_4 control.
         /// </summary>
@@ -2731,7 +2729,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_type_4;
-
+        
         /// <summary>
         /// txtb_payroll_amt4 control.
         /// </summary>
@@ -2740,7 +2738,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_amt4;
-
+        
         /// <summary>
         /// LblRequired307 control.
         /// </summary>
@@ -2749,7 +2747,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired307;
-
+        
         /// <summary>
         /// txtb_payroll_descr5 control.
         /// </summary>
@@ -2758,7 +2756,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_descr5;
-
+        
         /// <summary>
         /// LblRequired308 control.
         /// </summary>
@@ -2767,7 +2765,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired308;
-
+        
         /// <summary>
         /// ddl_payroll_type_5 control.
         /// </summary>
@@ -2776,7 +2774,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_type_5;
-
+        
         /// <summary>
         /// txtb_payroll_amt5 control.
         /// </summary>
@@ -2785,7 +2783,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_payroll_amt5;
-
+        
         /// <summary>
         /// LblRequired309 control.
         /// </summary>
@@ -2794,7 +2792,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRequired309;
-
+        
         /// <summary>
         /// btn_calculate control.
         /// </summary>
@@ -2803,7 +2801,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_calculate;
-
+        
         /// <summary>
         /// lbl_if_dateposted_yes control.
         /// </summary>
@@ -2812,7 +2810,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_if_dateposted_yes;
-
+        
         /// <summary>
         /// Linkbtncancel control.
         /// </summary>
@@ -2821,7 +2819,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton Linkbtncancel;
-
+        
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -2830,7 +2828,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-
+        
         /// <summary>
         /// lbl_lastday_hidden control.
         /// </summary>
@@ -2839,7 +2837,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_lastday_hidden;
-
+        
         /// <summary>
         /// lbl_rate_basis_hidden control.
         /// </summary>
@@ -2848,7 +2846,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_rate_basis_hidden;
-
+        
         /// <summary>
         /// lbl_monthly_rate_hidden control.
         /// </summary>
@@ -2857,7 +2855,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_monthly_rate_hidden;
-
+        
         /// <summary>
         /// lbl_daily_rate_hidden control.
         /// </summary>
@@ -2866,7 +2864,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_daily_rate_hidden;
-
+        
         /// <summary>
         /// lbl_hourly_rate_hidden control.
         /// </summary>
@@ -2875,7 +2873,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_hourly_rate_hidden;
-
+        
         /// <summary>
         /// lbl_lwop_pera_hidden control.
         /// </summary>
@@ -2884,7 +2882,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_lwop_pera_hidden;
-
+        
         /// <summary>
         /// lbl_lwop_monthly_hidden control.
         /// </summary>
@@ -2893,7 +2891,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_lwop_monthly_hidden;
-
+        
         /// <summary>
         /// lbl_minimum_netpay_hidden control.
         /// </summary>
@@ -2902,7 +2900,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_minimum_netpay_hidden;
-
+        
         /// <summary>
         /// lbl_addeditmode_hidden control.
         /// </summary>
@@ -2911,7 +2909,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_addeditmode_hidden;
-
+        
         /// <summary>
         /// lbl_mone_contant_hidden control.
         /// </summary>
@@ -2920,7 +2918,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_mone_contant_hidden;
-
+        
         /// <summary>
         /// lbl_installation_monthly_conv_hidden control.
         /// </summary>
@@ -2929,7 +2927,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_installation_monthly_conv_hidden;
-
+        
         /// <summary>
         /// lbl_installation_hours1day_hidden control.
         /// </summary>
@@ -2938,7 +2936,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_installation_hours1day_hidden;
-
+        
         /// <summary>
         /// hidden_report_filename control.
         /// </summary>
@@ -2947,7 +2945,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label hidden_report_filename;
-
+        
         /// <summary>
         /// hidden_seq_no control.
         /// </summary>
@@ -2956,7 +2954,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label hidden_seq_no;
-
+        
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -2965,7 +2963,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-
+        
         /// <summary>
         /// UpdatePanel18 control.
         /// </summary>
@@ -2974,7 +2972,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel18;
-
+        
         /// <summary>
         /// msg_icon control.
         /// </summary>
@@ -2983,7 +2981,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msg_icon;
-
+        
         /// <summary>
         /// msg_header control.
         /// </summary>
@@ -2992,7 +2990,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msg_header;
-
+        
         /// <summary>
         /// lbl_details control.
         /// </summary>
@@ -3001,7 +2999,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_details;
-
+        
         /// <summary>
         /// UpdatePanel11 control.
         /// </summary>
@@ -3010,7 +3008,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel11;
-
+        
         /// <summary>
         /// txtb_search control.
         /// </summary>
@@ -3019,7 +3017,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_search;
-
+        
         /// <summary>
         /// UpdatePanel9 control.
         /// </summary>
@@ -3028,7 +3026,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel9;
-
+        
         /// <summary>
         /// DropDownListID control.
         /// </summary>
@@ -3037,7 +3035,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListID;
-
+        
         /// <summary>
         /// show_pagesx control.
         /// </summary>
@@ -3046,7 +3044,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label show_pagesx;
-
+        
         /// <summary>
         /// txtb_main_employee_name control.
         /// </summary>
@@ -3055,7 +3053,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtb_main_employee_name;
-
+        
         /// <summary>
         /// UpdatePanel10 control.
         /// </summary>
@@ -3064,7 +3062,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel10;
-
+        
         /// <summary>
         /// btnAdd control.
         /// </summary>
@@ -3073,7 +3071,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAdd;
-
+        
         /// <summary>
         /// ddl_year control.
         /// </summary>
@@ -3082,7 +3080,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_year;
-
+        
         /// <summary>
         /// ddl_month control.
         /// </summary>
@@ -3091,7 +3089,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_month;
-
+        
         /// <summary>
         /// ddl_empl_type control.
         /// </summary>
@@ -3100,7 +3098,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_empl_type;
-
+        
         /// <summary>
         /// ddl_payroll_template control.
         /// </summary>
@@ -3109,7 +3107,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_payroll_template;
-
+        
         /// <summary>
         /// ddl_dep control.
         /// </summary>
@@ -3118,16 +3116,16 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_dep;
-
+        
         /// <summary>
-        /// ddl_header control.
+        /// voucher_nbr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_header;
-
+        protected global::System.Web.UI.WebControls.TextBox voucher_nbr;
+        
         /// <summary>
         /// up_dataListGrid control.
         /// </summary>
@@ -3136,7 +3134,7 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel up_dataListGrid;
-
+        
         /// <summary>
         /// gv_dataListGrid control.
         /// </summary>
@@ -3145,17 +3143,15 @@ namespace HRIS_ePayroll.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gv_dataListGrid;
-
+        
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new HRIS_ePayroll.MasterPage Master
-        {
-            get
-            {
+        public new HRIS_ePayroll.MasterPage Master {
+            get {
                 return ((HRIS_ePayroll.MasterPage)(base.Master));
             }
         }
