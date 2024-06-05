@@ -1533,6 +1533,11 @@ namespace HRIS_Common
         {
             ddl.Items.Insert(0, new ListItem(selectall, ""));
         }
+        public static double Truncate(double value, int precision)
+        {
+            double factor = Math.Pow(10, precision);
+            return Math.Truncate(value * factor) / factor;
+        }
 
     }
 }

@@ -2396,10 +2396,19 @@ namespace HRIS_ePayroll.View
                 double amount_3 = 0;
                 double amount_4 = 0;
 
-                amount_1     = ((double.Parse(txtb_other_amount1.Text) > 96 ? 96 : double.Parse(txtb_other_amount1.Text)) / 96) * 9000;
-                amount_2     = ((double.Parse(txtb_other_amount2.Text) > 96 ? 96 : double.Parse(txtb_other_amount2.Text)) / 96) * 6000;
-                amount_3     = ((double.Parse(txtb_other_amount3.Text) > 96 ? 96 : double.Parse(txtb_other_amount3.Text)) / 96) * 3000;
-                gross_pay    = (amount_1 + amount_2 + amount_3);
+                // amount_1     = ((double.Parse(txtb_other_amount1.Text) > 96 ? 96 : double.Parse(txtb_other_amount1.Text)) / 96) * 9000;
+                // amount_2     = ((double.Parse(txtb_other_amount2.Text) > 96 ? 96 : double.Parse(txtb_other_amount2.Text)) / 96) * 6000;
+                // amount_3     = ((double.Parse(txtb_other_amount3.Text) > 96 ? 96 : double.Parse(txtb_other_amount3.Text)) / 96) * 3000;
+
+                var high        = CommonCode.Truncate(double.Parse(txtb_other_amount1.Text) / 96, 11) * 9000;
+                var moderate    = CommonCode.Truncate(double.Parse(txtb_other_amount2.Text) / 96, 11) * 6000;
+                var low         = CommonCode.Truncate(double.Parse(txtb_other_amount3.Text) / 96, 11) * 3000;
+
+                amount_1 = (double.Parse(txtb_other_amount1.Text) > 96 ? 9000 : high)     ;
+                amount_2 = (double.Parse(txtb_other_amount2.Text) > 96 ? 6000 : moderate) ;
+                amount_3 = (double.Parse(txtb_other_amount3.Text) > 96 ? 3000 : low)      ;
+
+                gross_pay = (amount_1 + amount_2 + amount_3);
 
                 if (ViewState["AddEdit_Mode"].ToString() == MyCmn.CONST_ADD)
                 {
