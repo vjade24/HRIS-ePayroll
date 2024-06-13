@@ -173,7 +173,8 @@ namespace HRIS_ePayroll.View
             {
                 special_group = "02";
             }
-            else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "023") // RATA Payroll  
+            else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "023" || // RATA Payroll  
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "981")
             {
                 special_group = "03";
             }

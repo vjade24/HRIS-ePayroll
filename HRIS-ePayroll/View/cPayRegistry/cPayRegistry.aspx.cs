@@ -151,33 +151,33 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 ViewState["page_allow_view"] = Master.allow_view;
                 if (Master.allow_view == "1")
                 {
-                    ViewState["page_allow_add"] = 0;
-                    ViewState["page_allow_delete"] = 0;
-                    ViewState["page_allow_edit"] = 0;
-                    ViewState["page_allow_edit_history"] = 0;
-                    ViewState["page_allow_print"] = 0;
+                    ViewState["page_allow_add"]             = 0;
+                    ViewState["page_allow_delete"]          = 0;
+                    ViewState["page_allow_edit"]            = 0;
+                    ViewState["page_allow_edit_history"]    = 0;
+                    ViewState["page_allow_print"]           = 0;
 
-                    ViewState["page_allow_receive"] = 0;
-                    ViewState["page_allow_audit"] = 0;
-                    ViewState["page_allow_post"] = 0;
-                }
+                    ViewState["page_allow_receive"]         = 0;
+                    ViewState["page_allow_audit"]           = 0;
+                    ViewState["page_allow_post"]            = 0;
+                }   
                 else
                 {
-                    ViewState["page_allow_add"] = Master.allow_add;
-                    ViewState["page_allow_delete"] = Master.allow_delete;
-                    ViewState["page_allow_edit"] = Master.allow_edit;
-                    ViewState["page_allow_edit_history"] = Master.allow_edit_history;
-                    ViewState["page_allow_print"] = Master.allow_print;
+                    ViewState["page_allow_add"]             = Master.allow_add;
+                    ViewState["page_allow_delete"]          = Master.allow_delete;
+                    ViewState["page_allow_edit"]            = Master.allow_edit;
+                    ViewState["page_allow_edit_history"]    = Master.allow_edit_history;
+                    ViewState["page_allow_print"]           = Master.allow_print;
 
-                    Session["page_allow_print_from_registry"] = Master.allow_print;
-                    Session["page_allow_edit_history_from_registry"] = Master.allow_edit_history;
-                    Session["page_allow_edit_from_registry"] = Master.allow_edit;
-                    Session["page_allow_add_from_registry"] = Master.allow_add;
-                    Session["page_allow_delete_from_registry"] = Master.allow_delete;
+                    Session["page_allow_print_from_registry"]           = Master.allow_print;
+                    Session["page_allow_edit_history_from_registry"]    = Master.allow_edit_history;
+                    Session["page_allow_edit_from_registry"]            = Master.allow_edit;
+                    Session["page_allow_add_from_registry"]             = Master.allow_add;
+                    Session["page_allow_delete_from_registry"]          = Master.allow_delete;
 
-                    ViewState["page_allow_receive"] = 1;
-                    ViewState["page_allow_audit"] = 1;
-                    ViewState["page_allow_post"] = 1;
+                    ViewState["page_allow_receive"]                     = 1;
+                    ViewState["page_allow_audit"]                       = 1;
+                    ViewState["page_allow_post"]                        = 1;
 
                 }
 
@@ -186,25 +186,23 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 else if (Session["PreviousValuesonPage_cPayRegistry"].ToString() != string.Empty)
                 {
                     RetrieveYear();
-                    string[] prevValues = Session["PreviousValuesonPage_cPayRegistry"].ToString().Split(new char[] { ',' });
-                    ddl_year.SelectedValue = prevValues[0].ToString();
-                    ddl_month.SelectedValue = prevValues[1].ToString();
-                    ddl_empl_type.SelectedValue = prevValues[2].ToString();
-                    RetriveGroupings();
+                    string[] prevValues                 = Session["PreviousValuesonPage_cPayRegistry"].ToString().Split(new char[] { ',' });
+                    ddl_year.SelectedValue              = prevValues[0].ToString();
+                    ddl_month.SelectedValue             = prevValues[1].ToString();
+                    ddl_empl_type.SelectedValue         = prevValues[2].ToString();
+                    //RetriveGroupings();
                     RetriveTemplate();
-                    ddl_payroll_template.SelectedValue = prevValues[3].ToString();
+                    ddl_payroll_template.SelectedValue  = prevValues[3].ToString();
                     RetrieveDataListGrid();
-                    gv_dataListGrid.PageIndex = int.Parse(prevValues[4].ToString());
+                    gv_dataListGrid.PageIndex           = int.Parse(prevValues[4].ToString());
                     MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
                     up_dataListGrid.Update();
-                    btnAdd.Visible = true;
-                    DropDownListID.SelectedValue = prevValues[5].ToString();
-                    txtb_search.Text = prevValues[8].ToString();
+                    btnAdd.Visible                      = true;
+                    DropDownListID.SelectedValue        = prevValues[5].ToString();
+                    txtb_search.Text                    = prevValues[8].ToString();
                     SearchData(prevValues[8].ToString());
                 }
             }
-
-
         }
 
         //********************************************************************
@@ -279,7 +277,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
             {
                 special_group = "02";
             }
-            else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "023" ) // RATA Payroll  
+            else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "023" || // RATA Payroll 
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "981")
             {
                 special_group = "03";
             }
@@ -319,10 +318,17 @@ namespace HRIS_ePayroll.View.cPayRegistry
             // *************************************************************************************************************
             // ***** VJA : 05/08/2020 : Override the Stored Procedure if the Template Code are Other Custom Setup Payroll
             // *************************************************************************************************************
-            if (ddl_payroll_template.SelectedValue.ToString().Trim() == "" ||
-                ddl_payroll_template.SelectedValue.ToString().Trim().Substring(0, 1) == "9")
+            if (ddl_payroll_template.SelectedValue.ToString().Trim() == "981")
             {
-                dt = MyCmn.RetrieveData("sp_payrollemployeegroupings_hdr_tbl_list1", "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim());
+
+            }
+            else
+            {
+                if (ddl_payroll_template.SelectedValue.ToString().Trim() == "" ||
+                    ddl_payroll_template.SelectedValue.ToString().Trim().Substring(0, 1) == "9")
+                {
+                    dt = MyCmn.RetrieveData("sp_payrollemployeegroupings_hdr_tbl_list1", "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim());
+                }
             }
 
             ddl_payroll_group.DataSource = dt;
@@ -1541,15 +1547,15 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 }
                 GetReportFile();
                 can_print = "false";
-                btn_show_print_option.Visible = true;
+                btn_show_print_option.Visible = false;
                 msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
                 msg_header.InnerText = "PRINT PREVIEW ONLY!";
                 lbl_details.Text = chk_reg_hdr.Rows[0]["validation_msg"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopNotif", "openNotification();", true);
 
-                RetrieveRelatedTemplate();
-                lnkPrint.CommandArgument = e.CommandArgument.ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
+                //RetrieveRelatedTemplate();
+                //lnkPrint.CommandArgument = e.CommandArgument.ToString();
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
                 return;
             }
             // ************************************************************************************************************
@@ -2321,6 +2327,12 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
                     case "245":  //  Health Emergency Allowance (HEA) - JO - Remittance
                         printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_JO.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
+                        break;
+
+                    case "981":  //  RATA Differential
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay5_RATADiff.rpt";
                         procedure = "sp_payrollregistry_othpay_rep";
                         url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
                         break;

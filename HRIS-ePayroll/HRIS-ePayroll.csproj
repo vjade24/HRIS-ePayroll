@@ -1710,6 +1710,12 @@
       <DependentUpon>cryOthPay4_NOCAFOA.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay5_RATADiff.cs">
+      <DependentUpon>cryOthPay5_RATADiff.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA.cs">
       <DependentUpon>cryOthPay_HEA.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -3714,6 +3720,10 @@
     <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay_HEA_Remit_JO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryOthPay_HEA_Remit_JO.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryOtherPayroll\cryOthpay\cryOthPay5_RATADiff.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOthPay5_RATADiff.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryOtherPayroll\cryPHIC\cryPHICBreakdown.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

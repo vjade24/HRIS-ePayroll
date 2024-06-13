@@ -1220,6 +1220,11 @@ namespace HRIS_ePayroll.View
                                 printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_JO.rpt";
                                 url = url + "~/Reports/";
                                 break;
+
+                            case "981":  //  RATA Differential
+                                printreport = "/cryOtherPayroll/cryOthPay/cryOthPay5_RATADiff.rpt";
+                                url = "~/Reports/";
+                                break;
                         }
 
 

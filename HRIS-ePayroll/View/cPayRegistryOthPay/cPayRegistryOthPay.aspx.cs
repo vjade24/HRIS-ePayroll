@@ -2181,6 +2181,12 @@ namespace HRIS_ePayroll.View
                 div_remarks.Visible = true;
                 lbl_remarks.Text    = "Performance Rating:";
             }
+            else if (ddl_payroll_template.SelectedValue == "981")
+            {
+                div_generic_notes.Visible = false;
+                div_remarks.Visible       = true;
+                lbl_remarks.Text          = "Rate Percentage:";
+            }
         }
         //**************************************************************************
         //  BEGIN - VJA- 2020-12-28 - Calculate Gross and Net for Special Risk Allowance 
@@ -2485,6 +2491,16 @@ namespace HRIS_ePayroll.View
                 
                 gross_pay   = amount_3;
                 net_pay     = amount_3;
+                
+                txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
+                txtb_net_pay.Text = net_pay.ToString("###,##0.00");
+            }
+            if (ddl_payroll_template.SelectedValue == "981")
+            {
+                double gross_pay = 0;
+                double net_pay   = 0;
+                gross_pay        = (double.Parse(txtb_other_amount2.Text) - double.Parse(txtb_other_amount3.Text)) + (double.Parse(txtb_other_amount4.Text) - double.Parse(txtb_other_amount5.Text));
+                net_pay          = gross_pay;
                 
                 txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
                 txtb_net_pay.Text = net_pay.ToString("###,##0.00");
