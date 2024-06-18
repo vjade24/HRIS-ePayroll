@@ -1869,7 +1869,6 @@ namespace HRIS_ePayroll.View
 
         private string header_details()
         {
-
             string rate_basis = "";
 
             DataRow[] selected_employee = null;
@@ -2485,19 +2484,24 @@ namespace HRIS_ePayroll.View
 
                 if (ViewState["AddEdit_Mode"].ToString() == MyCmn.CONST_ADD)
                 {
-                    DataTable dt_rata_dif = new DataTable();
-                    DataRow[] selected = null;
-                    dt_rata_dif = MyCmn.RetrieveData("sp_personnelnames_rata_diff", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR());
-                    selected    = dt_rata_dif.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
-
-                    txtb_other_amount1.Text = double.Parse(selected[0]["fld1_fixed_amt"].ToString()).ToString("###,##0.00");
-                    txtb_other_amount2.Text = double.Parse(selected[0]["fld2_fixed_amt"].ToString()).ToString("###,##0.00");
-                    txtb_other_amount3.Text = double.Parse(selected[0]["fld3_fixed_amt"].ToString()).ToString("###,##0.00");
-                    txtb_other_amount4.Text = double.Parse(selected[0]["fld4_fixed_amt"].ToString()).ToString("###,##0.00");
-                    txtb_other_amount5.Text = double.Parse(selected[0]["fld5_fixed_amt"].ToString()).ToString("###,##0.00");
-                    txtb_remarks.Text       = selected[0]["remarks"].ToString();
-                    gross_pay               = (double.Parse(txtb_other_amount2.Text) - double.Parse(txtb_other_amount3.Text)) + (double.Parse(txtb_other_amount4.Text) - double.Parse(txtb_other_amount5.Text));
-                    net_pay                 = gross_pay;
+                    DataTable dt_rata_dif   = new DataTable();
+                    DataRow[] selected      = null;
+                    dt_rata_dif             = MyCmn.RetrieveData("sp_personnelnames_rata_diff", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR());
+                    try
+                    {
+                        selected                = dt_rata_dif.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
+                        txtb_other_amount1.Text = double.Parse(selected[0]["fld1_fixed_amt"].ToString()).ToString("###,##0.00");
+                        txtb_other_amount2.Text = double.Parse(selected[0]["fld2_fixed_amt"].ToString()).ToString("###,##0.00");
+                        txtb_other_amount3.Text = double.Parse(selected[0]["fld3_fixed_amt"].ToString()).ToString("###,##0.00");
+                        txtb_other_amount4.Text = double.Parse(selected[0]["fld4_fixed_amt"].ToString()).ToString("###,##0.00");
+                        txtb_other_amount5.Text = double.Parse(selected[0]["fld5_fixed_amt"].ToString()).ToString("###,##0.00");
+                        txtb_remarks.Text       = selected[0]["remarks"].ToString();
+                    }
+                    catch (Exception)
+                    {
+                        gross_pay   = (double.Parse(txtb_other_amount2.Text) - double.Parse(txtb_other_amount3.Text)) + (double.Parse(txtb_other_amount4.Text) - double.Parse(txtb_other_amount5.Text));
+                        net_pay     = gross_pay;
+                    }
                 }
                 else
                 {
