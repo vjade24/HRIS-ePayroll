@@ -332,24 +332,19 @@
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
                                 <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Prepared By (Name):" ></asp:label>
+                                    <asp:label runat="server" Font-Bold="true" Text="Prepared By (Name):" Font-Size="Smaller"></asp:label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-3">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_prepared_name" CssClass="form-control form-control-sm"></asp:TextBox>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-12" runat="server" >
-                                    <hr style="margin-top:5px;margin-bottom:5px" />
+                                <div class="col-2">
+                                    <asp:label runat="server" Font-Bold="true" Text="Designation:" Font-Size="Smaller"></asp:label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Prepared By (Desig.):"></asp:label>
-                                </div>
-                                <div class="col-9">
+                                <div class="col-4">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_prepared_design" CssClass="form-control form-control-sm"></asp:TextBox>
@@ -360,28 +355,22 @@
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
                             </div>
-
                             <div class="row" >
                                 
                                 <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Claimant Name:" ></asp:label>
+                                    <asp:label runat="server" Font-Bold="true" Text="Claimant Name:" Font-Size="Smaller"></asp:label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-3">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_claimant_name" CssClass="form-control form-control-sm"></asp:TextBox>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-12" runat="server" >
-                                    <hr style="margin-top:5px;margin-bottom:5px" />
+                                <div class="col-2">
+                                    <asp:label runat="server" Font-Bold="true" Text="Relationship:" Font-Size="Smaller"></asp:label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Claimant Relationship:"></asp:label>
-                                </div>
-                                <div class="col-9">
+                                <div class="col-4">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_claimant_rel" CssClass="form-control form-control-sm"></asp:TextBox>
@@ -2250,9 +2239,15 @@
                                                                                  Eval("payrolltemplate_code").ToString() == "709" || // Template Code for: Other Claims/Refund
                                                                                  Eval("payrolltemplate_code").ToString() == "809" || // Template Code for: Other Claims/Refund
                                                                                  
+                                                                                 Eval("payrolltemplate_code").ToString() == "610" ||  // Other Claims - v2
+                                                                                 Eval("payrolltemplate_code").ToString() == "611" ||  // Other Claims - v2
+                                                                                 Eval("payrolltemplate_code").ToString() == "612" ||  // Other Claims - v2
+                                                                                 
                                                                                 (Eval("payrolltemplate_code").ToString() == "605" || // Template Code for: Other Salaries
                                                                                  Eval("payrolltemplate_code").ToString() == "705" || // Template Code for: Other Salaries
-                                                                                 Eval("payrolltemplate_code").ToString() == "805" ) && // Template Code for: Other Salaries
+                                                                                 Eval("payrolltemplate_code").ToString() == "805"    // Template Code for: Other Salaries
+                                                                                 
+                                                                                 ) && 
                                                                                  Eval("voucher_type").ToString() == "2" ||      // Template Code for: Other Salaries - Sal. Diff (Multiple Months)
                                                                                  Eval("voucher_type").ToString() == "3" 
                                                                         ? true : false %>'

@@ -209,53 +209,53 @@ namespace HRIS_ePayroll
                 menus.Add(getMenusFromDB);
 
             }
-            initialize_notification();
+            //initialize_notification();
         }
 
         //********************************************************************
         //  BEGIN - VJA- 04/21/2020 - Public List
         //********************************************************************
-        public List<notification_lst> notif = new List<notification_lst>();
+        //public List<notification_lst> notif = new List<notification_lst>();
         //********************************************************************
         //  BEGIN - VJA- 04/21/2020 - Notification List Variable Initialization 
         //********************************************************************
-        public class notification_lst
-        {
-            public string row_nbr;
-            public string notify_cntr;
-            public string notify_code;
-            public string notify_short_msg;
-            public string notify_long_msg;
-            public string notify_url_name;
-            public string user_id;
-        }
+        //public class notification_lst
+        //{
+        //    public string row_nbr;
+        //    public string notify_cntr;
+        //    public string notify_code;
+        //    public string notify_short_msg;
+        //    public string notify_long_msg;
+        //    public string notify_url_name;
+        //    public string user_id;
+        //}
         //********************************************************************
         //  BEGIN - VJA- 04/21/2020 - Initialization for Notification
         //********************************************************************
-        protected void initialize_notification()
-        {
-            dtNotificationSource = MyCmn.RetrieveData("sp_notification_trn_tbl_list_PAY","p_user_id", Session["ep_user_id"].ToString().Trim(), "p_date", DateTime.Now.ToString("yyyy-MM-dd"));
-            notif.Clear();
+        //protected void initialize_notification()
+        //{
+            //dtNotificationSource = MyCmn.RetrieveData("sp_notification_trn_tbl_list_PAY", "p_user_id", Session["ep_user_id"].ToString().Trim(), "p_date", DateTime.Now.ToString("yyyy-MM-dd"));
+            //notif.Clear();
 
-            if (dtNotificationSource != null)
-            {
-                DataRow[] NotifRows = dtNotificationSource.Select();
-                foreach (DataRow row in NotifRows)
-                {
-                    notification_lst getNotifFromDB = new notification_lst();
+            //if (dtNotificationSource != null)
+            //{
+            //    DataRow[] NotifRows = dtNotificationSource.Select();
+            //    foreach (DataRow row in NotifRows)
+            //    {
+            //        notification_lst getNotifFromDB = new notification_lst();
 
-                    getNotifFromDB.row_nbr = row["row_nbr"].ToString();
-                    getNotifFromDB.notify_cntr = row["notify_cntr"].ToString();
-                    getNotifFromDB.notify_code = row["notify_code"].ToString();
-                    getNotifFromDB.notify_short_msg = row["notify_short_msg"].ToString();
-                    getNotifFromDB.notify_long_msg = row["notify_long_msg"].ToString();
-                    getNotifFromDB.notify_url_name = row["notify_url_name"].ToString();
-                    getNotifFromDB.user_id = row["user_id"].ToString();
-                    notif.Add(getNotifFromDB);
-                }
-            }
-            
-        }
+            //        getNotifFromDB.row_nbr = row["row_nbr"].ToString();
+            //        getNotifFromDB.notify_cntr = row["notify_cntr"].ToString();
+            //        getNotifFromDB.notify_code = row["notify_code"].ToString();
+            //        getNotifFromDB.notify_short_msg = row["notify_short_msg"].ToString();
+            //        getNotifFromDB.notify_long_msg = row["notify_long_msg"].ToString();
+            //        getNotifFromDB.notify_url_name = row["notify_url_name"].ToString();
+            //        getNotifFromDB.user_id = row["user_id"].ToString();
+            //        notif.Add(getNotifFromDB);
+            //    }
+            //}
+
+        //}
         //********************************************************************
         //  BEGIN - VJA- 04/25/2020 - For Favorites Add or Remove
         //********************************************************************

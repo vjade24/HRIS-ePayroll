@@ -157,5 +157,9 @@
     </form>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
-
+    <script type="text/javascript">
+        function hightlight()
+        {
+        }
+    </script>
 </asp:Content>

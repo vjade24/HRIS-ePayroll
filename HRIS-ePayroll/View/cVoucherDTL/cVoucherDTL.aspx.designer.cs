@@ -535,22 +535,22 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_amount4;
         
         /// <summary>
-        /// lbl_other_amount4_descr control.
+        /// lbl_refund_sal_amt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_other_amount4_descr;
+        protected global::System.Web.UI.WebControls.Label lbl_refund_sal_amt;
         
         /// <summary>
-        /// txtb_other_amount4 control.
+        /// refund_sal_amt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtb_other_amount4;
+        protected global::System.Web.UI.WebControls.TextBox refund_sal_amt;
         
         /// <summary>
         /// LblRequired102 control.
@@ -785,6 +785,51 @@ namespace HRIS_ePayroll.View {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor id_oth_claims_refund;
+        
+        /// <summary>
+        /// payrolltemplate_code control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList payrolltemplate_code;
+        
+        /// <summary>
+        /// lbl_payrolltemplate_code control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_payrolltemplate_code;
+        
+        /// <summary>
+        /// is_differential control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox is_differential;
+        
+        /// <summary>
+        /// voucher_dtl_descr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox voucher_dtl_descr;
+        
+        /// <summary>
+        /// lbl_voucher_dtl_descr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_voucher_dtl_descr;
         
         /// <summary>
         /// UpdateDateFrom control.

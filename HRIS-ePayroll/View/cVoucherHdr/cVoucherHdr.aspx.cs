@@ -582,6 +582,9 @@ namespace HRIS_ePayroll.View
                 case "605":
                 case "705":
                 case "805":
+                case "610": // Other Claims - v2
+                case "611": // Other Claims - v2
+                case "612": // Other Claims - v2
 
                     id_mandatory.Visible            = true;
                     id_optional.Visible             = true;
@@ -1976,7 +1979,7 @@ namespace HRIS_ePayroll.View
                         DataRow nrow = dataListGrid.NewRow();
                         // BEGIN - VJA : 05/29/2019 - Header
                         nrow["payroll_year"] = ddl_year.SelectedValue.ToString().Trim();
-                        nrow["voucher_ctrl_nbr"] = lbl_registry_no.Text.ToString().Trim();
+                        nrow["voucher_ctrl_nbr"] = dtSource.Rows[0]["voucher_ctrl_nbr"].ToString().Trim();
                         nrow["payroll_month"] = ddl_month.SelectedValue.ToString().Trim();
                         nrow["payrolltemplate_code"] = ddl_payroll_template.Text.ToString();
                         nrow["voucher_period_from"] = txtb_period_from.Text.ToString().Trim();
@@ -1987,7 +1990,7 @@ namespace HRIS_ePayroll.View
                         nrow["gross_pay"] = txtb_gross_pay.Text.ToString().Trim();
                         nrow["net_pay"] = txtb_net_pay.Text.ToString().Trim();
                         nrow["payroll_year"] = ddl_year.SelectedValue.ToString().Trim();
-                        nrow["voucher_ctrl_nbr"] = RetrieveLastVoucherNumber_Save().ToString().Trim(); // 2023-05-26 - VJA -- lbl_registry_no.Text.ToString().Trim();
+                        //nrow["voucher_ctrl_nbr"] = RetrieveLastVoucherNumber_Save().ToString().Trim(); // 2023-05-26 - VJA -- lbl_registry_no.Text.ToString().Trim();
                         nrow["rate_basis"] = lbl_rate_basis_hidden.Text.ToString();
                         nrow["monthly_rate"] = lbl_monthly_rate_hidden.Text.ToString().Trim();
                         nrow["daily_rate"] = lbl_daily_rate_hidden.Text.ToString().Trim();
@@ -2953,7 +2956,12 @@ namespace HRIS_ePayroll.View
                                                  || ddl_payroll_template.SelectedValue == "809"   // Other Claims/Refund - JO
                                                  || ddl_payroll_template.SelectedValue == "605"   // RE - Other Salaries 
                                                  || ddl_payroll_template.SelectedValue == "705"   // CE - Other Salaries 
-                                                 || ddl_payroll_template.SelectedValue == "805")) // JO - Other Salaries 
+                                                 || ddl_payroll_template.SelectedValue == "805"
+
+                                                 || ddl_payroll_template.SelectedValue == "610"  // Other Claims - v2
+                                                 || ddl_payroll_template.SelectedValue == "611"  // Other Claims - v2
+                                                 || ddl_payroll_template.SelectedValue == "612"  // Other Claims - v2
+                                                 )) // JO - Other Salaries 
 
             {
                 FieldValidationColorChanged(true, "txtb_voucher_remarks");
@@ -4096,6 +4104,9 @@ namespace HRIS_ePayroll.View
                 case "605":
                 case "705":
                 case "805":
+                case "610":  // Other Claims - v2
+                case "611":  // Other Claims - v2
+                case "612":  // Other Claims - v2
                     if (ddl_voucher_type.SelectedValue == "1")       // Other Salaries - First Claim (Promotion)
                     {
                         total_gross = double.Parse(txtb_other_amount2.Text.ToString()) - double.Parse(txtb_other_amount3.Text.ToString());
@@ -4186,6 +4197,9 @@ namespace HRIS_ePayroll.View
                 case "605":
                 case "705":
                 case "805":
+                case "610":  // Other Claims - v2
+                case "611":  // Other Claims - v2
+                case "612":  // Other Claims - v2
                     total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) + double.Parse(txtb_other_amount1.Text.ToString());
                     total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_lwo_pay.Text.ToString().Trim()) + double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim()) + double.Parse(txtb_lates_amount.Text.ToString().Trim()) + double.Parse(txtb_other_amount4.Text));
                     break;
@@ -4248,7 +4262,13 @@ namespace HRIS_ePayroll.View
             }
             else if ((ddl_payroll_template.SelectedValue == "605" ||    // Other Salaries
                       ddl_payroll_template.SelectedValue == "705" ||    // Other Salaries
-                      ddl_payroll_template.SelectedValue == "805" ) &&  // Other Salaries
+                      ddl_payroll_template.SelectedValue == "805" ||    // Other Salaries
+                      
+                      ddl_payroll_template.SelectedValue == "610" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "611" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "612"     // Other Claims - v2
+
+                      ) &&  
                       ddl_voucher_type.SelectedValue == "1")            // First Claim (Promotion)
             {
                 total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
@@ -4258,7 +4278,12 @@ namespace HRIS_ePayroll.View
             }
             else if ((ddl_payroll_template.SelectedValue == "605" ||    // Other Salaries
                       ddl_payroll_template.SelectedValue == "705" ||    // Other Salaries
-                      ddl_payroll_template.SelectedValue == "805") &&   // Other Salaries
+                      ddl_payroll_template.SelectedValue == "805" ||    // Other Salaries
+
+                      ddl_payroll_template.SelectedValue == "610" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "611" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "612"     // Other Claims - v2
+                      ) &&   
                       ddl_voucher_type.SelectedValue == "2" || ddl_voucher_type.SelectedValue == "3")            // Other Salaries - Sal. Diff (Multiple Months)
             {
                 total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
@@ -4268,7 +4293,13 @@ namespace HRIS_ePayroll.View
             }
             else if ((ddl_payroll_template.SelectedValue == "605" ||    // Other Salaries
                       ddl_payroll_template.SelectedValue == "705" ||    // Other Salaries
-                      ddl_payroll_template.SelectedValue == "805") &&   // Other Salaries
+                      ddl_payroll_template.SelectedValue == "805" ||    // Other Salaries
+
+                      ddl_payroll_template.SelectedValue == "610" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "611" ||  // Other Claims - v2
+                      ddl_payroll_template.SelectedValue == "612"     // Other Claims - v2
+                      
+                      ) &&   
                       ddl_voucher_type.SelectedValue == "")             // Other Salaries - Default Voucher
             {
                 total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
@@ -4547,7 +4578,13 @@ namespace HRIS_ePayroll.View
                     procedure = "sp_edocument_trk_tbl_history";
                     url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_doc_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",p_docmnt_type," + "01-V";
                     break;
-
+                case "610": // Template Code for : Other Claims/Refund v2
+                case "611": // Template Code for : Other Claims/Refund v2
+                case "612": // Template Code for : Other Claims/Refund v2
+                    printreport = "/cryVoucher/cryOthClaimsV2/cryOthClaimsV2.rpt";
+                    procedure = "voucher_dtl_oth_claims_tbl_rep2";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    break;
                 case "": // Direct Print to Printer
                     url = "";
                     FieldValidationColorChanged(true, "ddl_select_report");

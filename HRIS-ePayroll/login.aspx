@@ -190,7 +190,7 @@
     {
       var kc = e.keyCode ? e.keyCode : e.which;
         var sk = e.shiftKey ? e.shiftKey : kc === 16;
-        console.log(kc + " -- " + sk);
+        //console.log(kc + " -- " + sk);
         if (e.which == 13) {
              __doPostBack("<%= btn_login.ClientID %>", "");
         }
@@ -198,7 +198,7 @@
         {
             var visibility = ((kc >= 65 && kc <= 90) && !sk) || 
             ((kc >= 97 && kc <= 122) && sk) ? 'visible' : 'hidden';
-            console.log(visibility);
+            //console.log(visibility);
             $("#<%: show_caps.ClientID%>").css("visibility", visibility);
         }
       

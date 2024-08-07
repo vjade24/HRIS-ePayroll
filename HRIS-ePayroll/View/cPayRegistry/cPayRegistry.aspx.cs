@@ -15,7 +15,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using HRIS_Common;
 using System.Drawing;
-
+using System.Web.Services;
+using System.Xml;
+using Newtonsoft.Json;
 
 namespace HRIS_ePayroll.View.cPayRegistry
 {
@@ -233,21 +235,21 @@ namespace HRIS_ePayroll.View.cPayRegistry
         private void RetrieveYear()
         {
             ddl_year.Items.Clear();
-            ddl_year_modal.Items.Clear();
+            //ddl_year_modal.Items.Clear();
             int years = Convert.ToInt32(DateTime.Now.Year);
             int prev_year = years - 5;
             for (int x = 0; x < 12; x++)
             {
                 ListItem li2 = new ListItem(prev_year.ToString(), prev_year.ToString());
                 ddl_year.Items.Insert(x, li2);
-                ddl_year_modal.Items.Insert(x, li2);
+                //ddl_year_modal.Items.Insert(x, li2);
                 if (prev_year == years)
                 {
                     ListItem li3 = new ListItem((years + 1).ToString(), (years + 1).ToString());
                     ddl_year.Items.Insert(x + 1, li3);
-                    ddl_year_modal.Items.Insert(x + 1, li3);
+                    //ddl_year_modal.Items.Insert(x + 1, li3);
                     ddl_year.SelectedValue = years.ToString();
-                    ddl_year_modal.SelectedValue = years.ToString();
+                    //ddl_year_modal.SelectedValue = years.ToString();
                     break;
                 }
                 prev_year = prev_year + 1;
@@ -345,7 +347,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
         private void RetriveTemplate()
         {
             ddl_payroll_template.Items.Clear();
-            ddl_payrolltemplate_report.Items.Clear();
+            //ddl_payrolltemplate_report.Items.Clear();
             DataTable dt = MyCmn.RetrieveData("sp_payrolltemplate_tbl_list6", "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim());
 
             ddl_payroll_template.DataSource = dt;
@@ -360,25 +362,25 @@ namespace HRIS_ePayroll.View.cPayRegistry
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Populate Combo list for Payroll Year
         //*************************************************************************
-        private void RetriveTemplate_Modal()
-        {
-            ddl_payrolltemplate_report.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData("sp_payrolltemplate_tbl_list6", "par_employment_type", ddl_empl_type_modal.SelectedValue.ToString().Trim());
+        //private void RetriveTemplate_Modal()
+        //{
+            //ddl_payrolltemplate_report.Items.Clear();
+            //DataTable dt = MyCmn.RetrieveData("sp_payrolltemplate_tbl_list6", "par_employment_type", ddl_empl_type_modal.SelectedValue.ToString().Trim());
             
-            ddl_payrolltemplate_report.DataSource = dt;
-            ddl_payrolltemplate_report.DataValueField = "payrolltemplate_code";
-            ddl_payrolltemplate_report.DataTextField = "payrolltemplate_descr";
-            ddl_payrolltemplate_report.DataBind();
-            ListItem li2 = new ListItem("-- All --", "");
-            ddl_payrolltemplate_report.Items.Insert(0, li2);
-        }
+            //ddl_payrolltemplate_report.DataSource = dt;
+            //ddl_payrolltemplate_report.DataValueField = "payrolltemplate_code";
+            //ddl_payrolltemplate_report.DataTextField = "payrolltemplate_descr";
+            //ddl_payrolltemplate_report.DataBind();
+            //ListItem li2 = new ListItem("-- All --", "");
+            //ddl_payrolltemplate_report.Items.Insert(0, li2);
+        //}
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Populate Combo list for Employment Type
         //*************************************************************************
         private void RetriveEmploymentType()
         {
             ddl_empl_type.Items.Clear();
-            ddl_empl_type_modal.Items.Clear();
+            //ddl_empl_type_modal.Items.Clear();
             DataTable dt = MyCmn.RetrieveData("sp_employmenttypes_tbl_list");
 
             ddl_empl_type.DataSource = dt;
@@ -388,12 +390,12 @@ namespace HRIS_ePayroll.View.cPayRegistry
             ListItem li = new ListItem("-- Select Here --", "");
             ddl_empl_type.Items.Insert(0, li);
 
-            ddl_empl_type_modal.DataSource = dt;
-            ddl_empl_type_modal.DataValueField = "employment_type";
-            ddl_empl_type_modal.DataTextField = "employmenttype_description";
-            ddl_empl_type_modal.DataBind();
-            ListItem li2 = new ListItem("-- Select Here --", "");
-            ddl_empl_type_modal.Items.Insert(0, li2);
+            //ddl_empl_type_modal.DataSource = dt;
+            //ddl_empl_type_modal.DataValueField = "employment_type";
+            //ddl_empl_type_modal.DataTextField = "employmenttype_description";
+            //ddl_empl_type_modal.DataBind();
+            //ListItem li2 = new ListItem("-- Select Here --", "");
+            //ddl_empl_type_modal.Items.Insert(0, li2);
         }
 
         //**************************************************************************
@@ -520,7 +522,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             ddl_payroll_group.SelectedIndex = -1;
 
             ddl_dep.SelectedValue           = "";
-            ddl_dep_modal.SelectedValue = "";
+            //ddl_dep_modal.SelectedValue = "";
             ddl_function_code.SelectedValue = "";
             txtb_allotment_code.Text        = "100";
 
@@ -1532,7 +1534,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
         {
             string[] commandarg = e.CommandArgument.ToString().Split(new char[] { ',' });
             string payroll_registry = "payroll_registry_nbr = '" + commandarg[0].Trim() + "'";
-
+            lbl_payrollregistry_nbr_print.Text = "";
+            lbl_payrollregistry_nbr_print.Text = commandarg[0].ToString().Trim();
             string can_print = "true";
 
             // ************************************************************************************************************
@@ -2528,12 +2531,12 @@ namespace HRIS_ePayroll.View.cPayRegistry
             ListItem li = new ListItem("-- Select Here --", "");
             ddl_dep.Items.Insert(0, li);
 
-            ddl_dep_modal.DataSource = dt;
-            ddl_dep_modal.DataValueField = "department_code";
-            ddl_dep_modal.DataTextField = "department_name1";
-            ddl_dep_modal.DataBind();
-            ListItem li2 = new ListItem("-- Select Here --", "");
-            ddl_dep_modal.Items.Insert(0, li2);
+            //ddl_dep_modal.DataSource = dt;
+            //ddl_dep_modal.DataValueField = "department_code";
+            //ddl_dep_modal.DataTextField = "department_name1";
+            //ddl_dep_modal.DataBind();
+            //ListItem li2 = new ListItem("-- Select Here --", "");
+            //ddl_dep_modal.Items.Insert(0, li2);
         }
         //********************************************************************
         //  BEGIN - VJA- 06/11/2019 - Populate Function
@@ -2565,54 +2568,55 @@ namespace HRIS_ePayroll.View.cPayRegistry
             return registry_nbr;
         }
 
-        
+
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Populate Combo list for Employment Type
         //*************************************************************************
         private void RetrieveEmployee()
         {
-            ddl_employee_name.Items.Clear();
-            ddl_employee_id.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData("sp_personnelnames_combolist_per_dep", "par_department_code", ddl_dep_modal.SelectedValue.ToString());
+            //ddl_employee_name.Items.Clear();
+            ////ddl_employee_id.Items.Clear();
+            //DataTable dt = MyCmn.RetrieveData("sp_personnelnames_combolist_per_dep", "par_department_code", ddl_dep_modal.SelectedValue.ToString());
 
-            ddl_employee_name.DataSource = dt;
-            ddl_employee_name.DataValueField = "empl_id";
-            ddl_employee_name.DataTextField = "employee_name";
-            ddl_employee_name.DataBind();
-            ListItem li = new ListItem("-- Select Here --", "");
-            ddl_employee_name.Items.Insert(0, li);
+            //ddl_employee_name.DataSource = dt;
+            //ddl_employee_name.DataValueField = "empl_id";
+            //ddl_employee_name.DataTextField = "employee_name";
+            //ddl_employee_name.DataBind();
+            //ListItem li = new ListItem("-- Select Here --", "");
+            //ddl_employee_name.Items.Insert(0, li);
 
-            ddl_employee_id.DataSource = dt;
-            ddl_employee_id.DataValueField = "empl_id";
-            ddl_employee_id.DataTextField = "empl_id";
-            ddl_employee_id.DataBind();
-            ListItem li2 = new ListItem("----", "");
-            ddl_employee_id.Items.Insert(0, li2);
+            //ddl_employee_id.DataSource = dt;
+            //ddl_employee_id.DataValueField = "empl_id";
+            //ddl_employee_id.DataTextField = "empl_id";
+            //ddl_employee_id.DataBind();
+            //ListItem li2 = new ListItem("----", "");
+            //ddl_employee_id.Items.Insert(0, li2);
         }
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Retrieve Registry Number
         //*************************************************************************
-        private void RetrievePayrollPerEmployee()
-        {
-            try
-            {
-                dt_payroll = new DataTable();
-
-                dt_payroll = MyCmn.RetrieveData("sp_payroll_per_empl_list", "par_empl_id", ddl_employee_name.SelectedValue.ToString(), "par_payroll_year", ddl_year_modal.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month_modal.SelectedValue.ToString().Trim());
-                MyCmn.Sort(grid_payroll_list, dt_payroll, Session["SortField"].ToString(), Session["SortOrder"].ToString());
-
-                ddl_dep_modal.SelectedValue = "";
-
-                if (dt_payroll.Rows.Count > 0)
-                {
-                    ddl_dep_modal.SelectedValue = dt_payroll.Rows[0]["department_code"].ToString().Trim();
-                }
-            }
-            catch (Exception)
-            {
+        //public void RetrievePayrollPerEmployee(string empl_id)
+        //{
+        //    try
+        //    {
+        //        dt_payroll = new DataTable();
                 
-            }
-        }
+        //        dt_payroll = MyCmn.RetrieveData("sp_payroll_per_empl_list", "par_empl_id", empl_id, "par_payroll_year", ddl_year_modal.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month_modal.SelectedValue.ToString().Trim());
+        //        MyCmn.Sort(grid_payroll_list, dt_payroll, Session["SortField"].ToString(), Session["SortOrder"].ToString());
+
+        //        ddl_dep_modal.SelectedValue = "";
+
+        //        if (dt_payroll.Rows.Count > 0)
+        //        {
+        //            ddl_dep_modal.SelectedValue = dt_payroll.Rows[0]["department_code"].ToString().Trim();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+                
+        //    }
+        //}
+        
         protected void btn_payroll_per_employee_Click(object sender, EventArgs e)
         {
             lbl_select_option.Text = "Payroll Per Employee List";
@@ -2621,27 +2625,28 @@ namespace HRIS_ePayroll.View.cPayRegistry
             div_dep.Visible         = true;
             div_pyroll_lst.Visible  = true;
             div_empl_type.Visible   = false;
-            lnk_generate_rep.Visible = false;
-            ddl_dep_modal.Enabled = false;
-            lnk_print_rep.Visible = false;
+            //lnk_generate_rep.Visible = false;
+            //ddl_dep_modal.Enabled = false;
+            //lnk_print_rep.Visible = false;
             div_payrolltemplate.Visible = false;
 
-            ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
-            ddl_year_modal.SelectedValue = ddl_year.SelectedValue.ToString();
+            //ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
+            //ddl_year_modal.SelectedValue = ddl_year.SelectedValue.ToString();
             RetrieveEmployee();
-            RetrievePayrollPerEmployee();
+            //RetrievePayrollPerEmployee();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_Payroll", "openModalPayroll();", true);
         }
-        protected void ddl_employee_name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddl_employee_id.SelectedValue = ddl_employee_name.SelectedValue;
-            RetrievePayrollPerEmployee();
-        }
-        protected void ddl_employee_id_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddl_employee_name.SelectedValue = ddl_employee_id.SelectedValue;
-            RetrievePayrollPerEmployee();
-        }
+        
+        //protected void ddl_employee_name_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+            //ddl_employee_id.SelectedValue = ddl_employee_name.SelectedValue;
+            //RetrievePayrollPerEmployee();
+        //}
+        //protected void ddl_employee_id_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    ddl_employee_name.SelectedValue = ddl_employee_id.SelectedValue;
+        //    RetrievePayrollPerEmployee();
+        //}
         //**************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Change Field Sort mode  
         //**************************************************************************
@@ -2663,13 +2668,13 @@ namespace HRIS_ePayroll.View.cPayRegistry
             Session["SortField"] = e.SortExpression;
             Session["SortOrder"] = sortingDirection;
 
-            MyCmn.Sort(grid_payroll_list, dt_payroll, e.SortExpression, sortingDirection);
+            //MyCmn.Sort(grid_payroll_list, dt_payroll, e.SortExpression, sortingDirection);
         }
 
-        protected void ddl_dep_modal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetrieveEmployee();
-        }
+        //protected void ddl_dep_modal_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    RetrieveEmployee();
+        //}
 
         protected void btn_annual_ovtm_rep_Click(object sender, EventArgs e)
         {
@@ -2680,32 +2685,36 @@ namespace HRIS_ePayroll.View.cPayRegistry
             div_dep.Visible         = true;
             div_pyroll_lst.Visible  = false;
             div_empl_type.Visible   = true;
-            lnk_generate_rep.Visible= true;
-            ddl_dep_modal.Enabled   = true;
-            lnk_print_rep.Visible   = false;
+            //lnk_generate_rep.Visible= true;
+           // ddl_dep_modal.Enabled   = true;
+            //lnk_print_rep.Visible   = false;
             div_payrolltemplate.Visible = false;
 
-            ddl_month_modal.SelectedValue = "12";
-            ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
+            //ddl_month_modal.SelectedValue = "12";
+            //ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_Payroll", "openModalPayroll();", true);
             
 
         }
 
-        protected void lnk_generate_rep_Click(object sender, EventArgs e)
-        {
-            string printreport;
-            string procedure;
-            string url  = "";
-            printreport = "/cryOvertimeAnnual/cryOvertimeAnnual.rpt";
-            procedure   = "sp_payrollregistry_ovtm_annual_rep";
-            url         = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_year," + ddl_year_modal.SelectedValue.ToString().Trim() + ",par_month," + ddl_month_modal.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type_modal.SelectedValue.ToString().Trim() + ",par_department_code," + ddl_dep_modal.SelectedValue.ToString().Trim();
+        //protected void lnk_generate_rep_Click(object sender, EventArgs e)
+        //{
+        //    string year  = "";
+        //    string month = "";
+        //    string empl_type = "";
+        //    string dep = "";
+        //    string printreport;
+        //    string procedure;
+        //    string url  = "";
+        //    printreport = "/cryOvertimeAnnual/cryOvertimeAnnual.rpt";
+        //    procedure   = "sp_payrollregistry_ovtm_annual_rep";
+        //    url         = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_year," + year + ",par_month," + month + ",par_employment_type," + empl_type + ",par_department_code," + dep;
             
-            if (url != "")
-            {
-                Response.Redirect(url);
-            }
-        }
+        //    if (url != "")
+        //    {
+        //        Response.Redirect(url);
+        //    }
+        //}
 
         protected void imgbtn_coaching_Command(object sender, CommandEventArgs e)
         {
@@ -2855,48 +2864,51 @@ namespace HRIS_ePayroll.View.cPayRegistry
             div_dep.Visible         = false;
             div_pyroll_lst.Visible  = false;
             div_empl_type.Visible   = true;
-            lnk_generate_rep.Visible= false;
-            ddl_dep_modal.Enabled   = false;
-            lnk_print_rep.Visible   = true;
+            //lnk_generate_rep.Visible= false;
+            //ddl_dep_modal.Enabled   = false;
+            //lnk_print_rep.Visible   = true;
             div_payrolltemplate.Visible = true;
 
-            ddl_empl_type_modal.SelectedValue = "";
-            RetriveTemplate_Modal();
-            ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
-            ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
+            //ddl_empl_type_modal.SelectedValue = "";
+            //RetriveTemplate_Modal();
+            //ddl_month_modal.SelectedValue = ddl_month.SelectedValue.ToString();
+            //ddl_year_modal.SelectedValue  = ddl_year.SelectedValue.ToString();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_Payroll", "openModalPayroll();", true);
         }
 
-        protected void lnk_print_rep_Click(object sender, EventArgs e)
-        {
-            DataTable chk =  MyCmn.RetrieveData("sp_payrollregistry_hdr_coaching_tbl_rep", "p_payroll_year", ddl_year_modal.SelectedValue.ToString().Trim(), "p_payroll_month", ddl_month_modal.SelectedValue.ToString().Trim(), "p_payroll_registry_nbr", "", "p_payrolltemplate_code", ddl_payrolltemplate_report.SelectedValue.ToString().Trim());
-            if (chk.Rows.Count > 0)
-            {
-                Session["history_page"] = Request.Url.AbsolutePath;
-                Session["PreviousValuesonPage_cPayRegistry"] = ddl_year.SelectedValue.ToString() + "," + ddl_month.SelectedValue.ToString().Trim() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_payroll_template.SelectedValue.ToString() + "," + gv_dataListGrid.PageIndex + "," + DropDownListID.SelectedValue.ToString() + "," + "" + "," + "" + "," + txtb_search.Text.ToString().Trim();
+        //protected void lnk_print_rep_Click(object sender, EventArgs e)
+        //{
+        //    string year = "";
+        //    string month = "";
+        //    string template = "";
+        //    DataTable chk =  MyCmn.RetrieveData("sp_payrollregistry_hdr_coaching_tbl_rep", "p_payroll_year", year, "p_payroll_month", month, "p_payroll_registry_nbr", "", "p_payrolltemplate_code", template);
+        //    if (chk.Rows.Count > 0)
+        //    {
+        //        Session["history_page"] = Request.Url.AbsolutePath;
+        //        Session["PreviousValuesonPage_cPayRegistry"] = ddl_year.SelectedValue.ToString() + "," + ddl_month.SelectedValue.ToString().Trim() + "," + ddl_empl_type.SelectedValue.ToString() + "," + ddl_payroll_template.SelectedValue.ToString() + "," + gv_dataListGrid.PageIndex + "," + DropDownListID.SelectedValue.ToString() + "," + "" + "," + "" + "," + txtb_search.Text.ToString().Trim();
 
-                string printreport;
-                string procedure;
-                string url = "";
-                printreport = "/cryCoachingList/cryCoachingList.rpt";
-                procedure = "sp_payrollregistry_hdr_coaching_tbl_rep";
-                url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_payroll_year," + ddl_year_modal.SelectedValue.ToString().Trim() + ",p_payroll_month," + ddl_month_modal.SelectedValue.ToString().Trim() + ",p_payroll_registry_nbr," + "" + ",p_payrolltemplate_code," + ddl_payrolltemplate_report.SelectedValue.ToString().Trim();
+        //        string printreport;
+        //        string procedure;
+        //        string url = "";
+        //        printreport = "/cryCoachingList/cryCoachingList.rpt";
+        //        procedure = "sp_payrollregistry_hdr_coaching_tbl_rep";
+        //        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_payroll_year," + year + ",p_payroll_month," + month + ",p_payroll_registry_nbr," + "" + ",p_payrolltemplate_code," + template;
 
-                if (url != "")
-                {
-                    Response.Redirect(url);
-                }
-            }
-            else
-            {
-                btn_show_print_option.Visible = false;
-                msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
-                msg_header.InnerText = "NO DATA FOUND!";
-                lbl_details.Text = "Coaching and Mentoring information not found!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "PopNotif", "openNotification();", true);
-            }
+        //        if (url != "")
+        //        {
+        //            Response.Redirect(url);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        btn_show_print_option.Visible = false;
+        //        msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
+        //        msg_header.InnerText = "NO DATA FOUND!";
+        //        lbl_details.Text = "Coaching and Mentoring information not found!";
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "PopNotif", "openNotification();", true);
+        //    }
 
-        }
+        //}
 
         //**************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Objects data Validation
@@ -2984,11 +2996,745 @@ namespace HRIS_ePayroll.View.cPayRegistry
             }
         }
 
-        protected void ddl_empl_type_modal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RetriveTemplate_Modal();
-        }
+        //protected void ddl_empl_type_modal_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    RetriveTemplate_Modal();
+        //}
 
+        [WebMethod]
+        public static string DepartmentList()
+        {
+            CommonDB MyCmn  = new CommonDB();
+            DataTable dt    = MyCmn.RetrieveData("sp_departments_tbl_list", "par_include_history", "N");
+            string json     = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        [WebMethod]
+        public static string RetrieveGrid(string empl_id, string year, string month)
+        {
+            DataTable dt_payroll = new DataTable();
+            CommonDB MyCmn       = new CommonDB();
+            dt_payroll           = MyCmn.RetrieveData("sp_payroll_per_empl_list", "par_empl_id", empl_id, "par_payroll_year", year, "par_payroll_month", month);
+            string json          = JsonConvert.SerializeObject(dt_payroll, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        [WebMethod]
+        public static string PayrollTemplateList(string empl_type)
+        {
+            CommonDB MyCmn  = new CommonDB();
+            DataTable dt    = MyCmn.RetrieveData("sp_payrolltemplate_tbl_list6", "par_employment_type", empl_type);
+            string json     = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        //**************************************************************************
+        //  BEGIN - VJA- 01/17/2019 - 
+        //*************************************************************************
+        [WebMethod]
+        public static string PayrollPrintPreview(string ddl_select_report, string ddl_year, string ddl_month, string payroll_registry_nbr, string ddl_payroll_template, string ddl_empl_type)
+        {
+            CommonDB MyCmn = new CommonDB();
+            string report_filename;
+            string printreport;
+            string procedure;
+            string url      = "";
+
+            DataTable payroll = new DataTable();
+            string query    = "SELECT *FROM payrolltemplate_tbl WHERE payrolltemplate_code = '"+ ddl_select_report.ToString().Trim() + "'";
+            payroll         = MyCmn.GetDatatable(query);
+            report_filename = payroll.Rows[0]["report_filename"].ToString();
+            // ********************START*********************************************************
+            // ******* This is for the Other Custom Payroll Setup ********05/07/2020*************
+            // **********************************************************************************
+            if (ddl_select_report.ToString().Trim().Substring(0, 1) == "9")
+            {
+                DataTable dt = MyCmn.RetrieveData("sp_othrpaysetup_tbl_fld_cnt", "p_payrolltemplate_code", ddl_select_report.ToString().Trim());
+                if (dt.Rows.Count > 0)
+                {
+                    if (report_filename == "")
+                    {
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay" + dt.Rows[0]["no_of_fields"].ToString().Trim() + ".rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                    }
+                    else
+                    {
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                    }
+                }
+            }
+            // ******************END*************************************************************
+
+            try
+            {
+                switch (ddl_select_report)
+                {
+                    case "105": // Obligation Request (OBR) - For Regular 
+                    case "205": // Obligation Request (OBR) - For Casual
+                    case "305": // Obligation Request (OBR) - For Job-Order
+                         printreport = report_filename;
+                         procedure = "sp_payrollregistry_obr_rep";
+                         url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+                        
+                         //// Temporary - Details are coming from table cafao_dtl_tbl
+                         // printreport = "/cryOtherPayroll/cryOBR/cryOBR_CAFOA.rpt";
+                         // procedure = "sp_payrollregistry_cafao_rep_new"; 
+                         // url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+
+                        break;
+
+                    //---- START OF REGULAR REPORTS
+
+                    case "007": // Summary Monthly Salary  - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "101": // Mandatory Deduction  - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "102": // Optional Deduction Page 1 - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "106": // Optional Deduction Page 2 - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "103": // Loan Deduction Page 1 - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "107": // Loan Deduction Page 2 - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "104": // Attachment - For Monthly Salary
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_re_attach_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+
+                        break;
+
+                    case "033": // Salary Differential - For Regular 
+                    case "052": // Salary Differential - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_diff_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    //---- END OF REGULAR REPORTS
+
+                    //---- START OF CASUAL REPORTS
+
+                    case "008": // Summary Monthly Salary  - For Casual 
+
+                        // *************************************************************************************
+                        // *** Special Case for Casual Monthly Payroll - Change Report File name if Year 2020
+                        // ****************** 2021-01-13 *******************************************************
+                        // *************************************************************************************
+                        if (ddl_select_report == "008" && double.Parse(ddl_year) <= 2020)
+                        {
+                            printreport = "/cryCasualReports/crySalary/crySalarySummary_2020.rpt";
+                            procedure   = "sp_payrollregistry_salary_ce_rep";
+                            url         = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        }
+                        // *************************************************************************************
+                        // *** Special Case for Casual Monthly Payroll - Change Report File name if Year 2020
+                        // ****************** 2021-01-13 *******************************************************
+                        // *************************************************************************************
+                        else
+                        {
+                            printreport = report_filename;
+                            procedure = "sp_payrollregistry_salary_ce_rep";
+                            url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        }
+                        
+                        break;
+
+                    case "206": // Mandatory Deduction  -  For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "207": // Optional Deduction Page 1 - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "208": // Optional Deduction Page 2 - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "209": // Loan Deduction Page 1 - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "210": // Loan Deduction Page 2 - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "211": // Attachment - For Monthly Salary - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_ce_attach_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+
+                        break;
+
+                    case "044": // Monetization Payroll - For Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    //---- END OF CASUAL REPORTS
+
+                    //---- START OF JOB-ORDER REPORTS
+
+                    case "009": // Summary Salary Monthly - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "010": // Summary Salary 1st Quincemna - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "011": // Summary Salary 2nd Quincemna - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "306": // Contributions/Deductions Page 1 - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "307": // Contributions/Deductions Page 1 - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "308": // Attachment - For Monthly Salary - Job-Order
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_attach_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+
+                        break;
+
+                    case "061": // Overtime Payroll - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_ovtm_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "062": // Honorarium Payroll - For Job-Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+
+                    //---- END OF JOB-ORDER REPORTS
+                    //---- START OF OTHER PAYROLL REPORTS
+
+                    case "024": // Communication Expense Allowance - Regular
+                    case "043": // Communication Expense Allowance - Casual
+                    case "063": // Communication Expense Allowance - Job-Order
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "026": // Mid Year Bonus  - Regular        
+                    case "045": // Mid Year Bonus  - Casual       
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "027": // Year-End And Cash Gift Bonus - Regular
+                    case "046": // Year-End And Cash Gift Bonus - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "028": // Clothing Allowance - Regular
+                    case "047": // Clothing Allowance - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "029": // Loyalty Bonus        - Regular
+                    case "048": // Loyalty Bonus        - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "030": // Anniversary Bonus    - Regular
+                    case "049": // Anniversary Bonus    - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "031": // Productivity Enhancement Incentive Bonus  - Regular
+                    case "050": // Productivity Enhancement Incentive Bonus  - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "023": // RATA 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_rata_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "108": // RATA - OBR Breakdown
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_obr_rata_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim();
+
+                        break;
+
+                    case "021": // Subsistence, HA and LA      - Regular
+                    case "041": // Subsistence, HA and LA      - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_subs_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "022": // Overtime - Regular
+                    case "042": // Overtime - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_ovtm_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "032": // CNA INCENTIVE - Regular
+                    case "051": // CNA INCENTIVE - Casual
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    case "025": // Monetization Payroll - For Regular
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                        break;
+
+                    //case "901": // Other Payroll 1 - For Regular 
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_othpay_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                    //    break;
+
+                    //case "902": // Other Payroll 2 - For Regular 
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_othpay_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                    //    break;
+
+                    //case "903": // Other Payroll 3 - For Regular 
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_othpay_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                    //    break;
+
+                    //case "904": // Other Payroll 4 - For Regular 
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_othpay_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                    //    break;
+
+                    //case "905": // Other Payroll 5 - For Regular 
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_othpay_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+
+                    //    break;
+
+                    case "109": // Communication Expense - OBR Breakdown - RE
+                    case "120": // Communication Expense - OBR Breakdown - JO
+                    case "121": // Communication Expense - OBR Breakdown - CE
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_obr_commx_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim();
+
+                        break;
+
+                    case "X": // Direct Print to Printer
+                        url = "/View/cDirectToPrinter/cDirectToPrinter.aspx";
+                        break;
+
+                    //case "111": // Attachment - FOR RATA PAYROLL
+                    //    printreport = report_filename;
+                    //    procedure = "sp_payrollregistry_RATA_attach_rep";
+                    //    url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+
+                    //    break;
+
+                    case "212": // PaySLip  - For Regular 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_payslip_re_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim() + ",par_empl_id," + "";
+
+                        break;
+
+                    case "213": // PaySLip  - For Job_Order 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_payslip_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim() + ",par_empl_id," + "";
+
+                        break;
+
+                    case "214": // PaySLip  - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_payslip_ce_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim() + ",par_empl_id," + "";
+
+                        break;
+
+                    case "034": // Honorarium  - For Regular 
+                    case "035": // Honorarium  - For Casual 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "112": // Other Payroll Attachment  - For Regular 
+                    case "113": // Other Payroll Attachment  - For Casual 
+                    case "114": // Other Payroll Attachment  - For JO 
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth_attach_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "950": // Other Payroll - PHIC Share -  RE
+                        printreport = report_filename;
+                        procedure   = "sp_payrollregistry_phic_share_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+                        break;
+
+                    case "951": // Other Payroll - BAC Honorarium -  RE
+                        printreport = report_filename;
+                        procedure   = "sp_payrollregistry_bac_rep";
+                        url         = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2020-09-03 ***********************
+                    // ****************** R E M I T T A N C E S ************
+                    //******************************************************
+
+                    case "215": // W/Tax Remittance for Subsistence - CE
+                    case "216": // W/Tax Remittance for Subsistence - RE
+                    case "217": // W/Tax Remittance for Subsistence - JO
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_subs_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "223": // W/Tax Remittance for Subsistence - CE
+                    case "224": // W/Tax Remittance for Subsistence - RE
+                    case "225": // W/Tax Remittance for Subsistence - JO
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_ovtm_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        
+                        break;
+
+                    case "219": // Subsistence Loan Remittance -  CE
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_subs_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                        
+                    case "218": // Subsistence Loan Remittance -  RE
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_subs_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2020-09-14 ***********************
+                    // ****************** G E N E R I C  P A Y   S L I P ***
+                    //******************************************************
+
+                    case "220": // Generic Pay Slip - CE
+                    case "221": // Generic Pay Slip - RE
+                    case "222": // Generic Pay Slip - JO
+                        procedure = "sp_payrollregistry_payslip";
+
+                        if (ddl_payroll_template == "041" ||  // Subsistence - RE
+                            ddl_payroll_template == "021" )   // Subsistence - CE
+                        {
+                            printreport = "/cryOtherPayroll/cryPayslip/cryPS_Subsistence.rpt";
+                            url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_empl_id," + "";
+                            
+                        }
+                        else if(ddl_payroll_template == "023")  // RATA - RE
+                        {
+                            printreport = "/cryOtherPayroll/cryPayslip/cryPS_RATA.rpt";
+                            url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_empl_id," + "";
+                        }
+                        else if (ddl_payroll_template == "022" ||   // Overtime Payroll - RE
+                                 ddl_payroll_template == "042" ||   // Overtime Payroll - CE
+                                 ddl_payroll_template == "061"   )  // Overtime Payroll - JO
+                        {
+                            printreport = "/cryOtherPayroll/cryPayslip/cryPS_Ovtm.rpt";
+                            url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_empl_id," + "";
+                        }
+                        else 
+                        {
+                            printreport = "/cryOtherPayroll/cryPayslip/cryPS_OtherSal.rpt";
+                            url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_employment_type," + ddl_empl_type.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim() + ",par_empl_id," + "";
+                        }
+
+                        break;
+                    // *****************************************************
+                    // ****************** N E W  A T T A C H M E N T *******
+                    // ****************** 2020-09-14 ***********************
+                    //******************************************************
+
+                    case "130": // New Attachment -  RE
+                    case "131": // New Attachment -  CE
+                    case "132": // New Attachment -  JO
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_header_footer_sub_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr;
+                        break;
+                        
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2020-11-12 ***********************
+                    //******************************************************
+
+                    case "116": // Monthly Payroll -  Sub Specialist
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_salary_jo_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2020-11-14 ***********************
+                    //******************************************************
+                    case "309":  // Obligation Request - Details coming from CAFOA - RE
+                    case "310":  // Obligation Request - Details coming from CAFOA - CE
+                    case "311":  // Obligation Request - Details coming from CAFOA - JO
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_cafao_rep_new";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2020-11-14 ***********************
+                    //******************************************************
+                    case "923":  // Special Risk Allowance II - RE
+                    case "933":  // Special Risk Allowance II - CE
+                    case "943":  // Special Risk Allowance II - JO
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_SRA.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "924":  // COVID-19 Hazard Pay - RE
+                    case "934":  // COVID-19 Hazard Pay - CE
+                    case "944":  // COVID-19 Hazard Pay - JO
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HZD.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2021-02-12 ***********************
+                    //******************************************************
+                    case "133":  // Fund Utilization Request and Status (FURS) - RE
+                    case "134":  // Fund Utilization Request and Status (FURS) - CE
+                    case "135":  // Fund Utilization Request and Status (FURS) - JO
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_cafao_rep_new";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+                        break;
+
+                    case "939":  // Performance Based Bonus  - CE
+                    case "929":  // Performance Based Bonus  - RE
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_PBB.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    // *****************************************************
+                    // ****************** N E W L Y    A D D E D ***********
+                    // ****************** 2021-12-17 ***********************
+                    //******************************************************
+                    case "232":  // Honorarium Remittance - JO
+                    case "233":  // CNA Remittance        - RE
+                    case "234":  // CNA Remittance        - CE
+                        printreport = report_filename;
+                        procedure = "sp_payrollregistry_oth1_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "962":  // Service Recognition Incentives (SRI) - RE
+                    case "957":  // Service Recognition Incentives (SRI) - CE
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_SRI.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+                        
+                    case "963":  // Hazard, Subsistence and Laundry (Differential)
+                    case "958":  // Hazard, Subsistence and Laundry (Differential)
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HZD_DIFF.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "136": // Document Tracking History - RE'
+                    case "137": // Document Tracking History - CE'
+                    case "138": // Document Tracking History - JO'
+                        printreport = "/cryDocTracking/cryDocsHistory.rpt";
+                        procedure = "sp_edocument_trk_tbl_history";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",p_doc_ctrl_nbr," + payroll_registry_nbr + ",p_docmnt_type," + "01-P";
+                        break;
+
+                    case "968":  // ONE COVID-19 ALLOWANCE (OCA) - 'RE'
+                    case "969":  // ONE COVID-19 ALLOWANCE (OCA) - 'CE'
+                    case "970":  // ONE COVID-19 ALLOWANCE (OCA) - 'JO'
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_OCA.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "240":  //  ONE COVID-19 ALLOWANCE (OCA) - RE - Remittance
+                    case "241":  //  ONE COVID-19 ALLOWANCE (OCA) - CE - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_OCA_Remit_RECE.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "242":  //  ONE COVID-19 ALLOWANCE (OCA) - JO - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_OCA_Remit_JO.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "971":  // PERFORMANCE BASED BONUS FY 2021 - REGULAR
+                    case "972":  // PERFORMANCE BASED BONUS FY 2021 - CASUAL
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_PBB2021.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+                        
+                    case "974":  // Health Emergency Allowance (HEA) - 'RE'
+                    case "975":  // Health Emergency Allowance (HEA) - 'CE'
+                    case "976":  // Health Emergency Allowance (HEA) - 'JO'
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "243":  //  Health Emergency Allowance (HEA) - RE - Remittance
+                    case "244":  //  Health Emergency Allowance (HEA) - CE - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_RECE.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "245":  //  Health Emergency Allowance (HEA) - JO - Remittance
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay_HEA_Remit_JO.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+
+                    case "981":  //  RATA Differential
+                        printreport = "/cryOtherPayroll/cryOthPay/cryOthPay5_RATADiff.rpt";
+                        procedure = "sp_payrollregistry_othpay_rep";
+                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        break;
+                }
+                
+                return url;
+            }
+            catch (Exception)
+            {
+                return url;
+            }
+        }
         //********************************************************************
         // END OF THE CODE
         //********************************************************************

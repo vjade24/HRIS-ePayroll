@@ -397,8 +397,8 @@
 
                                 <div class="col-6">
                                     <div class="form-group row">
-                                        <div class="col-4">
-                                            <asp:label runat="server" Font-Bold="true" Text="Lates Min:" ></asp:label>
+                                        <div class="col-3">
+                                            <asp:label runat="server" Font-Bold="true" Font-Size="Smaller" Text="Lates Min:" ></asp:label>
                                         </div>
                                         <div class="col-3">
                                             <asp:UpdatePanel runat="server">
@@ -532,14 +532,14 @@
                                         <div class="col-6" style="padding-right:0px !important">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:label runat="server" Font-Bold="true" Text="Amount #4:" Font-Size="Small" ID="lbl_other_amount4_descr"></asp:label>
+                                                    <asp:label runat="server" Font-Bold="true" Text="Refund Sal. Amt.:" Font-Size="Small" ID="lbl_refund_sal_amt"></asp:label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
                                         <div class="col-6">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:TextBox runat="server" CssClass="form-control form-control-sm text-right" ID="txtb_other_amount4" Font-Bold="true"> </asp:TextBox>
+                                                    <asp:TextBox runat="server" CssClass="form-control form-control-sm text-right" ID="refund_sal_amt" Font-Bold="true"> </asp:TextBox>
                                                     <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired102"></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -672,7 +672,32 @@
                                         <%--HEADER--%>
                                         <div class="tab-pane fade show active" id="header_tab" role="tabpanel" style="border: 1px solid green;padding-bottom:5px;border-radius:0px 0px 5px 5px;padding-left:10px;padding-right:10px;min-height: 200px;" aria-labelledby="id_header" >
                                             <div class="row" style="padding-left:15px;padding-right:15px;padding-top:10px">
-                                                
+                                                <div class="col-9">
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate>
+                                                            <asp:label runat="server" Font-Bold="true" Text="Payroll Template:" ></asp:label>
+                                                            <asp:DropDownList runat="server" ID="payrolltemplate_code" CssClass="form-control form-control-sm"></asp:DropDownList>
+                                                            <asp:Label ID="lbl_payrolltemplate_code" runat="server" CssClass="lbl_required" ></asp:Label>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                                <div class="col-3">
+                                                <asp:label runat="server" Font-Bold="true" Text="Differential" ></asp:label>
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate>
+                                                            <asp:CheckBox ID="is_differential" Autopostback="true" runat="server" OnCheckedChanged="is_differential_CheckedChanged" />
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                                <div class="col-12">
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate>
+                                                            <asp:label runat="server" Font-Bold="true" Text="Voucher Remarks" ></asp:label>
+                                                            <asp:TextBox runat="server" ID="voucher_dtl_descr" TextMode="MultiLine" CssClass="form-control  form-control-sm"></asp:TextBox>
+                                                            <asp:Label ID="lbl_voucher_dtl_descr" runat="server" CssClass="lbl_required" ></asp:Label>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
                                                 <div class="col-6" >
                                                     <asp:UpdatePanel ID="UpdateDateFrom" runat="server" UpdateMode="Conditional">
                                                         <ContentTemplate>
@@ -2193,11 +2218,20 @@
                                             EmptyDataRowStyle-CssClass="no-data-found"
                                             >
                                            <Columns>
+                                               <asp:TemplateField HeaderText="PAYROLL TYPE" SortExpression="payrolltemplate_descr">
+                                                    <ItemTemplate>
+                                                        &nbsp;&nbsp;<%# Eval("payrolltemplate_descr") %> &nbsp;
+                                                        <span class="badge badge-success"><%# Eval("is_differential").ToString() == "True"  ? "Differential" : "" %></span>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="30%" />
+                                                    <HeaderStyle HorizontalAlign="left" />
+                                                    <ItemStyle HorizontalAlign="left" />
+                                                </asp:TemplateField>
                                                <asp:TemplateField HeaderText="DATE FROM" SortExpression="voucher_period_from">
                                                     <ItemTemplate>
                                                         <%# Eval("voucher_period_from") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="12%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="center" />
                                                 </asp:TemplateField>
@@ -2205,7 +2239,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("voucher_period_to") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="12%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="center" />
                                                 </asp:TemplateField>
@@ -2214,7 +2248,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("gross_pay") %>&nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="20%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -2223,7 +2257,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("deduc_amt") %>&nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="20%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -2232,7 +2266,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("net_pay") %>&nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="20%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -2241,7 +2275,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("post_status_descr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="11%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>

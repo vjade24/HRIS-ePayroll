@@ -58,24 +58,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_name;
         
         /// <summary>
-        /// ddl_employee_name control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_employee_name;
-        
-        /// <summary>
-        /// ddl_employee_id control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_employee_id;
-        
-        /// <summary>
         /// div_yr_mth control.
         /// </summary>
         /// <remarks>
@@ -83,24 +65,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_yr_mth;
-        
-        /// <summary>
-        /// ddl_year_modal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_year_modal;
-        
-        /// <summary>
-        /// ddl_month_modal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_month_modal;
         
         /// <summary>
         /// div_empl_type control.
@@ -112,15 +76,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_empl_type;
         
         /// <summary>
-        /// ddl_empl_type_modal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_empl_type_modal;
-        
-        /// <summary>
         /// div_dep control.
         /// </summary>
         /// <remarks>
@@ -128,24 +83,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_dep;
-        
-        /// <summary>
-        /// UpdatePanel26 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel26;
-        
-        /// <summary>
-        /// ddl_dep_modal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_dep_modal;
         
         /// <summary>
         /// div_payrolltemplate control.
@@ -157,24 +94,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_payrolltemplate;
         
         /// <summary>
-        /// UpdatePanel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
-        
-        /// <summary>
-        /// ddl_payrolltemplate_report control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_payrolltemplate_report;
-        
-        /// <summary>
         /// div_pyroll_lst control.
         /// </summary>
         /// <remarks>
@@ -182,42 +101,6 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_pyroll_lst;
-        
-        /// <summary>
-        /// UpdatePanel25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel25;
-        
-        /// <summary>
-        /// grid_payroll_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_payroll_list;
-        
-        /// <summary>
-        /// lnk_print_rep control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnk_print_rep;
-        
-        /// <summary>
-        /// lnk_generate_rep control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnk_generate_rep;
         
         /// <summary>
         /// LinkButton1 control.
@@ -416,6 +299,15 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel17;
+        
+        /// <summary>
+        /// lbl_payrollregistry_nbr_print control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox lbl_payrollregistry_nbr_print;
         
         /// <summary>
         /// ddl_select_report control.

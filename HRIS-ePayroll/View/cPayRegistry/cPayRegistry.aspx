@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="cPayRegistry.aspx.cs" Inherits="HRIS_ePayroll.View.cPayRegistry.cPayRegistry" %>
 <%@ MasterType VirtualPath="~/MasterPage.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="specific_css" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style type="text/css">
         
         .highlight
@@ -9,7 +10,6 @@
                 color:white !important;
                 cursor: pointer;
             }
-        
         
         /*@media screen and (max-width: 900px) {
           tbody {
@@ -44,22 +44,24 @@
                         </div>
                         <asp:UpdatePanel ID="UpdatePanel24" runat="server">
                             <ContentTemplate>
-                                <div class="modal-body with-background">
+                                <div class="modal-body">
                                     
-                                    <div class="row" id="div_name" runat="server">
+                                    <div class="row pb-1" id="div_name" runat="server">
                                         
                                         <div class="col-3">
                                             <asp:Label runat="server" Text="Employee Name:" ></asp:Label>
                                         </div>
-                                        <div class="col-6">
-                                            <asp:UpdatePanel runat="server">
+                                        <div class="col-9">
+                                            <select class="js-example-basic-single" style="width:100% !important" id="ddl_employee_name"></select>
+                                            <asp:UpdatePanel runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                                 <ContentTemplate>
-
-                                                    <asp:DropDownList ID="ddl_employee_name"  runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged"></asp:DropDownList>
+                                                    <%--<asp:DropDownList runat="server" ID="ddl_employee_name" CssClass="js-example-basic-single" Width="100%"   OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged" AutoPostBack="false"   ></asp:DropDownList>--%>
+                                                    <%--<asp:DropDownList ID="ddl_employee_name"  runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged"></asp:DropDownList>--%>
+                                                 
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
-                                        <div class="col-3">
+                                        <%--<div class="col-3">
                                             <div class="form-group row">
                                                 <div class="col-5">
                                                     <asp:Label runat="server" Text="ID No:" ></asp:Label>
@@ -72,26 +74,48 @@
                                                     </asp:UpdatePanel>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--%>
                                         
                                     </div>
                                     <div class="row" id="div_yr_mth" runat="server">
                                         <div class="col-3">
                                             <asp:Label runat="server" Text="Payroll Year:" ></asp:Label>
                                         </div>
-                                        <div class="col-2">
-                                            <asp:UpdatePanel runat="server">
+                                        <div class="col-3">
+                                            <%--<asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:DropDownList ID="ddl_year_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged"></asp:DropDownList>
+                                                    <asp:DropDownList ID="ddl_year_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged" ></asp:DropDownList>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
+                                            </asp:UpdatePanel>--%>
+                                            <select class="form-control-sm form-control" id="year_filter">
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024" selected>2024</option>
+                                                <option value="2025">2025</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-2">
                                             <asp:Label runat="server" Text="Payroll Month:" ></asp:Label>
                                         </div>
-                                        <div class="col-2">
-                                            <asp:UpdatePanel runat="server">
+                                        <div class="col-4">
+                                            <select class="form-control-sm form-control" id="month_filter">
+                                                <option value="01">January  </option>
+                                                <option value="02">February </option>
+                                                <option value="03">March    </option>
+                                                <option value="04">April    </option>
+                                                <option value="05">May      </option>
+                                                <option value="06">June     </option>
+                                                <option value="07" selected>July     </option>
+                                                <option value="08">August   </option>
+                                                <option value="09">September</option>
+                                                <option value="10">October  </option>
+                                                <option value="11">November </option>
+                                                <option value="12">December </option>
+                                            </select>
+                                            <%--<asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_month_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_employee_name_SelectedIndexChanged">
                                                         <asp:ListItem Value="" Text="All Month"></asp:ListItem>
@@ -109,22 +133,26 @@
                                                         <asp:ListItem Value="12" Text="December"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
-                                        </div>
-                                        <div class="col-3">
+                                            </asp:UpdatePanel>--%>
                                         </div>
                                     </div>
                                     <div class="row" id="div_empl_type" runat="server">
                                         <div class="col-3 mt-1">
                                             <asp:Label runat="server" Text="Employment Type:" ></asp:Label>
                                         </div>
-                                        <div class="col-6 mt-1">
-                                            <asp:UpdatePanel runat="server">
+                                        <div class="col-9 mt-1">
+                                            <select class="form-control-sm form-control" id="empl_type_filter"> 
+                                                <option value="">-- Select All --</option>
+                                                <option value="RE">Regular</option>
+                                                <option value="CE">Casual</option>
+                                                <option value="JO">Job-Order</option>
+                                            </select>
+                                            <%--<asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_empl_type_modal" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_modal_SelectedIndexChanged" >
                                                     </asp:DropDownList>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
+                                            </asp:UpdatePanel>--%>
                                         </div>
                                     </div>
 
@@ -134,12 +162,12 @@
                                             <asp:Label runat="server" Text="Department:" ></asp:Label>
                                         </div>
                                         <div class="col-9 mt-1">
-                                                    
-                                            <asp:UpdatePanel ID="UpdatePanel26" runat="server">
+                                            <select class="form-control-sm form-control" id="department_filter"></select>
+                                            <%--<asp:UpdatePanel ID="UpdatePanel26" runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_dep_modal" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_dep_modal_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
+                                            </asp:UpdatePanel>--%>
                                         </div>
                                     </div>
 
@@ -150,19 +178,34 @@
                                             <asp:Label runat="server" Text="Payroll Template:" ></asp:Label>
                                         </div>
                                         <div class="col-9 mt-1">
-                                                    
-                                            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                            <select class="form-control-sm form-control" id="payrolltemplate_filter"></select>
+                                            <%--<asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_payrolltemplate_report" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" ></asp:DropDownList>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
+                                            </asp:UpdatePanel>--%>
                                         </div>
                                     </div>
                                     
                                     <div class="row" id="div_pyroll_lst" runat="server">
                                         
-                                        <div class="col-12">
-                                            <asp:UpdatePanel ID="UpdatePanel25" class="mt10" UpdateMode="Conditional" runat="server" >
+                                        <div class="col-12 mt-3">
+                                            <div class="table-responsive table-bordered" style="border:1px solid;border-radius:10px;padding:10px">
+                                                <table class="table table-hover" id="datalist_grid">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">REG</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">DESCRIPTION</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">GRP</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">PAYROLL DESCR.</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">GROSS</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">NET PAY</th>
+                                                      <th scope="col" style="background-color:#507CD1 !important;color:white !important">STATUS</th>
+                                                    </tr>
+                                                  </thead>
+                                                </table>
+                                            </div>
+                                            <%--<asp:UpdatePanel ID="UpdatePanel25" class="mt10" UpdateMode="Conditional" runat="server" >
                                                 <ContentTemplate>
                                                     <asp:GridView 
                                                             ID="grid_payroll_list" 
@@ -268,17 +311,19 @@
                                                         
                                                         </asp:GridView>
                                                 </ContentTemplate>
-                                            </asp:UpdatePanel>
+                                            </asp:UpdatePanel>--%>
                                         </div>
                                     </div>
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                         <div class="modal-footer" >
+                            <button class="btn btn-success btn-sm" id="id_ot" onclick="print('OT')"><i class="fa fa-print"></i> Preview Annual Overtime</button>
+                            <button class="btn btn-success btn-sm" id="id_cm"  onclick="print('CM')"><i class="fa fa-print"></i> Preview Coaching & Mentoring</button>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:LinkButton ID="lnk_print_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_print_rep_Click"> <i class="fa fa-print"></i> Print </asp:LinkButton>
-                                    <asp:LinkButton ID="lnk_generate_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_generate_rep_Click"> <i class="fa fa-qrcode"></i> Generate </asp:LinkButton>
+                                    <%--<asp:LinkButton ID="lnk_print_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_print_rep_Click"> <i class="fa fa-print"></i> Print </asp:LinkButton>--%>
+                                    <%--<asp:LinkButton ID="lnk_generate_rep" runat="server" CssClass="btn btn-success btn-sm" OnClick="lnk_generate_rep_Click"> <i class="fa fa-qrcode"></i> Generate </asp:LinkButton>--%>
                                     <asp:LinkButton ID="LinkButton1"  runat="server" data-dismiss="modal" Text ="Close" CssClass="btn btn-danger cancel-icon icn btn-sm" ></asp:LinkButton>  
 
                                 </ContentTemplate>
@@ -443,11 +488,17 @@
                             <ContentTemplate>
                                 <div class="modal-body with-background">
                                     <div class="row">
-                                        <div class="col-12" style="margin-bottom: 5px;">
+                                        <div class="col-12" >
+                                            <label>Registry No.</label>
+                                            <asp:TextBox runat="server" ID="lbl_payrollregistry_nbr_print" Enabled="false" CssClass="form-control  form-control-sm"></asp:TextBox>
+                                        </div>
+                                        <div class="col-12" style="margin-bottom: 10px;">
+                                            <label>Choose Report</label>
                                             <asp:DropDownList ID="ddl_select_report" CssClass="form-control form-control-sm" runat="server" Width="100%" OnSelectedIndexChanged="ddl_select_report_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                         </div>
-                                        <div class="col-12">
-                                            <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();"> <i class="fa fa-print"></i> Print </asp:LinkButton>
+                                        <div class="col-12" style="margin-bottom: 10px;">
+                                            <button class="btn btn-success" id="id_payroll" onclick="print('PAYROLL')"><i class="fa fa-print"></i> Preview </button>
+                                            <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();" Visible="false"> <i class="fa fa-print"></i> Print </asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -487,7 +538,6 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-        
 
         <!-- The Modal - Add Confirmation -->
         <div class="modal fade" id="AddEditConfirm">
@@ -860,6 +910,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
              <div class="col-12">
             <table class="table table-bordered  table-scroll">
@@ -1206,10 +1257,29 @@
             </table>
         </div>
         </div>
+
+        <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-success" >
+                            <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Preview Report"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    <div class="modal-body with-background" style="padding:0px !important">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <iframe style="width:100% !important;height:700px !important;border:0px none;" id="iframe_print_preview"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>
 
-   <script type="text/javascript">
-        function openModal() {
+    <script type="text/javascript">
+       function openModal()
+       {
             $('#add').modal({
                 keyboard: false,
                 backdrop:"static"
@@ -1218,8 +1288,8 @@
             hightlight();
        };
        function show_date()
-        {
-            $('#<%= txtb_period_from.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
+       {
+           $('#<%= txtb_period_from.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
            $('#<%= txtb_period_to.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
            $('#<%= txtb_date_release.ClientID %>').datepicker({ format: 'yyyy-mm-dd HH:mm:ss' });
            $('#<%= date_of_coaching.ClientID %>').datepicker({ format: 'yyyy-mm-dd' });
@@ -1235,9 +1305,8 @@
                 parent_div.find("i").remove();    
             }
         }
-    </script>
-    <script type="text/javascript">
-        function closeModal() {
+        function closeModal()
+        {
             $('#add').modal("hide");
              $('#AddEditConfirm').modal({
                  keyboard: false,
@@ -1249,89 +1318,48 @@
                 
             }, 800);
         };
-    </script>
-
-    <script type="text/javascript">
-        function closeModal1() {
+        function closeModal1()
+        {
             $('#add').modal("dispose");
-         };
-    </script>
-
-    <script type="text/javascript">
-        function openModalDelete() {
+        };
+        function openModalDelete()
+        {
             $('#deleteRec').modal({
                 keyboard: false,
                 backdrop:"static"
             });
-       };
-    </script>
-
-    <script type="text/javascript">
-        function openNotification() {
+        };
+        function openNotification()
+        {
             $('#notification').modal({
                 keyboard: false,
                 backdrop:"static"
             });
-       };
-    </script>
-     
-    <script type="text/javascript">
-        function closeModalDelete() {
-            $('#deleteRec').modal('hide');
-         };
-    </script>
+        };
 
-     <script type="text/javascript">
-        function openSelectReport() {
+        function closeModalDelete()
+        {
+            $('#deleteRec').modal('hide');
+        };
+        function openSelectReport()
+         {
             $('#SelectReport').modal({
                 keyboard: false,
                 backdrop:"static"
             });
-       };
-    </script>
-    <script type="text/javascript">
-        function openLoading() {
+        };
+        function openLoading()
+        {
 
             $('#Loading').modal({
                 keyboard: false,
                 backdrop: "static"
             });
         }
-        //function OpenRAP() {
-
-        //    $('#id_receive_audit_post').modal({
-        //        keyboard: false,
-        //        backdrop: "static"
-        //    });
-        //}
         function closeNotification() {
 
             $('#notification').modal("hide");
         }
-
-    </script>
-    <script type="text/javascript">
-        function openModalPayroll() {
-            $('#modal_payroll_list').modal({
-                keyboard: false,
-                backdrop:"static"
-            });
-       };
-    </script>
-    <script type="text/javascript">
-        //function closeModal_RAP() {
-        //    $('#id_receive_audit_post').modal("hide");
-        //     $('#AddEditConfirm').modal({
-        //         keyboard: false,
-        //        backdrop:"static"
-        //    });
-        //    setTimeout(function () {
-        //        $('#AddEditConfirm').modal("hide");
-        //        $('.modal-backdrop.show').remove();
-                
-        //    }, 800);
-        //};
-
         function openCoaching()
         {
             $('#modal_coaching_mentoring').modal({
@@ -1355,20 +1383,430 @@
                 $('.modal-backdrop.show').remove();
             }, 800);
         };
+    </script>
+
+    <script type="text/javascript">
+
+        function formatState(state)
+        {
+            var image_link = "http://192.168.5.218/storage/images/photo/thumb/";
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = (state.empl_photo == "" ? "../../ResourceImages/upload_profile.png" : image_link + state.id) ;
+            var $state = $(
+                            '<span><img alt="image" class="img-circle" width="50" height="50" src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
+                          );
+            return $state;
+        }
+
+        var datalistgrid;
+        var oTable;
+        function openModalPayroll()
+        {
+            var text = $('#<%= lbl_select_option.ClientID %>').text()
+            var button_id_ot = document.getElementById('id_ot');
+            var button_id_cm = document.getElementById('id_cm');
+            button_id_ot.style.display = 'none';
+            button_id_cm.style.display = 'none';
+            if (text == "Annual Report for Overtime Payroll")
+            {
+                button_id_ot.style.display = 'flex';
+                button_id_cm.style.display = 'none';
+            }
+            if (text == "Coaching & Mentoring List")
+            {
+                button_id_ot.style.display = 'none';
+                button_id_cm.style.display = 'flex';
+                // Retrieve Payroll Template
+                PayrollTemplateList($('#empl_type_filter').val());
+            }
+
+            // Retrieve Department
+            DepartmentList()
+            // Retrieve Employee
+            RetrieveEmployee()
+            
+            // Initialized Datatable
+            init_table_data([]);
+            
+            var year    = $('#year_filter').val();
+            var month   = $('#month_filter').val();
+            $('#year_filter').on('change', function (e)
+            {
+                RetrieveGrid($('#ddl_employee_name option:selected').val(),year,month);
+            });
+            $('#month_filter').on('change', function (e)
+            {
+                RetrieveGrid($('#ddl_employee_name option:selected').val(),year,month);
+            });
+            $('#empl_type_filter').on('change', function (e)
+            {
+                PayrollTemplateList($('#empl_type_filter').val());
+            });
+
+            $('#modal_payroll_list').modal({keyboard: false,backdrop:"static"});
+        };
+
+        function RetrieveGrid(empl_id,year,month)
+        {
+            var empl_id = empl_id;
+            var year    = $('#year_filter').val();
+            var month   = $('#month_filter').val();
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/RetrieveGrid",
+                data        : JSON.stringify({ empl_id: empl_id,year: year ,month:month }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    oTable.fnClearTable();
+                    datalistgrid = parsed;
+                    if (parsed)
+                    {
+                        if (parsed.length > 0)
+                        {
+                            oTable.fnAddData(parsed);
+                            $('#department_filter').val(parsed[0].department_code)
+                        }
+                        else
+                        {
+                            $('#department_filter').val('')
+                            alert("No Data Found!");
+                        }
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+        
+        function DepartmentList()
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/DepartmentList",
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById("department_filter");
+                        // Clear existing options if any
+                        select.innerHTML = "";
+                        // Add Empty
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option      = document.createElement("option");
+                            option.text     = parsed[i].department_name1; 
+                            option.value    = parsed[i].department_code; 
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        alert("No Data Found!");
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function RetrieveEmployee()
+        {
+            var ddl = $('.js-example-basic-single').select2(
+             {
+                dropdownParent      : $('#modal_payroll_list'),
+                templateResult      : formatState,
+                minimumInputLength  : 3,
+                placeholder         : "Select Employee",
+                ajax:
+                    {
+                    url         : "http://localhost:16442/api/ListOfEmployee",
+                    dataType    : 'json',
+                    data        : (params) =>
+                    {
+                        return {
+                            term: params.term,
+                        }
+                    },
+                    processResults: (data, params) =>
+                    {
+                        const results = data.map(item => {
+                            return {
+                                id              : item.empl_id,
+                                text            : item.empl_id + " - " + item.employee_name,
+                                empl_photo      : item.empl_photo
+                            };
+                        });
+                        return{
+                            results: results,
+                        }
+                    },
+                },
+            });
+
+            ddl.on('select2:select', function (e)
+            {
+                var selectedValue = e.params.data.id;
+                RetrieveGrid(selectedValue,$('#year_filter').val(),$('#month_filter').val())
+            })
+        }
+
+        function PayrollTemplateList()
+        {
+            var empl_type = $('#empl_type_filter').val()
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/PayrollTemplateList",
+                data        : JSON.stringify({ empl_type: empl_type }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById("payrolltemplate_filter");
+                        // Clear existing options if any
+                        select.innerHTML = "";
+                        // Add Empty
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option      = document.createElement("option");
+                            option.text     = parsed[i].payrolltemplate_descr; 
+                            option.value    = parsed[i].payrolltemplate_code; 
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        var select = document.getElementById("payrolltemplate_filter");
+                        // Clear existing options if any
+                        select.innerHTML = "";
+                        // Add Empty
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        var init_table_data = function (par_data)
+        {
+            datalistgrid = par_data;
+            oTable       = $('#datalist_grid').dataTable(
+                {
+                    data        : datalistgrid,
+                    sDom        : 'rt<"bottom"ip>',
+                    pageLength  : 10,
+                    columns:
+                    [
+                        {
+                            "mData": "payroll_registry_nbr",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "payroll_registry_descr",
+                            "mRender": function (data, type, full, row) {
+                                return "<span>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "payroll_group_nbr",
+                            "mRender": function (data, type, full, row) {
+                                 return "<span>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "payrolltemplate_descr",
+                            "mRender": function (data, type, full, row) {
+                                return "<span >" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "gross_pay",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center   btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "net_pay",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center   btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "post_status_descr",
+                            "mRender": function (data, type, full, row)
+                            {
+                                if (full["post_status"] == "N" ||full["post_status"] == "T")
+                                {
+                                    return "<span class='text-center badge badge-danger'>" + data + "</span>"
+                                } else
+                                {
+                                    return "<span class='text-center badge badge-primary'>" + data + "</span>"
+                                }
+                            }
+                        },
+                    ],
+                });
+        }
+        
+        function print(report_type)
+        {
+            // *******************************************************
+            // *******************************************************
+            var sp          = ""
+            var year        = $('#year_filter').val();
+            var month       = $('#month_filter').val();
+            var emp_type    = $('#empl_type_filter').val();
+            var dep         = $('#department_filter').val();
+            var template    = $('#payrolltemplate_filter').val();
+            
+            if (report_type == 'OT')
+            {
+                ReportPath = "~/Reports/cryOvertimeAnnual/cryOvertimeAnnual.rpt";
+                sp          = ReportPath+","+"sp_payrollregistry_ovtm_annual_rep,par_year," + year + ",par_month," + month+ ",par_employment_type," + emp_type + ",par_department_code," + dep;
+                previewReport(sp,report_type)
+            }
+            else if (report_type == 'CM')
+            {
+                ReportPath  = "~/Reports/cryCoachingList/cryCoachingList.rpt";
+                sp          = ReportPath+","+"sp_payrollregistry_hdr_coaching_tbl_rep,p_payroll_year," + year + ",p_payroll_month," + month + ",p_payroll_registry_nbr," + "" + ",p_payrolltemplate_code," + template;
+                
+                previewReport(sp,report_type)
+            }
+            else 
+            {
+                if ($('#<%= ddl_select_report.ClientID %>').val() == "" || $('#<%= ddl_select_report.ClientID %>').val() == "X")
+                {
+                    alert('Please Select Report')
+                    return;
+                }
+                else
+                {
+                    var data = JSON.stringify({
+                                             ddl_select_report     : $('#<%= ddl_select_report.ClientID %>').val()
+                                            , ddl_year             : $('#<%= ddl_year.ClientID %>').val()
+                                            , ddl_month            : $('#<%= ddl_month.ClientID %>').val()
+                                            , payroll_registry_nbr : $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val()
+                                            , ddl_payroll_template : $('#<%= ddl_payroll_template.ClientID %>').val()
+                                            , ddl_empl_type        : $('#<%= ddl_empl_type.ClientID %>').val()
+                                            });
+                    $.ajax({
+                        type        : "POST",
+                        url         : "cPayRegistry.aspx/PayrollPrintPreview",
+                        data        : data,
+                        contentType : "application/json; charset=utf-8",
+                        dataType    : "json",
+                        success: function (response)
+                        {
+                            sp = response.d
+                            previewReport(sp,report_type)
+                        },
+                        failure: function (response)
+                        {
+                            alert("Error: " + response.d);
+                        }
+                    });
+                }
+            }
+        }
+
+        function previewReport(sp,report_type)
+        {
+            // *******************************************************
+            // *** VJA : 2021-07-14 - Validation and Loading hide ****
+            // *******************************************************
+            var ReportName      = "CrystalReport"
+            var SaveName        = "Crystal_Report"
+            var ReportType      = "inline"
+            var ReportPath      = ""
+            var iframe          = document.getElementById('iframe_print_preview');
+            var iframe_page     = $("#iframe_print_preview")[0];
+            var embed_link;
+            iframe.style.visibility = "hidden";
+            if (report_type == "PAYROLL")
+            {
+                embed_link = sp;
+            }
+            else
+            {
+                embed_link = "../../printView/CrystalViewer.aspx?Params=" + ""
+                    + "&ReportName=" + ReportName
+                    + "&SaveName="   + SaveName
+                    + "&ReportType=" + ReportType
+                    + "&ReportPath=" + ReportPath
+                    + "&id=" + sp // + "," + parameters
+            }
+
+            if (!/*@cc_on!@*/0) { //if not IE
+                iframe.onload = function () {
+                    iframe.style.visibility = "visible";
+                };
+            }
+            else if (iframe_page.innerHTML()) {
+                // get and check the Title (and H tags if you want)
+                var ifTitle = iframe_page.contentDocument.title;
+                if (ifTitle.indexOf("404") >= 0)
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+                else if (ifTitle != "")
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+            }
+            else {
+                iframe.onreadystatechange = function ()
+                {
+                    if (iframe.readyState == "complete")
+                    {
+                        iframe.style.visibility = "visible";
+                    }
+                };
+            }
+            console.log(embed_link)
+            iframe.src = embed_link;
+            $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
+            // *******************************************************
+            // *******************************************************
+        }
 
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
-      <%--<script>
-    $( document ).ready(function() 
-    {
-        if ('<%= Session["PreviousValuesonPage_cPayRegistry_toprint"] %>' != "")
-        {
-            $('#<%= btn_edit_hidden.ClientID%>').click();
-        }
-    });
- 
-    </script> --%> 
+     
     <script type="text/javascript">
         function hightlight()
         {
@@ -1379,7 +1817,8 @@
            });
         }
 
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight');
            }, function () {
@@ -1387,4 +1826,5 @@
            });
         });
     </script> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </asp:Content>

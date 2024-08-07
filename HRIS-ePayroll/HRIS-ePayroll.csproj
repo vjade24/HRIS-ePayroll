@@ -62,7 +62,11 @@
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="JsonConverter.Abstractions, Version=0.5.0.0, Culture=neutral, PublicKeyToken=7ba85365b500f2e2, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonConverter.Abstractions.0.5.0\lib\net461\JsonConverter.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
@@ -712,6 +716,7 @@
     <Content Include="CSS\sb-admin.css" />
     <Content Include="CSS\sb-admin.min.css" />
     <Content Include="default.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="JS\sb-admin-charts.js" />
     <Content Include="JS\sb-admin-charts.min.js" />
     <Content Include="JS\sb-admin-datatables.js" />
@@ -723,6 +728,7 @@
     <Content Include="obj\Debug\HRIS-ePayroll.dll" />
     <Content Include="obj\Debug\HRIS-ePayroll.pdb" />
     <Content Include="printViewAll\printViewAll.aspx" />
+    <Content Include="printView\CrystalViewer.aspx" />
     <Content Include="printView\printView.aspx" />
     <Content Include="ResourceImages\Davao de Oro Provincial Capitol Building.JPG" />
     <Content Include="ResourceImages\DDO Building Blur.jpg" />
@@ -782,6 +788,7 @@
     <Content Include="ResourceImages\nancy.jpg" />
     <Content Include="ResourceImages\not-official.tif" />
     <Content Include="ResourceImages\other_applications.png" />
+    <Content Include="ResourceImages\dashboard.png" />
     <Content Include="ResourceImages\payroll-accounting.png" />
     <Content Include="ResourceImages\payroll-reference.png" />
     <Content Include="ResourceImages\payroll-registry.png" />
@@ -799,12 +806,17 @@
     <Content Include="ResourceImages\selection_process.png" />
     <Content Include="ResourceImages\service_record.png" />
     <Content Include="ResourceImages\show-file.png" />
+    <Content Include="ResourceImages\show.jpg" />
     <Content Include="ResourceImages\staffing_plan.png" />
     <Content Include="ResourceImages\submit.png" />
     <Content Include="ResourceImages\unpost.png" />
+    <Content Include="ResourceImages\unshow.jpg" />
     <Content Include="ResourceImages\upload_profile.png" />
     <Content Include="ResourceImages\user_options.png" />
     <Content Include="ResourceImages\void.png" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chartjs-plugin-datalabels.js" />
+    <Content Include="Scripts\sheetJS.js" />
     <Content Include="Vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -854,6 +866,7 @@
     <Content Include="Vendor\popper\popper.js" />
     <Content Include="Vendor\popper\popper.min.js" />
     <Content Include="View\cBIRAcctRef\cBIRAcctRef.aspx" />
+    <Content Include="View\cDashboard\cDashboard.aspx" />
     <Content Include="View\cDirectToPrinter\cDirectToPrinter.aspx" />
     <Content Include="View\cEmplCNAIncentive\cEmplCNAIncentive.aspx" />
     <Content Include="View\cEmplFixedDays\cEmplFixedDays.aspx" />
@@ -951,6 +964,13 @@
     </Compile>
     <Compile Include="printViewAll\printViewAll.aspx.designer.cs">
       <DependentUpon>printViewAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="printView\CrystalViewer.aspx.cs">
+      <DependentUpon>CrystalViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="printView\CrystalViewer.aspx.designer.cs">
+      <DependentUpon>CrystalViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="printView\printView.aspx.cs">
       <DependentUpon>printView.aspx</DependentUpon>
@@ -2250,6 +2270,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\cryVoucher\cryOthClaimsV2\cryOthClaimsV2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryOthClaimsV2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\cryVoucher\cryOthClaims\cryOthClaims.cs">
       <DependentUpon>cryOthClaims.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -2406,6 +2432,13 @@
     </Compile>
     <Compile Include="View\cBIRAcctRef\cBIRAcctRef.aspx.designer.cs">
       <DependentUpon>cBIRAcctRef.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\cDashboard\cDashboard.aspx.cs">
+      <DependentUpon>cDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\cDashboard\cDashboard.aspx.designer.cs">
+      <DependentUpon>cDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\cDirectToPrinter\cDirectToPrinter.aspx.cs">
       <DependentUpon>cDirectToPrinter.aspx</DependentUpon>
@@ -2901,7 +2934,9 @@
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="MasterPage_Handler.ashx" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="printViewAll\desktop.ini" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="View\cPayOthContributions\FileUploader.ashx" />
@@ -3884,6 +3919,10 @@
     <Content Include="Reports\cryVoucher\cryOBR\cryFURS.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryFURS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryVoucher\cryOthClaimsV2\cryOthClaimsV2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOthClaimsV2.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryVoucher\cryTerminalLeave\cryTerminalLeaveOld.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

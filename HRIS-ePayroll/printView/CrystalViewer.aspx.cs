@@ -1,33 +1,58 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using HRIS_Common;
+//using HRIS_eHRD.App_Start;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CrystalDecisions.CrystalReports.Engine;
-using System.Drawing.Printing;
-using CrystalDecisions.Shared;
-using System.Configuration;
-using System.Data;
-using HRIS_Common;
-namespace HRIS_ePayroll.prinview
+
+namespace HRIS_eAATS.Reports
 {
-    public partial class trypreview : System.Web.UI.Page
+    public partial class CrystalViewer : System.Web.UI.Page
     {
+
         ReportDocument cryRpt = new ReportDocument();
         CommonDB MyCmn = new CommonDB();
         static string printfile = "";
         //static string lastpage = "";
-        //bool firstload = true;
+        //static bool firstload = true;
+        //string paramList = "";
+        //report file(.rpt) name
+        string reportName = "";
+        //save as to excel,pdf or word's file name
+        string saveName = "";
+        //report type for pdf, excel, word or inline preview
+        string reportType = "";
+        //report file path, base on ~/Reports folder
+        string reportPath = "";
+
+        //set the report file path
+        string reportFile = "";
+        //for save report file name
+        string saveFileName = "";
         protected void Page_Init(object sender, EventArgs e)
         {
             string ls_val;
-            
+            //paramList   = Request["Params"].Trim();
+            //reportName  = Request["ReportName"].Trim();
+            //saveName    = Request["SaveName"].Trim();
+            reportType  = Request["ReportType"].Trim();
+            reportPath  = Request["ReportPath"].Trim().Replace('-', '/');
+
+
+            reportFile  = Server.MapPath(string.Format("~/Reports/{0}/{1}.rpt", reportPath, reportName));
+
+            saveFileName = saveName + DateTime.Now.ToString("_yyyy-MM-dd");
             if (!IsPostBack)
             {
 
-                hf_printers.Value = "";
-                hf_nexpage.Value = "0";
+                hf_printers.Value   = "";
+                hf_nexpage.Value    = "0";
                 PrinterSettings settings = new PrinterSettings();
                 //firstload = true;
             }
@@ -39,12 +64,8 @@ namespace HRIS_ePayroll.prinview
             ls_val = Request.QueryString["id"];
             ls_splitvalue = ls_val.Split(',');
             loadreport(ls_splitvalue);
-
-            //lastpage = cryRpt.FormatEngine.GetLastPageNumber(new CrystalDecisions.Shared.ReportPageRequestContext()).ToString();
-            //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "setPageDisplay();", true);
-            
         }
-        
+
 
         protected void Page_Unload(object sender, EventArgs e)
         {
@@ -53,14 +74,14 @@ namespace HRIS_ePayroll.prinview
         }
         private void loadreport(string[] ls_splitvalue)
         {
-            if (Session["can_print_on_preview"] != null  &&
+            if (Session["can_print_on_preview"] != null &&
                 Session["can_print_on_preview"].ToString() == "false")
             {
                 crvPrint.HasExportButton = false;
-                crvPrint.HasPrintButton  = false;
+                crvPrint.HasPrintButton = false;
             }
 
-            
+
             DataTable dt = null;
             DataTable dtSub = null;
             printfile = ls_splitvalue[0].Trim();
@@ -107,11 +128,11 @@ namespace HRIS_ePayroll.prinview
             if (ls_splitvalue.Length == 10)
             {
                 //dt = customerdb.get_data(ls_splitvalue[1], Session["cust_account_no"].ToString(), Convert.ToInt32(Session["countryid"].ToString()), Session["comp_code"].ToString(), Session["branch_code"].ToString(), Convert.ToInt32(Session["franchise"].ToString()), ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9]);
-                 dt = MyCmn.RetrieveData(ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9]);
+                dt = MyCmn.RetrieveData(ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9]);
 
             }
-            if (ls_splitvalue.Length == 12) 
-                // This is for the Voucher Report
+            if (ls_splitvalue.Length == 12)
+            // This is for the Voucher Report
             {
                 dt = MyCmn.RetrieveData(ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9], ls_splitvalue[10], ls_splitvalue[11]);
             }
@@ -139,7 +160,7 @@ namespace HRIS_ePayroll.prinview
             {
                 return;
             }
-            
+
             try
             {
                 cryRpt.SetDataSource(dt);
@@ -242,8 +263,8 @@ namespace HRIS_ePayroll.prinview
                         ls_splitvalue[7].ToString().Trim() == "052" || // CE Salary Differential
                         ls_splitvalue[7].ToString().Trim() == "063" || // JO Communication Expense Allowance
                         ls_splitvalue[7].ToString().Trim() == "116" ||   // Monthly Payroll - Sub. Spec.
-                        ls_splitvalue[7].ToString().Trim() == "232" ||  
-                        ls_splitvalue[7].ToString().Trim() == "233" ||  
+                        ls_splitvalue[7].ToString().Trim() == "232" ||
+                        ls_splitvalue[7].ToString().Trim() == "233" ||
                         ls_splitvalue[7].ToString().Trim() == "234" ||
 
                         //ls_splitvalue[7].ToString().Trim() == "952" ||
@@ -263,7 +284,7 @@ namespace HRIS_ePayroll.prinview
 
                         (Convert.ToInt16(ls_splitvalue[7].ToString().Trim()) >= 920 &&
                          Convert.ToInt16(ls_splitvalue[7].ToString().Trim()) <= 999)
-                        )   
+                        )
                     {
                         dtSub = new DataTable();
                         dtSub = MyCmn.RetrieveData("sp_payrollregistry_header_footer_sub_rep", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5]);
@@ -324,17 +345,17 @@ namespace HRIS_ePayroll.prinview
                 }
                 if ((ls_splitvalue[1].ToString().Trim() == "sp_voucher_tbl_repo2" &&
                     (ls_splitvalue[9].ToString() == "603" || // Terminal Leave
-                    ls_splitvalue[9].ToString()  == "703" || // Terminal Leave
-                    ls_splitvalue[9].ToString()  == "803" || // Terminal Leave
-                    ls_splitvalue[9].ToString()  == "605" || // Other Salries
-                    ls_splitvalue[9].ToString()  == "705" || // Other Salries
-                    ls_splitvalue[9].ToString()  == "805"    // Other Salries
+                    ls_splitvalue[9].ToString() == "703" || // Terminal Leave
+                    ls_splitvalue[9].ToString() == "803" || // Terminal Leave
+                    ls_splitvalue[9].ToString() == "605" || // Other Salries
+                    ls_splitvalue[9].ToString() == "705" || // Other Salries
+                    ls_splitvalue[9].ToString() == "805"    // Other Salries
                     ))
                     ||
                     ls_splitvalue[9].ToString() == "610" || // Other Claims v2
                     ls_splitvalue[9].ToString() == "611" || // Other Claims v2
                     ls_splitvalue[9].ToString() == "612"    // Other Claims v2
-                    )  
+                    )
                 {
                     dtSub = new DataTable();
                     dtSub = MyCmn.RetrieveData("sp_voucher_header_footer_rep", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9]);
@@ -359,8 +380,8 @@ namespace HRIS_ePayroll.prinview
             catch (Exception)
             {
                 // VJA : 2021-01-19 - Sub Report for Voucher Remittance
-                if (ls_splitvalue[1].ToString().Trim() == "sp_voucher_tbl_repo2" || 
-                    ls_splitvalue[1].ToString().Trim() == "sp_voucher_tbl_repo"  ||
+                if (ls_splitvalue[1].ToString().Trim() == "sp_voucher_tbl_repo2" ||
+                    ls_splitvalue[1].ToString().Trim() == "sp_voucher_tbl_repo" ||
                     ls_splitvalue[1].ToString().Trim() == "voucher_dtl_oth_claims_tbl_rep")
                 {
                     dtSub = new DataTable();
@@ -385,17 +406,17 @@ namespace HRIS_ePayroll.prinview
         {
             crvPrint.ShowNthPage(pageno);
             hf_nexpage.Value = "0";
-            
+
         }
         private void shoprevpage()
         {
             crvPrint.ShowPreviousPage();
-           
+
         }
         protected void btn_print_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
-            
+
             try
             {
                 cryRpt.Refresh();
@@ -405,36 +426,36 @@ namespace HRIS_ePayroll.prinview
                     case "~/Reports/cryPlantilla/cryPlantilla.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                break;
+                        break;
                     case "~/Reports/cryPlantillaCSC/cryPlantillaCSC.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                break;
+                        break;
                     case "~/Reports/cryPlantillaHR/cryPlantillaHR.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                break;
+                        break;
                     case "~/Reports/cryPSSalariesWages/cryPSSalariesWages.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                break;
+                        break;
                     case "~/Reports/cryVacantItems/cryVacantItems.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                break;
+                        break;
                     case "~/Reports/cryListOfEmployees/cryListOfEmployees.rpt":
                         cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
                         cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                break;
+                        break;
                     default:
-                    
-                break;
+
+                        break;
                 }
             }
             catch (Exception)
             {
             }
-          
+
         }
 
         private string GetDefaultPrinter()
@@ -468,7 +489,7 @@ namespace HRIS_ePayroll.prinview
         protected void lbtn_pdf_Click(object sender, ImageClickEventArgs e)
         {
             converttopdf();
-           
+
         }
         private void converttopdf()
         {
@@ -486,7 +507,7 @@ namespace HRIS_ePayroll.prinview
                     CrExportOptions.FormatOptions = CrFormatTypeOptions;
                 }
                 cryRpt.Export();
-               
+
             }
             catch (Exception ex)
             {
@@ -498,18 +519,114 @@ namespace HRIS_ePayroll.prinview
         {
             converttopdf();
         }
-        
+
         protected void btn_save_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "Clickprint();", true);
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "Clickprint();", true);
         }
 
         protected void crvPrint_Load(object sender, EventArgs e)
         {
-        //    if (Session["first_load"].ToString() == "true")
-        //     {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "setPageDisplay();", true);
-        //     }
+            //    if (Session["first_load"].ToString() == "true")
+            //     {
+            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "setPageDisplay();", true);
+            //     }
         }
+
+        //protected void lnkbtn_export_Click(object sender, EventArgs e)
+        //{
+        //    string ls_val;
+        //    string[] ls_splitvalue;
+        //    ls_val = Request.QueryString["id"];
+        //    ls_splitvalue = ls_val.Split(',');
+        //    loadreport(ls_splitvalue, reportPath);
+
+        //    lbl_cannot_print.Visible = false;
+        //    if (ls_splitvalue[0].ToString().Trim() == "sp_leave_certification_rep")
+        //    {
+        //        var filename = "";
+        //        filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
+        //        filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
+        //        cryRpt.ExportToHttpResponse
+        //        (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
+        //    }
+        //    else if (ls_splitvalue[0].ToString().Trim() == "sp_leave_application_report" ||
+        //             ls_splitvalue[0].ToString().Trim() == "sp_leave_application_hdr_tbl_report_cto")
+        //    {
+        //        DataTable dt = null;
+        //        if (ls_splitvalue[0].ToString().Trim() == "sp_leave_application_report")
+        //        {
+        //            dt = MyCmn.RetrieveDataATS(ls_splitvalue[0], ls_splitvalue[1], ls_splitvalue[2]);
+        //        }
+        //        else
+        //        {
+        //            dt = MyCmn.RetrieveDataATS(ls_splitvalue[0], ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6]);
+        //        }
+
+        //        DataTable chk_reprinting = new DataTable();
+        //        string query_chk_reprinting = "SELECT TOP 1 * FROM lv_ledger_hdr_reprint_tbl WHERE ledger_ctrl_no = '"+ dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "' AND empl_id = '"+ dt.Rows[0]["empl_id"].ToString().Trim() + "' AND reprint_status = 'REQUEST-APPROVED' ORDER BY created_dttm DESC";
+        //        chk_reprinting = MyCmn.GetDatatable_ATS(query_chk_reprinting);
+        //        if (chk_reprinting.Rows.Count > 0)
+        //        {
+        //            var filename = "";
+        //            filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
+        //            filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
+        //            cryRpt.ExportToHttpResponse
+        //            (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
+        //        }
+        //        else
+        //        {
+        //            DataTable chk = new DataTable();
+        //            //string query = "SELECT * FROM lv_ledger_history_tbl WHERE appl_status = 'Evaluated' AND ledger_ctrl_no = '" + dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "' AND leave_ctrlno = '"+ dt.Rows[0]["leave_ctrlno"].ToString().Trim()+ "' ";
+        //            string query = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('"+ dt.Rows[0]["leave_ctrlno"].ToString().Trim() + "','"+ dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Evaluated' ORDER BY created_dttm DESC";
+        //            if (dt.Rows[0]["leavetype_code"].ToString().Trim() == "MZ")
+        //            {
+        //                query = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('" + dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "','" + dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Evaluated' ORDER BY created_dttm DESC";
+        //            }
+        //            chk = MyCmn.GetDatatable_ATS(query);
+        //            if (chk.Rows.Count > 0)
+        //            {
+        //                DataTable chk_if_Uploaded = new DataTable();
+        //                string query_if_Uploaded = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('" + dt.Rows[0]["leave_ctrlno"].ToString().Trim() + "','" + dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Uploaded' ORDER BY created_dttm DESC";
+        //                chk_if_Uploaded = MyCmn.GetDatatable_ATS(query_if_Uploaded);
+
+        //                if (chk_if_Uploaded.Rows.Count > 0)
+        //                {
+        //                    lbl_cannot_print.Visible = true;
+        //                    lbl_cannot_print.Text = "You cannot Print this Report, This Leave Application is already Uploaded";
+        //                }
+        //                else
+        //                {
+        //                    DataTable dt2 = new DataTable();
+        //                    dt2 = MyCmn.RetrieveDataATS("sp_lv_ledger_history_insert", "p_ledger_ctrl_no", dt.Rows[0]["ledger_ctrl_no"].ToString(), "p_leave_ctrlno", dt.Rows[0]["leave_ctrlno"].ToString(), "p_empl_id", dt.Rows[0]["empl_id"].ToString(), "p_appl_status", "Leave Application Printed", "p_appl_remarks", "", "p_created_by", Session["user_id"].ToString());
+
+        //                    var filename = "";
+        //                    filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
+        //                    filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
+        //                    cryRpt.ExportToHttpResponse
+        //                    (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                lbl_cannot_print.Visible = true;
+        //                lbl_cannot_print.Text = "You cannot Print this Report, Evaluate first before you proceed.";
+        //            }
+
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        var filename = "";
+        //        filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
+        //        filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
+        //        cryRpt.ExportToHttpResponse
+        //        (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
+        //    }
+
+            
+        //}
     }
 }

@@ -151,7 +151,7 @@ namespace HRIS_ePayroll.View
                     ddl_payroll_group.SelectedValue = prevValues[7].ToString();
                     lbl_registry_no.Text = prevValues[7].ToString();
                     RetrieveDataListGrid();
-                    RetrieveEmployeename();
+                    //RetrieveEmployeename();
                     RetrieveLoanPremiums_Visible();
                     RetrieveReserveDeduction();
                     RetrievePayrollInstallation();
@@ -219,7 +219,7 @@ namespace HRIS_ePayroll.View
             RetrieveBindingSubDep();
             RetrieveBindingDivision();
             RetrieveBindingSection();
-            RetrieveEmployeename();
+            //RetrieveEmployeename();
             RetrieveBindingFundcharges();
 
             btnAdd.Visible = true;

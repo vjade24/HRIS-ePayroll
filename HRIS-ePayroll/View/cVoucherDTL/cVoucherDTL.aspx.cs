@@ -323,6 +323,17 @@ namespace HRIS_ePayroll.View
             ddl_payroll_template.DataBind();
             ListItem li = new ListItem("-- Select Here --", "");
             ddl_payroll_template.Items.Insert(0, li);
+
+            payrolltemplate_code.Items.Clear();
+            DataTable chk = new DataTable();
+            //string query = "SELECT * FROM payrolltemplate_tbl WHERE payrolltemplate_type IN ('01','07','08') AND employment_type = '"+ ddl_empl_type.SelectedValue.ToString().Trim() + "'";
+            string query = "SELECT * FROM payrolltemplate_tbl WHERE payrolltemplate_type IN ('01','08') AND employment_type = '"+ ddl_empl_type.SelectedValue.ToString().Trim() + "'";
+            chk = MyCmn.GetDatatable(query);
+            payrolltemplate_code.DataSource = chk;
+            payrolltemplate_code.DataValueField = "payrolltemplate_code";
+            payrolltemplate_code.DataTextField = "payrolltemplate_descr";
+            payrolltemplate_code.DataBind();
+            payrolltemplate_code.Items.Insert(0, li);
         }
         //*************************************************************************
         //  BEGIN - VJA- 06/06/2019 - Retrieve back end data and load to GridView
@@ -424,6 +435,8 @@ namespace HRIS_ePayroll.View
             FieldValidationColorChanged(false, "ALL");
 
             id_oth_claims_refund.Visible = false;
+            payrolltemplate_code.Enabled = false;
+            is_differential.Enabled      = false;
 
             switch (ddl_payroll_template.SelectedValue)
             {
@@ -439,7 +452,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = false;
                     div_gross.Visible               = false;
                     lbl_netpay_descr.Text           = "Refund Total :";
-                    div_no_of_days.Visible = false;
+                    div_no_of_days.Visible          = false;
                     txtb_gross_pay.Enabled          = true;
                     div_amount1.Visible             = false;
                     lbl_other_amount1_descr.Text    = "";
@@ -448,11 +461,8 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = true;
-
-
-                    div_amount4.Visible = false;
-                    lbl_other_amount4_descr.Text = "";
-                    //div_voucher_type.Visible        = false;
+                    div_amount4.Visible             = false;
+                    lbl_refund_sal_amt.Text         = "";
                     break;
 
                 // Template Code for : Honorarium
@@ -467,7 +477,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = true;
                     div_gross.Visible               = true;
                     lbl_netpay_descr.Text           = "Net Pay (Hon.):";
-                    div_no_of_days.Visible = false;
+                    div_no_of_days.Visible          = false;
                     txtb_gross_pay.Enabled          = true;
                     div_amount1.Visible             = false;
                     lbl_other_amount1_descr.Text    = "";
@@ -476,11 +486,8 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = true;
-                    //div_voucher_type.Visible        = false;
-
-
-                    div_amount4.Visible = false;
-                    lbl_other_amount4_descr.Text = "";
+                    div_amount4.Visible             = false;
+                    lbl_refund_sal_amt.Text         = "";
                     break;
 
                 // Template Code for : Terminal Leave
@@ -495,7 +502,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = false;
                     div_gross.Visible               = true;
                     lbl_netpay_descr.Text           = "Net Pay (Term.):";
-                    div_no_of_days.Visible = true;
+                    div_no_of_days.Visible          = true;
                     txtb_gross_pay.Enabled          = false;
                     div_amount1.Visible             = false;
                     lbl_other_amount1_descr.Text    = "";
@@ -504,17 +511,14 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = true;
-                    //div_voucher_type.Visible        = false;
-
-                    div_amount4.Visible = true;
-                    lbl_other_amount4_descr.Text = "Refund:";
+                    div_amount4.Visible             = true;
+                    lbl_refund_sal_amt.Text         = "Refund:";
                     break;
 
                 // Template Code for : Other Salaries
                 case "605":
                 case "705":
                 case "805":
-
                     id_mandatory.Visible            = true;
                     id_optional.Visible             = true;
                     id_loans.Visible                = true;
@@ -522,7 +526,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = false;
                     div_gross.Visible               = true;
                     lbl_netpay_descr.Text           = "Net Pay:";
-                    div_no_of_days.Visible = false;
+                    div_no_of_days.Visible          = false;
                     txtb_gross_pay.Enabled          = true;
                     
                     if (Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "1")      // Other Salaries - First Claim (Promotion)
@@ -540,14 +544,14 @@ namespace HRIS_ePayroll.View
                     if (Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "2")      // Other Salaries - Sal. Diff (Multiple Months)
                     {
 
-                        div_lwop.Visible = true;
-                        div_amount1.Visible = true;
-                        lbl_other_amount1_descr.Text = "PERA Amt.";
-                        div_amount2.Visible = true;
-                        lbl_other_amount2_descr.Text = "Authorized Sal. :";
-                        div_amount3.Visible = true;
-                        lbl_other_amount3_descr.Text = "Received Sal. :";
-                        div_netpay.Visible = true;
+                        div_lwop.Visible                = true;
+                        div_amount1.Visible             = true;
+                        lbl_other_amount1_descr.Text    = "PERA Amt.";
+                        div_amount2.Visible             = true;
+                        lbl_other_amount2_descr.Text    = "Authorized Sal. :";
+                        div_amount3.Visible             = true;
+                        lbl_other_amount3_descr.Text    = "Received Sal. :";
+                        div_netpay.Visible              = true;
                     }
                     
                     if (Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "3")      // Other Salaries - Other Sal. (Multiple Months)
@@ -579,39 +583,12 @@ namespace HRIS_ePayroll.View
                         div_amount3.Visible             = false;
                         lbl_other_amount3_descr.Text    = "";
                         div_netpay.Visible              = true;
-                        //div_voucher_type.Visible        = false;
                         txtb_other_amount1.Enabled      = true;
                         btn_calculate.Visible           = true;
                     
                         div_amount4.Visible = true;
-                        lbl_other_amount4_descr.Text = "Refund:";
+                        lbl_refund_sal_amt.Text = "Refund:";
                     }
-
-                    //if (ddl_voucher_type.SelectedValue == "1")      // Other Salaries - First Claim (Promotion)
-                    //{
-                        
-                    //    div_lwop.Visible                = false;
-                    //    div_amount1.Visible             = true;
-                    //    lbl_other_amount1_descr.Text    = "PERA Amt.";
-                    //    div_amount2.Visible             = true;
-                    //    lbl_other_amount2_descr.Text    = "Authorized Sal. :";
-                    //    div_amount3.Visible             = true;
-                    //    lbl_other_amount3_descr.Text    = "Received Sal. :";
-                    //    div_netpay.Visible              = true;
-                    //}
-                    //else
-                    //{
-                    //    div_lwop.Visible                = true;
-                    //    div_amount1.Visible             = true;
-                    //    lbl_other_amount1_descr.Text    = "PERA Amt.";
-                    //    div_amount2.Visible             = false;
-                    //    lbl_other_amount2_descr.Text    = "";
-                    //    div_amount3.Visible             = false;
-                    //    lbl_other_amount3_descr.Text    = "";
-                    //    div_netpay.Visible              = true;
-                    //}
-                    
-                    //div_voucher_type.Visible        = true;
                     break;
 
                 // Template Code for : Refund to Employeer - Mid Year Bonus
@@ -626,7 +603,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = false;
                     div_gross.Visible               = false;
                     lbl_netpay_descr.Text           = "Net Pay:";
-                    div_no_of_days.Visible = false;
+                    div_no_of_days.Visible          = false;
                     txtb_gross_pay.Enabled          = true;
                     div_amount1.Visible             = true;
                     lbl_other_amount1_descr.Text    = "Mid Year Amt.";
@@ -635,9 +612,8 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = false;
-                    //div_voucher_type.Visible        = false;
-                    div_amount4.Visible = false;
-                    lbl_other_amount4_descr.Text = "";
+                    div_amount4.Visible             = false;
+                    lbl_refund_sal_amt.Text         = "";
                     break;
 
                 // Template Code for : Refund to Employeer - Year End Bonus
@@ -652,7 +628,7 @@ namespace HRIS_ePayroll.View
                     div_tax.Visible                 = false;
                     div_gross.Visible               = false;
                     lbl_netpay_descr.Text           = "Net Pay:";
-                    div_no_of_days.Visible = false;
+                    div_no_of_days.Visible          = false;
                     txtb_gross_pay.Enabled          = true;
                     div_amount1.Visible             = true;
                     lbl_other_amount1_descr.Text    = "Year-End Amt.";
@@ -661,9 +637,8 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = true;
-                    //div_voucher_type.Visible        = false;
-                    div_amount4.Visible = false;
-                    lbl_other_amount4_descr.Text = "";
+                    div_amount4.Visible             = false;
+                    lbl_refund_sal_amt.Text         = "";
                     break;
 
                 // Template Code for : Maternity
@@ -696,10 +671,8 @@ namespace HRIS_ePayroll.View
                     div_amount3.Visible             = false;
                     lbl_other_amount3_descr.Text    = "";
                     div_netpay.Visible              = true;
-                    //div_voucher_type.Visible        = false;
-
-                    div_amount4.Visible = true;
-                    lbl_other_amount4_descr.Text = "Refund:";
+                    div_amount4.Visible             = true;
+                    lbl_refund_sal_amt.Text         = "Refund:";
                     break;
 
                 // Template Code for : Other Claims/Refund
@@ -737,11 +710,36 @@ namespace HRIS_ePayroll.View
                     txtb_other_amount3.Enabled      = false;
                     btn_calculate.Visible           = true;
                     id_oth_claims_refund.Visible    = true;
-
-                    div_amount4.Visible = false;
-                    lbl_other_amount4_descr.Text = "";
+                    div_amount4.Visible             = false;
+                    lbl_refund_sal_amt.Text         = "";
                     break;
-                    
+
+                case "610": // Other Claims - v2
+                case "611": // Other Claims - v2
+                case "612": // Other Claims - v2
+
+                    lbl_netpay_descr.Text               = "Net Pay:";
+                    lbl_other_amount1_descr.Text        = "PERA Amt.";
+                    div_amount1.Visible                 = true;
+                    payrolltemplate_code.Enabled        = true;
+                    is_differential.Enabled             = true;
+                    if (is_differential.Checked == true)
+                    {
+                        div_amount2.Visible             = true;
+                        lbl_other_amount2_descr.Text    = "Authorized";
+                        div_amount3.Visible             = true;
+                        lbl_other_amount3_descr.Text    = "Received:";
+                    }
+                    else
+                    {
+                        div_amount2.Visible             = false;
+                        lbl_other_amount2_descr.Text    = "Amount 2:";
+                        div_amount3.Visible             = false;
+                        lbl_other_amount3_descr.Text    = "Amount 3:";
+                    }
+
+                    break;
+
             }
         }
         //*************************************************************************
@@ -749,96 +747,83 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         private void ClearEntry()
         {
-            //Header 
-            //ddl_empl_id.SelectedValue = "";
-            //txtb_empl_id.Text = "";
-            //ddl_subdep.SelectedIndex = -1;
-            //ddl_division.SelectedIndex = -1;
-            //ddl_section.SelectedIndex = -1;
-            hidden_seq_no.Text = "";
-            txtb_rate_amount.Text = "0.00";
-            txtb_no_of_days.Text = "0.00";
-            txtb_birtax_summary.Text = "0.00";
+            hidden_seq_no.Text          = "";
+            txtb_rate_amount.Text       = "0.00";
+            txtb_no_of_days.Text        = "0.00";
+            txtb_birtax_summary.Text    = "0.00";
 
             //Summary Tab                 
-            txtb_gross_pay.Text = "0.00";
-            txtb_lwo_pay.Text = "0.00";
-            txtb_total_mandatory.Text = "0.00";
-            txtb_total_optional.Text = "0.00";
-            txtb_total_loans.Text = "0.00";
-            txtb_net_pay.Text = "0.00";
-            txtb_lwop_amount_pera.Text = "0.00";
+            txtb_gross_pay.Text         = "0.00";
+            txtb_lwo_pay.Text           = "0.00";
+            txtb_total_mandatory.Text   = "0.00";
+            txtb_total_optional.Text    = "0.00";
+            txtb_total_loans.Text       = "0.00";
+            txtb_net_pay.Text           = "0.00";
+            txtb_lwop_amount_pera.Text  = "0.00";
 
             //Mandatory Deductions Tab
-            txtb_gsis_gs.Text = "0.00";
-            txtb_gsis_ps.Text = "0.00";
-            txtb_gsis_sif.Text = "0.00";
-            txtb_hdmf_gs.Text = "0.00";
-            txtb_hdmf_ps.Text = "0.00";
-            txtb_phic_gs.Text = "0.00";
-            txtb_phic_ps.Text = "0.00";
-            txtb_bir_tax.Text = "0.00";
+            txtb_gsis_gs.Text           = "0.00";
+            txtb_gsis_ps.Text           = "0.00";
+            txtb_gsis_sif.Text          = "0.00";
+            txtb_hdmf_gs.Text           = "0.00";
+            txtb_hdmf_ps.Text           = "0.00";
+            txtb_phic_gs.Text           = "0.00";
+            txtb_phic_ps.Text           = "0.00";
+            txtb_bir_tax.Text           = "0.00";
 
             //Optional Deduction Tab
-            txtb_sss.Text = "0.00";
-            txtb_hdmf_addl.Text = "0.00";
-            txtb_philam.Text = "0.00";
-            txtb_gsis_ehp.Text = "0.00";
-            txtb_gsis_hip.Text = "0.00";
-            txtb_gsis_ceap.Text = "0.00";
-            txtb_gsis_add.Text = "0.00";
-            txtb_hdmf_mp2.Text = "0.00";
+            txtb_sss.Text               = "0.00";
+            txtb_hdmf_addl.Text         = "0.00";
+            txtb_philam.Text            = "0.00";
+            txtb_gsis_ehp.Text          = "0.00";
+            txtb_gsis_hip.Text          = "0.00";
+            txtb_gsis_ceap.Text         = "0.00";
+            txtb_gsis_add.Text          = "0.00";
+            txtb_hdmf_mp2.Text          = "0.00";
             txtb_hdmf_loyalty_card.Text = "0.00";
 
             //Loans Tab
-            txtb_gsis_consolidated.Text = "0.00";
-            txtb_gsis_policy_regular.Text = "0.00";
-            txtb_gsis_policy_optional.Text = "0.00";
-            txtb_gsis_ouli_loan.Text = "0.00";
-            txtb_gsis_emer_loan.Text = "0.00";
-            txtb_gsis_ecard_loan.Text = "0.00";
-            txtb_gsis_educ_loan.Text = "0.00";
-            txtb_gsis_real_loan.Text = "0.00";
-            txtb_gsis_sos_loan.Text = "0.00";
-            txtb_hdmf_mpl_loan.Text = "0.00";
-            txtb_hdmf_house_loan.Text = "0.00";
-            txtb_hdmf_cal_loan.Text = "0.00";
-            txtb_ccmpc_loan.Text = "0.00";
-            txtb_nico_loan.Text = "0.00";
-            txtb_networkbank_loan.Text = "0.00";
+            txtb_gsis_consolidated.Text     = "0.00";
+            txtb_gsis_policy_regular.Text   = "0.00";
+            txtb_gsis_policy_optional.Text  = "0.00";
+            txtb_gsis_ouli_loan.Text        = "0.00";
+            txtb_gsis_emer_loan.Text        = "0.00";
+            txtb_gsis_ecard_loan.Text       = "0.00";
+            txtb_gsis_educ_loan.Text        = "0.00";
+            txtb_gsis_real_loan.Text        = "0.00";
+            txtb_gsis_sos_loan.Text         = "0.00";
+            txtb_hdmf_mpl_loan.Text         = "0.00";
+            txtb_hdmf_house_loan.Text       = "0.00";
+            txtb_hdmf_cal_loan.Text         = "0.00";
+            txtb_ccmpc_loan.Text            = "0.00";
+            txtb_nico_loan.Text             = "0.00";
+            txtb_networkbank_loan.Text      = "0.00";
 
             // Add Field 03/12/2019
-            txtb_nhmfc_hsng.Text = "0.00";
-            txtb_nafc.Text = "0.00";
+            txtb_nhmfc_hsng.Text            = "0.00";
+            txtb_nafc.Text                  = "0.00";
 
             // Add Field Again 03/14/2019
-            txtb_gsis_help.Text = "0.00";
-            txtb_gsis_housing_loan.Text = "0.00";
+            txtb_gsis_help.Text             = "0.00";
+            txtb_gsis_housing_loan.Text     = "0.00";
 
-            txtb_other_amount1.Text = "0.00";
-            txtb_other_amount2.Text = "0.00";
-            txtb_other_amount3.Text = "0.00";
+            txtb_other_amount1.Text         = "0.00";
+            txtb_other_amount2.Text         = "0.00";
+            txtb_other_amount3.Text         = "0.00";
 
-            txtb_period_from.Text = "";
-            txtb_period_to.Text = "";
-            //txtb_voucher_descr1.Text = "";
-            //txtb_voucher_descr2.Text = "";
-            //txtb_department.Text = "";
-            //txtb_prepared_name.Text = "";
-            //txtb_prepared_design.Text = "";
-            //txtb_department.Text = ddl_dep.SelectedItem.ToString().Trim();
+            txtb_period_from.Text           = "";
+            txtb_period_to.Text             = "";
 
             //Added by Jorge: 07/01/2019
-            txtb_voucher_nbr.Text = "";
-            ViewState["created_by_user"] = "";
-            ViewState["updated_by_user"] = "";
-            ViewState["posted_by_user"] = "";
-            ViewState["created_dttm"] = "";
-            ViewState["updated_dttm"] = "";
-            txtb_date_posted.Text = "";
-            //txtb_position.Text = "";
-            txtb_status.Text = "";
-            lbl_if_dateposted_yes.Text = "";
+            txtb_voucher_nbr.Text           = "";
+            ViewState["created_by_user"]    = "";
+            ViewState["updated_by_user"]    = "";
+            ViewState["posted_by_user"]     = "";
+            ViewState["created_dttm"]       = "";
+            ViewState["updated_dttm"]       = "";
+            txtb_date_posted.Text           = "";
+            txtb_status.Text                = "";
+            lbl_if_dateposted_yes.Text      = "";
 
             txtb_otherloan_no1.Text         = "0.00";
             txtb_otherloan_no2.Text         = "0.00";
@@ -901,7 +886,11 @@ namespace HRIS_ePayroll.View
 
             txtb_lates_min.Text         = "0.00";
             txtb_lates_amount.Text      = "0.00";
-            txtb_other_amount4.Text      = "0.00";
+            refund_sal_amt.Text     = "0.00";
+
+            payrolltemplate_code.SelectedValue  = "";
+            voucher_dtl_descr.Text              = "";
+            is_differential.Checked             = false;
 
             FieldValidationColorChanged(false, "ALL");
         }
@@ -984,7 +973,13 @@ namespace HRIS_ePayroll.View
 
             dtSource.Columns.Add("refund_sal_amt", typeof(System.String)); // For Terminal Leave
 
-            //dtSource.Columns.Add("deduc_amt", typeof(System.String));
+            dtSource.Columns.Add("payrolltemplate_code", typeof(System.String));
+            dtSource.Columns.Add("voucher_dtl_descr", typeof(System.String));
+            dtSource.Columns.Add("created_dttm", typeof(System.DateTime));
+            dtSource.Columns.Add("updated_dttm", typeof(System.DateTime));
+            dtSource.Columns.Add("updated_by_user", typeof(System.String));
+            dtSource.Columns.Add("created_by_user", typeof(System.String));
+            dtSource.Columns.Add("is_differential", typeof(System.Boolean));
         }
         //*************************************************************************
         //  BEGIN - VJA- 06/06/2019 - Add Primary Key Field to datasource
@@ -1003,79 +998,82 @@ namespace HRIS_ePayroll.View
         private void AddNewRow()
         {
             DataRow nrow = dtSource.NewRow();
-            nrow["payroll_year"] = string.Empty;
-            nrow["voucher_ctrl_nbr"] = string.Empty;
-            nrow["seq_no"] = string.Empty;
-            nrow["empl_id"] = string.Empty;
+            nrow["payroll_year"]        = string.Empty;
+            nrow["voucher_ctrl_nbr"]    = string.Empty;
+            nrow["seq_no"]              = string.Empty;
+            nrow["empl_id"]             = string.Empty;
             nrow["voucher_period_from"] = string.Empty;
-            nrow["voucher_period_to"] = string.Empty;
-            nrow["gross_pay"] = string.Empty;
-            nrow["net_pay"] = string.Empty;
-            nrow["rate_basis"] = string.Empty;
-            nrow["monthly_rate"] = string.Empty;
-            nrow["daily_rate"] = string.Empty;
-            nrow["hourly_rate"] = string.Empty;
-            nrow["no_of_days"] = string.Empty;
-            nrow["other_amt1"] = string.Empty;
-            nrow["other_amt2"] = string.Empty;
-            nrow["other_amt3"] = string.Empty;
-            nrow["wtax"] = string.Empty;
-            nrow["lowp_amount_salary"] = string.Empty;
-            nrow["lowp_amount_pera"] = string.Empty;
-            nrow["gsis_gs"] = string.Empty;
-            nrow["gsis_ps"] = string.Empty;
-            nrow["sif_gs"] = string.Empty;
-            nrow["hdmf_gs"] = string.Empty;
-            nrow["hdmf_ps"] = string.Empty;
-            nrow["phic_gs"] = string.Empty;
-            nrow["phic_ps"] = string.Empty;
-            nrow["nhmfc_hsing"] = string.Empty;
-            nrow["nafc_svlf"] = string.Empty;
-            nrow["sss_ps"] = string.Empty;
-            nrow["hdmf_ps2"] = string.Empty;
-            nrow["hdmf_mp2"] = string.Empty;
-            nrow["philamlife_ps"] = string.Empty;
-            nrow["gsis_ehp"] = string.Empty;
-            nrow["gsis_hip"] = string.Empty;
-            nrow["gsis_ceap"] = string.Empty;
-            nrow["gsis_addl_ins"] = string.Empty;
-            nrow["gsis_conso_ln"] = string.Empty;
-            nrow["gsis_policy_reg_ln"] = string.Empty;
-            nrow["gsis_policy_opt_ln"] = string.Empty;
-            nrow["gsis_uoli_ln"] = string.Empty;
-            nrow["gsis_emergency_ln"] = string.Empty;
-            nrow["gsis_ecard_ln"] = string.Empty;
-            nrow["gsis_educ_asst_ln"] = string.Empty;
-            nrow["gsis_real_state_ln"] = string.Empty;
-            nrow["gsis_sos_ln"] = string.Empty;
-            nrow["gsis_help"] = string.Empty;
-            nrow["gsis_housing_ln"] = string.Empty;
-            nrow["hdmf_mpl_ln"] = string.Empty;
-            nrow["hdmf_hse_ln"] = string.Empty;
-            nrow["hdmf_cal_ln"] = string.Empty;
-            nrow["hdmf_loyalty_card"] = string.Empty;
-            nrow["nico_ln"] = string.Empty;
-            nrow["network_ln"] = string.Empty;
-            nrow["ccmpc_ln"] = string.Empty;
-            nrow["total_mandatory"] = string.Empty;
-            nrow["total_loans"] = string.Empty;
-            nrow["total_optional"] = string.Empty;
-            nrow["other_loan1"]    = string.Empty;
-            nrow["other_loan2"]    = string.Empty;
-            nrow["other_loan3"]    = string.Empty;
-            nrow["other_loan4"]    = string.Empty;
-            nrow["other_loan5"]    = string.Empty;
-            nrow["other_premium1"] = string.Empty;
-            nrow["other_premium2"] = string.Empty;
-            nrow["other_premium3"] = string.Empty;
-            nrow["other_premium4"] = string.Empty;
-            nrow["other_premium5"] = string.Empty;
-            nrow["lates_mins_hrs"] = string.Empty;
-            nrow["lates_amount"] = string.Empty;
-            nrow["refund_sal_amt"] = string.Empty;
-            //nrow["deduc_amt"] = string.Empty;
-            nrow["action"] = 1;
-            nrow["retrieve"] = false;
+            nrow["voucher_period_to"]   = string.Empty;
+            nrow["gross_pay"]           = string.Empty;
+            nrow["net_pay"]             = string.Empty;
+            nrow["rate_basis"]          = string.Empty;
+            nrow["monthly_rate"]        = string.Empty;
+            nrow["daily_rate"]          = string.Empty;
+            nrow["hourly_rate"]         = string.Empty;
+            nrow["no_of_days"]          = string.Empty;
+            nrow["other_amt1"]          = string.Empty;
+            nrow["other_amt2"]          = string.Empty;
+            nrow["other_amt3"]          = string.Empty;
+            nrow["wtax"]                = string.Empty;
+            nrow["lowp_amount_salary"]  = string.Empty;
+            nrow["lowp_amount_pera"]    = string.Empty;
+            nrow["gsis_gs"]             = string.Empty;
+            nrow["gsis_ps"]             = string.Empty;
+            nrow["sif_gs"]              = string.Empty;
+            nrow["hdmf_gs"]             = string.Empty;
+            nrow["hdmf_ps"]             = string.Empty;
+            nrow["phic_gs"]             = string.Empty;
+            nrow["phic_ps"]             = string.Empty;
+            nrow["nhmfc_hsing"]         = string.Empty;
+            nrow["nafc_svlf"]           = string.Empty;
+            nrow["sss_ps"]              = string.Empty;
+            nrow["hdmf_ps2"]            = string.Empty;
+            nrow["hdmf_mp2"]            = string.Empty;
+            nrow["philamlife_ps"]       = string.Empty;
+            nrow["gsis_ehp"]            = string.Empty;
+            nrow["gsis_hip"]            = string.Empty;
+            nrow["gsis_ceap"]           = string.Empty;
+            nrow["gsis_addl_ins"]       = string.Empty;
+            nrow["gsis_conso_ln"]       = string.Empty;
+            nrow["gsis_policy_reg_ln"]  = string.Empty;
+            nrow["gsis_policy_opt_ln"]  = string.Empty;
+            nrow["gsis_uoli_ln"]        = string.Empty;
+            nrow["gsis_emergency_ln"]   = string.Empty;
+            nrow["gsis_ecard_ln"]       = string.Empty;
+            nrow["gsis_educ_asst_ln"]   = string.Empty;
+            nrow["gsis_real_state_ln"]  = string.Empty;
+            nrow["gsis_sos_ln"]         = string.Empty;
+            nrow["gsis_help"]           = string.Empty;
+            nrow["gsis_housing_ln"]     = string.Empty;
+            nrow["hdmf_mpl_ln"]         = string.Empty;
+            nrow["hdmf_hse_ln"]         = string.Empty;
+            nrow["hdmf_cal_ln"]         = string.Empty;
+            nrow["hdmf_loyalty_card"]   = string.Empty;
+            nrow["nico_ln"]             = string.Empty;
+            nrow["network_ln"]          = string.Empty;
+            nrow["ccmpc_ln"]            = string.Empty;
+            nrow["total_mandatory"]     = string.Empty;
+            nrow["total_loans"]         = string.Empty;
+            nrow["total_optional"]      = string.Empty;
+            nrow["other_loan1"]         = string.Empty;
+            nrow["other_loan2"]         = string.Empty;
+            nrow["other_loan3"]         = string.Empty;
+            nrow["other_loan4"]         = string.Empty;
+            nrow["other_loan5"]         = string.Empty;
+            nrow["other_premium1"]      = string.Empty;
+            nrow["other_premium2"]      = string.Empty;
+            nrow["other_premium3"]      = string.Empty;
+            nrow["other_premium4"]      = string.Empty;
+            nrow["other_premium5"]      = string.Empty;
+            nrow["lates_mins_hrs"]      = string.Empty;
+            nrow["lates_amount"]        = string.Empty;
+            nrow["refund_sal_amt"]      = string.Empty;
+            nrow["payrolltemplate_code"]= string.Empty;
+            nrow["voucher_dtl_descr"]   = string.Empty;
+            nrow["updated_by_user"]     = string.Empty;
+            nrow["created_by_user"]     = string.Empty;
+            nrow["action"]      = 1;
+            nrow["retrieve"]    = false;
             dtSource.Rows.Add(nrow);
         }
         //***************************************************************************
@@ -1085,7 +1083,7 @@ namespace HRIS_ePayroll.View
         {
 
             FieldValidationColorChanged(false, "ALL");
-            string[] commandArgs = e.CommandArgument.ToString().Split(new char[] { ',' });
+            string[] commandArgs    = e.CommandArgument.ToString().Split(new char[] { ',' });
             string empl_id          = commandArgs[0];
             string voucher_ctrl_nbr = commandArgs[1];
             string payroll_year     = commandArgs[2];
@@ -1100,16 +1098,7 @@ namespace HRIS_ePayroll.View
                 txtb_reason.Visible = false;
                 lnkBtnYes.Text = "Yes, Delete it";
             }
-            //else if (Session["ep_post_authority"].ToString() == "1")
-            //{
-            //    // This is Message if the accounting user will unpost the card 
-            //    deleteRec1.Text = "Are you sure you want to UnPost this Record ?";
-            //    deleteRec0.InnerText = "UnPost this Record ?";
-            //    lbl_unposting.Text = "Reason for UnPosting :";
-            //    txtb_reason.Visible = true;
-            //    lnkBtnYes.Text = "Yes, UnPost it";
-            //}
-
+            
             lnkBtnYes.CommandArgument = e.CommandArgument.ToString();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalDelete();", true);
         }
@@ -1119,9 +1108,9 @@ namespace HRIS_ePayroll.View
         protected void btnDelete_Command(object sender, CommandEventArgs e)
         {
             string[] commandarg = e.CommandArgument.ToString().Split(new char[] { ',' });
-            string deleteExpression = "empl_id = '" + commandarg[0].Trim() + "' AND voucher_ctrl_nbr = '" + commandarg[1].Trim() + "' AND payroll_year = '" + commandarg[2].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
-            string deleteExpression_oth_claims = "empl_id = '" + commandarg[0].Trim() + "' AND voucher_ctrl_nbr = '" + commandarg[1].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
-            string deleteExpression_othded = "empl_id = '" + commandarg[0].Trim() + "' AND payroll_registry_nbr = '" + commandarg[1].Trim() + "' AND payroll_year = '" + commandarg[2].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
+            string deleteExpression             = "empl_id = '" + commandarg[0].Trim() + "' AND voucher_ctrl_nbr = '" + commandarg[1].Trim() + "' AND payroll_year = '" + commandarg[2].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
+            string deleteExpression_oth_claims  = "empl_id = '" + commandarg[0].Trim() + "' AND voucher_ctrl_nbr = '" + commandarg[1].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
+            string deleteExpression_othded      = "empl_id = '" + commandarg[0].Trim() + "' AND payroll_registry_nbr = '" + commandarg[1].Trim() + "' AND payroll_year = '" + commandarg[2].Trim() + "' AND seq_no = '" + commandarg[3].Trim() + "'";
 
             if (Session["ep_post_authority"].ToString() == "0")
             {
@@ -1134,32 +1123,6 @@ namespace HRIS_ePayroll.View
                 dataListGrid.AcceptChanges();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModalDelete();", true);
             }
-            //else if (Session["ep_post_authority"].ToString() == "1")
-            //{
-            //    if (txtb_reason.Text == "")
-            //    {
-            //        FieldValidationColorChanged(true, "txtb_reason");
-            //    }
-            //    else
-            //    {
-            //        // Stored Procedure to Insert to payrollregistry_dtl_unpost_tbl during accounting case
-            //        DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_dtl_unpost_tbl_insert", "par_payroll_year", ddl_year.SelectedValue, "par_payroll_registry_nbr", commandarg[1].Trim(), "par_empl_id", commandarg[0].Trim(), "par_reason", txtb_reason.Text);
-
-            //        //4.4.b.Update the following fields: From payrollregistry_dtl_rata_tbl Table
-            //        //    1.voucher_nbr     =   { blank}
-            //        //    2.posted_by_user  =   { blank}
-            //        //    3.post_status     =   "N"   
-            //        //    4.date_posted     =   { blank}
-            //        //    5.updated_by_user =   session user_id   
-            //        //    6.updated_dttm    =   System Date
-
-            //        string setparams = "";
-            //        setparams = "voucher_nbr = '',posted_by_user = '',post_status='N',date_posted='' , updated_by_user='" + Session["ep_user_id"].ToString() + "', updated_dttm='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'";
-            //        MyCmn.UpdateTable("voucher_dtl_tbl", setparams, "WHERE " + deleteExpression);
-            //        RetrieveDataListGrid();
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModalDelete();", true);
-            //    }
-            //}
 
             MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
             up_dataListGrid.Update();
@@ -1214,8 +1177,6 @@ namespace HRIS_ePayroll.View
             ViewState["daily_rate"]         = row2Edit[0]["daily_rate"].ToString();
             txtb_net_pay.Text               = row2Edit[0]["net_pay"].ToString();
             txtb_no_of_days.Text            = row2Edit[0]["no_of_days"].ToString();
-            //txtb_lwo_pay.Text               = row2Edit[0]["lowp_amount"].ToString();
-            
             txtb_period_from.Text           = row2Edit[0]["voucher_period_from"].ToString();
             txtb_period_to.Text             = row2Edit[0]["voucher_period_to"].ToString();
             txtb_gross_pay.Text             = row2Edit[0]["gross_pay"].ToString();
@@ -1312,9 +1273,13 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan9.Text   =  row2Edit[0]["other_ded_loan9"].ToString();
             txtb_other_ded_loan10.Text  =  row2Edit[0]["other_ded_loan10"].ToString();
 
-            txtb_lates_min.Text = row2Edit[0]["lates_mins_hrs"].ToString();
-            txtb_lates_amount.Text = row2Edit[0]["lates_amount"].ToString();
-            txtb_other_amount4.Text = row2Edit[0]["refund_sal_amt"].ToString();
+            txtb_lates_min.Text         = row2Edit[0]["lates_mins_hrs"].ToString();
+            txtb_lates_amount.Text      = row2Edit[0]["lates_amount"].ToString();
+            refund_sal_amt.Text         = row2Edit[0]["refund_sal_amt"].ToString();
+            
+            payrolltemplate_code.SelectedValue      = row2Edit[0]["payrolltemplate_code"].ToString();
+            voucher_dtl_descr.Text                  = row2Edit[0]["voucher_dtl_descr"].ToString();
+            is_differential.Checked                 = bool.Parse(row2Edit[0]["is_differential"].ToString());
 
             switch (row2Edit[0]["rate_basis"].ToString())
             {
@@ -1595,9 +1560,15 @@ namespace HRIS_ePayroll.View
                     dtSource.Rows[0]["other_premium4"]          = txtb_otherpremium_no4.Text.ToString().Trim();
                     dtSource.Rows[0]["other_premium5"]          = txtb_otherpremium_no5.Text.ToString().Trim();
 
-                    dtSource.Rows[0]["lates_mins_hrs"] = txtb_lates_min.Text.ToString().Trim();
-                    dtSource.Rows[0]["lates_amount"] = txtb_lates_amount.Text.ToString().Trim();
-                    dtSource.Rows[0]["refund_sal_amt"] = txtb_other_amount4.Text.ToString().Trim();
+                    dtSource.Rows[0]["lates_mins_hrs"]          = txtb_lates_min.Text.ToString().Trim();
+                    dtSource.Rows[0]["lates_amount"]            = txtb_lates_amount.Text.ToString().Trim();
+                    dtSource.Rows[0]["refund_sal_amt"]          = refund_sal_amt.Text.ToString().Trim();
+
+                    dtSource.Rows[0]["payrolltemplate_code"]    = payrolltemplate_code.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["voucher_dtl_descr"]       = voucher_dtl_descr.Text.ToString().Trim();
+                    dtSource.Rows[0]["created_dttm"]            = DateTime.Now;
+                    dtSource.Rows[0]["created_by_user"]         = Session["ep_user_id"].ToString().Trim();
+                    dtSource.Rows[0]["is_differential"]         = is_differential.Checked;
 
                     // If the Template Code is Hononrarium - Hiddent TextBox
                     if (ddl_payroll_template.SelectedValue == "604" ||
@@ -1713,9 +1684,15 @@ namespace HRIS_ePayroll.View
                     dtSource.Rows[0]["other_premium4"]          = txtb_otherpremium_no4.Text.ToString().Trim();
                     dtSource.Rows[0]["other_premium5"]          = txtb_otherpremium_no5.Text.ToString().Trim();
 
-                    dtSource.Rows[0]["lates_mins_hrs"] = txtb_lates_min.Text.ToString().Trim();
-                    dtSource.Rows[0]["lates_amount"] = txtb_lates_amount.Text.ToString().Trim();
-                    dtSource.Rows[0]["refund_sal_amt"] = txtb_other_amount4.Text.ToString().Trim();
+                    dtSource.Rows[0]["lates_mins_hrs"]          = txtb_lates_min.Text.ToString().Trim();
+                    dtSource.Rows[0]["lates_amount"]            = txtb_lates_amount.Text.ToString().Trim();
+                    dtSource.Rows[0]["refund_sal_amt"]          = refund_sal_amt.Text.ToString().Trim();
+
+                    dtSource.Rows[0]["payrolltemplate_code"]    = payrolltemplate_code.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["voucher_dtl_descr"]       = voucher_dtl_descr.Text.ToString().Trim();
+                    dtSource.Rows[0]["updated_dttm"]            = DateTime.Now;
+                    dtSource.Rows[0]["updated_by_user"]         = Session["ep_user_id"].ToString().Trim();
+                    dtSource.Rows[0]["is_differential"]         = is_differential.Checked;
 
                     // If the Template Code is Hononrarium - Hiddent TextBox
                     if (ddl_payroll_template.SelectedValue == "604" ||
@@ -1852,7 +1829,7 @@ namespace HRIS_ePayroll.View
 
                         nrow["lates_mins_hrs"] = txtb_lates_min.Text.ToString().Trim();
                         nrow["lates_amount"] = txtb_lates_amount.Text.ToString().Trim();
-                        nrow["refund_sal_amt"] = txtb_other_amount4.Text.ToString().Trim();
+                        nrow["refund_sal_amt"] = refund_sal_amt.Text.ToString().Trim();
 
                         // Add Field  2022-05-30
                         nrow["other_ded_mand1"]       = txtb_other_ded_mand1.Text.ToString().Trim();
@@ -1886,6 +1863,10 @@ namespace HRIS_ePayroll.View
                         nrow["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         nrow["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
 
+                        nrow["payrolltemplate_code"]    = payrolltemplate_code.SelectedValue.ToString().Trim();
+                        nrow["payrolltemplate_descr"]   = payrolltemplate_code.SelectedItem.ToString().Trim();
+                        nrow["voucher_dtl_descr"]       = voucher_dtl_descr.Text.ToString().Trim();
+                        nrow["is_differential"]         = is_differential.Checked;
 
                         // If the Template Code is Hononrarium - Hiddent TextBox
                         if (ddl_payroll_template.SelectedValue == "604" ||
@@ -1984,7 +1965,7 @@ namespace HRIS_ePayroll.View
 
                         row2Edit[0]["lates_mins_hrs"] = txtb_lates_min.Text.ToString().Trim();
                         row2Edit[0]["lates_amount"] = txtb_lates_amount.Text.ToString().Trim();
-                        row2Edit[0]["refund_sal_amt"] = txtb_other_amount4.Text.ToString().Trim();
+                        row2Edit[0]["refund_sal_amt"] = refund_sal_amt.Text.ToString().Trim();
 
                         // If the Template Code is Hononrarium - Hiddent TextBox
                         if (ddl_payroll_template.SelectedValue == "604" ||
@@ -2046,6 +2027,11 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["other_ded_loan9"]       = txtb_other_ded_loan9.Text.ToString().Trim();
                         row2Edit[0]["other_ded_loan10"]      = txtb_other_ded_loan10.Text.ToString().Trim();
                         
+                        row2Edit[0]["payrolltemplate_code"]  = payrolltemplate_code.SelectedValue.ToString().Trim();
+                        row2Edit[0]["payrolltemplate_descr"] = payrolltemplate_code.SelectedItem.ToString().Trim();
+                        row2Edit[0]["voucher_dtl_descr"]     = voucher_dtl_descr.Text.ToString().Trim();
+                        row2Edit[0]["is_differential"]       = is_differential.Checked;
+
                         MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;
                     }
@@ -2083,7 +2069,7 @@ namespace HRIS_ePayroll.View
                 + "%' OR voucher_ctrl_nbr LIKE '%" +    txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR employee_name LIKE '%" +       txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR monthly_rate LIKE '%" +        txtb_search.Text.Trim().Replace("'", "''")
-                + "%' OR position_title1 LIKE '%" +     txtb_search.Text.Trim().Replace("'", "''")
+                + "%' OR payrolltemplate_descr LIKE '%" +     txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR post_status_descr LIKE '%" +   txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR net_pay LIKE '%" +             txtb_search.Text.Trim().Replace("'", "''") + "%'";
 
@@ -2151,8 +2137,9 @@ namespace HRIS_ePayroll.View
             dtSource1.Columns.Add("preparedby_designation", typeof(System.String));
 
             dtSource1.Columns.Add("employee_name", typeof(System.String));
-            dtSource1.Columns.Add("position_title1", typeof(System.String));
+            //dtSource1.Columns.Add("position_title1", typeof(System.String));
             dtSource1.Columns.Add("post_status_descr", typeof(System.String));
+            dtSource1.Columns.Add("payrolltemplate_descr", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -2238,6 +2225,24 @@ namespace HRIS_ePayroll.View
                 validatedSaved = false;
                 target_tab = 4;
             }
+            if (payrolltemplate_code.SelectedValue.ToString().Trim() == "" && 
+                (ddl_payroll_template.SelectedValue.ToString().Trim() == "610" || ddl_payroll_template.SelectedValue.ToString().Trim() == "611" || ddl_payroll_template.SelectedValue.ToString().Trim() == "612" )
+                )
+            {
+                lbl_payrolltemplate_code.Text    = MyCmn.CONST_RQDFLD;
+                payrolltemplate_code.BorderColor = Color.Red;
+                payrolltemplate_code.Focus();
+                validatedSaved = false;
+                target_tab = 4;
+            }
+            //if (voucher_dtl_descr.Text.ToString().Trim() == "")
+            //{
+            //    lbl_voucher_dtl_descr.Text = MyCmn.CONST_RQDFLD;
+            //    voucher_dtl_descr.BorderColor = Color.Red;
+            //    voucher_dtl_descr.Focus();
+            //    validatedSaved = false;
+            //    target_tab = 4;
+            //}
             //if (txtb_voucher_descr1.Text == "")
             //{
             //    FieldValidationColorChanged(true, "txtb_voucher_descr1");
@@ -2726,10 +2731,10 @@ namespace HRIS_ePayroll.View
                 txtb_lates_min.Focus();
                 validatedSaved = false;
             }
-            if (CommonCode.checkisdecimal(txtb_other_amount4) == false)
+            if (CommonCode.checkisdecimal(refund_sal_amt) == false)
             {
                 FieldValidationColorChanged(true, "txtb_other_amount4");
-                txtb_other_amount4.Focus();
+                refund_sal_amt.Focus();
                 validatedSaved = false;
             }
             // MANDATORY VALIDATION FOR OTHER DEDUCTIONS
@@ -3307,7 +3312,7 @@ namespace HRIS_ePayroll.View
                     case "txtb_other_amount4":
                         {
                             LblRequired102.Text = MyCmn.CONST_INVALID_NUMERIC;
-                            txtb_other_amount4.BorderColor = Color.Red;
+                            refund_sal_amt.BorderColor = Color.Red;
 
                             break;
                         }
@@ -3508,7 +3513,7 @@ namespace HRIS_ePayroll.View
                             txtb_period_to.BorderColor = Color.LightGray;
                             // END   - Header
                             txtb_lates_min.BorderColor = Color.LightGray;
-                            txtb_other_amount4.BorderColor = Color.LightGray;
+                            refund_sal_amt.BorderColor = Color.LightGray;
 
                             req_other_ded_mand1.Text = "";
                             req_other_ded_mand2.Text = "";
@@ -3542,6 +3547,8 @@ namespace HRIS_ePayroll.View
                             req_other_ded_loan8.Text = "";
                             req_other_ded_loan9.Text = "";
                             req_other_ded_loan10.Text = "";
+                            lbl_voucher_dtl_descr.Text = "";
+                            lbl_payrolltemplate_code.Text = "";
 
                             txtb_other_ded_mand1.BorderColor = Color.LightGray;
                             txtb_other_ded_mand2.BorderColor = Color.LightGray;
@@ -3576,7 +3583,9 @@ namespace HRIS_ePayroll.View
                             txtb_other_ded_loan9.BorderColor = Color.LightGray;
                             txtb_other_ded_loan10.BorderColor = Color.LightGray;
 
-
+                            payrolltemplate_code.BorderColor = Color.LightGray;
+                            voucher_dtl_descr.BorderColor = Color.LightGray;
+                            
                             UpdateDateFrom.Update();
                             UpdateDateTo.Update();
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop_showdate", "show_date();", true);
@@ -3806,6 +3815,21 @@ namespace HRIS_ePayroll.View
                 case "809":
                     calculate_oth_claims_refund();
                     break;
+                case "610": // Other Claims - v2
+                case "611": // Other Claims - v2
+                case "612": // Other Claims - v2
+                    if (is_differential.Checked == true) 
+                    {
+                        total_gross = (double.Parse(txtb_other_amount1.Text.ToString()) + double.Parse(txtb_other_amount2.Text.ToString())) - double.Parse(txtb_other_amount3.Text.ToString());
+                        total_gross = total_gross - double.Parse(txtb_lates_amount.Text.ToString());
+                    }
+                    else
+                    {
+                        total_gross = double.Parse(txtb_gross_pay.Text.ToString());
+                    }
+                    total_str_grosspay = total_gross.ToString("###,##0.0000");
+                    txtb_gross_pay.Text = total_str_grosspay.Split('.')[0] + "." + total_str_grosspay.Split('.')[1].Substring(0, 2);
+                    break;
 
             }
             
@@ -3842,7 +3866,7 @@ namespace HRIS_ePayroll.View
                 case "603":
                 case "703":
                 case "803":
-                    total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_other_amount4.Text) + double.Parse(txtb_lates_amount.Text));
+                    total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(refund_sal_amt.Text) + double.Parse(txtb_lates_amount.Text));
                     break;
 
                 // Template Code for Other Salaries - ( Gross Pay + PERA (amount1) ) - (Deductions + LWOP Amount)
@@ -3850,7 +3874,7 @@ namespace HRIS_ePayroll.View
                 case "705":
                 case "805":
                     total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) + double.Parse(txtb_other_amount1.Text.ToString());
-                    total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_lwo_pay.Text.ToString().Trim()) + double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim()) + double.Parse(txtb_lates_amount.Text.ToString().Trim()) + double.Parse(txtb_other_amount4.Text));
+                    total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_lwo_pay.Text.ToString().Trim()) + double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim()) + double.Parse(txtb_lates_amount.Text.ToString().Trim()) + double.Parse(refund_sal_amt.Text));
                     break;
 
                 // Template Code for Refund to Employeer - MidYear Bonus (Amount1 = Net Pay)
@@ -3884,6 +3908,20 @@ namespace HRIS_ePayroll.View
                     total_netpay = double.Parse(txtb_other_amount1.Text.ToString());
                     total_netpay = total_netpay - (double.Parse(txtb_other_amount2.Text.ToString()) + double.Parse(txtb_other_amount3.Text.ToString()));
                     break;
+                case "610": // Other Claims - v2
+                case "611": // Other Claims - v2
+                case "612": // Other Claims - v2
+                    if (is_differential.Checked == true)
+                    {
+                        total_netpay = (double.Parse(txtb_other_amount1.Text.ToString()) + double.Parse(txtb_other_amount2.Text.ToString())) - double.Parse(txtb_other_amount3.Text.ToString());
+                        total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_lwo_pay.Text.ToString().Trim()) + double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim()) + double.Parse(txtb_lates_amount.Text.ToString().Trim()) + double.Parse(refund_sal_amt.Text));
+                    }
+                    else
+                    {
+                        total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) + double.Parse(txtb_other_amount1.Text.ToString());
+                        total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_lwo_pay.Text.ToString().Trim()) + double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim()) + double.Parse(txtb_lates_amount.Text.ToString().Trim()) + double.Parse(refund_sal_amt.Text));
+                    }
+                    break;
             }
 
             total_str_netpay  = total_netpay.ToString("###,##0.0000");
@@ -3900,9 +3938,13 @@ namespace HRIS_ePayroll.View
             if (ddl_payroll_template.SelectedValue == "603" ||
                 ddl_payroll_template.SelectedValue == "703" ||
                 ddl_payroll_template.SelectedValue == "803" ||
-                ddl_payroll_template.SelectedValue == "608" ||  // Maternity 
-                ddl_payroll_template.SelectedValue == "708" ||  // Maternity 
-                ddl_payroll_template.SelectedValue == "808")    // Maternity 
+                ddl_payroll_template.SelectedValue == "608" || // Maternity 
+                ddl_payroll_template.SelectedValue == "708" || // Maternity 
+                ddl_payroll_template.SelectedValue == "808" || // Maternity 
+                ddl_payroll_template.SelectedValue == "610" || // Other Claims - v2
+                ddl_payroll_template.SelectedValue == "611" || // Other Claims - v2
+                ddl_payroll_template.SelectedValue == "612"    // Other Claims - v2
+                )    
                 
             {
                 total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
@@ -3912,7 +3954,10 @@ namespace HRIS_ePayroll.View
             }
             else if ((ddl_payroll_template.SelectedValue == "605" ||    // Other Salaries
                       ddl_payroll_template.SelectedValue == "705" ||    // Other Salaries
-                      ddl_payroll_template.SelectedValue == "805" ) &&  // Other Salaries
+                      ddl_payroll_template.SelectedValue == "805"       // Other Salaries
+
+                      
+                      ) &&  
                       Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "1")            // First Claim (Promotion)
             {
                 total_mandatory = total_mandatory + double.Parse(txtb_gsis_ps.Text.ToString());
@@ -3922,7 +3967,8 @@ namespace HRIS_ePayroll.View
             }
             else if ((ddl_payroll_template.SelectedValue == "605" ||    // Other Salaries
                       ddl_payroll_template.SelectedValue == "705" ||    // Other Salaries
-                      ddl_payroll_template.SelectedValue == "805") &&   // Other Salaries
+                      ddl_payroll_template.SelectedValue == "805"      // Other Salaries
+                      ) &&   
                       Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "2" ||
                       Session["PreviousValuesonPage_cVoucherHdr_voucher_type"].ToString() == "3")            // Other Salaries - Sal. Diff (Multiple Months)
             {
@@ -4042,20 +4088,12 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         private void ToogleTextbox(bool ifenable)
         {
-            // BEGIN - VJA : 05/29/2019 - Header    
-            //txtb_no_of_days.Enabled         = ifenable;
-            txtb_period_from.Enabled        = ifenable;
-            txtb_period_to.Enabled          = ifenable;
-            //txtb_voucher_descr1.Enabled     = ifenable;
-            //txtb_voucher_descr2.Enabled     = ifenable;
-            // END   - VJA : 05/29/2019 - Header
-
-            // BEGIN   - VJA : 05/29/2019 - Details
-            lbl_rate_basis_hidden.Enabled   = ifenable;
-            lbl_monthly_rate_hidden.Enabled = ifenable;
-            lbl_daily_rate_hidden.Enabled   = ifenable;
-            lbl_hourly_rate_hidden.Enabled  = ifenable;
-            //txtb_no_of_days.Enabled         = ifenable;
+            txtb_period_from.Enabled                = ifenable;
+            txtb_period_to.Enabled                  = ifenable;
+            lbl_rate_basis_hidden.Enabled           = ifenable;
+            lbl_monthly_rate_hidden.Enabled         = ifenable;
+            lbl_daily_rate_hidden.Enabled           = ifenable;
+            lbl_hourly_rate_hidden.Enabled          = ifenable;
             txtb_other_amount1.Enabled              = ifenable;
             txtb_other_amount2.Enabled              = ifenable;
             txtb_other_amount3.Enabled              = ifenable;
@@ -4098,7 +4136,6 @@ namespace HRIS_ePayroll.View
             txtb_nico_loan.Enabled                  = ifenable;
             txtb_networkbank_loan.Enabled           = ifenable;
             txtb_ccmpc_loan.Enabled                 = ifenable;
-            
             txtb_otherloan_no1.Enabled              = ifenable;
             txtb_otherloan_no2.Enabled              = ifenable;
             txtb_otherloan_no3.Enabled              = ifenable;
@@ -4109,49 +4146,43 @@ namespace HRIS_ePayroll.View
             txtb_otherpremium_no3.Enabled           = ifenable;
             txtb_otherpremium_no4.Enabled           = ifenable;
             txtb_otherpremium_no5.Enabled           = ifenable;
-            
-            //txtb_prepared_name.Enabled = ifenable;
-            //txtb_prepared_design.Enabled = ifenable;
-
             lbl_mone_contant_hidden.Enabled              = ifenable;
             lbl_installation_monthly_conv_hidden.Enabled = ifenable;
-            txtb_no_of_days.Enabled = ifenable;
-            txtb_lates_amount.Enabled = ifenable;
-            txtb_other_amount4.Enabled = ifenable;
-            txtb_other_amount1.Enabled = ifenable;
-
-            txtb_lates_min.Enabled = ifenable;
-
-            txtb_other_ded_mand1.Enabled = ifenable;
-            txtb_other_ded_mand2.Enabled = ifenable;
-            txtb_other_ded_mand3.Enabled = ifenable;
-            txtb_other_ded_mand4.Enabled = ifenable;
-            txtb_other_ded_mand5.Enabled = ifenable;
-            txtb_other_ded_mand6.Enabled = ifenable;
-            txtb_other_ded_mand7.Enabled = ifenable;
-            txtb_other_ded_mand8.Enabled = ifenable;
-            txtb_other_ded_mand9.Enabled = ifenable;
-            txtb_other_ded_mand10.Enabled = ifenable;
-            txtb_other_ded_prem1.Enabled = ifenable;
-            txtb_other_ded_prem2.Enabled = ifenable;
-            txtb_other_ded_prem3.Enabled = ifenable;
-            txtb_other_ded_prem4.Enabled = ifenable;
-            txtb_other_ded_prem5.Enabled = ifenable;
-            txtb_other_ded_prem6.Enabled = ifenable;
-            txtb_other_ded_prem7.Enabled = ifenable;
-            txtb_other_ded_prem8.Enabled = ifenable;
-            txtb_other_ded_prem9.Enabled = ifenable;
-            txtb_other_ded_prem10.Enabled = ifenable;
-            txtb_other_ded_loan1.Enabled = ifenable;
-            txtb_other_ded_loan2.Enabled = ifenable;
-            txtb_other_ded_loan3.Enabled = ifenable;
-            txtb_other_ded_loan4.Enabled = ifenable;
-            txtb_other_ded_loan5.Enabled = ifenable;
-            txtb_other_ded_loan6.Enabled = ifenable;
-            txtb_other_ded_loan7.Enabled = ifenable;
-            txtb_other_ded_loan8.Enabled = ifenable;
-            txtb_other_ded_loan9.Enabled = ifenable;
-            txtb_other_ded_loan10.Enabled = ifenable;
+            txtb_no_of_days.Enabled                 = ifenable;
+            txtb_lates_amount.Enabled               = ifenable;
+            refund_sal_amt.Enabled                  = ifenable;
+            txtb_other_amount1.Enabled              = ifenable;
+            txtb_lates_min.Enabled                  = ifenable;
+            txtb_other_ded_mand1.Enabled            = ifenable;
+            txtb_other_ded_mand2.Enabled            = ifenable;
+            txtb_other_ded_mand3.Enabled            = ifenable;
+            txtb_other_ded_mand4.Enabled            = ifenable;
+            txtb_other_ded_mand5.Enabled            = ifenable;
+            txtb_other_ded_mand6.Enabled            = ifenable;
+            txtb_other_ded_mand7.Enabled            = ifenable;
+            txtb_other_ded_mand8.Enabled            = ifenable;
+            txtb_other_ded_mand9.Enabled            = ifenable;
+            txtb_other_ded_mand10.Enabled           = ifenable;
+            txtb_other_ded_prem1.Enabled            = ifenable;
+            txtb_other_ded_prem2.Enabled            = ifenable;
+            txtb_other_ded_prem3.Enabled            = ifenable;
+            txtb_other_ded_prem4.Enabled            = ifenable;
+            txtb_other_ded_prem5.Enabled            = ifenable;
+            txtb_other_ded_prem6.Enabled            = ifenable;
+            txtb_other_ded_prem7.Enabled            = ifenable;
+            txtb_other_ded_prem8.Enabled            = ifenable;
+            txtb_other_ded_prem9.Enabled            = ifenable;
+            txtb_other_ded_prem10.Enabled           = ifenable;
+            txtb_other_ded_loan1.Enabled            = ifenable;
+            txtb_other_ded_loan2.Enabled            = ifenable;
+            txtb_other_ded_loan3.Enabled            = ifenable;
+            txtb_other_ded_loan4.Enabled            = ifenable;
+            txtb_other_ded_loan5.Enabled            = ifenable;
+            txtb_other_ded_loan6.Enabled            = ifenable;
+            txtb_other_ded_loan7.Enabled            = ifenable;
+            txtb_other_ded_loan8.Enabled            = ifenable;
+            txtb_other_ded_loan9.Enabled            = ifenable;
+            txtb_other_ded_loan10.Enabled           = ifenable;
         }
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Toogle All Textbox 
@@ -4855,6 +4886,11 @@ namespace HRIS_ePayroll.View
             }
 
 
+        }
+
+        protected void is_differential_CheckedChanged(object sender, EventArgs e)
+        {
+            ToogleModal();
         }
 
         //********************************************************************

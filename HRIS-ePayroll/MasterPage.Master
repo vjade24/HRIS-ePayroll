@@ -54,12 +54,15 @@
               color:#6c757d !important;
               text-decoration:none;
           }
+          .modal-xl {
+                min-width: 1300px !important;
+            }
       </style>
     <asp:ContentPlaceHolder ID="specific_css" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 
-<body class="fixed-nav" id="page-top" onmousemove="hightlight()">
+<body class="fixed-nav" id="page-top" >
 
     <!-- The Modal - Favorite Notification -->
     <div class="modal fade" id="Fav_modal">
@@ -117,7 +120,7 @@
                       <a class="nav-link <%: menu.url_name.IndexOf(".") > 0 ? menu.url_name.Substring(0,menu.url_name.IndexOf(".")):menu.url_name.Replace(".aspx","") %>" id="a_<%: menu.id %>" href="<%: menu.url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+menu.url_name.Substring(0,menu.url_name.IndexOf("."))+"/"+menu.url_name):ResolveUrl("~/View/"+menu.url_name.Replace(".aspx","")+"/"+menu.url_name) %>">
                           <img src ="<%= ResolveUrl(menu.menu_icon) %>" width="20px" height="20px" />
                           <i class="<%: menu.menu_icon %>"></i>
-                        <span class="nav-link-text"><%: menu.menu_name %></span>
+                          <span class="nav-link-text" style=""><b><%: menu.menu_name %></b></span>
                       </a>
                 </li>
 <%
@@ -259,41 +262,27 @@
 
         %>
         <li class="nav-item dropdown" >
-          <a href="javascript:void(0);" class="nav-link text-info my-dp" id="messagesDropdown" role="button" data-toggle="<%: notif.Count > 0 ? "dropdown" : "" %>" aria-haspopup="true" aria-expanded="false">
+          <a href="javascript:void(0);" class="nav-link text-info my-dp" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="noti fa fa-bell"><span class="counter bold" style="font-size:8px;margin-left:-7px;margin-top:7px;position:absolute;">&nbsp;</span></span>
-              <% if (notif.Count != 0)
-                  {
-              %>  
-                <span class="badge badge-danger badge-counter" style="font-size:9px;margin-left:-3px"><%:notif.Count %></span>
-              <%
-                }%>
+                <span class="badge badge-danger badge-counter" style="font-size:9px;margin-left:-3px">3</span>
            </a>
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" style="overflow-x: hidden;overflow-y: auto;max-height:500px;">
-            <%--<h6 class="dropdown-header font-weight-bold">
-                For Your ACTION
-            </h6>--%>
-                <%
-                    foreach (notification_lst notif_lst in notif)
-                    {
-
-                %>
-                    <a class="<%: notif_lst.notify_url_name != "" ? "dropdown-item d-flex align-items-center notif_hightlight" : "dropdown-item d-flex align-items-center text-muted notif_hightlight_muted" %>" id="a_notif" href="<%: notif_lst.notify_url_name.IndexOf(".") > 0 ? ResolveUrl("~/View/"+notif_lst.notify_url_name.Substring(0,notif_lst.notify_url_name.IndexOf("."))+"/"+notif_lst.notify_url_name): "#" %>" >
-                        <%-- <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="ResourceImages/HRIS_TEAM/HRIS%20LOGO.png" alt="" width="40" height="40">
-                        </div>--%>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate"><%: notif_lst.row_nbr + " " + notif_lst.notify_short_msg %></div>
-                            <%--<div class="small text-gray-500"><%: notif_lst.notify_long_msg %></div>--%>
-                        </div>
-                    </a>
-                <%
-                    }
-                %>    
-                
+                <a class="dropdown-item d-flex align-items-center notif_hightlight"  href="/View/cRECETaxUpd/cRECETaxUpd.aspx" >
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">1.) For Review/Approval -> Tax Update for Regular/Casual Employees </div>
+                    </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center notif_hightlight"  href="/View/cJOTaxUpd/cJOTaxUpd.aspx" >
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">2.) For Review/Approval -> Tax Update for Job Order </div>
+                    </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center notif_hightlight"  href="/View/cApplTransmittal/cApplTransmittal.aspx" >
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">3.) For Approval - > DTR Transmittal </div>
+                    </div>
+                </a>
             </div>
-
-
-
         </li>
         
         <li class="nav-item">
@@ -327,7 +316,8 @@
     <!-- Core plugin JavaScript-->
     <script src='<%= ResolveUrl("~/vendor/jquery-easing/jquery.easing.min.js") %>'></script>
     <!-- Page level plugin JavaScript-->
-    <script src='<%= ResolveUrl("~/vendor/chart.js/Chart.min.js") %>'></script>
+    <%--<script src='<%= ResolveUrl("~/vendor/chart.js/Chart.js") %>'></script>--%>
+    
     <script src='<%= ResolveUrl("~/vendor/datatables/jquery.dataTables.js") %>' ></script>
     <script src='<%= ResolveUrl("~/vendor/datatables/dataTables.bootstrap4.js") %>'></script>
     <!-- Custom scripts for all pages-->
@@ -431,15 +421,19 @@
     </script>
     <%--Disable All Button when Enter--%>
 
-    <%--<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function ()
         {
-            setTimeout(function ()
+            <%--setTimeout(function ()
             {
                 alert('Session Timeout is Already ' + <%: session_timeout_expired  + 000 %> )
-            }, <%: session_timeout_expired + 000 %>);
+            }, <%: session_timeout_expired + 000 %>);--%>
+            //onmousemove="hightlight()"
+
+            $('#page-top').attr('onmousemove','hightlight()')
+            
         })
-    </script>--%>
+    </script>
         <%--</form>--%>
 
 
