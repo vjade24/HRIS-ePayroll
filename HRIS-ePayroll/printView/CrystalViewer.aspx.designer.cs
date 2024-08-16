@@ -40,6 +40,24 @@ namespace HRIS_eAATS.Reports {
         protected global::System.Web.UI.WebControls.HiddenField hf_printers;
         
         /// <summary>
+        /// ddl_printerlist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_printerlist;
+        
+        /// <summary>
+        /// lnkbtn_export control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtn_export;
+        
+        /// <summary>
         /// crvPrint control.
         /// </summary>
         /// <remarks>

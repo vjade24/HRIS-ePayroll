@@ -814,6 +814,24 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.Label LblRequired6;
         
         /// <summary>
+        /// lbl_remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_remarks;
+        
+        /// <summary>
+        /// remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox remarks;
+        
+        /// <summary>
         /// UpdatePanel17 control.
         /// </summary>
         /// <remarks>

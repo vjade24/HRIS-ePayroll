@@ -53,6 +53,10 @@
                                                         <asp:Label runat="server" Text="Count.:" Font-Bold="true"></asp:Label>
                                                         <asp:TextBox runat="server" ID="txtb_no_employee" CssClass="form-control form-control-sm text-center" Enabled="false"></asp:TextBox>
                                                     </div>
+                                                    <div class="col-2" >
+                                                        <asp:Label runat="server" Text="User ID:" Font-Bold="true"></asp:Label>
+                                                        <asp:TextBox runat="server" ID="user_id" CssClass="form-control form-control-sm text-center" Enabled="false"></asp:TextBox>
+                                                    </div>
                                                     <div class="col-12" >
                                                         <asp:Label runat="server" Text="Transmittal Description:" Font-Bold="true"></asp:Label>
                                                         <asp:TextBox runat="server" ID="txtb_trans_descr" TextMode="MultiLine" Rows="2"  CssClass="form-control form-control-sm" Enabled="false" ></asp:TextBox>
@@ -239,6 +243,7 @@
                                     <asp:UpdatePanel runat="server" >
                                         <ContentTemplate>
                                             <div class="col-lg-12 text-center mb-4" >
+                                                <button class="btn btn-success" id="id_payroll" onclick="print('MONITORING')"><i class="fa fa-print"></i> Preview </button>
                                                 <asp:LinkButton ID="btn_extract_report" runat="server" Onclick="btn_extract_report_Click" CssClass="btn btn-warning pt-2 text-white" Width="220" Height="40"><i class="fa fa-file-excel-o "></i> Extract Monitoring Sheet</asp:LinkButton>
                                                 <asp:LinkButton ID="btn_rcvd_payroll" runat="server" CssClass="btn btn-primary pt-2" OnClick="btn_rcvd_payroll_Click" Width="200" Height="40"><i class="fa fa-qrcode"></i> Receive to Payroll</asp:LinkButton>
                                                 <asp:LinkButton ID="btn_approve" runat="server" CssClass="btn btn-success pt-2" OnClick="btn_approve_Click" Width="200" Height="40"><i class="fa fa-thumbs-up"></i> Approve</asp:LinkButton>
@@ -561,6 +566,24 @@
             </table>
         </div>
     </div>
+    <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+            <div class="modal-content  modal-content-add-edit">
+                <div class="modal-header bg-success" >
+                    <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Preview Report"></asp:Label></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body with-background" style="padding:0px !important">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <iframe style="width:100% !important;height:700px !important;border:0px none;" id="iframe_print_preview"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </form>
 
      <script type="text/javascript">
@@ -601,7 +624,77 @@
             }, 2000);
         };
     </script>
+    <script type="text/javascript">
+        function print(report_type)
+        {
+            var sp                  = ""
+            var transmittal_nbr     = $('#<%= txtb_trans_nbr.ClientID %>').val()
+            var user_id             = $('#<%= user_id.ClientID %>').val()
+            ReportPath  = "~/Reports/cryPayrollMonitoring/cryPayrollMonitoring.rpt";
+            sp          = ReportPath+","+"sp_extract_monitoring_rep,par_transmittal_nbr," + transmittal_nbr + ",par_user_id," + user_id;
+            previewReport(sp,report_type)
+        }
+        function previewReport(sp,report_type)
+        {
+            // *******************************************************
+            // *** VJA : 2021-07-14 - Validation and Loading hide ****
+            // *******************************************************
+            var ReportName      = "CrystalReport"
+            var SaveName        = "Crystal_Report"
+            var ReportType      = "inline"
+            var ReportPath      = ""
+            var iframe          = document.getElementById('iframe_print_preview');
+            var iframe_page     = $("#iframe_print_preview")[0];
+            var embed_link;
+            iframe.style.visibility = "hidden";
+            if (report_type == "PAYROLL")
+            {
+                embed_link = sp;
+            }
+            else
+            {
+                embed_link = "../../printView/CrystalViewer.aspx?Params=" + ""
+                    + "&ReportName=" + ReportName
+                    + "&SaveName="   + SaveName
+                    + "&ReportType=" + ReportType
+                    + "&ReportPath=" + ReportPath
+                    + "&id=" + sp // + "," + parameters
+            }
 
+            if (!/*@cc_on!@*/0) { //if not IE
+                iframe.onload = function () {
+                    iframe.style.visibility = "visible";
+                };
+            }
+            else if (iframe_page.innerHTML()) {
+                // get and check the Title (and H tags if you want)
+                var ifTitle = iframe_page.contentDocument.title;
+                if (ifTitle.indexOf("404") >= 0)
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+                else if (ifTitle != "")
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+            }
+            else {
+                iframe.onreadystatechange = function ()
+                {
+                    if (iframe.readyState == "complete")
+                    {
+                        iframe.style.visibility = "visible";
+                    }
+                };
+            }
+            iframe.src = embed_link;
+            $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
+            // *******************************************************
+            // *******************************************************
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
     

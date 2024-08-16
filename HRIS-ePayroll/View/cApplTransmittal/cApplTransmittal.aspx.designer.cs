@@ -67,6 +67,15 @@ namespace HRIS_ePayroll.View.cApplTransmittal {
         protected global::System.Web.UI.WebControls.TextBox txtb_no_employee;
         
         /// <summary>
+        /// user_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox user_id;
+        
+        /// <summary>
         /// txtb_trans_descr control.
         /// </summary>
         /// <remarks>

@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Web.Services;
 using System.Xml;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace HRIS_ePayroll.View.cPayRegistry
 {
@@ -1441,6 +1442,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             //RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
+            updatepanel_printall.Update();
 
             SearchData(txtb_search.Text.ToString().Trim());
         }
@@ -1474,6 +1476,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
            // RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
+            updatepanel_printall.Update();
 
             SearchData(txtb_search.Text.ToString().Trim());
         }
@@ -1499,6 +1502,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             //RetriveGroupings();
             RetrieveDataListGrid();
             UpdatePanel10.Update();
+            updatepanel_printall.Update();
 
             SearchData(txtb_search.Text.ToString().Trim());
         }
@@ -3037,6 +3041,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
             string printreport;
             string procedure;
             string url      = "";
+            HttpContext.Current.Session["print_all_variables"] = "";
+            HttpContext.Current.Session["history_pagex"]       = "/View/cPayRegistry/cPayRegistry.aspx";
 
             DataTable payroll = new DataTable();
             string query    = "SELECT *FROM payrolltemplate_tbl WHERE payrolltemplate_code = '"+ ddl_select_report.ToString().Trim() + "'";
@@ -3137,10 +3143,29 @@ namespace HRIS_ePayroll.View.cPayRegistry
 
                     case "033": // Salary Differential - For Regular 
                     case "052": // Salary Differential - For Casual 
-                        printreport = report_filename;
-                        procedure = "sp_payrollregistry_salary_diff_rep";
-                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
+                        //printreport = report_filename;
+                        //procedure = "sp_payrollregistry_salary_diff_rep";
+                        //url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();
 
+                        var reg = payroll_registry_nbr.Remove(payroll_registry_nbr.Length - 1, 1).Split('-');
+                        for (int i = 0; i < reg.Length; i++)
+                        {
+                            url += "~/Reports//" + report_filename + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + reg[i] + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim() + ",par_empl_id,,par_employment_type," + ddl_empl_type.ToString().Trim() + ",,par_mother_template_code," + ddl_payroll_template.ToString().Trim() + ",";
+                            var template = "";
+                            var cafoa_rpt = "cryOtherPayroll/cryOBR/cryCAFAO.rpt";
+                            if (ddl_select_report.ToString().Trim() == "033")
+                            {
+                                template = "309";
+                                url += "~/Reports//" + cafoa_rpt + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + reg[i] + ",par_payrolltemplate_code," + template + ",par_empl_id,,par_employment_type," + ddl_empl_type.ToString().Trim() + ",,par_mother_template_code," + ddl_payroll_template.ToString().Trim() + ",";
+                            }
+                            else
+                            {
+                                template = "310";
+                                url += "~/Reports//" + cafoa_rpt + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month," + ddl_month.ToString().Trim() + ",par_payroll_registry_nbr," + reg[i] + ",par_payrolltemplate_code," + template + ",par_empl_id,,par_employment_type," + ddl_empl_type.ToString().Trim() + ",,par_mother_template_code," + ddl_payroll_template.ToString().Trim() + ",";
+                            }
+                        }
+                        url = url.Remove(url.Length - 1, 1);
+                        HttpContext.Current.Session["print_all_variables"] = url;
                         break;
 
                     //---- END OF REGULAR REPORTS
@@ -3594,9 +3619,17 @@ namespace HRIS_ePayroll.View.cPayRegistry
                     case "309":  // Obligation Request - Details coming from CAFOA - RE
                     case "310":  // Obligation Request - Details coming from CAFOA - CE
                     case "311":  // Obligation Request - Details coming from CAFOA - JO
-                        printreport = report_filename;
-                        procedure = "sp_payrollregistry_cafao_rep_new";
-                        url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+                        // printreport = report_filename;
+                        // procedure = "sp_payrollregistry_cafao_rep_new";
+                        // url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
+
+                        reg = payroll_registry_nbr.Remove(payroll_registry_nbr.Length - 1, 1).Split('-');
+                        for (int i = 0; i < reg.Length; i++)
+                        {
+                            url += "~/Reports//" + report_filename + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month,"+ddl_month.ToString().Trim()+",par_payroll_registry_nbr,"+ reg[i] + ",par_payrolltemplate_code,"+ ddl_select_report.ToString().Trim() + ",par_empl_id,,par_employment_type,"+ddl_empl_type.ToString().Trim()+",,par_mother_template_code,"+ ddl_payroll_template.ToString().Trim() + ",";
+                        }
+                        url = url.Remove(url.Length - 1, 1);
+                        HttpContext.Current.Session["print_all_variables"]  = url;
                         break;
 
                     // *****************************************************
@@ -3735,6 +3768,20 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 return url;
             }
         }
+
+        protected void check_reg_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btn_printall_Click(object sender, EventArgs e)
+        {
+            RetrieveRelatedTemplate();
+            GetReportFile();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
+        }
+
+
         //********************************************************************
         // END OF THE CODE
         //********************************************************************

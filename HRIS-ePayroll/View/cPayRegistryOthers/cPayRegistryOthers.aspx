@@ -346,7 +346,7 @@
                                 <ContentTemplate>
                                     <div class="form-group row" runat="server" id="div_generic_notes">
                                         <div class="col-3">
-                                                <asp:Label ID="lbl_generic_notes" runat="server" Text="Generic Notes:" CssClass="font-weight-bold" ></asp:Label>
+                                            <asp:Label ID="lbl_generic_notes" runat="server" Text="Generic Notes:" CssClass="font-weight-bold" ></asp:Label>
                                         </div>
                                         <div class="col-9" >
                                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -360,6 +360,18 @@
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <asp:Label ID="lbl_remarks" runat="server" CssClass="font-weight-bold" ></asp:Label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:TextBox runat="server" ID="remarks" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
                             <hr style="margin-top:5px;margin-bottom:5px;" />
                             <div class="row" style="margin-bottom:10px">
                                 <div class="col-6">

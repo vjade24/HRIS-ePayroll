@@ -1138,6 +1138,24 @@ namespace HRIS_ePayroll.View.cPayRegistry {
         protected global::System.Web.UI.WebControls.DropDownList ddl_empl_type;
         
         /// <summary>
+        /// updatepanel_printall control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatepanel_printall;
+        
+        /// <summary>
+        /// btn_printall control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_printall;
+        
+        /// <summary>
         /// ddl_payroll_template control.
         /// </summary>
         /// <remarks>

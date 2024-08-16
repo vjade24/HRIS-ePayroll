@@ -267,9 +267,10 @@ namespace HRIS_ePayroll.View
             div_other_amount5.Visible = false;
             // ***********************************************************
             // ***********************************************************
-            
+            lbl_remarks.Text = "Remarks";
             if (ddl_payroll_template.SelectedValue == "029" || ddl_payroll_template.SelectedValue == "048")
             {
+                lbl_remarks.Text = "Performance Rating:";
                 lbl_gross_pay_descr.Text = "Loyalty Amount :";
                 dataList_employee = MyCmn.RetrieveData("sp_employee_with_loyalty_bonus_combolist", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payroll_group_nbr", GetRegistry_NBR());
                 div_net_pay.Visible = false;
@@ -590,6 +591,7 @@ namespace HRIS_ePayroll.View
             txtb_other_amount3.Text = "0.00";
             txtb_other_amount4.Text = "0.00";
             txtb_other_amount5.Text = "0.00";
+            remarks.Text            = "VS";
             FieldValidationColorChanged(false, "ALL");
         }
         //*************************************************************************
@@ -624,6 +626,7 @@ namespace HRIS_ePayroll.View
             dtSource_dtl.Columns.Add("other_amount3", typeof(System.String));
             dtSource_dtl.Columns.Add("other_amount4", typeof(System.String));
             dtSource_dtl.Columns.Add("other_amount5", typeof(System.String));
+            dtSource_dtl.Columns.Add("remarks", typeof(System.String));
 
         }
         //*************************************************************************
@@ -669,6 +672,7 @@ namespace HRIS_ePayroll.View
             nrow["other_amount3"]            = string.Empty;
             nrow["other_amount4"]            = string.Empty;
             nrow["other_amount5"]            = string.Empty;
+            nrow["remarks"]                  = string.Empty;
 
             nrow["action"]                  = 1;
             nrow["retrieve"]                = false;
@@ -875,6 +879,7 @@ namespace HRIS_ePayroll.View
             txtb_other_amount3.Text = row2Edit[0]["other_amount3"].ToString().Trim();
             txtb_other_amount4.Text = row2Edit[0]["other_amount4"].ToString().Trim();
             txtb_other_amount5.Text = row2Edit[0]["other_amount5"].ToString().Trim();
+            remarks.Text            = row2Edit[0]["remarks"].ToString().Trim();
 
             // The Save Button Will be Visible false if the 
             if (row2Edit[0]["post_status"].ToString() == "Y" && (Session["ep_post_authority"].ToString() == "1" || Session["ep_post_authority"].ToString() == "0"))
@@ -1107,6 +1112,7 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["other_amount3"] = txtb_other_amount3.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["other_amount4"] = txtb_other_amount4.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["other_amount5"] = txtb_other_amount5.Text.ToString().Trim();
+                    dtSource_dtl.Rows[0]["remarks"]       = remarks.Text.ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource_dtl);
 
@@ -1209,7 +1215,8 @@ namespace HRIS_ePayroll.View
                     dtSource_dtl.Rows[0]["other_amount3"] = txtb_other_amount3.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["other_amount4"] = txtb_other_amount4.Text.ToString().Trim();
                     dtSource_dtl.Rows[0]["other_amount5"] = txtb_other_amount5.Text.ToString().Trim();
-                    
+                    dtSource_dtl.Rows[0]["remarks"]       = remarks.Text.ToString().Trim();
+
                     scriptInsertUpdate = MyCmn.updatescript(dtSource_dtl);
                 }
 
@@ -1340,7 +1347,7 @@ namespace HRIS_ePayroll.View
                         nrow["other_amount3"] = double.Parse(dtSource_dtl.Rows[0]["other_amount3"].ToString().Trim()).ToString("###,##0.00");
                         nrow["other_amount4"] = double.Parse(dtSource_dtl.Rows[0]["other_amount4"].ToString().Trim()).ToString("###,##0.00");
                         nrow["other_amount5"] = double.Parse(dtSource_dtl.Rows[0]["other_amount5"].ToString().Trim()).ToString("###,##0.00");
-
+                        nrow["remarks"]       = remarks.Text.ToString().Trim();
                         dataListGrid.Rows.Add(nrow);
                         SaveAddEdit.Text = MyCmn.CONST_NEWREC;
                     }
@@ -1464,7 +1471,7 @@ namespace HRIS_ePayroll.View
                         row2Edit[0]["other_amount3"] = double.Parse(dtSource_dtl.Rows[0]["other_amount3"].ToString().Trim()).ToString("###,##0.00");
                         row2Edit[0]["other_amount4"] = double.Parse(dtSource_dtl.Rows[0]["other_amount4"].ToString().Trim()).ToString("###,##0.00");
                         row2Edit[0]["other_amount5"] = double.Parse(dtSource_dtl.Rows[0]["other_amount5"].ToString().Trim()).ToString("###,##0.00");
-
+                        row2Edit[0]["remarks"]       = remarks.Text.ToString().Trim();
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;
                     }
 
@@ -2654,6 +2661,7 @@ namespace HRIS_ePayroll.View
             txtb_other_amount.Enabled     = ifenable;
             txtb_memo.Enabled             = ifenable;
             ddl_generic_notes.Enabled     = ifenable;
+            remarks.Enabled               = ifenable;
         }
         //********************************************************************
         // END OF THE CODE

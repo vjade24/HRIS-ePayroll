@@ -498,7 +498,7 @@
                                         </div>
                                         <div class="col-12" style="margin-bottom: 10px;">
                                             <button class="btn btn-success" id="id_payroll" onclick="print('PAYROLL')"><i class="fa fa-print"></i> Preview </button>
-                                            <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();" Visible="false"> <i class="fa fa-print"></i> Print </asp:LinkButton>
+                                            <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();" > <i class="fa fa-print"></i> Print </asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -993,7 +993,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3"></div>
+                                <div class="col-3">
+                                        <asp:UpdatePanel ID="updatepanel_printall" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                            <ContentTemplate>
+                                                <% if (ddl_payroll_template.SelectedValue == "033" || ddl_payroll_template.SelectedValue == "052" )
+                                                {%>
+                                                    <asp:LinkButton runat="server" id="btn_printall" OnClick="btn_printall_Click" OnClientClick="checkSelectedRows()" CssClass="btn btn-success btn-sm btn-block"><i class="fa fa-print"></i> Print Selected</asp:LinkButton>
+                                                <%
+                                                } %>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                </div>
                                 <div class="col-9">
                                     <div class="row">
                                         <div class="col-2" style="padding-right:0px !important" >
@@ -1068,6 +1078,15 @@
                                                 </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="REG #" SortExpression="payroll_registry_nbr">
                                                     <ItemTemplate>
+                                                        <%if (ddl_payroll_template.SelectedValue == "033" || ddl_payroll_template.SelectedValue == "052") {%>
+                                                        <asp:CheckBox 
+                                                            runat="server" 
+                                                            ID="check_reg" 
+                                                            OnCheckedChanged="check_reg_CheckedChanged"
+                                                            />
+                                                        &nbsp;
+                                                        <% } %>
+
                                                         <%# Eval("payroll_registry_nbr") %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="5%" />
@@ -1132,6 +1151,7 @@
                                                     <ItemTemplate>
                                                         <asp:UpdatePanel ID="UpdatePanel12" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                                                             <ContentTemplate>
+                                                                    
                                                                     <% 
                                                                         
                                                                     %>
@@ -1399,7 +1419,7 @@
                           );
             return $state;
         }
-
+        var reg_nbrs= "";
         var datalistgrid;
         var oTable;
         function openModalPayroll()
@@ -1711,6 +1731,11 @@
                     alert('Please Select Report')
                     return;
                 }
+                else if ($('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val() == "")
+                {
+                    alert('Please check atleast 1 (one) Registry')
+                    return;
+                }
                 else
                 {
                     var data = JSON.stringify({
@@ -1729,8 +1754,22 @@
                         dataType    : "json",
                         success: function (response)
                         {
-                            sp = response.d
-                            previewReport(sp,report_type)
+                            // Direct to Preview/Print All
+                            if ($('#<%= ddl_select_report.ClientID %>').val() == "309"
+                             || $('#<%= ddl_select_report.ClientID %>').val() == "310"
+                             || $('#<%= ddl_select_report.ClientID %>').val() == "311"
+                             || $('#<%= ddl_select_report.ClientID %>').val() == "033"
+                             || $('#<%= ddl_select_report.ClientID %>').val() == "052"
+                                )
+                            {
+                                location.href = "/printViewAll/printViewAll.aspx";
+                            }
+                            else
+                            {
+                                sp = response.d
+                                previewReport(sp,report_type)
+
+                            }
                         },
                         failure: function (response)
                         {
@@ -1801,6 +1840,44 @@
             $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
             // *******************************************************
             // *******************************************************
+        }
+        
+        
+        <%--function onCheckboxChange(chkBox)
+        {
+            if (chkBox.checked)
+            {
+                var row = chkBox.parentNode.parentNode;
+                var cells = row.getElementsByTagName("td");
+                var data = [];
+                for (var i = 0; i < cells.length; i++)
+                {
+                    data.push(cells[i].innerText);
+                }
+                reg_nbrs += (data[0] + "-").replace(" ","")
+            }
+            $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val(reg_nbrs)
+        }--%>
+        function checkSelectedRows()
+        {
+            reg_nbrs = "";
+            var grid = document.getElementById("<%= gv_dataListGrid.ClientID %>");
+            var checkboxes = grid.getElementsByTagName("input");
+            var selectedRows = [];
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == "checkbox" && checkboxes[i].checked) {
+                    var row = checkboxes[i].parentNode.parentNode;
+                    var cells = row.getElementsByTagName("td");
+                    var data = [];
+                    for (var j = 0; j < cells.length; j++) {
+                        data.push(cells[j].innerText);
+                    }
+                    reg_nbrs += (data[0] + "-").trim().replace(" ","")
+                }
+            }
+
+            $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val(reg_nbrs)
         }
 
     </script>

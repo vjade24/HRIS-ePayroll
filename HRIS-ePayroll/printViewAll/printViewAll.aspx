@@ -45,32 +45,22 @@
 
 
         <!-- The Modal - Add Confirmation -->
-            <div class="modal fade" id="AddEditConfirm">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content text-center">
-                  <!-- Modal body -->
-                       
-                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                     <ContentTemplate>
- 
-                    <div class="modal-body">
-                      <i class="fa-5x fa fa-check-circle text-success"></i>
-                      <h2>Successfully Printed</h2>
-                        </br>
-                          <h6 ><asp:Button ID="Button2" runat="server"  Text="OK" CssClass="btn btn-success" OnClientClick="openLoading();" OnClick="Button2_Click"/></h6>
-                         </div>
+        <div class="modal fade" id="AddEditConfirm">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content text-center p-5">
+                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <i id="msg_icon" class="fa-5x fa fa-spinner fa-spin text-success"></i>
+                                <h2 id="msg_header">Generating Reports...</h2>
+                                </br>
+                                <h6 ><asp:Button ID="Button2" runat="server"  Text="Back" CssClass="btn btn-success" OnClientClick="openLoading();" OnClick="Button2_Click"/></h6>
+                            </div>
                         </ContentTemplate>
-                    </asp:UpdatePanel>       
-                     
-                      
-
-                    
-                  <!-- Modal footer -->
-                  <div style="margin-bottom:30px">
-                  </div>
+                    </asp:UpdatePanel> 
                 </div>
-              </div>
             </div>
+        </div>
 
 
         <asp:UpdatePanel runat="server">
@@ -189,7 +179,9 @@
 
             else
             {
-
+                $('#msg_icon').removeAttr('class')
+                $('#msg_icon').addClass('fa-5x fa fa-check-circle text-success')
+                document.getElementById("msg_header").innerHTML = "Successfully Printed";
                 var ua = window.navigator.userAgent;
                 var isIE = /MSIE|Trident/.test(ua);
                 var edge = ua.indexOf('Edge/');
@@ -306,7 +298,9 @@
                 backdrop: "static"
             });
         }
-
+        function hightlight()
+        {
+        }
     </script>
 
 

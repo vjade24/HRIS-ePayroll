@@ -55,7 +55,7 @@
               text-decoration:none;
           }
           .modal-xl {
-                min-width: 1300px !important;
+                min-width: 1500px !important;
             }
       </style>
     <asp:ContentPlaceHolder ID="specific_css" runat="server">

@@ -447,7 +447,7 @@ namespace HRIS_ePayroll.View
 
             txtb_remarks.Text               = "";
             txtb_lates_amt.Text             = "0.00";
-
+            txtb_lwop_amount.Text           = "0.00";
             //Added by: Jorge
             txtb_voucher_nbr.Text = "";
             ViewState["created_by_user"] = "";
@@ -1780,6 +1780,10 @@ namespace HRIS_ePayroll.View
             ViewState["wtax_rate"]          = row2Edit2[0]["wtax_rate"].ToString();
             txtb_bir_tax.Text               = row2Edit2[0]["wtax"].ToString();
 
+            txtb_days_worked.Text           = row2Edit2[0]["days_worked"].ToString();
+            txtb_leave_earned.Text          = row2Edit2[0]["leave_earned"].ToString();
+            txtb_lates_amt.Text             = row2Edit2[0]["lates_amount"].ToString();
+            txtb_lwop_amount.Text           = row2Edit2[0]["lowp_amount"].ToString();
             double total_wtax = 0;
             total_wtax = (double.Parse(txtb_salary_diff_amt.Text) - (double.Parse(txtb_gsis_ps.Text) + double.Parse(txtb_hdmf_ps.Text) + double.Parse(txtb_phic_ps.Text))) * (double.Parse(ViewState["wtax_rate"].ToString()) / 100);
             txtb_bir_tax.Text = total_wtax.ToString("###,##0.00").Trim();

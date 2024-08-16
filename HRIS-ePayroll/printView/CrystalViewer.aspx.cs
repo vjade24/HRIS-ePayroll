@@ -35,35 +35,43 @@ namespace HRIS_eAATS.Reports
         string reportFile = "";
         //for save report file name
         string saveFileName = "";
+        string locationpath = "";
         protected void Page_Init(object sender, EventArgs e)
         {
-            string ls_val;
-            //paramList   = Request["Params"].Trim();
-            //reportName  = Request["ReportName"].Trim();
-            //saveName    = Request["SaveName"].Trim();
-            reportType  = Request["ReportType"].Trim();
-            reportPath  = Request["ReportPath"].Trim().Replace('-', '/');
-
-
-            reportFile  = Server.MapPath(string.Format("~/Reports/{0}/{1}.rpt", reportPath, reportName));
-
-            saveFileName = saveName + DateTime.Now.ToString("_yyyy-MM-dd");
-            if (!IsPostBack)
+            try
             {
+                string ls_val;
+                //paramList   = Request["Params"].Trim();
+                //reportName  = Request["ReportName"].Trim();
+                //saveName    = Request["SaveName"].Trim();
+                reportType  = Request["ReportType"].Trim();
+                reportPath  = Request["ReportPath"].Trim().Replace('-', '/');
 
-                hf_printers.Value   = "";
-                hf_nexpage.Value    = "0";
-                PrinterSettings settings = new PrinterSettings();
-                //firstload = true;
+
+                reportFile  = Server.MapPath(string.Format("~/Reports/{0}/{1}.rpt", reportPath, reportName));
+
+                saveFileName = saveName + DateTime.Now.ToString("_yyyy-MM-dd");
+                if (!IsPostBack)
+                {
+
+                    hf_printers.Value   = "";
+                    hf_nexpage.Value    = "0";
+                    PrinterSettings settings = new PrinterSettings();
+                    //firstload = true;
+                }
+                else
+                {
+                    //firstload = false;
+                }
+                string[] ls_splitvalue;
+                ls_val = Request.QueryString["id"];
+                ls_splitvalue = ls_val.Split(',');
+                loadreport(ls_splitvalue);
             }
-            else
+            catch (Exception)
             {
-                //firstload = false;
+                Response.Redirect("~/login.aspx");
             }
-            string[] ls_splitvalue;
-            ls_val = Request.QueryString["id"];
-            ls_splitvalue = ls_val.Split(',');
-            loadreport(ls_splitvalue);
         }
 
 
@@ -89,7 +97,7 @@ namespace HRIS_eAATS.Reports
             string[] fname = splitname[splitname.Length - 1].Split('.');
 
 
-            string locationpath = printfile;
+            locationpath = printfile;
             cryRpt.Load(Server.MapPath(locationpath));
             if (ls_splitvalue.Length == 2)
             {
@@ -394,6 +402,9 @@ namespace HRIS_eAATS.Reports
             crvPrint.ReportSource = cryRpt;
             crvPrint.DataBind();
             PrinterSettings settings = new PrinterSettings();
+            LoadInstalledPrinters();
+
+            
         }
 
         private void BindReport(ReportDocument ReportPath)
@@ -402,128 +413,128 @@ namespace HRIS_eAATS.Reports
             crvPrint.DataBind();
 
         }
-        private void shownextpage(int pageno)
-        {
-            crvPrint.ShowNthPage(pageno);
-            hf_nexpage.Value = "0";
+        //private void shownextpage(int pageno)
+        //{
+        //    crvPrint.ShowNthPage(pageno);
+        //    hf_nexpage.Value = "0";
 
-        }
-        private void shoprevpage()
-        {
-            crvPrint.ShowPreviousPage();
+        //}
+        //private void shoprevpage()
+        //{
+        //    crvPrint.ShowPreviousPage();
 
-        }
-        protected void btn_print_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
+        //}
+        //protected void btn_print_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
 
-            try
-            {
-                cryRpt.Refresh();
+        //    try
+        //    {
+        //        cryRpt.Refresh();
 
-                switch (printfile)
-                {
-                    case "~/Reports/cryPlantilla/cryPlantilla.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                        break;
-                    case "~/Reports/cryPlantillaCSC/cryPlantillaCSC.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                        break;
-                    case "~/Reports/cryPlantillaHR/cryPlantillaHR.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
-                        break;
-                    case "~/Reports/cryPSSalariesWages/cryPSSalariesWages.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                        break;
-                    case "~/Reports/cryVacantItems/cryVacantItems.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                        break;
-                    case "~/Reports/cryListOfEmployees/cryListOfEmployees.rpt":
-                        cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
-                        cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
-                        break;
-                    default:
+        //        switch (printfile)
+        //        {
+        //            case "~/Reports/cryPlantilla/cryPlantilla.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
+        //                break;
+        //            case "~/Reports/cryPlantillaCSC/cryPlantillaCSC.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
+        //                break;
+        //            case "~/Reports/cryPlantillaHR/cryPlantillaHR.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLegal;
+        //                break;
+        //            case "~/Reports/cryPSSalariesWages/cryPSSalariesWages.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Landscape;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
+        //                break;
+        //            case "~/Reports/cryVacantItems/cryVacantItems.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
+        //                break;
+        //            case "~/Reports/cryListOfEmployees/cryListOfEmployees.rpt":
+        //                cryRpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
+        //                cryRpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperLetter;
+        //                break;
+        //            default:
 
-                        break;
-                }
-            }
-            catch (Exception)
-            {
-            }
+        //                break;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
 
-        }
+        //}
 
-        private string GetDefaultPrinter()
-        {
-            PrinterSettings settings = new PrinterSettings();
-            foreach (string printer in PrinterSettings.InstalledPrinters)
-            {
-                settings.PrinterName = printer;
-                if (settings.IsDefaultPrinter)
-                {
-                    return printer;
-                }
-            }
-            return string.Empty;
-        }
+        //private string GetDefaultPrinter()
+        //{
+        //    PrinterSettings settings = new PrinterSettings();
+        //    foreach (string printer in PrinterSettings.InstalledPrinters)
+        //    {
+        //        settings.PrinterName = printer;
+        //        if (settings.IsDefaultPrinter)
+        //        {
+        //            return printer;
+        //        }
+        //    }
+        //    return string.Empty;
+        //}
 
-        protected void btn_close_Click(object sender, EventArgs e)
-        {
-            closepage();
-        }
-        private void closepage()
-        {
-            ClientScript.RegisterClientScriptBlock(Page.GetType(), "script", "window.close();", true);
-        }
+        //protected void btn_close_Click(object sender, EventArgs e)
+        //{
+        //    closepage();
+        //}
+        //private void closepage()
+        //{
+        //    ClientScript.RegisterClientScriptBlock(Page.GetType(), "script", "window.close();", true);
+        //}
 
-        protected void img_nextpage_Click(object sender, ImageClickEventArgs e)
-        {
-            crvPrint.ShowNextPage();
+        //protected void img_nextpage_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    crvPrint.ShowNextPage();
 
-        }
-        protected void lbtn_pdf_Click(object sender, ImageClickEventArgs e)
-        {
-            converttopdf();
+        //}
+        //protected void lbtn_pdf_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    converttopdf();
 
-        }
-        private void converttopdf()
-        {
-            try
-            {
-                ExportOptions CrExportOptions;
-                DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
-                PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-                CrDiskFileDestinationOptions.DiskFileName = @"c:\\pdf\Plantilla.pdf";
-                CrExportOptions = cryRpt.ExportOptions;
-                {
-                    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
-                    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
-                    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
-                    CrExportOptions.FormatOptions = CrFormatTypeOptions;
-                }
-                cryRpt.Export();
+        //}
+        //private void converttopdf()
+        //{
+        //    try
+        //    {
+        //        ExportOptions CrExportOptions;
+        //        DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+        //        PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+        //        CrDiskFileDestinationOptions.DiskFileName = @"c:\\pdf\Plantilla.pdf";
+        //        CrExportOptions = cryRpt.ExportOptions;
+        //        {
+        //            CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+        //            CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+        //            CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+        //            CrExportOptions.FormatOptions = CrFormatTypeOptions;
+        //        }
+        //        cryRpt.Export();
 
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ex.ToString();
+        //    }
+        //}
 
-        protected void lbtn_pdf_Click(object sender, EventArgs e)
-        {
-            converttopdf();
-        }
+        //protected void lbtn_pdf_Click(object sender, EventArgs e)
+        //{
+        //    converttopdf();
+        //}
 
-        protected void btn_save_Click(object sender, EventArgs e)
-        {
+        //protected void btn_save_Click(object sender, EventArgs e)
+        //{
             //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "Clickprint();", true);
-        }
+        //}
 
         protected void crvPrint_Load(object sender, EventArgs e)
         {
@@ -533,100 +544,30 @@ namespace HRIS_eAATS.Reports
             //     }
         }
 
-        //protected void lnkbtn_export_Click(object sender, EventArgs e)
-        //{
-        //    string ls_val;
-        //    string[] ls_splitvalue;
-        //    ls_val = Request.QueryString["id"];
-        //    ls_splitvalue = ls_val.Split(',');
-        //    loadreport(ls_splitvalue, reportPath);
-
-        //    lbl_cannot_print.Visible = false;
-        //    if (ls_splitvalue[0].ToString().Trim() == "sp_leave_certification_rep")
-        //    {
-        //        var filename = "";
-        //        filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
-        //        filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
-        //        cryRpt.ExportToHttpResponse
-        //        (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
-        //    }
-        //    else if (ls_splitvalue[0].ToString().Trim() == "sp_leave_application_report" ||
-        //             ls_splitvalue[0].ToString().Trim() == "sp_leave_application_hdr_tbl_report_cto")
-        //    {
-        //        DataTable dt = null;
-        //        if (ls_splitvalue[0].ToString().Trim() == "sp_leave_application_report")
-        //        {
-        //            dt = MyCmn.RetrieveDataATS(ls_splitvalue[0], ls_splitvalue[1], ls_splitvalue[2]);
-        //        }
-        //        else
-        //        {
-        //            dt = MyCmn.RetrieveDataATS(ls_splitvalue[0], ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6]);
-        //        }
-
-        //        DataTable chk_reprinting = new DataTable();
-        //        string query_chk_reprinting = "SELECT TOP 1 * FROM lv_ledger_hdr_reprint_tbl WHERE ledger_ctrl_no = '"+ dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "' AND empl_id = '"+ dt.Rows[0]["empl_id"].ToString().Trim() + "' AND reprint_status = 'REQUEST-APPROVED' ORDER BY created_dttm DESC";
-        //        chk_reprinting = MyCmn.GetDatatable_ATS(query_chk_reprinting);
-        //        if (chk_reprinting.Rows.Count > 0)
-        //        {
-        //            var filename = "";
-        //            filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
-        //            filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
-        //            cryRpt.ExportToHttpResponse
-        //            (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
-        //        }
-        //        else
-        //        {
-        //            DataTable chk = new DataTable();
-        //            //string query = "SELECT * FROM lv_ledger_history_tbl WHERE appl_status = 'Evaluated' AND ledger_ctrl_no = '" + dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "' AND leave_ctrlno = '"+ dt.Rows[0]["leave_ctrlno"].ToString().Trim()+ "' ";
-        //            string query = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('"+ dt.Rows[0]["leave_ctrlno"].ToString().Trim() + "','"+ dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Evaluated' ORDER BY created_dttm DESC";
-        //            if (dt.Rows[0]["leavetype_code"].ToString().Trim() == "MZ")
-        //            {
-        //                query = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('" + dt.Rows[0]["ledger_ctrl_no"].ToString().Trim() + "','" + dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Evaluated' ORDER BY created_dttm DESC";
-        //            }
-        //            chk = MyCmn.GetDatatable_ATS(query);
-        //            if (chk.Rows.Count > 0)
-        //            {
-        //                DataTable chk_if_Uploaded = new DataTable();
-        //                string query_if_Uploaded = "SELECT TOP 1 * FROM dbo.func_lv_ledger_history_notif('" + dt.Rows[0]["leave_ctrlno"].ToString().Trim() + "','" + dt.Rows[0]["empl_id"].ToString().Trim() + "') WHERE appl_status = 'Uploaded' ORDER BY created_dttm DESC";
-        //                chk_if_Uploaded = MyCmn.GetDatatable_ATS(query_if_Uploaded);
-
-        //                if (chk_if_Uploaded.Rows.Count > 0)
-        //                {
-        //                    lbl_cannot_print.Visible = true;
-        //                    lbl_cannot_print.Text = "You cannot Print this Report, This Leave Application is already Uploaded";
-        //                }
-        //                else
-        //                {
-        //                    DataTable dt2 = new DataTable();
-        //                    dt2 = MyCmn.RetrieveDataATS("sp_lv_ledger_history_insert", "p_ledger_ctrl_no", dt.Rows[0]["ledger_ctrl_no"].ToString(), "p_leave_ctrlno", dt.Rows[0]["leave_ctrlno"].ToString(), "p_empl_id", dt.Rows[0]["empl_id"].ToString(), "p_appl_status", "Leave Application Printed", "p_appl_remarks", "", "p_created_by", Session["user_id"].ToString());
-
-        //                    var filename = "";
-        //                    filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
-        //                    filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
-        //                    cryRpt.ExportToHttpResponse
-        //                    (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                lbl_cannot_print.Visible = true;
-        //                lbl_cannot_print.Text = "You cannot Print this Report, Evaluate first before you proceed.";
-        //            }
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        var filename = "";
-        //        filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
-        //        filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
-        //        cryRpt.ExportToHttpResponse
-        //        (CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
-        //    }
-
+        protected void lnkbtn_export_Click(object sender, EventArgs e)
+        {
+            // PRINT TO WORD
+            //var filename = "";
+            //filename = Request["ReportPath"].Trim().Replace('-', '/').Split('/')[(Request["ReportPath"].Trim().Replace('-', '/').Split('/').Length - 1)].Replace(".rpt", "");
+            //filename = filename + "_" + Session["user_id"].ToString() + "_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmsstt");
+            //cryRpt.ExportToHttpResponse
+            //(CrystalDecisions.Shared.ExportFormatType.WordForWindows, Response, true, filename);
             
-        //}
+            PrinterSettings printerSettings = new PrinterSettings();
+            printerSettings.PrinterName = ddl_printerlist.SelectedValue;
+            cryRpt.PrintOptions.PrinterName = printerSettings.PrinterName;
+            cryRpt.PrintToPrinter(1, false, 0, 0);
+        }
+        private void LoadInstalledPrinters()
+        {
+            foreach (string printer in PrinterSettings.InstalledPrinters)
+            {
+                ddl_printerlist.Items.Add(printer);
+            }
+            if (ddl_printerlist.Items.Count > 0)
+            {
+                ddl_printerlist.SelectedIndex = 0; // Select the first printer by default
+            }
+        }
     }
 }

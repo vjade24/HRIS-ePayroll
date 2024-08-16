@@ -46,7 +46,7 @@ namespace HRIS_ePayroll.prinview
         public string obj_url_frame;
         public string obj_url1;
 
-        protected void Page_Init(object sender, EventArgs e)
+        protected void Page_LoadComplete(object sender, EventArgs e)
         {
             // string ls_val;
 
@@ -263,7 +263,7 @@ namespace HRIS_ePayroll.prinview
                             dtSub_insert = new DataTable();
                             dtSub_insert = MyCmn.RetrieveData("sp_payrollregistry_cafao_rep_new", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[dynamic_template_code]);
                             dtSub = new DataTable();
-                            dtSub = MyCmn.RetrieveData("sp_payrollregistry_header_footer_sub_rep", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[6], ls_splitvalue[7]);
+                            dtSub = MyCmn.RetrieveData("sp_payrollregistry_header_footer_sub_rep", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[6], ls_splitvalue[dynamic_registry_nbr]);
                             cryRpt1.Subreports["cryPayrollFooter_A_F.rpt"].SetDataSource(dtSub);
                             cryRpt1.Subreports["cryPayrollHeader.rpt"].SetDataSource(dtSub);
                         }
@@ -347,7 +347,7 @@ namespace HRIS_ePayroll.prinview
                 obj_url1 = "PDFRNew" + Session["ep_user_id"] + "Merge.pdf";
             }
 
-            for (int z = 0; z < 10; z++) //DELETE REPORT FILES
+            for (int z = 0; z < 20; z++) //DELETE REPORT FILES
             {
                 if (File.Exists(@"" + DestinationFilePdf + "pdf" + z.ToString() + Session["ep_user_id"] + ".pdf"))
                 {
@@ -461,7 +461,15 @@ namespace HRIS_ePayroll.prinview
                 System.GC.WaitForPendingFinalizers();
                 File.Delete(DestinationFile);
             }
-            Response.Redirect("../View/cDirectToPrinter/cDirectToPrinter.aspx");
+            if (Session["history_pagex"] == null)
+            {
+                Response.Redirect("../View/cDirectToPrinter/cDirectToPrinter.aspx");
+            }
+            else
+            {
+                Response.Redirect(Session["history_pagex"].ToString().Trim());
+                Session["history_pagex"] = null;
+            }
         }
 
         //********************************************************************

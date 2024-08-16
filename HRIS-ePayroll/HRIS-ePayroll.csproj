@@ -1622,12 +1622,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\cryOtherPayroll\cryOBR\cryCAFAO_20210825.cs">
-      <DependentUpon>cryCAFAO_20210825.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Reports\cryOtherPayroll\cryOBR\cryFURS.cs">
       <DependentUpon>cryFURS.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1980,6 +1974,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>cryOvertimeAnnual.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\cryPayrollMonitoring\cryPayrollMonitoring.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryPayrollMonitoring.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\cryPayrollSubReport\cryPayrollHeader.cs">
@@ -3680,10 +3680,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryFURS.cs</LastGenOutput>
     </Content>
-    <Content Include="Reports\cryOtherPayroll\cryOBR\cryCAFAO_20210825.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>cryCAFAO_20210825.cs</LastGenOutput>
-    </Content>
     <Content Include="Reports\cryOtherPayroll\cryOBR\cryCAFAO_V1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryCAFAO_V1.cs</LastGenOutput>
@@ -3779,6 +3775,10 @@
     <Content Include="Reports\cryOvertimeAnnual\cryOvertimeAnnual.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryOvertimeAnnual.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryPayrollMonitoring\cryPayrollMonitoring.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryPayrollMonitoring.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryPDS\cryPDCivilService.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -221,6 +221,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             txtb_payroll_approved_dttm.Text                = "";
             txtb_payroll_disapproved_dttm.Text             = "";
             txtb_payroll_created_dttm.Text                 = "";
+            user_id.Text                                   = "";
 
             FieldValidationColorChanged(false, "ALL");
         }
@@ -465,7 +466,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             ToogleTextboxes(row2Edit[0]["approval_status"].ToString().Trim(), row2Edit[0]["approval_status_descr"].ToString().Trim());
             
             dtSource_History = MyCmn.RetrieveData("sp_dtr_transmittal_dtl_tbl_list", "p_department_code", row2Edit[0]["department_code"].ToString().Trim(), "p_subdepartment_code","", "p_division_code","", "p_section_code","", "p_transmittal_nbr", row2Edit[0]["transmittal_nbr"].ToString());
-            
+            user_id.Text = Session["ep_user_id"].ToString().Trim();
             MyCmn.Sort(gv_datagrid_history, dtSource_History, "empl_id", "ASC");
             CommonCode.GridViewBind(ref this.gv_datagrid_history, dtSource_History);
             up_datagrid_history.Update();
