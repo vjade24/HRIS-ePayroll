@@ -1556,7 +1556,7 @@
                 placeholder         : "Select Employee",
                 ajax:
                     {
-                    url         : "http://localhost:16442/api/ListOfEmployee",
+                    url         : "http://192.168.5.112:290/api/ListOfEmployee",
                     dataType    : 'json',
                     data        : (params) =>
                     {

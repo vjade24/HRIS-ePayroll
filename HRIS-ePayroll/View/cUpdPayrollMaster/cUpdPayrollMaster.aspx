@@ -6,6 +6,36 @@
     <form runat="server" style="padding:10%;">
     <asp:ScriptManager ID="sm_Script" runat="server"> </asp:ScriptManager>
 
+        <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-success" >
+                        <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Preview Report"></asp:Label></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body with-background" style="padding:0px !important">
+                        <div class="row">
+                            <div class="col-lg-12 text-center m-2">
+                                <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                                    <ContentTemplate>
+                                            
+                                        <% if (ViewState["page_allow_add"].ToString() == "1")
+                                            {  %>
+                                        <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Run Update" />
+                                
+                                        <% }
+                                            %>     
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div class="col-lg-12">
+                                <iframe style="width:100% !important;height:700px !important;border:0px none;" id="iframe_print_preview"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- The Modal - Generating Report -->
         <div class="modal fade" id="Loading">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -93,17 +123,7 @@
                 <div class="col-6"><strong style="font-family:Arial;font-size:18px;color:white;"><%: Master.page_title %></strong></div>
                 <div class="col-6 text-right">
                     
-                        <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                            <ContentTemplate>
-                                            
-                                <% if (ViewState["page_allow_add"].ToString() == "1")
-                                    {  %>
-                                <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Run Update" />
-                                
-                                <% }
-                                    %>     
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                        
                 </div>
                 <%--<div class="col-2 text-right">
                    <asp:UpdatePanel runat="server">
@@ -182,7 +202,8 @@
                                         <div class="col-12 text-right">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:Button ID="btn_generate_report" runat="server" CssClass="btn btn-success btn-md print-icon icn pull-right" Font-Bold="true" OnClick="btn_generate_report_Click"   Text="Print" />
+                                                    <button class="btn btn-success" id="id_payroll" onclick="print('MONITORING')"><i class="fa fa-print"></i> Preview </button>
+                                                    <asp:Button ID="btn_generate_report" runat="server" CssClass="btn btn-success btn-md print-icon icn pull-right" Visible="false" Font-Bold="true" OnClick="btn_generate_report_Click"   Text="Print" />
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
@@ -199,10 +220,14 @@
                 
             </div>
         </div>--%>
+        
 </form>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
    <script type="text/javascript">
+       function hightlight()
+        {
+        }
         function openLoading() {
              $('#Loading').modal({
                  keyboard: false,
@@ -210,6 +235,7 @@
             });
             setTimeout(function () {
                 $('#Loading').modal("hide");
+                $('#modal_print_preview').modal("hide");
                 $('.modal-backdrop.show').remove();
             }, 5000);
             setTimeout(function () {
@@ -225,5 +251,85 @@
                 backdrop:"static"
              });
          };
+    </script>
+    <script type="text/javascript">
+        function print(report_type)
+        {
+            var sp                  = ""
+            var p_employment_type   = $('#<%= ddl_empl_type.ClientID %>').val()
+            var p_year              = $('#<%= ddl_year.ClientID %>').val()
+            var p_month             = $('#<%= ddl_month.ClientID %>').val()
+            if (p_employment_type == "RE")
+            {
+                ReportPath      = "~/Reports/cryMasterInserted/cryMasterInserted_RE.rpt";
+                sp              = ReportPath + "," + "sp_payrollemployeemaster_tbl_insert_RE_list,p_year," + p_year + ",p_month," + p_month;
+            }
+            else
+            {
+                ReportPath      = "~/Reports/cryMasterInserted/cryMasterInserted_CEJO.rpt";
+                sp              = ReportPath + "," + "sp_payrollemployeemaster_tbl_insert_CE_JO_list,p_employment_type," + p_employment_type + ",p_year," + p_year + ",p_month," + p_month;
+            }
+            previewReport(sp,report_type)
+        }
+        function previewReport(sp,report_type)
+        {
+            // *******************************************************
+            // *** VJA : 2021-07-14 - Validation and Loading hide ****
+            // *******************************************************
+            var ReportName      = "CrystalReport"
+            var SaveName        = "Crystal_Report"
+            var ReportType      = "inline"
+            var ReportPath      = ""
+            var iframe          = document.getElementById('iframe_print_preview');
+            var iframe_page     = $("#iframe_print_preview")[0];
+            var embed_link;
+            iframe.style.visibility = "hidden";
+            if (report_type == "PAYROLL")
+            {
+                embed_link = sp;
+            }
+            else
+            {
+                embed_link = "../../printView/CrystalViewer.aspx?Params=" + ""
+                    + "&ReportName=" + ReportName
+                    + "&SaveName="   + SaveName
+                    + "&ReportType=" + ReportType
+                    + "&ReportPath=" + ReportPath
+                    + "&id=" + sp // + "," + parameters
+            }
+
+            if (!/*@cc_on!@*/0) { //if not IE
+                iframe.onload = function () {
+                    iframe.style.visibility = "visible";
+                };
+            }
+            else if (iframe_page.innerHTML()) {
+                // get and check the Title (and H tags if you want)
+                var ifTitle = iframe_page.contentDocument.title;
+                if (ifTitle.indexOf("404") >= 0)
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+                else if (ifTitle != "")
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+            }
+            else {
+                iframe.onreadystatechange = function ()
+                {
+                    if (iframe.readyState == "complete")
+                    {
+                        iframe.style.visibility = "visible";
+                    }
+                };
+            }
+            iframe.src = embed_link;
+            $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
+            // *******************************************************
+            // *******************************************************
+        }
     </script>
 </asp:Content>

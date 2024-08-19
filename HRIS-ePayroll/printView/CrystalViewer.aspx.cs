@@ -398,6 +398,10 @@ namespace HRIS_eAATS.Reports
                     cryRpt.Subreports["cryVoucherHeader.rpt"].SetDataSource(dtSub);
                 }
             }
+            if (ls_splitvalue[1].ToString() == "sp_payrollemployeemaster_tbl_insert_CE_JO_list" || ls_splitvalue[1].ToString() == "sp_payrollemployeemaster_tbl_insert_RE_list")
+            {
+                crvPrint.SeparatePages = false;
+            }
 
             crvPrint.ReportSource = cryRpt;
             crvPrint.DataBind();
