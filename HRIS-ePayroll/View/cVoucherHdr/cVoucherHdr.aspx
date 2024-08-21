@@ -1995,7 +1995,7 @@
                                         <div class="col-lg-3">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:Label ID="show_pagesx" runat="server" Text="Page: 9/9"></asp:Label>
+                                                    <asp:Label ID="show_pagesx" CssClass="small" runat="server" Text="Page: 9/9"></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
@@ -2097,11 +2097,22 @@
                                             <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                                                 <ContentTemplate>
                                             
-                                                    <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                        {  %>
-                                                    <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
-                                                    <% }
-                                                        %>   
+                                                    <% if (ViewState["page_allow_add"].ToString() == "1" && (ddl_payroll_template.SelectedValue.ToString() != "609" && ddl_payroll_template.SelectedValue.ToString() != "709" && ddl_payroll_template.SelectedValue.ToString() != "809"))
+                                                        {
+                                                    %>
+                                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
+                                                    <% 
+                                                        }
+                                                    %>   
+
+                                                    <%
+                                                        else
+                                                        {
+                                                    %>
+                                                            <label  style="font-size:xx-small;font-weight:bold;color:red;text-align:center"> YOU CANNOT ADD OTHER CLAIMS/REFUND AT THIS TIME!</label>
+                                                    <%
+                                                        }
+                                                    %>
                                             
                                                 </ContentTemplate>
                                                 <Triggers>
