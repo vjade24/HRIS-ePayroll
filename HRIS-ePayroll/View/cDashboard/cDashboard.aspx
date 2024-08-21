@@ -384,7 +384,7 @@
         {
             var year          = $('#appropriation_year').val()
             var function_code = $('#function_descr').val()
-            //$('#Loading_master').modal({ keyboard: false, backdrop: "static" });
+            $('#Loading_master').modal({ keyboard: false, backdrop: "static" });
             $.ajax({
                 type        : "POST",
                 url         : "cDashboard.aspx/PayrollAppropriation",
@@ -425,19 +425,19 @@
                         else
                         {
                             alert("No Data Found!");
-                           // $('#Loading_master').modal("hide");
+                            $('#Loading_master').modal("hide");
                             oTable.fnClearTable();
                             pieChart(ttl_appr,ttl_actl)
                             $('#overall_actual').text("P" + currency(ttl_actl))
                             $('#overall_appropriation').text("P" + currency(ttl_appr))
                         }
                     }
-                    //$('#Loading_master').modal("hide");
+                    $('#Loading_master').modal("hide");
                     
                 },
                 failure: function (response)
                 {
-                    //$('#Loading_master').modal("hide");
+                    $('#Loading_master').modal("hide");
                     alert("Error: " + response.d);
                 }
             });
@@ -844,7 +844,7 @@
             var par_payrolltemplate_code    = $('#payrolltype').val() == null ? "" : $('#payrolltype').val()
             if (period_from != "" && period_to != "")
             {
-                //$('#Loading_master').modal({ keyboard: false, backdrop: "static" });
+                $('#Loading_master').modal({ keyboard: false, backdrop: "static" });
                 $.ajax({
                     type        : "POST",
                     url         : "cDashboard.aspx/PayrollAppropriation",
@@ -927,12 +927,12 @@
                             });
                             
                             oTable_payrolls.fnAddData(payrolls);
-                            //$('#Loading_master').modal("hide");
+                            $('#Loading_master').modal("hide");
                             
                         } else
                         {
                             pieChartPayroll(ttl_posted,ttl_not_posted,ttl_released,ttl_returned)
-                            //$('#Loading_master').modal("hide");
+                            $('#Loading_master').modal("hide");
                         }
                         $('#ttl_posted').text(ttl_posted)
                         $('#ttl_not_posted').text(ttl_not_posted)
@@ -942,7 +942,7 @@
                     failure: function (response)
                     {
                         alert("Error: " + response.d);
-                        //$('#Loading_master').modal("hide");
+                        $('#Loading_master').modal("hide");
                     }
                 });
             }
