@@ -3040,9 +3040,14 @@ namespace HRIS_ePayroll.View.cPayRegistry
             string report_filename;
             string printreport;
             string procedure;
-            string url      = "";
+            string url              = "";
+            string gv_dataListGrid  = "1";
+            string DropDownListID   = "5";
+            string txtb_search      = "";
             HttpContext.Current.Session["print_all_variables"] = "";
             HttpContext.Current.Session["history_pagex"]       = "/View/cPayRegistry/cPayRegistry.aspx";
+            HttpContext.Current.Session["PreviousValuesonPage_cPayRegistry"]       = ddl_year.ToString() + "," + ddl_month.ToString().Trim() + "," + ddl_empl_type.ToString() + "," + ddl_payroll_template.ToString() + "," + gv_dataListGrid + "," + DropDownListID.ToString() + "," + "" + "," + payroll_registry_nbr.ToString().Trim() + "," + txtb_search.ToString().Trim();
+
 
             DataTable payroll = new DataTable();
             string query    = "SELECT *FROM payrolltemplate_tbl WHERE payrolltemplate_code = '"+ ddl_select_report.ToString().Trim() + "'";
@@ -3622,11 +3627,17 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         // printreport = report_filename;
                         // procedure = "sp_payrollregistry_cafao_rep_new";
                         // url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_payroll_template.ToString().Trim();
-
-                        reg = payroll_registry_nbr.Remove(payroll_registry_nbr.Length - 1, 1).Split('-');
-                        for (int i = 0; i < reg.Length; i++)
+                        if (payroll_registry_nbr.Contains("-") == true)
                         {
-                            url += "~/Reports//" + report_filename + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month,"+ddl_month.ToString().Trim()+",par_payroll_registry_nbr,"+ reg[i] + ",par_payrolltemplate_code,"+ ddl_select_report.ToString().Trim() + ",par_empl_id,,par_employment_type,"+ddl_empl_type.ToString().Trim()+",,par_mother_template_code,"+ ddl_payroll_template.ToString().Trim() + ",";
+                            reg = payroll_registry_nbr.Remove(payroll_registry_nbr.Length - 1, 1).Split('-');
+                            for (int i = 0; i < reg.Length; i++)
+                            {
+                                url += "~/Reports//" + report_filename + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month,"+ddl_month.ToString().Trim()+",par_payroll_registry_nbr,"+ reg[i] + ",par_payrolltemplate_code,"+ ddl_select_report.ToString().Trim() + ",par_empl_id,,par_employment_type,"+ddl_empl_type.ToString().Trim()+",,par_mother_template_code,"+ ddl_payroll_template.ToString().Trim() + ",";
+                            }
+                        }
+                        else
+                        {
+                                url += "~/Reports//" + report_filename + ",sp_payroll_generate_reports_all,par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_month,"+ddl_month.ToString().Trim()+",par_payroll_registry_nbr,"+ payroll_registry_nbr + ",par_payrolltemplate_code,"+ ddl_select_report.ToString().Trim() + ",par_empl_id,,par_employment_type,"+ddl_empl_type.ToString().Trim()+",,par_mother_template_code,"+ ddl_payroll_template.ToString().Trim() + ",";
                         }
                         url = url.Remove(url.Length - 1, 1);
                         HttpContext.Current.Session["print_all_variables"]  = url;

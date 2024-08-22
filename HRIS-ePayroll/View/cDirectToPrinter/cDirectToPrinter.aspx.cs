@@ -1242,6 +1242,7 @@ namespace HRIS_ePayroll.View
                     url = url.Remove(url.Length - 1, 1);
                     Session["print_all_variables"] = "";
                     Session["print_all_variables"] = url;
+                    Session["history_pagex"] = null;
                     Response.Redirect("/printViewAll/printViewAll.aspx");
                 }
 
