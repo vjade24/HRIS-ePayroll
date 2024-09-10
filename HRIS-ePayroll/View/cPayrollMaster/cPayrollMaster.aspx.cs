@@ -15,6 +15,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using HRIS_Common;
 using System.Drawing;
+using Newtonsoft.Json;
+using System.Web.Services;
+using System.Web;
 
 namespace HRIS_ePayroll.View.cPayrollMaster
 {
@@ -2128,6 +2131,25 @@ namespace HRIS_ePayroll.View.cPayrollMaster
         protected void ddl_group_nbr_SelectedIndexChanged(object sender, EventArgs e)
         {
             payrollmasterremarks();
+        }
+        [WebMethod]
+        public static string RetrieveGrid(string year)
+        {
+            DataTable dt_payroll = new DataTable();
+            CommonDB MyCmn = new CommonDB();
+            dt_payroll = MyCmn.RetrieveData("sp_asg_notif", "year", year);
+            string json = JsonConvert.SerializeObject(dt_payroll, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        [WebMethod]
+        public static string InsertAssignment(string p_empl_id, string p_effective_date, string p_effective_date_master)
+        {
+            DataTable dt = new DataTable();
+            CommonDB MyCmn = new CommonDB();
+            var p_user_id = HttpContext.Current.Session["ep_user_id"].ToString();
+            dt = MyCmn.RetrieveData("sp_asg_insert", "p_empl_id", p_empl_id, "p_effective_date", p_effective_date, "p_effective_date_master", p_effective_date_master, "p_user_id", p_user_id);
+            string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
         }
         //*************************************************************************
         //  END OF CODE

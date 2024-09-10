@@ -6,7 +6,36 @@
     <form runat="server">
 
     <asp:ScriptManager ID="sm_Script" runat="server"> </asp:ScriptManager>
-        
+
+    <div class="modal fade" id="modal_asg" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document" >
+            <div class="modal-content ">
+                <div class="modal-header bg-primary" >
+                    <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Change of Assignment"></asp:Label></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding:0px !important">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive  smaller" style="padding:10px">
+                                <table class="table table-hover" id="datalist_grid">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:20% !important">ID</th>
+                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:20% !important">NAME</th>
+                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:20% !important">MASTER</th>
+                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:20% !important">ASSIGNMENT</th>
+                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:20% !important">ACTION</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- The Modal - Select Report -->
     <asp:UpdatePanel ID="edit_delete_notify" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
@@ -1601,7 +1630,10 @@
                                                     %>  
 
                                                 </div>
-                                                <div class="col-lg-4" style="visibility:hidden">
+                                                <div class="col-lg-4">
+                                                    <button class="btn btn-primary btn-sm btn-block" onclick="show_asg()"> Unassigned <span class="badge badge-danger"><small id="id_count_asg" ></small></span> </button>
+                                                </div>
+                                                <div class="col-lg-4" style="display:none">
                                                     <%--<% if (ViewState["page_allow_add"].ToString() == "1")
                                                         {  %>--%>
                                                     <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
@@ -2013,12 +2045,154 @@
         {
             $('#modal_add_remarks').modal("hide");
         }
+        const date      = new Date();
+        var filter_year = date.getFullYear();
+
+        function show_asg()
+        {
+            RetrieveGrid(filter_year);
+            $('#modal_asg').modal({ backdrop: 'static', keyboard: false });
+        }
+        function RetrieveGrid(year)
+        {
+            $('#id_count_asg').addClass("fa fa-spinner fa-spin")
+            var year        = year;
+            $.ajax({
+                type        : "POST",
+                url         : "cPayrollMaster.aspx/RetrieveGrid",
+                data        : JSON.stringify({ year: year  }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    oTable.fnClearTable();
+                    datalistgrid = parsed;
+                    if (parsed)
+                    {
+                        if (parsed.length > 0)
+                        {
+                            oTable.fnAddData(parsed);
+                            $('#id_count_asg').text(parsed.length)
+                            $('#id_count_asg').removeClass()
+                        }
+                        else
+                        {
+                            alert("No Data Found!");
+                        }
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function btn_action(row_id)
+        {
+            let userConfirmed = confirm(datalistgrid[row_id].empl_id+" - "+datalistgrid[row_id].employee_name +" \n Do you want to add this employee to change of assignment?");
+            if (userConfirmed)
+            {
+                var p_empl_id               = datalistgrid[row_id].empl_id;
+                var p_effective_date        = datalistgrid[row_id].effective_date_asg;
+                var p_effective_date_master = datalistgrid[row_id].effective_date;
+                $.ajax({
+                    type        : "POST",
+                    url         : "cPayrollMaster.aspx/InsertAssignment",
+                    data: JSON.stringify({  p_empl_id               : p_empl_id
+                                          , p_effective_date        : p_effective_date
+                                          , p_effective_date_master : p_effective_date_master
+                                        }),
+                    contentType : "application/json; charset=utf-8",
+                    dataType    : "json",
+                    success: function (response)
+                    {
+                        var parsed = JSON.parse(response.d)
+                        if (parsed.length > 0)
+                        {
+                            if (parsed[0].msg_flag == "success")
+                            {
+                                RetrieveGrid(filter_year);
+                                alert(parsed[0].msg_descr);
+                            } else
+                            {
+                                alert("Error: " + parsed[0].msg_descr);
+                            }
+                            
+                        } else
+                        {
+                            alert("Error");
+                        }
+                    },
+                    failure: function (response)
+                    {
+                        alert("Error: " + response.d);
+                    }
+                });
+                
+            } else {
+                alert("You chose to cancel!");
+            }
+            //alert(datalistgrid[row_id].employee_name)
+        }
+        var init_table_data = function (par_data)
+        {
+            datalistgrid = par_data;
+            oTable       = $('#datalist_grid').dataTable(
+                {
+                    data        : datalistgrid,
+                    //sDom        : 'rt<"bottom"ip>',
+                    pageLength  : 5,
+                    responsive  : true,
+                    columns:
+                    [
+                        {
+                            "mData": "empl_id",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "employee_name",
+                            "mRender": function (data, type, full, row) {
+                                return "<span>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "department_short_name",
+                            "mRender": function (data, type, full, row) {
+                                return "<span>" + data + "</span>" + "" 
+                                       + (full["employment_type"] == full["employment_type_asg"] ? "" : "<br> <span class='badge badge-danger'>" + full["employment_type"] + "</span>")
+                            }
+                        },
+                        {
+                            "mData": "department_short_name_asg",
+                            "mRender": function (data, type, full, row) {
+                                return "<span>" + data + "</span>" + "" 
+                                       + (full["employment_type"] == full["employment_type_asg"] ? "" : "<br> <span class='badge badge-danger'>" + full["employment_type_asg"] + "</span>")
+                            }
+                        },
+                        {
+                            "mData": null,
+                            "mRender": function (data, type, full, row)
+                            {
+                                return  '<center><div class="btn-group">' +
+                                            '<button type="button" onclick="btn_action(' + row["row"] + ')" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Add Change of Assignment"><i class="fa fa-plus"></i> </button >' +
+                                        '</center>';
+                            }
+                        },
+                    ],
+                });
+        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
     <script type="text/javascript">
         function hightlight()
         {
+            
             $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight_on_grid');
            }, function () {
@@ -2038,7 +2212,32 @@
            });
         }
 
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
+            // Change of Assginment
+            $('#id_count_asg').addClass("fa fa-spinner fa-spin")
+            init_table_data([]);
+            const date      = new Date();
+            var year        = date.getFullYear();
+            $.ajax({
+                type        : "POST",
+                url         : "cPayrollMaster.aspx/RetrieveGrid",
+                data        : JSON.stringify({ year: year  }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    $('#id_count_asg').text(parsed.length)
+                    $('#id_count_asg').removeClass()
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            }); 
+            // Change of Assginment
+            
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight_on_grid');
            }, function () {
