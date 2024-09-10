@@ -3182,7 +3182,7 @@ namespace HRIS_ePayroll.View
             string str_net_pay = "";
             double total_deductions = 0;
             total_deductions = double.Parse(txtb_total_loans.Text.ToString().Trim()) + double.Parse(txtb_total_mandatory.Text.ToString().Trim()) + double.Parse(txtb_total_optional.Text.ToString().Trim()) + double.Parse(txtb_less.Text.ToString());
-            str_net_pay = (float.Parse(txtb_gross_pay.Text.ToString()) - total_deductions).ToString("###,##0.00");
+            str_net_pay = (double.Parse(txtb_gross_pay.Text.ToString()) - total_deductions).ToString("###,##0.00");
             str_net_pay = str_net_pay.Split('.')[0] + "." + str_net_pay.Split('.')[1].Substring(0, 2);
             txtb_net_pay.Text = str_net_pay;
         }
