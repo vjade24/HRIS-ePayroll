@@ -221,7 +221,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             txtb_payroll_approved_dttm.Text                = "";
             txtb_payroll_disapproved_dttm.Text             = "";
             txtb_payroll_created_dttm.Text                 = "";
-            user_id.Text                                   = "";
+            user_id.Text                                   = Session["ep_user_id"].ToString().Trim();
 
             FieldValidationColorChanged(false, "ALL");
         }
