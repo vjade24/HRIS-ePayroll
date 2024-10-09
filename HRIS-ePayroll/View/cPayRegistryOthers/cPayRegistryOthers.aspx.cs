@@ -591,7 +591,11 @@ namespace HRIS_ePayroll.View
             txtb_other_amount3.Text = "0.00";
             txtb_other_amount4.Text = "0.00";
             txtb_other_amount5.Text = "0.00";
-            remarks.Text            = "VS";
+            remarks.Text            = "";
+            if (ddl_payroll_template.SelectedValue == "029" || ddl_payroll_template.SelectedValue == "048") // Loyalty 
+            {
+                remarks.Text            = "VS";
+            }
             FieldValidationColorChanged(false, "ALL");
         }
         //*************************************************************************

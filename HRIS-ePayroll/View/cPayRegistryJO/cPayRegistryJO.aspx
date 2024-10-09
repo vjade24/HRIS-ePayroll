@@ -160,7 +160,7 @@
             <ContentTemplate>
                 <!-- Modal Add/EditPage-->
                 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+                    <div class="modal-dialog modal-dialog-centered  modal-2lg" role="document">
                     <div class="modal-content" style="background-image:linear-gradient(white, lightblue)" >
                         <div class="modal-header" style="background-image:linear-gradient(green, yellow);padding:8px!important;" >
                         <asp:UpdatePanel ID="UpdatePanel5" runat="server">
