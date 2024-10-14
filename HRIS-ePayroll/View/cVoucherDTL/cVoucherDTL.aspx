@@ -532,7 +532,7 @@
                                         <div class="col-6" style="padding-right:0px !important">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:label runat="server" Font-Bold="true" Text="Refund Sal. Amt.:" Font-Size="Small" ID="lbl_refund_sal_amt"></asp:label>
+                                                    <asp:label runat="server" Font-Bold="true" Text="Refund Amt.:" Font-Size="Small" ID="lbl_refund_sal_amt"></asp:label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
