@@ -1422,6 +1422,14 @@
         var reg_nbrs= "";
         var datalistgrid;
         var oTable;
+        var domain   = window.location.hostname;
+        var api_link = "http://hris.dvodeoro.local:90/api/ListOfEmployee";
+        if (domain == "hris.dvodeoro.ph")
+        {
+            api_link = "https://hris.dvodeoro.ph:450/api/ListOfEmployee"
+        }
+        console.log(domain)
+        console.log(api_link)
         function openModalPayroll()
         {
             var text = $('#<%= lbl_select_option.ClientID %>').text()
@@ -1556,7 +1564,7 @@
                 placeholder         : "Select Employee",
                 ajax:
                     {
-                    url         : "http://192.168.5.112:290/api/ListOfEmployee",
+                    url         : api_link,
                     dataType    : 'json',
                     data        : (params) =>
                     {
