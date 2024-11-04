@@ -220,6 +220,42 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.Label LabelAddEdit;
         
         /// <summary>
+        /// UpdatePanel22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel22;
+        
+        /// <summary>
+        /// ddl_step_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_step_type;
+        
+        /// <summary>
+        /// txtb_ddl_step_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_ddl_step_type;
+        
+        /// <summary>
+        /// LblRequired5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblRequired5;
+        
+        /// <summary>
         /// UpdatePanel6 control.
         /// </summary>
         /// <remarks>
