@@ -181,6 +181,20 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
+                                 <div class="col-6">
+                                   <asp:UpdatePanel ID="UpdatePanel22" runat="server">
+                                    <ContentTemplate>
+                                          <label class="font-weight-bold">Step Increment Type:</label>
+                                          <asp:DropDownList ID="ddl_step_type" runat="server" Width="100%" CssClass="form-control form-control-sm" >
+                                              <asp:ListItem Text="--Select Here--" Value=""></asp:ListItem>
+                                              <asp:ListItem Text="Masteral | Graduate" Value="graduate"></asp:ListItem>
+                                              <asp:ListItem Text="Length Of Service" Value="length"></asp:ListItem>
+                                          </asp:DropDownList>
+                                          <asp:TextBox ID="txtb_ddl_step_type" runat="server" Width="100%" Visible="false" CssClass="form-control form-control-sm" Enabled="false"></asp:TextBox>
+                                          <asp:Label ID="LblRequired5" runat="server" CssClass="lbl_required" Text=""></asp:Label>
+                                    </ContentTemplate>
+                                  </asp:UpdatePanel>
+                               </div>
                                 <div class="col-12">
                                   <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                     <ContentTemplate>
@@ -419,9 +433,17 @@
                                                 <ItemTemplate>
                                                     &nbsp;<%# Eval("employee_name") %>
                                                 </ItemTemplate>
-                                                <ItemStyle Width="54%" />
+                                                <ItemStyle Width="44%" />
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="left" />
+                                            </asp:TemplateField>
+                                             <asp:TemplateField HeaderText="STEP TYPE" SortExpression="step_type_desc">
+                                                <ItemTemplate>
+                                                    <%# Eval("step_type_desc") %>
+                                                </ItemTemplate>
+                                                <ItemStyle Width="10%" />
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="center" />
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="DATE GENERATED" SortExpression="date_generated">
                                                 <ItemTemplate>

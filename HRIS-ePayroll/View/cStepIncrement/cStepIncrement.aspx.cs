@@ -193,6 +193,7 @@ namespace HRIS_ePayroll.View
             txtb_new_salary.Text            = "";
             ddl_new_step.SelectedValue      = "";
             ddl_status.SelectedValue        = "";
+            ddl_step_type.SelectedValue     = "";
         }
 
         //*************************************************************************
@@ -214,6 +215,7 @@ namespace HRIS_ePayroll.View
             dtSource.Columns.Add("updated_by_user", typeof(System.String));
             dtSource.Columns.Add("created_dttm", typeof(System.String));
             dtSource.Columns.Add("updated_dttm", typeof(System.String));
+            dtSource.Columns.Add("step_type", typeof(System.String));
         }
         //*************************************************************************
         //  BEGIN Jade- 10/11/18 - Add Primary Key Field to datasource
@@ -246,6 +248,7 @@ namespace HRIS_ePayroll.View
             nrow["updated_by_user"]     = string.Empty;
             nrow["created_dttm"]        = string.Empty;
             nrow["updated_dttm"]        = string.Empty;
+            nrow["step_type"]           = string.Empty;
             nrow["action"]              = 1;
             nrow["retrieve"]            = false;
             dtSource.Rows.Add(nrow);
@@ -270,6 +273,7 @@ namespace HRIS_ePayroll.View
             nrow["updated_by_user"]     = string.Empty;
             nrow["created_dttm"]        = string.Empty;
             nrow["updated_dttm"]        = string.Empty;
+            nrow["step_type"]           = string.Empty;
             nrow["action"]              = 2;
             nrow["retrieve"]            = true;
             dtSource.Rows.Add(nrow);
@@ -337,6 +341,7 @@ namespace HRIS_ePayroll.View
             txtb_position_title.Text                = row2Edit[0]["position_long_title"].ToString();
             txtb_new_step.Text                      = row2Edit[0]["step_increment_new"].ToString();
             ddl_new_step.SelectedValue              = row2Edit[0]["step_increment_new"].ToString();
+            ddl_step_type.SelectedValue             = row2Edit[0]["step_type"].ToString();
             ddl_status.SelectedValue                = row2Edit[0]["approval_status"].ToString();
             lbl_hidden_approval_id.Text             = row2Edit[0]["approval_id"].ToString();
             approval_status                         = row2Edit[0]["approval_status"].ToString();
@@ -578,6 +583,8 @@ namespace HRIS_ePayroll.View
             dtSource.Columns.Add("employee_name", typeof(System.String));
             dtSource.Columns.Add("approval_status_descr", typeof(System.String));
             dtSource.Columns.Add("budget_code", typeof(System.String));
+            dtSource.Columns.Add("step_type_desc", typeof(System.String));
+            dtSource.Columns.Add("step_type", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource.Clear();
@@ -712,10 +719,15 @@ namespace HRIS_ePayroll.View
                     FieldValidationColorChanged(true, "ddl_status");
                     validatedSaved = false;
                 }
+            if (ddl_step_type.SelectedValue.ToString().Trim() == "")
+            {
+                FieldValidationColorChanged(true, "ddl_step_type");
+                validatedSaved = false;
+            }
 
             //    else
             //    {
-                  
+
             //    }
             //}
             //catch (Exception b)
@@ -731,7 +743,7 @@ namespace HRIS_ePayroll.View
             //    UpdatePanel7.Focus();
             //    return false;
             //}
-            
+
             return validatedSaved;
         }
 
@@ -772,6 +784,12 @@ namespace HRIS_ePayroll.View
                             ddl_new_step.CssClass = "form-control form-control-sm required";
                             break;
                         }
+                    case "ddl_step_type":
+                        {
+                            LblRequired5.Text = MyCmn.CONST_RQDFLD;
+                            ddl_step_type.CssClass = "form-control form-control-sm required";
+                            break;
+                        }
                     case "ddl_status":
                         {
                             LblRequired4.Text = MyCmn.CONST_RQDFLD;
@@ -803,9 +821,11 @@ namespace HRIS_ePayroll.View
                             LblRequired2.Text = "";
                             LblRequired3.Text = "";
                             LblRequired4.Text = "";
+                            LblRequired5.Text = "";
                             ddl_empl_name.CssClass  = "form-control form-control-sm";
                             ddl_new_step.CssClass   = "form-control form-control-sm";
                             ddl_status.CssClass     = "form-control form-control-sm";
+                            ddl_step_type.CssClass     = "form-control form-control-sm";
                             txtb_date_of_effectivity.CssClass = "form-control form-control-sm my-date";
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "Popx", "show_date();", true);
                             UpdatePanel7.Update();
@@ -857,6 +877,7 @@ namespace HRIS_ePayroll.View
                 dtSource.Rows[0]["updated_by_user"]     = "";
                 dtSource.Rows[0]["created_dttm"]        = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 dtSource.Rows[0]["updated_dttm"]        = "";
+                dtSource.Rows[0]["step_type"]           = ddl_step_type.SelectedValue.ToString();
                 scriptInsertUpdate                      = MyCmn.get_insertscript(dtSource);
             }
             else if (saveRecord == MyCmn.CONST_EDIT)
@@ -874,6 +895,7 @@ namespace HRIS_ePayroll.View
                 dtSource.Rows[0]["updated_by_user"]     = Session["ep_user_id"];
                 //dtSource.Rows[0]["created_dttm"] = row2Edit[0]["created_dttm"];
                 dtSource.Rows[0]["updated_dttm"]        = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                dtSource.Rows[0]["step_type"]           = ddl_step_type.SelectedValue.ToString();
                 scriptInsertUpdate                      = MyCmn.updatescript(dtSource);
 
             }
@@ -902,6 +924,8 @@ namespace HRIS_ePayroll.View
                     nrow["new_salary"]          = txtb_new_salary.Text.ToString();
                     nrow["salary_grade"]        = txtb_salary_grade.Text.ToString();
                     nrow["position_long_title"] = txtb_position_title.Text.ToString();
+                    nrow["step_type"]           = ddl_step_type.SelectedValue.ToString();
+                    nrow["step_type_desc"]      = ddl_step_type.SelectedItem.Text.ToString();
 
                     switch (ddl_status.SelectedValue.ToString())
                     {
@@ -936,6 +960,8 @@ namespace HRIS_ePayroll.View
                     row2Edit[0]["new_salary"]           = txtb_new_salary.Text.ToString();
                     row2Edit[0]["salary_grade"]         = txtb_salary_grade.Text.ToString();
                     row2Edit[0]["position_long_title"]  = txtb_position_title.Text.ToString();
+                    row2Edit[0]["step_type"]            = ddl_step_type.SelectedValue.ToString();
+                    row2Edit[0]["step_type_desc"]       = ddl_step_type.SelectedItem.Text.ToString();
                     switch (ddl_status.SelectedValue.ToString())
                     {
                         case CommonDB.CONST_APPR_STAT_NEW:
