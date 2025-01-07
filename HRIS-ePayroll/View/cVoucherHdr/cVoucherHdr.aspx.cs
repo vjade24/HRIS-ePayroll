@@ -15,6 +15,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using HRIS_Common;
 using System.Drawing;
+using System.Web.Services;
+using Newtonsoft.Json;
 
 namespace HRIS_ePayroll.View
 {
@@ -4428,6 +4430,11 @@ namespace HRIS_ePayroll.View
                 // -- This is for Get Report Filename From Template Table
                 string searchExpression = "payrolltemplate_code = '" + ddl_select_report.SelectedValue.ToString().Trim() + "'";
                 DataRow[] row2Search = dtSourse_for_template.Select(searchExpression);
+                selected_year.Text              = "";
+                selected_voucher_ctrl_nbr.Text  = "";
+
+                selected_year.Text              = commandarg[1].Trim().ToString();
+                selected_voucher_ctrl_nbr.Text  = commandarg[0].Trim().ToString();
 
                 hidden_report_filename.Text = row2Search[0]["report_filename"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
@@ -4469,7 +4476,7 @@ namespace HRIS_ePayroll.View
                 case "804":    // JO - Honorarium Voucher 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "601":    // RE - Refund To Employee Voucher 
@@ -4477,7 +4484,7 @@ namespace HRIS_ePayroll.View
                 case "801":    // JO - Refund To Employee Voucher 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "603":    // RE - Terminal Leave 
@@ -4485,7 +4492,7 @@ namespace HRIS_ePayroll.View
                 case "803":    // JO - Terminal Leave 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo2";     // -- SP for Terminal is separate from other Voucher
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "605":    // RE - Other Salaries 
@@ -4493,21 +4500,21 @@ namespace HRIS_ePayroll.View
                 case "805":    // JO - Other Salaries 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo2";     // -- SP for Terminal is separate from other Voucher
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "606":    // RE - Mid Year Bonus 
                 case "706":    // CE - Mid Year Bonus 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo2";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "607":    // RE - Year End and Cash Gift 
                 case "707":    // CE - Year End and Cash Gift 
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo2";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "110":    // RE - OBR for Voucher
@@ -4524,7 +4531,7 @@ namespace HRIS_ePayroll.View
                 case "808": // Template Code for : Maternity
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "226": // Template Code for : Maternity - Remittance (CE)
@@ -4532,7 +4539,7 @@ namespace HRIS_ePayroll.View
                 case "228": // Template Code for : Maternity - Remittance (JO)
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_dtl_tbl_rep";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltempalte_code," + ddl_select_report.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltempalte_code," + ddl_select_report.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "229": // Template Code for : Voucher - Remittance (CE)
@@ -4540,7 +4547,7 @@ namespace HRIS_ePayroll.View
                 case "231": // Template Code for : Voucher - Remittance (JO)
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_voucher_tbl_repo";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
 
                 case "609": // Template Code for : Other Claims/Refund
@@ -4548,7 +4555,7 @@ namespace HRIS_ePayroll.View
                 case "809": // Template Code for : Other Claims/Refund
                     printreport = hidden_report_filename.Text;
                     procedure = "voucher_dtl_oth_claims_tbl_rep";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
                     break;
 
                 // *****************************************************
@@ -4560,7 +4567,7 @@ namespace HRIS_ePayroll.View
                 case "135":  // Fund Utilization Request and Status (FURS) - JO
                     printreport = "/cryVoucher/cryOBR/cryFURS.rpt";
                     procedure = "sp_voucher_obr_rep";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim();
                     break;
 
                 case "130": // New Attachment -  RE
@@ -4568,7 +4575,7 @@ namespace HRIS_ePayroll.View
                 case "132": // New Attachment -  JO
                     printreport = hidden_report_filename.Text;
                     procedure = "sp_payrollregistry_header_footer_sub_rep";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
                     break;
                     
                 case "136": // Document Tracking History - RE'
@@ -4576,14 +4583,19 @@ namespace HRIS_ePayroll.View
                 case "138": // Document Tracking History - JO'
                     printreport = "/cryDocTracking/cryDocsHistory.rpt";
                     procedure = "sp_edocument_trk_tbl_history";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_doc_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",p_docmnt_type," + "01-V";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",p_doc_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",p_docmnt_type," + "01-V";
                     break;
                 case "610": // Template Code for : Other Claims/Refund v2
                 case "611": // Template Code for : Other Claims/Refund v2
                 case "612": // Template Code for : Other Claims/Refund v2
                     printreport = "/cryVoucher/cryOthClaimsV2/cryOthClaimsV2.rpt";
                     procedure = "voucher_dtl_oth_claims_tbl_rep2";
-                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
+                    break;
+                case "982": // Template Code for : Payslip - Claims/Refund v2
+                    printreport = hidden_report_filename.Text;
+                    procedure = "voucher_dtl_oth_claims_tbl_rep2";
+                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_voucher_ctrl_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim();
                     break;
                 case "": // Direct Print to Printer
                     url = "";
@@ -5353,6 +5365,77 @@ namespace HRIS_ePayroll.View
                 }
             }
          }
+        [WebMethod]
+        public static string CafoaList(string payroll_year, string payroll_registry_nbr, string payrolltemplate_code)
+        {
+            try
+            {
+                CommonDB MyCmn = new CommonDB();
+                DataTable dt = new DataTable();
+                string query = "SELECT *FROM HRIS_TRK.dbo.cafao_dtl_tbl WHERE payroll_year = '"+ payroll_year + "' AND payroll_registry_nbr = '"+ payroll_registry_nbr + "'";
+                dt = MyCmn.GetDatatable(query);
+
+                if (dt.Rows.Count <= 0)
+                {
+                    dt = MyCmn.RetrieveData("sp_voucher_obr_rep", "par_payroll_year", payroll_year, "par_voucher_ctrl_nbr", payroll_registry_nbr, "par_payrolltemplate_code", payrolltemplate_code);
+                }
+                string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                // Optionally, rethrow or handle the error
+                throw;
+            }
+        }
+        [WebMethod]
+        public static string UpSetCAFOA(cafao_dtl_tbl data, string action, string template)
+        {
+            // payroll_year
+            // payroll_registry_nbr
+            // seq_nbr
+            // function_code
+            // allotment_code
+            // account_code
+            // account_short_title
+            // account_amt
+            // created_by_user
+            // updated_by_user
+            // created_dttm
+            // updated_dttm
+            // raao_code
+            // ooe_code
+
+            if (action == "insert")
+            {
+                DataTable cafoa = new DataTable();
+                CommonDB MyCmn  = new CommonDB();
+                DataTable dt    = MyCmn.RetrieveData("sp_voucher_obr_rep", "par_payroll_year", data.payroll_year, "par_voucher_ctrl_nbr",data.payroll_registry_nbr, "par_payrolltemplate_code", template);
+            }
+            else if (action == "update")
+            {
+
+            }
+            else
+            {
+
+            }
+            string json = JsonConvert.SerializeObject(new { data , action}, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        public class cafao_dtl_tbl
+        {
+            public string payroll_year           { get; set; }
+            public string payroll_registry_nbr   { get; set; }
+            public string seq_nbr                { get; set; }
+            public string function_code          { get; set; }
+            public string allotment_code         { get; set; }
+            public string account_code           { get; set; }
+            public string account_short_title    { get; set; }
+            public double account_amt            { get; set; }
+        }
         //********************************************************************
         // END OF THE CODE
         //********************************************************************

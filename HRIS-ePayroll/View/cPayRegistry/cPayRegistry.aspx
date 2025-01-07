@@ -92,7 +92,7 @@
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
-                                                <option value="2024" selected>2024</option>
+                                                <option value="2024">2024</option>
                                                 <option value="2025">2025</option>
                                             </select>
                                         </div>
@@ -108,7 +108,7 @@
                                                 <option value="04">April    </option>
                                                 <option value="05">May      </option>
                                                 <option value="06">June     </option>
-                                                <option value="07" selected>July     </option>
+                                                <option value="07">July     </option>
                                                 <option value="08">August   </option>
                                                 <option value="09">September</option>
                                                 <option value="10">October  </option>
@@ -1409,7 +1409,7 @@
 
         function formatState(state)
         {
-            var image_link = "http://192.168.5.218/storage/images/photo/thumb/";
+            var image_link = "http://images.dvodeoro.local/storage/images/photo/thumb/";
             if (!state.id) {
                 return state.text;
             }
@@ -1424,14 +1424,16 @@
         var oTable;
         var domain   = window.location.hostname;
         var api_link = "http://hris.dvodeoro.local:90/api/ListOfEmployee";
-        if (domain == "hris.dvodeoro.ph")
-        {
-            api_link = "https://hris.dvodeoro.ph:450/api/ListOfEmployee"
-        }
-        console.log(domain)
-        console.log(api_link)
         function openModalPayroll()
         {
+            var date  = new Date()
+            var year  = date.getFullYear()
+            var month = month + 1
+            month     = (date.getMonth() <= 9 ? "0" +date.getMonth()  :  date.getMonth())
+
+            $('#year_filter').val(year);
+            $('#month_filter').val(month);
+
             var text = $('#<%= lbl_select_option.ClientID %>').text()
             var button_id_ot = document.getElementById('id_ot');
             var button_id_cm = document.getElementById('id_cm');
@@ -1664,7 +1666,9 @@
                         {
                             "mData": "payroll_registry_descr",
                             "mRender": function (data, type, full, row) {
-                                return "<span>" + data + "</span>"
+                               console.log(full)
+                                var period_covered = "<br><small>"+ new Date(full["payroll_period_from"]).toISOString().slice(0, 10) + " / "  + new Date(full["payroll_period_to"]).toISOString().slice(0, 10) +"</small>"
+                                return "<span>" + (data == "" ? "--" : data) + period_covered + "</span>"
                             }
                         },
                         {

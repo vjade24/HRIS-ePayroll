@@ -302,6 +302,9 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             string searchExpression = "transmittal_nbr LIKE '%" + search.Trim().Replace("'", "''") + "%' " +
                                    "OR transmittal_descr LIKE '%" + search.Trim().Replace("'", "''") + "%' " +
                                    "OR approval_status LIKE '%" + search.Trim().Replace("'", "''") + " %' " +
+                                   "OR transmittal_type_descr LIKE '%" + search.Trim().Replace("'", "''") + " %' " +
+                                   "OR view_type LIKE '%" + search.Trim().Replace("'", "''") + " %' " +
+                                   "OR view_type_descr LIKE '%" + search.Trim().Replace("'", "''") + " %' " +
                                    "OR approval_status_descr LIKE '%" + search.Trim().Replace("'", "''") + " %'" ;
 
             DataTable dtSource1 = new DataTable();
@@ -310,6 +313,9 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             dtSource1.Columns.Add("no_of_employees", typeof(System.String));
             dtSource1.Columns.Add("approval_status", typeof(System.String));
             dtSource1.Columns.Add("approval_status_descr", typeof(System.String));
+            dtSource1.Columns.Add("transmittal_type_descr", typeof(System.String));
+            dtSource1.Columns.Add("view_type", typeof(System.String));
+            dtSource1.Columns.Add("view_type_descr", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();

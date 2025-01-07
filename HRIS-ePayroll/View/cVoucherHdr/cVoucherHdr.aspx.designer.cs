@@ -49,6 +49,24 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.UpdatePanel UpdatePanel20;
         
         /// <summary>
+        /// selected_year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox selected_year;
+        
+        /// <summary>
+        /// selected_voucher_ctrl_nbr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox selected_voucher_ctrl_nbr;
+        
+        /// <summary>
         /// ddl_select_report control.
         /// </summary>
         /// <remarks>
@@ -92,6 +110,15 @@ namespace HRIS_ePayroll.View {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel19;
+        
+        /// <summary>
+        /// UpdatePanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
         
         /// <summary>
         /// UpdatePanel8 control.

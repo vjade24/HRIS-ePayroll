@@ -488,7 +488,7 @@ namespace HRIS_ePayroll.View
             }
         }
         //*************************************************************************
-        //  BEGIN - JOSEPH- 03/03/2019 - Populate Combo list for Payroll Year
+        //  BEGIN - JOSEPH- 03/03/2019 - Populate Combo list for Payroll Year   
         //*************************************************************************
         private void RetriveGroupings()
         {
@@ -2487,6 +2487,7 @@ namespace HRIS_ePayroll.View
                 if (ddl_payroll_template.SelectedValue == "062" )
                 {
                     txtb_gross_pay.Text     = selected_employee[0]["honoraria_jo_bonus"].ToString();
+                    txtb_memo.Text          = selected_employee[0]["honoraria_remarks"].ToString();
                 }
 
                 lbl_rate_basis_descr.Text   = selected_employee[0]["rate_basis_descr"].ToString() + " Rate :";

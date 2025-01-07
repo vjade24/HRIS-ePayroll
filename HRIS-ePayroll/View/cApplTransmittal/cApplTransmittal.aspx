@@ -398,9 +398,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4"></div>
+                                <div class="col-4" style="display:none"></div>
                                 
-                                <div class="col-8">
+                                <div class="col-8" style="display:none">
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label >View Type: </label>
@@ -480,7 +480,23 @@
                                                     <ItemTemplate>
                                                         &nbsp;&nbsp;<%#  Eval("transmittal_descr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="40%" />
+                                                    <ItemStyle Width="20%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="LEFT" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="TYPE" SortExpression="transmittal_type_descr">
+                                                    <ItemTemplate>
+                                                        &nbsp;&nbsp;<%#  Eval("transmittal_type_descr") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="20%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="LEFT" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="TYPE" SortExpression="view_type_descr">
+                                                    <ItemTemplate>
+                                                        &nbsp;&nbsp;<%#  Eval("view_type_descr") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="LEFT" />
                                                 </asp:TemplateField>

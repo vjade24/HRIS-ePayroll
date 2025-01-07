@@ -28,12 +28,29 @@
                             <ContentTemplate>
                                 <div class="modal-body with-background">
                                     <div class="row">
+                                        <div class="col-lg-6">
+                                            <label>Year</label>
+                                            <asp:TextBox runat="server" ID="selected_year" CssClass="form-control form-control-sm" Enabled="false"></asp:TextBox>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>Ctrl. No</label>
+                                            <asp:TextBox runat="server" ID="selected_voucher_ctrl_nbr" CssClass="form-control form-control-sm" Enabled="false"></asp:TextBox>
+                                        </div>
                                         <div class="col-12" style="margin-bottom: 5px;">
-                                            
+                                            <label>Select Report</label>
                                             <asp:DropDownList ID="ddl_select_report" CssClass="form-control form-control-sm" runat="server" Width="100%"  OnSelectedIndexChanged="ddl_select_report_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                             <asp:Label ID="LblRequired0" CssClass="lbl_required" runat="server" Text=""></asp:Label>
                                         </div>
                                         <div class="col-12">
+                                            <%if (ddl_select_report.SelectedValue.Trim() == "110" ||
+                                                  ddl_select_report.SelectedValue.Trim() == "111" ||
+                                                  ddl_select_report.SelectedValue.Trim() == "115" )
+                                            {
+                                            %>
+                                            <%--<button class="btn btn-warning" id="btn_cafoa" onclick="show_cafoa()"> CAFOA Override</button>--%>
+                                            <%
+                                            }
+                                            %>
                                             <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();"> <i class="fa fa-print"></i> Print </asp:LinkButton>
                                         </div>
                                     </div>
@@ -73,7 +90,39 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-
+        <!-- The Modal - Add Confirmation -->
+        <asp:UpdatePanel ID="UpdatePanel3" ChildrenAsTriggers="false" UpdateMode="Conditional" runat="server">
+            <ContentTemplate>
+                <div class="modal fade" id="cafoa_modal">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content ">
+                            <div class="modal-header bg-warning">
+                                <h5 class="modal-title">CAFOA Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive table-bordered" style="border:1px solid;border-radius:10px;padding:10px">
+                                    <table class="table table-hover" id="datalist_grid">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:100px !important">Code</th>
+                                            <th style="width:600px !important">Description</th>
+                                            <th style="width:100px !important">Allotment</th>
+                                            <th style="width:100px !important">Expense Code</th>
+                                            <th style="width:100px !important">Amount</th>
+                                            <th ></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <!-- The Modal - Add Confirmation -->
         <div class="modal fade" id="AddEditConfirm">
             <div class="modal-dialog modal-dialog-centered">
@@ -2305,7 +2354,7 @@
                                                                          ImageUrl="~/ResourceImages/print1.png" 
                                                                          style="padding-left: 0px !important;" 
                                                                          OnCommand="imgbtn_print_Command1" 
-                                                                         CommandArgument='<%# Eval("voucher_ctrl_nbr")%> ' 
+                                                                         CommandArgument='<%# Eval("voucher_ctrl_nbr") + "," + Eval("payroll_year")%> ' 
                                                                          tooltip='<%# Session["ep_post_authority"].ToString() == "0" ? "Show Report Option": "Print Card" %>'/>
                                                                 <%  }
                                                                 %>
@@ -2506,6 +2555,7 @@
         }
 
         $(document).ready(function () {
+            init_table_data([]);
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight_on_grid');
            }, function () {
@@ -2513,4 +2563,164 @@
            });
         });
     </script> 
+
+    <script type="text/javascript">
+        var datalistgrid;
+        var oTable;
+        function show_cafoa()
+        {
+            var year        = $('#<%= selected_year.ClientID %>').val()
+            var ctrl_nbr    = $('#<%= selected_voucher_ctrl_nbr.ClientID %>').val()
+            var template    = $('#<%= ddl_payroll_template.ClientID %>').val()
+            
+            Cafoa(year,ctrl_nbr,template)
+            $('#cafoa_modal').modal({ backdrop: 'static', keyboard: false });
+        }
+        function addRow()
+        {
+            const table  = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+            const newRow = table.insertRow();
+        
+            for (let i = 0; i < 5; i++)
+            {
+                const newCell       = newRow.insertCell();
+                const input         = document.createElement("input");
+                input.type          = "text";
+                input.placeholder   = "Enter value";
+                input.className     = "form-control form-control-sm";
+                newCell.appendChild(input);
+            }
+        }
+        function Cafoa(payroll_year,payroll_registry_nbr,payrolltemplate_code)
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cVoucherHdr.aspx/CafoaList",
+                data        : JSON.stringify({ payroll_year: payroll_year,payroll_registry_nbr:payroll_registry_nbr,payrolltemplate_code:payrolltemplate_code }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    console.log(parsed)
+                    oTable.fnClearTable();
+                    datalistgrid = parsed;
+                    if (parsed)
+                    {
+                        // CAFOA
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            parsed[i].account_short_title   = ""
+                            parsed[i].allotment_code        = ""
+                            parsed[i].account_code          = ""
+                            parsed[i].account_amt           = parsed[i].amt_gross_pay
+                        }
+                        // CAFOA
+                        if (parsed.length > 0)
+                        {
+
+                            oTable.fnAddData(parsed);
+                        }
+                        else
+                        {
+                            btn_cafoa_action(parsed,"insert")
+                            //alert("No Data Found!");
+                        }
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+        var init_table_data = function (par_data)
+        {
+            datalistgrid = par_data;
+            oTable       = $('#datalist_grid').dataTable(
+                {
+                    data        : datalistgrid,
+                    sDom        : 'rt<"bottom"ip>',
+                    pageLength  : 10,
+                    columns:
+                    [
+                        {
+                            "mData": "function_code",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "account_short_title",
+                            "mRender": function (data, type, full, row) {
+                                return "<span >" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "allotment_code",
+                            "mRender": function (data, type, full, row) {
+                                return "<span>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "account_code",
+                            "mRender": function (data, type, full, row) {
+                                 return "<span>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "account_amt",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center   btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "",
+                            "mRender": function (data, type, full, row) {
+                                return '<button type="button" class="btn btn-info btn-sm" onclick=\'btn_cafoa_action(' + row["row"] + ',"update")\' data-toggle="tooltip" data-placement="top" title="Edit">  <i class="fa fa-edit"></i></button >'
+                            }
+                        },
+                    ],
+                });
+        }
+
+        function btn_cafoa_action(row,action)
+        {
+            var data                = datalistgrid[row];
+            var year                = data.payroll_year;
+            var ctrl_nbr            = data.payroll_registry_nbr;
+            var function_code       = prompt("function_code:", data.function_code);
+            var account_short_title = prompt("account_short_title:", data.account_short_title);
+            var allotment_code      = prompt("allotment_code:", data.allotment_code);
+            var account_code        = prompt("account_code:", data.account_code);
+            var account_amt         = prompt("account_amt:", data.account_amt);
+
+            var template            = $('#<%= ddl_payroll_template.ClientID %>').val()
+
+            if (function_code != null && account_short_title != null && allotment_code != null && account_code != null && account_amt!= null)
+            {
+                data.function_code         = function_code      
+                data.account_short_title   = account_short_title
+                data.allotment_code        = allotment_code     
+                data.account_code          = account_code       
+                data.account_amt           = account_amt   
+
+                $.ajax({
+                    type        : "POST",
+                    url         : "cVoucherHdr.aspx/UpSetCAFOA",
+                    data        : JSON.stringify({ data: data ,action:action,template:template}),
+                    contentType : "application/json; charset=utf-8",
+                    dataType    : "json",
+                    success: function (response)
+                    {
+                        Cafoa(year,ctrl_nbr,template)
+                    },
+                    failure: function (response)
+                    {
+                        alert("Error: " + response.d);
+                    }
+                });
+            }
+        }
+    </script>
 </asp:Content>

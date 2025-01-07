@@ -49,7 +49,8 @@
                             <div class="col-lg-3">
                                 <label>Appropriation Year</label>
                                 <select class="form-control" id="appropriation_year">
-                                    <option value="2024" selected>2024</option>
+                                    <option value="2025" selected>2025</option>
+                                    <option value="2024" >2024</option>
                                     <option value="2023">2023</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -310,7 +311,7 @@
         {
         }
         var date = new Date()
-        var d_fm = date.getFullYear() + "-" + (date.getMonth() > 9 ?date.getMonth():"0"+date.getMonth()) + "-01"
+        var d_fm = date.getFullYear() + "-" + ((date.getMonth()+1) > 9 ?(date.getMonth()+1):"0"+(date.getMonth()+1)) + "-01"
         var d_to = date.toISOString().slice(0, 10)
         $('#period_from').val(d_fm)
         $('#period_to').val(d_to)
@@ -680,6 +681,7 @@
                     ],
                 });
         }
+        const options123 = { year: 'numeric', month: 'short', day: 'numeric' };
         var init_table_data_payrolls = function (par_data)
         {
             datalistgrid_payrolls = par_data;
@@ -706,7 +708,9 @@
                         {
                             "mData": "payrolltemplate_descr",
                             "mRender": function (data, type, full, row) {
-                                return "<span>" + full[0].payrolltemplate_descr + "</span>"
+                                var date_from = new Date(full[0].payroll_period_from).toLocaleDateString('en-US', options123)
+                                var date_to = new Date(full[0].payroll_period_from).toLocaleDateString('en-US', options123)
+                                return "<span>" + full[0].payrolltemplate_descr + " (" + date_from + "-" + date_to+ ")</span>"
                             }
                         },
                         {

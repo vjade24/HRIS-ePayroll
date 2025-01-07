@@ -327,7 +327,7 @@ namespace HRIS_ePayroll.View
             payrolltemplate_code.Items.Clear();
             DataTable chk = new DataTable();
             //string query = "SELECT * FROM payrolltemplate_tbl WHERE payrolltemplate_type IN ('01','07','08') AND employment_type = '"+ ddl_empl_type.SelectedValue.ToString().Trim() + "'";
-            string query = "SELECT * FROM payrolltemplate_tbl WHERE payrolltemplate_type IN ('01','08') AND employment_type = '"+ ddl_empl_type.SelectedValue.ToString().Trim() + "'";
+            string query = "SELECT * FROM payrolltemplate_tbl WHERE payrolltemplate_type IN ('01','08','07') AND employment_type = '"+ ddl_empl_type.SelectedValue.ToString().Trim() + "'";
             chk = MyCmn.GetDatatable(query);
             payrolltemplate_code.DataSource = chk;
             payrolltemplate_code.DataValueField = "payrolltemplate_code";
