@@ -158,7 +158,7 @@
                     <tr>
                         <td>
                             <div class="row" style="margin-bottom:10px">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <asp:UpdatePanel ID="UpdatePanel9" runat="server">
                                         <ContentTemplate>
                                             <asp:Label runat="server" Text="Show"></asp:Label>
@@ -178,9 +178,9 @@
                                     </asp:UpdatePanel>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group row">
-                                        <div class="col-4" style="padding:0px">
+                                        <div class="col-4" >
                                                 <asp:Label runat="server"  Text="Payroll Year:" ></asp:Label>
                                         </div>
                                         <div class="col-8">
@@ -193,7 +193,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="form-group row">
                                         <div class="col-4">
                                             <asp:Label runat="server" Text="Employment Type:" ></asp:Label>
@@ -220,10 +220,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-6" >
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8" >
                                     <div class="form-group row">
-                                         <div class="col-md-3">
+                                         <div class="col-md-2">
                                          <label>Department:</label>
                                         </div>
                                         <div class="col-md-9">
@@ -235,7 +235,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" style="display:none">
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                             <label>Sub-Department:</label>
@@ -249,7 +249,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" style="display:none">
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label>Division:</label>
@@ -263,7 +263,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" >
+                                <div class="col-6" style="display:none" >
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                          <label>Section:</label>
@@ -308,6 +308,14 @@
                                             EmptyDataRowStyle-CssClass="no-data-found"
                                             >
                                            <Columns>
+                                                <%--<asp:TemplateField HeaderText="#" SortExpression="Id">
+                                                    <ItemTemplate>
+                                                        <%# Eval("Id") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="10%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="center" />
+                                                </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="ID" SortExpression="empl_id">
                                                     <ItemTemplate>
                                                         <%# Eval("empl_id") %>
@@ -336,7 +344,15 @@
                                                     <ItemTemplate>
                                                         &nbsp;<%# Eval("memo_descr") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="45%" />
+                                                    <ItemStyle Width="25%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="LEFT" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="CREATED" SortExpression="created_at">
+                                                    <ItemTemplate>
+                                                        &nbsp;<%# Eval("created_at") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="15%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="LEFT" />
                                                 </asp:TemplateField>
@@ -348,7 +364,7 @@
                                                                     if (ViewState["page_allow_edit"].ToString() == "1")
                                                                     {
                                                                 %>
-                                                                    <asp:ImageButton ID="imgbtn_editrow1" CssClass="btn btn-primary action" EnableTheming="true"  runat="server"  ImageUrl="~/ResourceImages/final_edit.png" OnCommand="editRow_Command" CommandArgument='<%# Eval("empl_id") %>'/>
+                                                                    <asp:ImageButton ID="imgbtn_editrow1" CssClass="btn btn-primary action" EnableTheming="true"  runat="server"  ImageUrl="~/ResourceImages/final_edit.png" OnCommand="editRow_Command" CommandArgument='<%# Eval("empl_id") + ","+ Eval("Id") %>'/>
                                                         
                                                                 <%   }
                                                                 %>
@@ -356,7 +372,7 @@
                                                                 <% if (ViewState["page_allow_delete"].ToString() == "1")
                                                                     {
                                                                 %>
-                                                                    <asp:ImageButton ID="lnkDeleteRow" CssClass="btn btn-danger action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_delete.png" OnCommand="deleteRow_Command" CommandArgument='<%# Eval("empl_id") %>'/>
+                                                                    <asp:ImageButton ID="lnkDeleteRow" CssClass="btn btn-danger action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_delete.png" OnCommand="deleteRow_Command" CommandArgument='<%# Eval("empl_id")  + ","+ Eval("Id")%>'/>
                                                                 <% }
                                                                 %>
                                                             </ContentTemplate>

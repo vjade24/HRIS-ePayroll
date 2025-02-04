@@ -709,8 +709,8 @@
                             "mData": "payrolltemplate_descr",
                             "mRender": function (data, type, full, row) {
                                 var date_from = new Date(full[0].payroll_period_from).toLocaleDateString('en-US', options123)
-                                var date_to = new Date(full[0].payroll_period_from).toLocaleDateString('en-US', options123)
-                                return "<span>" + full[0].payrolltemplate_descr + " (" + date_from + "-" + date_to+ ")</span>"
+                                var date_to = new Date(full[0].payroll_period_to).toLocaleDateString('en-US', options123)
+                                return "<span>" + full[0].payrolltemplate_descr + "&nbsp;&nbsp;<small class='badge badge-secondary'> " + date_from + "-" + date_to+ "</small></span>"
                             }
                         },
                         {

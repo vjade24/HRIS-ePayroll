@@ -273,6 +273,8 @@ namespace HRIS_ePayroll.View
             nrow["memo_descr"] = string.Empty;
             nrow["comm_amount"] = string.Empty;
             nrow["recrd_status"] = string.Empty;
+            nrow["created_at"] = string.Empty;
+            nrow["created_by"] = string.Empty;
             nrow["action"] = 1;
             nrow["retrieve"] = false;
             dtSource.Rows.Add(nrow);
@@ -288,6 +290,8 @@ namespace HRIS_ePayroll.View
             dtSource.Columns.Add("memo_descr", typeof(System.String));
             dtSource.Columns.Add("comm_amount", typeof(System.String));
             dtSource.Columns.Add("recrd_status", typeof(System.String));
+            dtSource.Columns.Add("created_at", typeof(System.String));
+            dtSource.Columns.Add("created_by", typeof(System.String));
         }
 
         //*************************************************************************
@@ -298,7 +302,7 @@ namespace HRIS_ePayroll.View
             dtSource.TableName = "communicationmemo_tbl";
             dtSource.Columns.Add("action", typeof(System.Int32));
             dtSource.Columns.Add("retrieve", typeof(System.Boolean));
-            string[] col = new string[] { "empl_id" };
+            string[] col = new string[] { "Id" };
             dtSource = MyCmn.AddPrimaryKeys(dtSource, col);
         }
         //***************************************************************************
@@ -310,7 +314,7 @@ namespace HRIS_ePayroll.View
             string empl_id = commandArgs[0];
 
             deleteRec1.Text = "Are you sure to delete this Record ?";
-            lnkBtnYes.CommandArgument = empl_id;
+            lnkBtnYes.CommandArgument = e.CommandArgument.ToString();
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalDelete();", true);
         }
@@ -320,8 +324,9 @@ namespace HRIS_ePayroll.View
         //*************************************************************************
         protected void btnDelete_Command(object sender, CommandEventArgs e)
         {
-            string svalues = e.CommandArgument.ToString();
-            string deleteExpression = "empl_id = '" + svalues + "'";
+            //string svalues = e.CommandArgument.ToString();
+            string[] svalues = e.CommandArgument.ToString().Split(new char[] { ',' });
+            string deleteExpression = "empl_id = '" + svalues[0].ToString().Trim() + "' AND Id = '"+ svalues[1].ToString().Trim() + "'";
 
             MyCmn.DeleteBackEndData("communicationmemo_tbl", "WHERE " + deleteExpression);
 
@@ -340,8 +345,9 @@ namespace HRIS_ePayroll.View
         //**************************************************************************
         protected void editRow_Command(object sender, CommandEventArgs e)
         {
-            string svalues = e.CommandArgument.ToString();
-            string editExpression = "empl_id = '" + svalues + "'";
+            //string svalues = e.CommandArgument.ToString();
+            string[] svalues = e.CommandArgument.ToString().Split(new char[] { ',' });
+            string editExpression = "empl_id = '" + svalues[0].ToString().Trim() + "' AND Id = '" + svalues[1].ToString().Trim() + "'";
 
             DataRow[] row2Edit = dataListGrid.Select(editExpression);
 
@@ -356,7 +362,7 @@ namespace HRIS_ePayroll.View
             nrow["retrieve"] = true;
             dtSource.Rows.Add(nrow);
 
-            txtb_empl_id.Text = svalues;
+            txtb_empl_id.Text = svalues[0].ToString().Trim();
             txtb_empl_name.Text = row2Edit[0]["employee_name"].ToString();
             txtb_empl_name.Visible = true;
             ddl_empl_id.Visible = false;
@@ -435,6 +441,8 @@ namespace HRIS_ePayroll.View
                     dtSource.Rows[0]["memo_descr"]           = txtb_memo_descr.Text.ToString().Trim();
                     dtSource.Rows[0]["comm_amount"]          = float.Parse(txtb_amount.Text).ToString("###,##0.00");
                     dtSource.Rows[0]["recrd_status"]          = ddl_status.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["created_at"]            = DateTime.Now;
+                    dtSource.Rows[0]["created_by"]            = Session["ep_user_id"].ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource);
 
@@ -445,6 +453,8 @@ namespace HRIS_ePayroll.View
                     dtSource.Rows[0]["memo_descr"]          = txtb_memo_descr.Text.ToString().Trim();
                     dtSource.Rows[0]["comm_amount"]         = float.Parse(txtb_amount.Text).ToString("###,##0.00");
                     dtSource.Rows[0]["recrd_status"]         = ddl_status.SelectedValue.ToString().Trim();
+                    //dtSource.Rows[0]["created_at"]            = DateTime.Now;
+                    //dtSource.Rows[0]["created_by"]            = Session["ep_user_id"].ToString().Trim();
 
                     scriptInsertUpdate = MyCmn.updatescript(dtSource);
                 }
@@ -453,23 +463,25 @@ namespace HRIS_ePayroll.View
                 {
                     if (scriptInsertUpdate == string.Empty) return;
                     string msg = MyCmn.insertdata(scriptInsertUpdate);
-                    if (msg == "") return;
-                    if (msg.Substring(0, 1) == "X")
-                    {
-                        FieldValidationColorChanged(true, "already-exist");
-                        ddl_empl_id.Focus();
-                        return;
-                    }
+                    //if (msg == "") return;
+                    //if (msg.Substring(0, 1) == "X")
+                    //{
+                    //    FieldValidationColorChanged(true, "already-exist");
+                    //    ddl_empl_id.Focus();
+                    //    return;
+                    //}
 
 
                     if (saveRecord == MyCmn.CONST_ADD)
                     {
                         DataRow nrow = dataListGrid.NewRow();
-                        nrow["empl_id"]                     = ddl_empl_id.SelectedValue.ToString().Trim();
-                        nrow["employee_name"]               = ddl_empl_id.SelectedItem.ToString().Trim();
-                        nrow["memo_descr"]                  = txtb_memo_descr.Text.ToString().Trim();
-                        nrow["comm_amount"]                 = float.Parse(txtb_amount.Text).ToString("###,##0.00");
-                        nrow["recrd_status"]                 = ddl_status.SelectedValue.ToString().Trim();
+                        nrow["empl_id"]               = ddl_empl_id.SelectedValue.ToString().Trim();
+                        nrow["employee_name"]         = ddl_empl_id.SelectedItem.ToString().Trim();
+                        nrow["memo_descr"]            = txtb_memo_descr.Text.ToString().Trim();
+                        nrow["comm_amount"]           = float.Parse(txtb_amount.Text).ToString("###,##0.00");
+                        nrow["recrd_status"]          = ddl_status.SelectedValue.ToString().Trim();
+                        nrow["created_at"]            = DateTime.Now;
+                        nrow["created_by"]            = Session["ep_user_id"].ToString().Trim();
 
                         dataListGrid.Rows.Add(nrow);
                         gv_dataListGrid.SetPageIndex(gv_dataListGrid.PageCount);
@@ -489,13 +501,15 @@ namespace HRIS_ePayroll.View
                          row2Edit[0]["memo_descr"]          = txtb_memo_descr.Text.ToString().Trim();
                          row2Edit[0]["comm_amount"]         = float.Parse(txtb_amount.Text).ToString("###,##0.00");
                          row2Edit[0]["recrd_status"]         = ddl_status.SelectedValue.ToString().Trim();
-
+                         //row2Edit[0]["created_at"]          = DateTime.Now;
+                         //row2Edit[0]["created_by"]            = Session["ep_user_id"].ToString().Trim();
                         MyCmn.Sort(gv_dataListGrid, dataListGrid, Session["SortField"].ToString(), Session["SortOrder"].ToString());
                         SaveAddEdit.Text = MyCmn.CONST_EDITREC;
                     }
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     up_dataListGrid.Update();
+                    RetrieveDataListGrid();
                 }
                 ViewState.Remove("AddEdit_Mode");
                 show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
@@ -536,6 +550,9 @@ namespace HRIS_ePayroll.View
             dtSource1.Columns.Add("memo_descr", typeof(System.String));
             dtSource1.Columns.Add("comm_amount", typeof(System.String));
             dtSource1.Columns.Add("recrd_status", typeof(System.String));
+            dtSource1.Columns.Add("created_at", typeof(System.String));
+            dtSource1.Columns.Add("created_by", typeof(System.String));
+            dtSource1.Columns.Add("Id", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -616,12 +633,12 @@ namespace HRIS_ePayroll.View
                 txtb_amount.Focus();
                 validatedSaved = false;
             }
-           if (txtb_memo_descr.Text == "")
-            {
-                FieldValidationColorChanged(true, "txtb_memo_descr");
-                txtb_memo_descr.Focus();
-                validatedSaved = false;
-            }
+           //if (txtb_memo_descr.Text == "")
+           // {
+           //     FieldValidationColorChanged(true, "txtb_memo_descr");
+           //     txtb_memo_descr.Focus();
+           //     validatedSaved = false;
+           // }
             return validatedSaved;
         }
 
