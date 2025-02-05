@@ -496,7 +496,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
             lbl_remarks.Visible = false;
             txtb_trans_remarks.Visible = false;
             
-            string editExpression = "transmittal_nbr = '" + par_transmittal_nbr.Trim() + "' AND transmittal_type = 'P'";
+            string editExpression = "transmittal_nbr = '" + par_transmittal_nbr.Trim() + "'";
             DataRow[] row2Edit = dataListGrid.Select(editExpression);
 
             if (par_status == "A") // Approve Status
