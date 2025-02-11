@@ -344,7 +344,7 @@
                                                             pagesize="10"
                                                             Width="100%" 
                                                             Font-Names="Century gothic"
-                                                            Font-Size="Medium" 
+                                                            Font-Size="Small" 
                                                             RowStyle-Width="5%" 
                                                             AlternatingRowStyle-Width="10%"
                                                             CellPadding="2"
@@ -398,8 +398,8 @@
                                                                                 if (ddl_special_group.SelectedValue == "02" || ddl_special_group.SelectedValue == "03" ) // Communication Expense & RATA and Quarterly Allowance
                                                                                 {
                                                                                 %>
-
                                                                                     <asp:ImageButton ID="lbkbtn_group_dtl" OnCommand="lbkbtn_group_dtl_Command" CssClass="btn btn-primary action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_edit.png" CommandArgument='<%# Eval("payroll_group_nbr") +","+Eval("empl_id")+","+Eval("employee_name")%> ' />
+
 <% 
                                                                                 }
                                                                                 %>

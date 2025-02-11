@@ -904,13 +904,13 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     //************************************************************************************************
 
                     // BEGIN : Date : 10/30/2019 - In-Active Grouping Across Special Groups
-                    if (ddl_group_nbr.SelectedValue == "" || ddl_emp_status.SelectedValue == "0" )
-                    {
-                        string table_update = "payrollemployeegroupings_dtl_tbl";
-                        string set_update   = "emp_status = '0' ";
-                        string where_update = "WHERE empl_id = '"+ txtb_empl_id.Text.ToString().Trim() +"'";
-                        MyCmn.UpdateTable(table_update, set_update, where_update);
-                    }
+                    //if (ddl_group_nbr.SelectedValue == "" || ddl_emp_status.SelectedValue == "0" )
+                    //{
+                    //    string table_update = "payrollemployeegroupings_dtl_tbl";
+                    //    string set_update   = "emp_status = '0' ";
+                    //    string where_update = "WHERE empl_id = '"+ txtb_empl_id.Text.ToString().Trim() +"'";
+                    //    MyCmn.UpdateTable(table_update, set_update, where_update);
+                    //}
                     // END  : Date : 10/30/2019 - In-Active Grouping Across Special Groups
 
                     // Insert From Database : Table Name : payrollemployeemaster_pos_tbl
