@@ -83,6 +83,7 @@ namespace HRIS_Common
         // Database Connection string variable
         const string connectstring = "hrisConn";
         const string connectstring_aats = "hrisConn_aats";
+        public string connectstring_trk = "hrisConn_trk";
 
         //********************************************************************
         // Purpose      :   Create Public Constant Variables
@@ -258,7 +259,20 @@ namespace HRIS_Common
                 return null;
             }
         }
-
+        public SqlConnection ConnectDB_trk()
+        {
+            try
+            {
+                string ConnectString = ConfigurationManager.ConnectionStrings[connectstring_trk].ConnectionString;
+                SqlConnection conn;
+                conn = new SqlConnection(ConnectString);
+                return conn;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         //*********************************************************************************
         // Purpose      :   Create method to define Datatable based on SQL Select Parameter
         // Method Name  :   GetDatatable
@@ -1308,6 +1322,11 @@ namespace HRIS_Common
             string sdeletescript = "delete from " + tablenamescript + " " + whereclause;
             return connectandsetcommand_to_aats(sdeletescript, "delete");
         }
+        public string DeleteBackEndData_to_trk(string tablenamescript, string whereclause)
+        {
+            string sdeletescript = "delete from " + tablenamescript + " " + whereclause;
+            return connectandsetcommand_to_trk(sdeletescript, "delete");
+        }
         //***********************************************************************************************************************
         // Purpose      :   Update Data to Back End Database
         // Method Name  :   UpdateTable
@@ -1744,7 +1763,50 @@ namespace HRIS_Common
             }
             return msg;
         }
+        public string connectandsetcommand_to_trk(string sparm, string actionparm)
+        {
+            SqlConnection conn = null;
+            string msg = "";
+            try
+            {
+                try
+                {
+                    conn = ConnectDB_trk();
+                    conn.Open();
 
+                    if (actionparm == "delete")
+                    {
+                        SqlCommand deletecomd = new SqlCommand(sparm, conn);
+                        int retvalue = deletecomd.ExecuteNonQuery();
+                        if (retvalue != 0)
+                        {
+                            msg = "0Deleted Successfully...";
+                        }
+                    }
+                    else
+                    {
+                        SqlCommand updatecomd = new SqlCommand(sparm, conn);
+                        int retvalue = updatecomd.ExecuteNonQuery();
+                        if (retvalue != 0)
+                        {
+                            msg = "0Update Successfully...";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return 'X' + ex.Message;
+                }
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return msg;
+        }
         public string insertdata(DataTable dt, string tablenamescript)
         {
             if (dt.Rows.Count <= 0) return "";

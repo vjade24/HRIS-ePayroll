@@ -19,6 +19,8 @@ using System.Web.Services;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Web;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HRIS_ePayroll.View.cPayRegistry
 {
@@ -670,6 +672,9 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 MyCmn.DeleteBackEndData("payrollregistry_dtl_othded_tbl", "WHERE " + deleteExpression);
                 MyCmn.DeleteBackEndData("payrollregistry_hdr_coaching_tbl", "WHERE " + deleteExpression);
 
+                MyCmn.DeleteBackEndData_to_trk("cafao_hdr_tbl", "WHERE " + deleteExpression);
+                MyCmn.DeleteBackEndData_to_trk("cafao_dtl_tbl", "WHERE " + deleteExpression);
+                
                 DataRow[] row2Delete = dataListGrid.Select(deleteExpression);
                 dataListGrid.Rows.Remove(row2Delete[0]);
                 dataListGrid.AcceptChanges();
@@ -3791,8 +3796,199 @@ namespace HRIS_ePayroll.View.cPayRegistry
             GetReportFile();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopReport", "openSelectReport();", true);
         }
+        [WebMethod]
+        public static string CafoaList(string payroll_year, string payroll_registry_nbr, string payrolltemplate_code, string par_cafoa_type)
+        {
+            try
+            {
+                CommonDB MyCmn = new CommonDB();
+                DataTable dt        = new DataTable();
+                DataTable dt_header = new DataTable();
+                string query = "SELECT A.payroll_year ,A.payroll_registry_nbr ,A.seq_nbr ,A.function_code ,A.allotment_code ,A.account_code ,A.account_short_title ,A.account_amt,A.created_by_user,A.updated_by_user,A.created_dttm,A.updated_dttm,A.raao_code,A.ooe_code,ISNULL(B.function_shortname, '') AS function_shortname,ISNULL(B.function_name, '') AS function_name,ISNULL(B.function_detail, '') AS function_detail,ISNULL(B.function_program, '') AS function_program FROM HRIS_TRK.dbo.cafao_dtl_tbl A LEFT JOIN HRIS_PAY.dbo.functions_tbl B ON B.function_code = A.function_code WHERE payroll_year = '" + payroll_year + "' AND payroll_registry_nbr = '" + payroll_registry_nbr + "'";
+                dt = MyCmn.GetDatatable(query);
+                if (par_cafoa_type == "VOUCHER")
+                {
+                    dt = MyCmn.RetrieveData("sp_voucher_obr_rep", "par_payroll_year", payroll_year, "par_voucher_ctrl_nbr", payroll_registry_nbr, "par_payrolltemplate_code", payrolltemplate_code);
+                }
+                else
+                {
+                    dt_header = MyCmn.RetrieveData("sp_payrollregistry_cafao_rep_new", "par_payroll_year", payroll_year, "par_payroll_registry_nbr", payroll_registry_nbr, "par_payrolltemplate_code", payrolltemplate_code);
+                }
+                string json = JsonConvert.SerializeObject(new { dt ,dt_header}, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                // Optionally, rethrow or handle the error
+                throw;
+            }
+        }
+        [WebMethod]
+        public static string DepartmentSignatories()
+        {
+            CommonDB MyCmn = new CommonDB();
+            DataTable dt = new DataTable();
+            string query = "SELECT A.department_code,A.department_short_name,A.empl_id,UPPER(B.employee_name_format3) AS employee_name_format2,UPPER(A.designation_head1) AS designation_head1,UPPER(A.designation_head2) AS designation_head2,UPPER(A.function_code) AS function_code FROM departments_tbl A INNER JOIN vw_personnelnames2_tbl B ON B.empl_id = A.empl_id";
+            dt = MyCmn.GetDatatable(query);
+            string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        [WebMethod]
+        public static string RetrieveFunctions()
+        {
+            CommonDB MyCmn = new CommonDB();
+            DataTable dt = new DataTable();
+            string query = "SELECT *FROM functions_tbl ORDER BY function_name";
+            dt = MyCmn.GetDatatable(query);
+            string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
 
+        public class cafao_dtl_tbl
+        {
+            public string payroll_year           { get; set; }
+            public string payroll_registry_nbr   { get; set; }
+            public int seq_nbr                   { get; set; }
+            public string function_code          { get; set; }
+            public string allotment_code         { get; set; }
+            public string account_code           { get; set; }
+            public string account_short_title    { get; set; }
+            public double account_amt            { get; set; }
+            public string created_by_user        { get; set; }
+            public string updated_by_user        { get; set; }
+            public DateTime? created_dttm         { get; set; }
+            public DateTime? updated_dttm         { get; set; }
+            public string raao_code              { get; set; }
+            public string ooe_code               { get; set; }
+        }
+        public class cafao_hdr_tbl
+        {
+            public string payroll_year           { get; set; }
+            public string payroll_registry_nbr   { get; set; }
+            public string payee                  { get; set; }
+            public string obr_nbr                { get; set; }
+            public double? approved_amt           { get; set; }
+            public string dv_nbr                 { get; set; }
+            public string request_descr          { get; set; }
+            public string charged_to             { get; set; }
+            public string req_empl_id            { get; set; }
+            public string req_name               { get; set; }
+            public string req_desig              { get; set; }
+            public string budget_empl_id         { get; set; }
+            public string budget_name            { get; set; }
+            public string budget_desig           { get; set; }
+            public string treasurer_empl_id      { get; set; }
+            public string treasurer_name         { get; set; }
+            public string treasurer_desig        { get; set; }
+            public string pacco_empl_id          { get; set; }
+            public string pacco_name             { get; set; }
+            public string pacco_desig            { get; set; }
+            public string created_by_user        { get; set; }
+            public string updated_by_user        { get; set; }
+            public DateTime? created_dttm        { get; set; }
+            public DateTime? updated_dttm        { get; set; }
+        }
+        [WebMethod]
+        public static string saveall_cafoa(string data_dtl, string data_hdr)
+        {
+            try
+            {
+                var message = "";
 
+                List<cafao_dtl_tbl> cafoa = JsonConvert.DeserializeObject<List<cafao_dtl_tbl>>(data_dtl);
+                cafao_hdr_tbl cafoa_hdr   = JsonConvert.DeserializeObject<cafao_hdr_tbl>(data_hdr);
+                if (cafoa.Count > 0 && cafoa_hdr != null)
+                {
+                    string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["hrisConn_trk"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connStr))
+                    {
+                        con.Open();
+                        // DELETE existing records
+                        string delete_dtl = "DELETE FROM cafao_dtl_tbl WHERE payroll_year = @payroll_year AND payroll_registry_nbr = @payroll_registry_nbr";
+                        using (SqlCommand deleteCmd = new SqlCommand(delete_dtl, con))
+                        {
+                            deleteCmd.Parameters.AddWithValue("@payroll_year", cafoa_hdr.payroll_year);
+                            deleteCmd.Parameters.AddWithValue("@payroll_registry_nbr", cafoa_hdr.payroll_registry_nbr);
+                            deleteCmd.ExecuteNonQuery();
+                        }
+                        string delete_hdr = "DELETE FROM cafao_hdr_tbl WHERE payroll_year = @payroll_year AND payroll_registry_nbr = @payroll_registry_nbr";
+                        using (SqlCommand delete_hdr_cmd = new SqlCommand(delete_hdr, con))
+                        {
+                            delete_hdr_cmd.Parameters.AddWithValue("@payroll_year", cafoa_hdr.payroll_year);
+                            delete_hdr_cmd.Parameters.AddWithValue("@payroll_registry_nbr", cafoa_hdr.payroll_registry_nbr);
+                            delete_hdr_cmd.ExecuteNonQuery();
+                        }
+                        
+                        string query_insert_hdr = "INSERT INTO cafao_hdr_tbl(payroll_year, payroll_registry_nbr, payee, obr_nbr, approved_amt, dv_nbr, request_descr, charged_to, req_empl_id, req_name, req_desig, budget_empl_id, budget_name, budget_desig, treasurer_empl_id, treasurer_name, treasurer_desig, pacco_empl_id, pacco_name, pacco_desig, created_by_user, updated_by_user, created_dttm, updated_dttm) " +
+                                                  "VALUES (@payroll_year, @payroll_registry_nbr, @payee, @obr_nbr, @approved_amt, @dv_nbr, @request_descr, @charged_to, @req_empl_id, @req_name, @req_desig, @budget_empl_id, @budget_name, @budget_desig, @treasurer_empl_id, @treasurer_name, @treasurer_desig, @pacco_empl_id, @pacco_name, @pacco_desig, @created_by_user, @updated_by_user, @created_dttm, @updated_dttm)";
+                        using (SqlCommand insert_cmd_hdr = new SqlCommand(query_insert_hdr, con))
+                        {
+                            insert_cmd_hdr.Parameters.AddWithValue("@payroll_year", cafoa_hdr.payroll_year);
+                            insert_cmd_hdr.Parameters.AddWithValue("@payroll_registry_nbr", cafoa_hdr.payroll_registry_nbr);
+                            insert_cmd_hdr.Parameters.AddWithValue("@payee", cafoa_hdr.payee);
+                            insert_cmd_hdr.Parameters.AddWithValue("@obr_nbr", cafoa_hdr.obr_nbr);
+                            insert_cmd_hdr.Parameters.AddWithValue("@approved_amt", cafoa_hdr.approved_amt);
+                            insert_cmd_hdr.Parameters.AddWithValue("@dv_nbr", cafoa_hdr.dv_nbr);
+                            insert_cmd_hdr.Parameters.AddWithValue("@request_descr", cafoa_hdr.request_descr);
+                            insert_cmd_hdr.Parameters.AddWithValue("@charged_to", cafoa_hdr.charged_to);
+                            insert_cmd_hdr.Parameters.AddWithValue("@req_empl_id", cafoa_hdr.req_empl_id);
+                            insert_cmd_hdr.Parameters.AddWithValue("@req_name", cafoa_hdr.req_name);
+                            insert_cmd_hdr.Parameters.AddWithValue("@req_desig", cafoa_hdr.req_desig);
+                            insert_cmd_hdr.Parameters.AddWithValue("@budget_empl_id", cafoa_hdr.budget_empl_id);
+                            insert_cmd_hdr.Parameters.AddWithValue("@budget_name", cafoa_hdr.budget_name);
+                            insert_cmd_hdr.Parameters.AddWithValue("@budget_desig", cafoa_hdr.budget_desig);
+                            insert_cmd_hdr.Parameters.AddWithValue("@treasurer_empl_id", cafoa_hdr.treasurer_empl_id);
+                            insert_cmd_hdr.Parameters.AddWithValue("@treasurer_name", cafoa_hdr.treasurer_name);
+                            insert_cmd_hdr.Parameters.AddWithValue("@treasurer_desig", cafoa_hdr.treasurer_desig);
+                            insert_cmd_hdr.Parameters.AddWithValue("@pacco_empl_id", cafoa_hdr.pacco_empl_id);
+                            insert_cmd_hdr.Parameters.AddWithValue("@pacco_name", cafoa_hdr.pacco_name);
+                            insert_cmd_hdr.Parameters.AddWithValue("@pacco_desig", cafoa_hdr.pacco_desig);
+                            insert_cmd_hdr.Parameters.AddWithValue("@created_by_user", HttpContext.Current.Session["ep_user_id"]?.ToString().Trim());
+                            insert_cmd_hdr.Parameters.AddWithValue("@updated_by_user", "");
+                            insert_cmd_hdr.Parameters.AddWithValue("@created_dttm", DateTime.Now);
+                            insert_cmd_hdr.Parameters.AddWithValue("@updated_dttm", "");
+                            insert_cmd_hdr.ExecuteNonQuery();
+                        }
+
+                        // INSERT records
+                        foreach (var item in cafoa)
+                        {
+                            string query = "INSERT INTO cafao_dtl_tbl (payroll_year, payroll_registry_nbr,seq_nbr,function_code,allotment_code,account_code,account_short_title,account_amt,created_by_user,updated_by_user,created_dttm,updated_dttm,raao_code,ooe_code) VALUES (@payroll_year, @payroll_registry_nbr,@seq_nbr,@function_code,@allotment_code,@account_code,@account_short_title,@account_amt,@created_by_user,@updated_by_user,@created_dttm,@updated_dttm,@raao_code,@ooe_code)";
+                            using (SqlCommand cmd = new SqlCommand(query, con))
+                            {
+                                cmd.Parameters.AddWithValue("@payroll_year", item.payroll_year);
+                                cmd.Parameters.AddWithValue("@payroll_registry_nbr", item.payroll_registry_nbr);
+                                cmd.Parameters.AddWithValue("@seq_nbr", item.seq_nbr);
+                                cmd.Parameters.AddWithValue("@function_code", item.function_code);
+                                cmd.Parameters.AddWithValue("@allotment_code", item.allotment_code);
+                                cmd.Parameters.AddWithValue("@account_code", item.account_code);
+                                cmd.Parameters.AddWithValue("@account_short_title", item.account_short_title);
+                                cmd.Parameters.AddWithValue("@account_amt", item.account_amt);
+                                cmd.Parameters.AddWithValue("@created_by_user", HttpContext.Current.Session["ep_user_id"]?.ToString().Trim());
+                                cmd.Parameters.AddWithValue("@updated_by_user", "");
+                                cmd.Parameters.AddWithValue("@created_dttm", DateTime.Now);
+                                cmd.Parameters.AddWithValue("@updated_dttm", "");
+                                cmd.Parameters.AddWithValue("@raao_code", item.raao_code);
+                                cmd.Parameters.AddWithValue("@ooe_code", item.ooe_code);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    message = "success";
+                }
+                else
+                {
+                    message = "no data found!";
+                }
+                return message;
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+        }
         //********************************************************************
         // END OF THE CODE
         //********************************************************************

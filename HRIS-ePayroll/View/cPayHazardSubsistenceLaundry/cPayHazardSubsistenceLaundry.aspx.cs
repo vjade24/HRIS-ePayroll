@@ -2073,9 +2073,14 @@ namespace HRIS_ePayroll.View
             double net_luandry_amount           = 0;
             string no_days_luandry              = txtb_with_laundry.Text.ToString().Trim() == "" ? "0" : txtb_with_laundry.Text.ToString().Trim();
 
+            if (txtb_department_code.Text.ToString().Trim() == "12")
+            {
+                no_days_luandry = "22";
+            }
+            txtb_with_laundry.Text = no_days_luandry;
+
             string editExpression               =  "days_nolaundry = " + no_days_luandry + "";
             DataRow[] selected_amount_laundry   = dt_noluandry_tbl_list.Select(editExpression);
-
             if (selected_amount_laundry.Length > 0 && selected_amount_laundry != null)
             {
                 net_luandry_amount = double.Parse(selected_amount_laundry[0]["laundry_amt"].ToString());
@@ -2090,10 +2095,10 @@ namespace HRIS_ePayroll.View
             txtb_net_laundry_amount.Text = net_luandry_amount.ToString("###,##0.00");
 
             // VJA - Ana si maam Mildred , Kung ang mga PSWDO, Zero(0) ang amount sa Laundry Amount
-            if (txtb_department_code.Text.ToString().Trim() == "12")
-            {
-                net_luandry_amount = 0;
-            }
+            //if (txtb_department_code.Text.ToString().Trim() == "12")
+            //{
+            //    net_luandry_amount = 0;
+            //}
 
             return net_luandry_amount;
         }

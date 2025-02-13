@@ -11,13 +11,15 @@
                 cursor: pointer;
             }
         
-        /*@media screen and (max-width: 900px) {
-          tbody {
-            background-color:red !important;
-            font-size:1px !important;
-          }
-        }*/
+        @keyframes blink {
+            0% { color: red; }
+            50% { color: transparent; }
+            100% { color: red; }
+        }
 
+        .blink-red {
+            animation: blink 1s infinite;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContainer" runat="server">
@@ -498,6 +500,15 @@
                                         </div>
                                         <div class="col-12" style="margin-bottom: 10px;">
                                             <button class="btn btn-success" id="id_payroll" onclick="print('PAYROLL')"><i class="fa fa-print"></i> Preview </button>
+                                             <%if (ddl_select_report.SelectedValue.Trim() == "309" ||
+                                                   ddl_select_report.SelectedValue.Trim() == "310" ||
+                                                   ddl_select_report.SelectedValue.Trim() == "311" )
+                                            {
+                                            %>
+                                            <button class="btn btn-warning" id="id_cafoa_btn" onclick="btn_cafoa()"><i class="fa fa-briefcase"></i> CAFOA </button>
+                                            <%
+                                            }
+                                            %>
                                             <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  OnClientClick="openLoading();" > <i class="fa fa-print"></i> Print </asp:LinkButton>
                                         </div>
                                     </div>
@@ -726,7 +737,7 @@
                                                             </asp:UpdatePanel>
                                                         </div>
 
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-12" style="display:none">
                                                             <asp:Label ID="Label13" runat="server" CssClass="font-weight-bold"  Text="Function code:"></asp:Label>
                                                             <asp:UpdatePanel ID="UpdatePanel21" runat="server">
                                                                 <ContentTemplate>
@@ -735,7 +746,7 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6" style="display:none">
                                                             <asp:Label ID="Label15" runat="server" CssClass="font-weight-bold"  Text="Allotment code:"></asp:Label>
                                                             <asp:UpdatePanel ID="UpdatePanel22" runat="server">
                                                                 <ContentTemplate>
@@ -1278,7 +1289,187 @@
         </div>
         </div>
 
-        <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+        <div class="modal fade" id="modal_cafoa" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-warning" >
+                            <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Certification On Appropriations, Fund and Obligation of Allotment"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6" style="padding-right:30px !important">
+                                <button class="btn btn-primary btn-sm pull-right" type="button" onclick="btn_cafoa_action('','add')"><i class="fa fa-plus-square"></i> Add New</button>
+                            </div>
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="datalist_grid_cafoa" style="width:100% !important;">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:10% !important">Code</th>
+                                            <th style="width:50% !important">Description</th>
+                                            <th style="width:10% !important">Amount</th>
+                                            <th style="width:10% !important"></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="form-group row text-right">
+                                    <div class="col-lg-12">
+                                        <b><small id="total_amount_cafoa_old" class="pr-3"></small></b>
+                                        <h2 id="total_amount_cafoa" class="pr-3" style="margin-bottom:0px !important"></h2>
+                                        <b><small id="total_amount_cafoa_grand" class="pr-3"></small></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <label>Payee</label>
+                                        <input class="form-control form-control-sm" id="id_payee"/>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group row">
+                                            <div class="col-lg-4">
+                                                <label>Obligation No</label>
+                                                <input class="form-control form-control-sm" id="id_obr_nbr" />
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Approved Amount</label>
+                                                <input class="form-control form-control-sm text-right" id="id_approved_amt" />
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>DV No</label>
+                                                <input class="form-control form-control-sm" id="id_dv_nbr" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <label>Request</label>
+                                        <input class="form-control form-control-sm" id="id_request"/>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Charged to</label>
+                                        <input class="form-control form-control-sm" id="id_charged_to"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                     <div class="col-lg-12">
+                                        <hr style="margin-bottom:5px;margin-top:5px" />
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <h4>Signatories</h4>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Requesting Official | <small class="text-danger"> Override</small></label>
+                                        <select class="form-control-sm form-control" id="req_name" ></select>
+                                        <i class="fa fa-info-circle text-success"></i><small class="badge text-success" id="req_name_lbl"></small>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Requesting Official Designation | <small class="text-danger"> Override</small></label>
+                                        <input class="form-control-sm form-control" id="req_desig"/>
+                                        <i class="fa fa-info-circle text-success"></i><small class="badge text-success" id="req_desig_lbl"></small>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <hr style="margin-bottom:5px;margin-top:5px" />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Budget Officer</label>
+                                        <select class="form-control-sm form-control" id="budget_name"></select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Budget Officer Designation</label>
+                                        <input class="form-control-sm form-control" id="budget_desig"/>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Treasurer</label>
+                                        <select class="form-control-sm form-control" id="treasurer_name"></select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Treasurer Designation</label>
+                                        <input class="form-control-sm form-control" id="treasurer_desig"/>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Accountant</label>
+                                        <select class="form-control-sm form-control" id="pacco_name"></select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Accountant Designation</label>
+                                        <input class="form-control-sm form-control" id="pacco_desig"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" onclick="saveall_cafoa()"><i class="fa fa-plus-circle"></i> Save All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modal_cafoa_details" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-success" >
+                            <h5 class="modal-title text-white" ><asp:Label runat="server" Text="CAFOA DETAILS"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body with-background" >
+                            <div class="row">
+                                
+                                <div class="col-lg-12">
+                                    <label>Function</label>
+                                    <select class="form-control form-control-sm" id="function_code"></select>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Function Name</label>
+                                    <input class="form-control form-control-sm" id="function_name" disabled/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Allotment Code</label>
+                                    <input class="form-control form-control-sm text-center" id="allotment_code" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Account Code</label>
+                                    <input class="form-control form-control-sm text-center" id="account_code"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Amount</label>
+                                    <input class="form-control form-control-sm text-right" id="account_amt"/>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none">
+                                <div class="col-lg-4">
+                                    <label>Row Id</label>
+                                    <input class="form-control form-control-sm" disabled id="row_id" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Seq. No</label>
+                                    <input class="form-control form-control-sm" disabled id="seq_nbr" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>RAAO</label>
+                                    <input class="form-control form-control-sm" id="raao_code"/>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>OOE</label>
+                                    <input class="form-control form-control-sm" id="ooe_code"/>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-danger text-left">Close</button>
+                        <button class="btn btn-primary" type="button" onclick="btn_save_cafoa_dtl()"><i class="fa fa-plus-circle"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
                 <div class="modal-content  modal-content-add-edit">
                     <div class="modal-header bg-success" >
@@ -1422,8 +1613,16 @@
         var reg_nbrs= "";
         var datalistgrid;
         var oTable;
+        var datalistgrid_cafoa;
+        var oTable_cafoa;
+
         var domain   = window.location.hostname;
         var api_link = "http://hris.dvodeoro.local:90/api/ListOfEmployee";
+
+        var action_cafoa    = "";
+        var big_cafoa_lbl   = "";
+        var small_cafoa_lbl = "";
+        var grand_cafoa_lbl = "";
         function openModalPayroll()
         {
             var date  = new Date()
@@ -1459,6 +1658,8 @@
             
             // Initialized Datatable
             init_table_data([]);
+
+            
             
             var year    = $('#year_filter').val();
             var month   = $('#month_filter').val();
@@ -1666,7 +1867,6 @@
                         {
                             "mData": "payroll_registry_descr",
                             "mRender": function (data, type, full, row) {
-                               console.log(full)
                                 var period_covered = "<br><small>"+ new Date(full["payroll_period_from"]).toISOString().slice(0, 10) + " / "  + new Date(full["payroll_period_to"]).toISOString().slice(0, 10) +"</small>"
                                 return "<span>" + (data == "" ? "--" : data) + period_covered + "</span>"
                             }
@@ -1847,29 +2047,479 @@
                     }
                 };
             }
-            console.log(embed_link)
             iframe.src = embed_link;
             $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
             // *******************************************************
             // *******************************************************
         }
-        
-        
-        <%--function onCheckboxChange(chkBox)
+
+        function btn_cafoa()
         {
-            if (chkBox.checked)
+            $('#req_name').on('change', function ()
             {
-                var row = chkBox.parentNode.parentNode;
-                var cells = row.getElementsByTagName("td");
-                var data = [];
-                for (var i = 0; i < cells.length; i++)
+                $('#req_desig').val(this.options[this.selectedIndex].getAttribute("designation_head2"))
+            })
+            $('#budget_name').on('change', function ()
+            {
+                $('#budget_desig').val(this.options[this.selectedIndex].getAttribute("designation_head2"))
+            })
+            $('#treasurer_name').on('change', function ()
+            {
+                $('#treasurer_desig').val(this.options[this.selectedIndex].getAttribute("designation_head2"))
+            })
+            $('#pacco_name').on('change', function ()
+            {
+                $('#pacco_desig').val(this.options[this.selectedIndex].getAttribute("designation_head2"))
+            })
+            
+
+            DepartmentSignatories()
+            RetrieveFunctions('function_code')
+
+            $('#function_code').on('change', function ()
+            {
+                console.log(this.options[this.selectedIndex])
+                $('#function_name').val(this.options[this.selectedIndex].getAttribute("function_name"))
+            })
+            var year        = $('#<%= ddl_year.ClientID %>').val()
+            var ctrl_nbr    = $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val()
+            var template    = $('#<%= ddl_payroll_template.ClientID %>').val()
+            
+            Cafoa(year,ctrl_nbr,template,"PAYROLL")
+            $('#modal_cafoa').modal({ backdrop: 'static', keyboard: false });
+        }
+        function Cafoa(payroll_year,payroll_registry_nbr,payrolltemplate_code,par_cafoa_type)
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/CafoaList",
+                data        : JSON.stringify({ payroll_year: payroll_year,payroll_registry_nbr:payroll_registry_nbr,payrolltemplate_code:payrolltemplate_code,par_cafoa_type:par_cafoa_type }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
                 {
-                    data.push(cells[i].innerText);
+                    var parsed = JSON.parse(response.d)
+                    var parsed_hdr = JSON.parse(response.d)
+                    parsed = parsed.dt
+                    parsed_hdr = parsed_hdr.dt_header
+                    oTable_cafoa.fnClearTable();
+                    datalistgrid_cafoa = parsed;
+                    if (parsed)
+                    {
+                        if (parsed.length > 0)
+                        {
+                            if (parsed_hdr.length > 0)
+                            {
+                                var header = parsed_hdr[0]
+                                $('#id_payee').val(header.payroll_registry_descr)
+                                $('#id_obr_nbr').val("")
+                                $('#id_approved_amt').val("")
+                                $('#id_dv_nbr').val("")
+                                $('#id_request').val(header.payment_text)
+                                $('#id_charged_to').val(header.charge_to)
+                                
+                                $('#req_name').val("")
+                                $('#req_desig').val("")	
+                                $('#req_name_lbl').text(header.repsig_dept_name_grp)
+                                $('#req_desig_lbl').text(header.repsig_dept_desig_grp)	
+                                $('#budget_name').val(header.repsig_pbo_empl_id)
+                                $('#budget_desig').val(header.repsig_pbo_desig)	
+                                $('#treasurer_name').val(header.repsig_pto_empl_id)
+                                $('#treasurer_desig').val(header.repsig_pto_desig)
+                                $('#pacco_name').val(header.repsig_pacco_empl_id)
+                                $('#pacco_desig').val(header.repsig_pacco_desig)     
+                            }
+                           
+                            oTable_cafoa.fnAddData(parsed);
+                            var allRows = oTable_cafoa.fnGetData();
+                            var total  = 0;
+                            for (var i = 0; i < allRows.length; i++)
+                            {
+                                total =+total  + parseFloat(allRows[i]["account_amt"])
+                            }
+                            $('#total_amount_cafoa_old').text(currency(total)); 
+                            $('#id_approved_amt').val(currency(total)); 
+                            total_cafoa()
+                        }
+                        else
+                        {
+                            alert("No Data Found!");
+                        }
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
                 }
-                reg_nbrs += (data[0] + "-").replace(" ","")
+            });
+        }
+        var init_table_data_cafoa = function (par_data)
+        {
+            datalistgrid_cafoa = par_data;
+            oTable_cafoa       = $('#datalist_grid_cafoa').dataTable(
+                {
+                    data        : datalistgrid_cafoa,
+                    sDom        : 'rt<"bottom">',
+                    //pageLength  : 2,
+                    paging      : false,
+                    columns:
+                    [
+                        {
+                            "mData": "function_code",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "function_name",
+                            "mRender": function (data, type, full, row)
+                            {
+                                return "<span class='btn-block'>" + data + " <br> <small class='badge'> "+full["account_code"]+" </span></span>"
+                            }
+                        },
+                        {
+                            "mData": "account_amt",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='btn-block text-right'>" + currency(data) + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "",
+                            "mRender": function (data, type, full, row) {
+                                return '<button type="button" class="btn text-center btn-info btn-sm" onclick=\'btn_cafoa_action(' + row["row"] + ',"update")\' data-toggle="tooltip" data-placement="top" title="Edit">  <i class="fa fa-edit"></i></button >'
+                                     + '<button type="button" class="btn text-center btn-danger btn-sm" onclick=\'btn_cafoa_action(' + row["row"] + ',"delete")\' data-toggle="tooltip" data-placement="top" title="Remove">  <i class="fa fa-trash"></i></button >'
+                            }
+                        },
+                    ],
+                });
+            
+            
+            
+        }
+        function btn_cafoa_action(row,action)
+        {
+            action_cafoa = action
+            $('#row_id').val("")
+            $('#seq_nbr').val("")
+            $('#function_code').val("")
+            $('#function_name').val("")
+            $('#allotment_code').val("")
+            $('#account_code').val("")
+            $('#account_amt').val("")
+            $('#raao_code').val("")
+            $('#ooe_code').val("")
+
+            if (action == "update")
+            {
+                var data = oTable_cafoa.fnGetData(row)
+                $('#row_id').val(row)
+                $('#seq_nbr').val(parseInt(data.seq_nbr))
+                $('#function_code').val(data.function_code)
+                $('#function_name').val(data.function_name)
+                $('#allotment_code').val(data.allotment_code)
+                $('#account_code').val(data.account_code)
+                $('#account_amt').val(currency(data.account_amt))
+                $('#raao_code').val(data.raao_code)
+                $('#ooe_code').val(data.ooe_code)
+
+                $('#modal_cafoa_details').modal({ backdrop: 'static', keyboard: false });
+
+            } else if (action == "add")
+            {
+                $('#seq_nbr').val(getLastRowPlusOne_Cafoa())
+                
+                $('#modal_cafoa_details').modal({ backdrop: 'static', keyboard: false });
             }
-            $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val(reg_nbrs)
-        }--%>
+            else if (action == "delete")
+            {
+                if (confirm("Are you sure you want to delete this row?"))
+                {
+                    oTable_cafoa.fnDeleteRow(row);
+                    total_cafoa()
+                }
+            }
+        }
+        function DepartmentSignatories()
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/DepartmentSignatories",
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select_req_name         = document.getElementById('req_name');
+                        var select_budget_name      = document.getElementById('budget_name');
+                        var select_treasurer_name   = document.getElementById('treasurer_name');
+                        var select_pacco_name       = document.getElementById('pacco_name');
+                        // Clear existing options if any
+                        select_req_name.innerHTML       = "";
+                        select_budget_name.innerHTML    = "";
+                        select_treasurer_name.innerHTML = "";
+                        select_pacco_name.innerHTML     = "";
+                        // Add Empty
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value = "";
+
+                        select_budget_name.appendChild(option1);
+                        select_treasurer_name.appendChild(option1);
+                        select_pacco_name.appendChild(option1);
+                        select_req_name.appendChild(option1);
+
+                        // Add options to the select element
+                        
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option      = document.createElement("option");
+                            option.text     = parsed[i].employee_name_format2 
+                            option.value    = parsed[i].empl_id;
+                            option.setAttribute("designation_head2", parsed[i].designation_head2);
+                            select_budget_name.appendChild(option);
+                        }
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option      = document.createElement("option");
+                            option.text     = parsed[i].employee_name_format2 
+                            option.value    = parsed[i].empl_id;
+                            option.setAttribute("designation_head2", parsed[i].designation_head2);
+                            select_treasurer_name.appendChild(option);
+                        }
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option      = document.createElement("option");
+                            option.text     = parsed[i].employee_name_format2 
+                            option.value    = parsed[i].empl_id;
+                            option.setAttribute("designation_head2", parsed[i].designation_head2);
+                            select_pacco_name.appendChild(option);
+                        }
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option              = document.createElement("option");
+                            option.text             = parsed[i].employee_name_format2 
+                            option.value            = parsed[i].empl_id;
+                            option.setAttribute("designation_head2", parsed[i].designation_head2);
+                            select_req_name.appendChild(option);
+                        }
+                        
+                    } else
+                    {
+                        alert("No Data Found!");
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function RetrieveFunctions(select_id)
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/RetrieveFunctions",
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById(select_id);
+                        // Clear existing options if any
+                        select.innerHTML = "";
+                        // Add Empty
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option              = document.createElement("option");
+                            option.text             = parsed[i].function_code + " - " + parsed[i].function_name ; 
+                            option.value            = parsed[i].function_code; 
+                            option.setAttribute("function_name", parsed[i].function_name);
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        alert("No Data Found!");
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+        
+
+        function btn_save_cafoa_dtl()
+        {
+            var upsert =
+            {
+                 payroll_year           : $('#<%= ddl_year.ClientID %>').val()
+                ,payroll_registry_nbr   : $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val()
+                ,seq_nbr                : parseInt($('#seq_nbr').val())
+                ,function_code          : $('#function_code').val()
+                ,allotment_code         : $('#allotment_code').val()
+                ,function_name          : $('#function_name').val()
+                ,account_code           : $('#account_code').val()
+                ,account_amt            : parseFloat($('#account_amt').val().replace(",","").replace(",",""))
+                ,raao_code              : $('#raao_code').val()
+                ,ooe_code               : $('#ooe_code').val()
+                ,account_short_title    : $('#function_code option:selected').text()
+            };
+
+            if (upsert.function_code == "")
+            {
+                alert("Function is Required!")
+                return
+            } else if (upsert.allotment_code == "")
+            {
+                alert("Allotment Code is Required!")
+                return
+            }else if (upsert.account_code == "")
+            {
+                alert("Account Code is Required!")
+                return
+            }
+            else if (upsert.account_amt == "" || upsert.account_amt == NaN)
+            {
+                alert("Amount is Required!")
+                return
+            }
+            
+            var rowIndex = $('#row_id').val()
+            if (action_cafoa == "update")
+            {
+                oTable_cafoa.fnUpdate(upsert, rowIndex, undefined, false);
+            }
+            else if (action_cafoa == "add")
+            {
+                oTable_cafoa.fnAddData(upsert);
+            } 
+            else
+            {
+                alert("No Action Selected")
+                return;
+            }
+            total_cafoa()
+            
+            $('#modal_cafoa_details').modal("hide");
+        }
+        function getLastRowPlusOne_Cafoa()
+        {
+            var rowCount = oTable_cafoa.fnGetData().length; // Get total row count
+            if (rowCount === 0) return 1; // If no rows, start from 1
+
+            var lastRowData = oTable_cafoa.fnGetData(rowCount - 1); // Get last row data
+            var lastValue = parseInt(lastRowData.seq_nbr, 10) || 0; // Convert to number
+            return lastValue + 1;
+        }
+
+        function saveall_cafoa()
+        {
+            if (big_cafoa_lbl != small_cafoa_lbl)
+            {
+                alert("CAFOA/OBR Amount is not equal!")
+                return;
+            }
+
+
+            var cafoa_hdr = {
+                                payroll_year		 : $('#<%= ddl_year.ClientID %>').val()
+                               ,payroll_registry_nbr : $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val()
+                               ,payee				 : $('#id_payee').val()	
+                               ,obr_nbr				 : $('#id_obr_nbr').val()
+                               ,approved_amt		 : $('#id_approved_amt').val()	
+                               ,dv_nbr				 : $('#id_dv_nbr').val()	
+                               ,request_descr		 : $('#id_request').val()	
+                               ,charged_to			 : $('#id_charged_to').val()	
+                               ,req_empl_id			 : $('#req_name').val()
+                               ,req_name			 : $('#req_name option:selected').text()
+                               ,req_desig			 : $('#req_desig').val()	
+                               ,budget_empl_id		 : $('#budget_name').val()
+                               ,budget_name			 : $('#budget_name option:selected').text()
+                               ,budget_desig		 : $('#budget_desig').val()	
+                               ,treasurer_empl_id	 : $('#treasurer_name').val()
+                               ,treasurer_name		 : $('#treasurer_name option:selected').text()
+                               ,treasurer_desig		 : $('#treasurer_desig').val()
+                               ,pacco_empl_id		 : $('#pacco_name').val()
+                               ,pacco_name			 : $('#pacco_name option:selected').text()
+                               ,pacco_desig			 : $('#pacco_desig').val()     
+                            }
+
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/saveall_cafoa",
+                data        : JSON.stringify({
+                                                 data_dtl : JSON.stringify(oTable_cafoa.fnGetData())
+                                                ,data_hdr : JSON.stringify(cafoa_hdr)
+                                            }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = response.d
+                    if (parsed == "success")
+                    {
+                        alert(parsed);
+                        $('#modal_cafoa').modal("hide");
+                    } else
+                    {
+                        alert(parsed);
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function total_cafoa()
+        {
+            var allRows = oTable_cafoa.fnGetData();
+            var total  = 0;
+            for (var i = 0; i < allRows.length; i++)
+            {
+                total =+total  + parseFloat(allRows[i]["account_amt"])
+            }
+            $('#total_amount_cafoa').text(currency(total)); 
+
+            big_cafoa_lbl   = $('#total_amount_cafoa').text().replace(",","").replace(",","")
+            small_cafoa_lbl = $('#total_amount_cafoa_old').text().replace(",","").replace(",","")
+            grand_cafoa_lbl = (parseFloat(big_cafoa_lbl) - parseFloat(small_cafoa_lbl)).toString()
+            $('#total_amount_cafoa_grand').text(currency(grand_cafoa_lbl)); 
+
+            $('#total_amount_cafoa').removeClass('blink-red')
+            if (big_cafoa_lbl != small_cafoa_lbl)
+            {
+                $('#total_amount_cafoa').addClass('blink-red')
+            } 
+        }
+
+        function currency(d)
+        {
+            var retdata = ""
+            if (d == null || d == "" || d == undefined) {
+                return retdata = "0.00"
+            }
+            else
+            {
+                retdata = parseFloat(d).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+                return retdata
+            }
+        }
         function checkSelectedRows()
         {
             reg_nbrs = "";
@@ -1908,11 +2558,18 @@
 
         $(document).ready(function ()
         {
+            init_table_data_cafoa([]);
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight');
            }, function () {
                    $(this).removeClass('highlight');
            });
+        });
+
+        $(document).on('hidden.bs.modal', '.modal', function () {
+            if ($('.modal.show').length > 0) {
+                $('body').addClass('modal-open'); // Re-add modal-open if another modal is still open
+            }
         });
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
