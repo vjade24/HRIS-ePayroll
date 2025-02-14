@@ -530,7 +530,7 @@
                                         return delay;
                                       },
                                     },
-                                    indexAxis: 'y',
+                                    indexAxis: 'x',
                                     elements: {
                                       bar: {
                                         borderWidth: 2,
