@@ -275,10 +275,16 @@ namespace HRIS_ePayroll.prinview
                 }
 
                 // VJA : 2020-11-12 - For Sub Report Obligation Request (CAFOA) 
-                else if (ls_splitvalue[1].ToString().Trim() == "sp_payrollregistry_cafao_rep_new")
+                else if (ls_splitvalue[1].ToString().Trim() == "sp_payrollregistry_cafao_rep_new" ||
+                         ls_splitvalue[1].ToString().Trim() == "sp_voucher_obr_rep")
                 {
+                    var par_descr = ls_splitvalue[4];
+                    if (ls_splitvalue[1].ToString().Trim() == "sp_voucher_obr_rep")
+                    {
+                        par_descr = "par_payroll_registry_nbr";
+                    }
                     dtSub = new DataTable();
-                    dtSub = MyCmn.RetrieveData("sp_payrollregistry_cafao_sub_rep", ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5]);
+                    dtSub = MyCmn.RetrieveData("sp_payrollregistry_cafao_sub_rep", ls_splitvalue[2], ls_splitvalue[3], par_descr, ls_splitvalue[5]);
                     cryRpt.Subreports["cryCAFAO_SubRep.rpt"].SetDataSource(dtSub);
                 }
                 // VJA : 2021-01-16 - Sub Report for Maternity Remittance

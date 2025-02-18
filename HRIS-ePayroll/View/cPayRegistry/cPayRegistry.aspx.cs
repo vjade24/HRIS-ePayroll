@@ -3808,7 +3808,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 dt = MyCmn.GetDatatable(query);
                 if (par_cafoa_type == "VOUCHER")
                 {
-                    dt = MyCmn.RetrieveData("sp_voucher_obr_rep", "par_payroll_year", payroll_year, "par_voucher_ctrl_nbr", payroll_registry_nbr, "par_payrolltemplate_code", payrolltemplate_code);
+                    dt_header = MyCmn.RetrieveData("sp_voucher_obr_rep", "par_payroll_year", payroll_year, "par_voucher_ctrl_nbr", payroll_registry_nbr, "par_payrolltemplate_code", payrolltemplate_code);
                 }
                 else
                 {
