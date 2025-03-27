@@ -402,10 +402,10 @@
         $(document).ready(function ()
         {
             $('#page-top').attr('onmousemove', 'hightlight()')
-            openNotification(par_year,par_month,'');
+            openSystemNotification(par_year,par_month,'');
         })
         
-        function openNotification(par_year,par_month,action)
+        function openSystemNotification(par_year,par_month,action)
         {   
             $.ajax({
                 type        : "POST",
@@ -541,7 +541,7 @@
                 {
                     if (action == "OPEN")
                     {
-                        openNotification(par_year,par_month,'');
+                        openSystemNotification(par_year,par_month,'');
                     }
                     else
                     {
