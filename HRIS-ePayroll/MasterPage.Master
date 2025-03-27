@@ -66,7 +66,26 @@
 </head>
 
 <body class="fixed-nav" id="page-top" >
-
+    <div class="modal fade" id="modal_notif_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+            <div class="modal-content ">
+                <div class="modal-header" >
+                    <h6 class="dropdown-header"> For Your Action </h6>
+                    <%--<button type="button" class="close collapse-button"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
+                </div>
+                <div class="modal-body " >
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="notificationsAccordion" class="accordion"></div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a class="dropdown-item text-center small text-gray-500 collapse-button" style="cursor:pointer;padding:10px;margin-top:20px"  data-dismiss="modal" aria-label="Close" onclick="btn_notif_close('CLOSE')">  <i class="fa fa-bell-o"></i> Remind me Later</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- The Modal - Favorite Notification -->
     <div class="modal fade" id="Fav_modal">
         <div class="modal-dialog modal-dialog-centered">
@@ -198,58 +217,6 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-          
-        <%--<li class="nav-item">
-            <asp:LinkButton ID="lnk_btn_favorites" CssClass="nav-link text-center" runat="server">
-                <i class="fa fa-star text-danger"></i> Remove to Favorites
-            </asp:LinkButton>
-        </li>--%>
-        <%--<li class="nav-item">
-            <a class="nav-link text-center" onclick="ExecuteAddRemoveFav('R')" >
-            <i class="fa fa-star text-danger"></i> Remove to Favorites
-            </a>
-        </li>
-         <li class="nav-item">
-            <a class="nav-link text-center" onclick="ExecuteAddRemoveFav('A')" >
-            <i class="fa fa-star text-warning"></i> Add to Favorites
-            </a>
-        </li>--%>
-        <!-- Nav Item - Messages -->
-        <%--<li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-            <i class="fa fa-bell fa-fw"></i>
-            <!-- Counter - Messages -->
-            <span class="badge badge-danger badge-counter">7</span>
-            </a>
-
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" style="overflow-x: hidden;overflow-y: auto;max-height:500px">
-            <h6 class="dropdown-header">
-                For Your Action
-            </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="font-weight-bold">
-                <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                <div class="small text-gray-500">Emily Fowler · 58m</div>
-                </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                <div class="status-indicator"></div>
-                </div>
-                <div>
-                <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                <div class="small text-gray-500">Jae Chun · 1d</div>
-                </div>
-            </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-            </div>
-        </li>--%>
         <%
         if (Session["history_page"].ToString() != "")
             {
@@ -267,7 +234,7 @@
         <li class="nav-item dropdown" >
           <a href="javascript:void(0);" class="nav-link text-info my-dp" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="noti fa fa-bell"><span class="counter bold" style="font-size:8px;margin-left:-7px;margin-top:7px;position:absolute;">&nbsp;</span></span>
-                <span class="badge badge-danger badge-counter" style="font-size:9px;margin-left:-3px">3</span>
+                <span class="badge badge-danger badge-counter" style="font-size:9px;margin-left:-3px">4</span>
            </a>
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" style="overflow-x: hidden;overflow-y: auto;max-height:500px;">
                 <a class="dropdown-item d-flex align-items-center notif_hightlight"  href="/View/cRECETaxUpd/cRECETaxUpd.aspx" >
@@ -283,6 +250,11 @@
                 <a class="dropdown-item d-flex align-items-center notif_hightlight"  href="/View/cApplTransmittal/cApplTransmittal.aspx" >
                     <div class="font-weight-bold">
                         <div class="text-truncate">3.) For Approval - > DTR Transmittal </div>
+                    </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center notif_hightlight" onclick="btn_notif_close('OPEN')" style="cursor:pointer" >
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">4.) System Notification </div>
                     </div>
                 </a>
             </div>
@@ -422,22 +394,169 @@
             });
         });
     </script>
-    <%--Disable All Button when Enter--%>
-
     <script type="text/javascript">
+
+        var par_year    = "2025";
+        var par_month   = "02";
+
         $(document).ready(function ()
         {
-            <%--setTimeout(function ()
-            {
-                alert('Session Timeout is Already ' + <%: session_timeout_expired  + 000 %> )
-            }, <%: session_timeout_expired + 000 %>);--%>
-            //onmousemove="hightlight()"
-
-            $('#page-top').attr('onmousemove','hightlight()')
-            
+            $('#page-top').attr('onmousemove', 'hightlight()')
+            openNotification(par_year,par_month,'');
         })
+        
+        function openNotification(par_year,par_month,action)
+        {   
+            $.ajax({
+                type        : "POST",
+                url         : "../../Default.aspx/NotificationList",
+                data        : JSON.stringify({ par_year: par_year, par_month: par_month }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.flag_notif == "True" || action == "OPEN")
+                    {
+                        if (parsed.dt.length > 0)
+                        {
+                            // Group notifications by notif_header
+                            const groupedNotifications = parsed.dt.reduce((groups, notif) =>
+                            {
+                              const key = notif.notif_type;
+                              if (!groups[key]) {
+                                groups[key] = [];
+                              }
+                              groups[key].push(notif);
+                              return groups;
+                            }, {});
+
+                            // Get the container element
+                            const container = document.getElementById('notificationsAccordion');
+                            container.innerHTML = ''; // Clears any existing content
+                            Object.keys(groupedNotifications).forEach((header, index) =>
+                            {
+                              const groupNotifs = groupedNotifications[header];
+                              const card        = document.createElement('div');
+                                card.classList.add('card');
+
+                              // Create the card header element
+                              const cardHeader  = document.createElement('div');
+                              cardHeader.classList.add('card-header');
+                              cardHeader.id     = `heading${index}`;
+                                
+                              var img_header_src = ""
+                              if (header == "PAYROLL-NOT-POSTED")
+                              {
+                                img_header_src = "../../ResourceImages/payroll-registry.png"
+                              }
+                              else if (header == "UNSETTLED-DTR")
+                              {
+                                  img_header_src = "../../ResourceImages/payroll-accounting.png"
+                              }
+                              else
+                              {
+                                  img_header_src = "../../ResourceImages/payroll-setup.png"
+                              }
+                              const headerMarkup = `<a class="dropdown-item d-flex align-items-center btn btn-link" 
+                                                       data-toggle="collapse" 
+                                                       data-target="#collapse${index}" 
+                                                       aria-expanded="true" 
+                                                       aria-controls="collapse${index}">
+                                                      <div class="dropdown-list-image mr-3">
+                                                          <span class="badge badge-danger"> ${groupNotifs.length}</span>
+                                                          <img class="rounded-circle" src="${img_header_src}" width="75" height="75" alt="">
+                                                      </div>
+                                                      <div class="font-weight-bold" >
+                                                          <div class="text-truncate">${header}</div>
+                                                          <div class="small text-gray-500" id="report_as_of${index}">${groupNotifs[0].report_as_of}</div>
+                                                      </div>
+                                                    </a>
+                                                  `;
+                              cardHeader.innerHTML = headerMarkup;
+                                
+                              const collapseDiv         = document.createElement('div');
+                              collapseDiv.id            = `collapse${index}`;
+                              collapseDiv.classList.add('collapse', 'show'); 
+                              collapseDiv.setAttribute('aria-labelledby', cardHeader.id);
+                              collapseDiv.setAttribute('data-parent', '#notificationsAccordion');
+                                
+                              const cardBody            = document.createElement('div');
+                              cardBody.classList.add('card-body');
+                              cardBody.style.maxHeight  = '500px';
+                              cardBody.style.overflowY  = 'scroll';
+                                
+                                groupNotifs.forEach((notif,index) =>
+                                {
+                                    const detailItem = document.createElement('div');
+                                    detailItem.classList.add('mb-2');
+                                    detailItem.style.cursor = 'pointer'
+                                    detailItem.innerHTML = `<a class="dropdown-item d-flex align-items-center" onclick="btn_go('${notif}')">
+                                                                <div class="dropdown-list-image mr-3">
+                                                                    <div class="font-weight-bold text-truncate">${index + 1}. </div>
+                                                                </div>
+                                                                <div class="font-weight-bold">
+                                                                    <div class="text-truncate">${notif.notif_header} </div>
+                                                                    <div class="small text-gray-500">${notif.notif_body}</div>
+                                                                </div>`
+                                                            + (notif.created_by_employee_name == `` ? `` : 
+                                                                `<div class="ml-auto d-flex" >
+                                                                    <div class="small text-gray-500">&nbsp;${notif.created_by_employee_name}</div>
+                                                                </div>`
+                                                              )
+                                                            +
+                                                            `</a>
+                                                            <hr class="mt-1 mb-1">`;
+
+                                    cardBody.appendChild(detailItem);
+                                    });
+                                
+                              collapseDiv.appendChild(cardBody);
+                              card.appendChild(cardHeader);
+                              card.appendChild(collapseDiv);
+                              container.appendChild(card);
+                            });
+                            
+                            $('#modal_notif_preview').modal({ backdrop: 'static', keyboard: false });
+                        }
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+            
+        }
+
+        function btn_notif_close(action)
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "../../Default.aspx/CloseOpenNotif",
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                data        : JSON.stringify({ action: action }),
+                success: function (result)
+                {
+                    if (action == "OPEN")
+                    {
+                        openNotification(par_year,par_month,'');
+                    }
+                    else
+                    {
+                        $('#modal_notif_preview').modal("hide");
+                    }
+                }, 
+            });
+        }
+
+        function btn_go(data)
+        {
+            console.log(data)
+            return
+        }
     </script>
-        <%--</form>--%>
 
 
     <script type="text/javascript">

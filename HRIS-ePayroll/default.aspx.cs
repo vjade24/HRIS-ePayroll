@@ -19,7 +19,8 @@ using System.Linq;
 using System.Web;
 using System.Net;
 using System.Drawing;
-
+using Newtonsoft.Json;
+using System.Web.Services;
 
 namespace HRIS_ePayroll
 {
@@ -120,6 +121,30 @@ namespace HRIS_ePayroll
                 ViewState["dirState"] = value;
             }
         }
-        
+        [WebMethod]
+        public static string NotificationList(string par_year, string par_month)
+        {
+            string json = "{}";
+            if (Boolean.Parse(HttpContext.Current.Session["flag_notif"].ToString()) == true && HttpContext.Current.Session["ep_user_id"].ToString() == "U8314")
+            {
+                CommonDB MyCmn = new CommonDB();
+                DataTable dt = new DataTable();
+                dt = MyCmn.RetrieveData("sp_payroll_notification", "par_year", par_year, "par_month", par_month);
+                var flag_notif = HttpContext.Current.Session["flag_notif"].ToString();
+                json = JsonConvert.SerializeObject(new { dt, flag_notif }, Newtonsoft.Json.Formatting.Indented);
+            }
+            return json;
+        }
+        [WebMethod]
+        public static string CloseOpenNotif(string action)
+        {
+            HttpContext.Current.Session["flag_notif"] = false;
+            if (action == "OPEN")
+            {
+                HttpContext.Current.Session["flag_notif"] = true;
+            }
+            return HttpContext.Current.Session["flag_notif"].ToString();
+        }
+
     }
 }

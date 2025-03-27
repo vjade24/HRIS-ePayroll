@@ -126,7 +126,7 @@ namespace HRIS_ePayroll
                             // 1 - Posting (For Accounting)
                             // 2 - Receiving (For Accounting)
                             // 3 - Audit (For Accounting)
-
+                            Session["flag_notif"]       = true;
                             //Session["session_timeout_expired"] = 1; // 1 Minute
                             Response.Redirect("~/");
                     }
