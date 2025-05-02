@@ -562,6 +562,24 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.TextBox txtb_rate_amount;
         
         /// <summary>
+        /// txtb_lates_min control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_lates_min;
+        
+        /// <summary>
+        /// LblRequired100 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblRequired100;
+        
+        /// <summary>
         /// div_voucher_type control.
         /// </summary>
         /// <remarks>
@@ -587,24 +605,6 @@ namespace HRIS_ePayroll.View {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddl_voucher_type;
-        
-        /// <summary>
-        /// txtb_lates_min control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtb_lates_min;
-        
-        /// <summary>
-        /// LblRequired100 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblRequired100;
         
         /// <summary>
         /// txtb_voucher_remarks control.

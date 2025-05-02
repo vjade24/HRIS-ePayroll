@@ -192,9 +192,9 @@
             <ContentTemplate>
                 <!-- Modal Add/EditPage-->
                 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+                    <div class="modal-dialog modal-dialog-centered  modal-xl" role="document">
                     <div class="modal-content" style="background-image:linear-gradient(white, lightblue)" >
-                        <div class="modal-header" style="background-image:linear-gradient(green, yellow);padding:8px!important;" >
+                        <div class="modal-header" style="background-image:linear-gradient(green, yellow)" >
                         <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                             <ContentTemplate>
                                 <h5 class="modal-title" id="AddEditPage"><asp:Label ID="LabelAddEdit" runat="server" Text="Add/Edit Page" forecolor="White"></asp:Label></h5>
@@ -255,13 +255,13 @@
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                      <asp:Label ID="Label2" runat="server" Text="Employee's Name:" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-6" >
+                                <div class="col-7" >
                                     <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                         <ContentTemplate>
-                                             <asp:DropDownList ID="ddl_empl_id" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_id_SelectedIndexChanged"></asp:DropDownList>
+                                             <asp:DropDownList ID="ddl_empl_id" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_id_SelectedIndexChanged" onchange="check_payroll()"></asp:DropDownList>
                                             <asp:TextBox runat="server" Font-Bold="true" Visible="false" ID="txtb_employeename" CssClass="form-control form-control-sm" Enabled="false"></asp:TextBox>
                                             <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired60"></asp:Label>
                                         </ContentTemplate>
@@ -283,10 +283,10 @@
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                      <asp:Label ID="Label11" runat="server" Text="Position Title:" CssClass="font-weight-bold" ></asp:Label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel ID="UpdatePanel22" runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox ID="txtb_position" Font-Bold="true" CssClass="form-control form-control-sm" Width="100%" Enabled="false" runat="server"></asp:TextBox>
@@ -301,11 +301,11 @@
 
                             </div>
                             <div class="row" >
-                                <div class="col-3">
+                                <div class="col-2">
                                     <a href="#demo" data-toggle="collapse" id="btn_show">Department <small>(Show)</small>:</a>
                                     <%--<label class="font-weight-bold">Department:</label>--%>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                                 <asp:DropDownList ID="ddl_dep_modal" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" Enabled="false"></asp:DropDownList>
@@ -319,40 +319,40 @@
                                 </div>
                             </div>
                             <div class="row collapse" id="demo">
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label class="font-weight-bold">Sub-Department:</label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel ID="UpdatePanel21" runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_subdep" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_subdep_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label class="font-weight-bold">Division:</label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_division" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_division_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label class="font-weight-bold">Section:</label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel ID="UpdatePanel23" runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_section" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddl_section_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label class="font-weight-bold">Fund Charges:</label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-10">
                                     <asp:UpdatePanel ID="UpdatePanel17" runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_fund_charges" runat="server" CssClass="form-control form-control-sm" Width="100%" AutoPostBack="true" Enabled="false"></asp:DropDownList>
@@ -364,10 +364,10 @@
                                 <div class="col-12" runat="server" >
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Prepared By (Name):" Font-Size="Smaller"></asp:label>
+                                <div class="col-2">
+                                    <asp:label runat="server" Font-Bold="true" Text="Prepared By (Name):" ></asp:label>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_prepared_name" CssClass="form-control form-control-sm"></asp:TextBox>
@@ -375,7 +375,7 @@
                                     </asp:UpdatePanel>
                                 </div>
                                 <div class="col-2">
-                                    <asp:label runat="server" Font-Bold="true" Text="Designation:" Font-Size="Smaller"></asp:label>
+                                    <asp:label runat="server" Font-Bold="true" Text="Designation:" ></asp:label>
                                 </div>
                                 <div class="col-4">
                                     <asp:UpdatePanel runat="server">
@@ -390,10 +390,10 @@
                             </div>
                             <div class="row" >
                                 
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Claimant Name:" Font-Size="Smaller"></asp:label>
+                                <div class="col-2">
+                                    <asp:label runat="server" Font-Bold="true" Text="Claimant Name:" ></asp:label>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" ID="txtb_claimant_name" CssClass="form-control form-control-sm"></asp:TextBox>
@@ -401,7 +401,7 @@
                                     </asp:UpdatePanel>
                                 </div>
                                 <div class="col-2">
-                                    <asp:label runat="server" Font-Bold="true" Text="Relationship:" Font-Size="Smaller"></asp:label>
+                                    <asp:label runat="server" Font-Bold="true" Text="Relationship:" ></asp:label>
                                 </div>
                                 <div class="col-4">
                                     <asp:UpdatePanel runat="server">
@@ -419,7 +419,7 @@
                                 <div class="col-6">
                                     <div class="form-group row">
                                             
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:Label runat="server" class="font-weight-bold" ID="lbl_rate_descr" Text="Monthly Rate:" ></asp:Label>
@@ -427,10 +427,21 @@
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-3">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:TextBox runat="server" ID="txtb_rate_amount" CssClass="form-control form-control-sm text-right" Text="0.00" ></asp:TextBox>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                        <div class="col-2">
+                                            <asp:label runat="server" Font-Bold="true" Text="Lates Min:" ></asp:label>
+                                        </div>
+                                        <div class="col-3">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:TextBox runat="server" ID="txtb_lates_min" CssClass="form-control form-control-sm text-right"></asp:TextBox>
+                                                    <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired100"></asp:Label>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
@@ -451,9 +462,6 @@
                                                                 <asp:ListItem Value="1" Text="Diff./First Claim (Promotion)"></asp:ListItem>
                                                                 <asp:ListItem Value="2" Text="Sal. Diff (Multiple Months)"></asp:ListItem>
                                                                 <asp:ListItem Value="3" Text="Other Sal. (Multiple Months)"></asp:ListItem>
-                                                                <%--<asp:ListItem Value="2" Text="Other Claims"></asp:ListItem>--%>
-                                                                <%--<asp:ListItem Value="2" Text="First Claim (New)"></asp:ListItem>
-                                                                <asp:ListItem Value="3" Text="Retirement Incentives"></asp:ListItem>--%>
                                                             </asp:DropDownList>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
@@ -463,47 +471,46 @@
                                     </asp:UpdatePanel>
                                     
                                 </div>
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Lates Min:" ></asp:label>
-                                </div>
-                                <div class="col-3">
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:TextBox runat="server" ID="txtb_lates_min" CssClass="form-control form-control-sm text-right"></asp:TextBox>
-                                            <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired100"></asp:Label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
+                                
                             </div>
 
                             <div class="row mt-1" >
-                                
-                                <div class="col-3">
-                                    <asp:label runat="server" Font-Bold="true" Text="Remarks:" ></asp:label>
-                                </div>
-                                <div class="col-9">
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:TextBox runat="server" ID="txtb_voucher_remarks" CssClass="form-control form-control-sm"></asp:TextBox>
-                                            <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired103"></asp:Label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                <div class="col-lg-6">
+
+                                    <div class="form-group row">
+                                        <div class="col-4">
+                                            <asp:label runat="server" Font-Bold="true" Text="Remarks:" ></asp:label>
+                                        </div>
+                                        <div class="col-8">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:TextBox runat="server" ID="txtb_voucher_remarks" CssClass="form-control form-control-sm"></asp:TextBox>
+                                                    <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired103"></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
                             </div>
 
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                         <div class="row mt-1" runat="server" id="div_no_of_days">
-                                            <div class="col-3" >
-                                                <asp:label runat="server" Font-Bold="true" Text="No of Days:" ></asp:label>
-                                            </div>
-                                            <div class="col-3">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
-                                                        <asp:TextBox runat="server" ID="txtb_no_of_days" CssClass="form-control form-control-sm text-right"></asp:TextBox>
-                                                        <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired1"></asp:Label>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <div class="col-4" >
+                                                        <asp:label runat="server" Font-Bold="true" Text="No of Days:" ></asp:label>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <asp:UpdatePanel runat="server">
+                                                            <ContentTemplate>
+                                                                <asp:TextBox runat="server" ID="txtb_no_of_days" CssClass="form-control form-control-sm text-right"></asp:TextBox>
+                                                                <asp:Label runat="server" CssClass="lbl_required" ID="LblRequired1"></asp:Label>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                 </ContentTemplate>
@@ -762,7 +769,7 @@
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-6">
                                                     <asp:UpdatePanel runat="server">
                                                         <ContentTemplate>
                                                             <asp:label runat="server" Font-Bold="true" Text="Voucher Details #1:" ></asp:label>
@@ -771,7 +778,7 @@
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-6">
                                                     <asp:UpdatePanel runat="server">
                                                         <ContentTemplate>
                                                             <asp:label runat="server" Font-Bold="true" Text="Voucher Details #2:" ID="lbl_voucher_descr2" ></asp:label>
@@ -787,7 +794,7 @@
                                                     <h6 class="m-t-none m-b text-success">DOCUMENT TRACKING OVERRIDES</h6>
                                                 </div>
                                         
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <asp:Label ID="Label9" runat="server" CssClass="font-weight-bold"  Text="Department:"></asp:Label>
                                                     <asp:UpdatePanel ID="UpdatePanel24" runat="server">
                                                         <ContentTemplate>
@@ -797,7 +804,7 @@
                                                     </asp:UpdatePanel>
                                                 </div>
 
-                                                <div class="col-md-12">
+                                                <div class="col-md-4">
                                                     <asp:Label ID="Label13" runat="server" CssClass="font-weight-bold"  Text="Function code:"></asp:Label>
                                                     <asp:UpdatePanel ID="UpdatePanel25" runat="server">
                                                         <ContentTemplate>
@@ -806,7 +813,7 @@
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-2">
                                                     <asp:Label ID="Label15" runat="server" CssClass="font-weight-bold"  Text="Allotment code:"></asp:Label>
                                                     <asp:UpdatePanel ID="UpdatePanel26" runat="server">
                                                         <ContentTemplate>
@@ -821,7 +828,7 @@
                                         <%--MANDATORY DEDUCTIONS--%>
                                         <div class="tab-pane fade"  id="mandatory_tab" role="tabpanel" style="border: 1px solid green;padding-bottom:5px;border-radius:0px 0px 5px 5px;padding-left:10px;padding-right:10px;min-height: 200px" aria-labelledby="id_mandatory" >
                                             <div class="row" style="padding-left:15px;padding-right:15px;padding-top:10px">
-                                                <div class="col-6">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                         <div class="col-6" >
                                                             <asp:label runat="server" Font-Bold="true" Text="GSIS - GS:" Font-Size="Small"></asp:label>
@@ -869,7 +876,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                         <div class="col-6">
                                                             <asp:label runat="server" Font-Bold="true" Text="HDMF-PS:" Font-Size="Small"></asp:label>
@@ -1076,7 +1083,7 @@
                                         <%--OPTIONAL DEDUCTIONS--%>
                                         <div class="tab-pane fade" id="optional_tab" role="tabpanel" style="border: 1px solid green;padding-bottom:5px;border-radius:0px 0px 5px 5px;padding-left:10px;padding-right:10px;min-height: 200px;" aria-labelledby="id_optional">
                                             <div class="row" style="padding-left:15px;padding-right:15px;padding-top:10px">
-                                                <div class="col-6">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                         <div class="col-6" style="padding:0px;padding-right:5px">
                                                             <asp:label runat="server" Font-Bold="true" Text="SSS:" Font-Size="Small"></asp:label>
@@ -1160,7 +1167,7 @@
                                                 </div>
 
 
-                                                <div class="col-6">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                         
                                                         <div class="col-6" style="padding:0px;padding-right:5px">
@@ -1422,7 +1429,7 @@
                                         <%--LOANS--%>
                                         <div class="tab-pane fade" id="loans_tab" role="tabpanel" style="border: 1px solid green;padding-bottom:5px;border-radius:0px 0px 5px 5px;padding-left:10px;padding-right:10px;min-height: 200px" aria-labelledby="id_loans" >
                                             <div class="row" style="padding-left:15px;padding-right:15px;padding-top:10px">
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                     <div class="col-6" style="padding:0px;padding-right:5px">
                                                         <asp:label runat="server" Font-Bold="true" Text="Consol:"  Font-Size="Small"></asp:label>
@@ -1516,7 +1523,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="form-group row">
                                                             
 
@@ -1610,7 +1617,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="form-group row">
                                                             
                                                             <div class="col-6" style="padding:0px;padding-right:5px">
@@ -1724,6 +1731,11 @@
                                                             </div>
 
                                                             <%-- BEGIN     - VJA - 2022-05-27 - RESERVED DEDUCTIONS--%>
+                                                       <%-- END     - VJA - 2022-05-27 - RESERVED DEDUCTIONS--%>
+                                                        </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group row">
                                                         <div class="col-6"  style="padding:0px;padding-right:5px">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
@@ -1874,8 +1886,8 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                       <%-- END     - VJA - 2022-05-27 - RESERVED DEDUCTIONS--%>
-                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1943,6 +1955,23 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
+        <div class="modal fade" id="modal_payroll_exists" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+                <div class="modal-content ">
+                    <div class="modal-header" style="background-image: linear-gradient(360deg, #ff2500, #106aff);color: white;">
+                        <h6 id="id_hdr_payroll_check"></h6>
+                        <button type="button" class="close collapse-button"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body " >
+                        <div class="row">
+                            <div class="col-lg-12" >
+                                <ul style="max-height:500px !important;overflow-y:scroll !important" class="list-group" id="dataList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="notification">
             <!-- The Modal - Message -->
             <div class="modal-dialog modal-dialog-centered">
@@ -2130,7 +2159,8 @@
                                             <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                                                 <ContentTemplate>
                                             
-                                                    <% if (ViewState["page_allow_add"].ToString() == "1" && (ddl_payroll_template.SelectedValue.ToString() != "609" && ddl_payroll_template.SelectedValue.ToString() != "709" && ddl_payroll_template.SelectedValue.ToString() != "809"))
+                                                    <% if (ViewState["page_allow_add"].ToString() == "1" && ((ddl_payroll_template.SelectedValue.ToString() != "609" && ddl_payroll_template.SelectedValue.ToString() != "709" && ddl_payroll_template.SelectedValue.ToString() != "809") &&
+                                                                                                             (ddl_payroll_template.SelectedValue.ToString() != "605" && ddl_payroll_template.SelectedValue.ToString() != "705" && ddl_payroll_template.SelectedValue.ToString() != "805")))
                                                         {
                                                     %>
                                                             <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn btn-block"  Text="Add" OnClick="btnAdd_Click" />
@@ -2142,7 +2172,7 @@
                                                         else
                                                         {
                                                     %>
-                                                            <label  style="font-size:xx-small;font-weight:bold;color:red;text-align:center"> YOU CANNOT ADD OTHER CLAIMS/REFUND AT THIS TIME!</label>
+                                                            <label  style="font-size:xx-small;font-weight:bold;color:red;text-align:center"> YOU CANNOT ADD AT THIS TIME!</label>
                                                     <%
                                                         }
                                                     %>
@@ -2213,9 +2243,18 @@
                                                     <ItemTemplate>
                                                         &nbsp;<%# Eval("position_title1") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="25%" />
+                                                    <ItemStyle Width="20%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Left" />
+                                                </asp:TemplateField>
+
+                                               <asp:TemplateField HeaderText="PERIOD COVERED" SortExpression="voucher_period_from">
+                                                    <ItemTemplate>
+                                                        &nbsp;<%# Eval("voucher_period_from") + " - " + Eval("voucher_period_to") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="15%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
 
                                                <asp:TemplateField HeaderText="NET PAY" SortExpression="net_pay">
@@ -3219,6 +3258,81 @@
                 retdata = parseFloat(d).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
                 return retdata
             }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function check_payroll()
+        {
+            var ctrlno          = $('#<%= lbl_registry_no.ClientID %>').text()
+            var empl_id         = $('#<%= ddl_empl_id.ClientID %>').val()
+            var period_from     = $('#<%= txtb_period_from.ClientID %>').val()
+            var period_to       = $('#<%= txtb_period_to.ClientID %>').val()
+
+            if (period_from == "" || period_to == "" )
+            {
+                alert("Period from and Period to is Required!")
+                return
+            }
+
+            if (empl_id == "")
+            {
+                alert("Employee ID is Required!")
+                return
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "../../Default.aspx/CheckPayrollExists",  // Make sure this URL is correct!
+                data: JSON.stringify({
+                     par_payroll_registry_nbr    : ctrlno
+                    ,par_empl_id                 : empl_id
+                    ,par_period_from             : period_from
+                    ,par_period_to               : period_to
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var period_covered = new Date(period_from).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }).toUpperCase()
+                                     +" - "+ new Date(period_to).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }).toUpperCase()
+                        $('#id_hdr_payroll_check').text("PAYROLL EXIST FOR THE PERIOD "+ period_covered + " ("+ parsed[0].employee_name + ")")
+                        let list = $("#dataList");
+                        list.empty(); 
+                        
+                        $.each(parsed, function (index, item)
+                        {
+                            let post_status = item.post_status_descr == "NOT POSTED" ? "danger" : "success";
+                            let listItem = `<li class="list-group-item">
+                                            <div class="form-group row">
+                                                <div class="col-lg-12 font-weight-bold">
+                                                    ${item.payrolltemplate_descr}
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <small>${item.payroll_registry_descr}</small><br />
+                                                    <small>${item.period_covered}</small>
+                                                </div>
+                                                <div class="col-lg-4 text-center">
+                                                    <span class="badge badge-${post_status}">${item.post_status_descr}</span>
+                                                </div>
+                                            </div>
+                                        </li>`;
+
+                            list.append(listItem);
+                        });
+                        $('#modal_payroll_exists').modal({ backdrop: 'static', keyboard: false });
+                        
+                    }
+                },
+                error: function (xhr)
+                {
+                    alert("AJAX Error")
+                    console.error("AJAX Error:", xhr.status, xhr.responseText);
+                }
+            });
         }
     </script>
 </asp:Content>

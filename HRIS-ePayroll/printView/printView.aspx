@@ -102,5 +102,8 @@
         $(document).ready(function () {
             $('#sidenavToggler').click()
         });
+        function hightlight()
+        {
+        }
     </script>
 </asp:Content>

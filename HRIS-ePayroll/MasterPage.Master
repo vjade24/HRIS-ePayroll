@@ -402,7 +402,7 @@
         $(document).ready(function ()
         {
             $('#page-top').attr('onmousemove', 'hightlight()')
-            openSystemNotification(par_year,par_month,'');
+            //openSystemNotification(par_year,par_month,'');
         })
         
         function openSystemNotification(par_year,par_month,action)

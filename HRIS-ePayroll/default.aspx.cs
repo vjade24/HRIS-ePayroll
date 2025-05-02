@@ -145,6 +145,16 @@ namespace HRIS_ePayroll
             }
             return HttpContext.Current.Session["flag_notif"].ToString();
         }
-
+        [WebMethod]
+        public static string CheckPayrollExists(string par_payroll_registry_nbr, string par_empl_id, string par_period_from, string par_period_to)
+        {
+            string json = "{}";
+            CommonDB MyCmn = new CommonDB();
+            DataTable dt = new DataTable();
+            string query = "SELECT A.payroll_registry_nbr,A.empl_id,A.employee_name,A.payrolltemplate_descr,A.payroll_registry_descr,FORMAT(A.payroll_period_from,'MMMM d, yyy') + ' - ' + FORMAT(A.payroll_period_to,'MMMM d, yyy') AS period_covered,A.gross_pay,A.net_pay,A.post_status_descr FROM HRIS_ACT.dbo.vw_payrollregistry_info7_HRIS_ACT_post_status A WHERE (CONVERT(date,A.payroll_period_from) BETWEEN '" + par_period_from + "' AND '" + par_period_to + "' OR CONVERT(date,A.payroll_period_to) BETWEEN '" + par_period_from + "' AND '" + par_period_to + "') AND  A.payroll_registry_nbr <> '" + par_payroll_registry_nbr + "' AND  A.empl_id = '" + par_empl_id + "'";
+            dt = MyCmn.GetDatatable(query);
+            json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
     }
 }

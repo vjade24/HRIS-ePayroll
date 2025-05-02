@@ -3831,6 +3831,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             CommonDB MyCmn = new CommonDB();
             DataTable dt = new DataTable();
             string query = "SELECT A.department_code,A.department_short_name,A.empl_id,UPPER(B.employee_name_format3) AS employee_name_format2,UPPER(A.designation_head1) AS designation_head1,UPPER(A.designation_head2) AS designation_head2,UPPER(A.function_code) AS function_code FROM departments_tbl A INNER JOIN vw_personnelnames2_tbl B ON B.empl_id = A.empl_id";
+            query        = query + " UNION SELECT B.department_code,B.department_short_name,A.empl_id,UPPER(A.employee_name) AS employee_name_format2,UPPER(A.position_long_title) AS designation_head1,UPPER(A.position_long_title) AS designation_head2,A.function_code AS function_code FROM vw_payrollemployeemaster_hdr_pos_tbl A INNER JOIN departments_tbl B ON B.department_code = A.department_code WHERE A.empl_id IN ('10631')";
             dt = MyCmn.GetDatatable(query);
             string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
             return json;
@@ -3970,8 +3971,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
                                 cmd.Parameters.AddWithValue("@updated_by_user", "");
                                 cmd.Parameters.AddWithValue("@created_dttm", DateTime.Now);
                                 cmd.Parameters.AddWithValue("@updated_dttm", "");
-                                cmd.Parameters.AddWithValue("@raao_code", item.raao_code);
-                                cmd.Parameters.AddWithValue("@ooe_code", item.ooe_code);
+                                cmd.Parameters.AddWithValue("@raao_code", item.raao_code == null ? "" : item.raao_code);
+                                cmd.Parameters.AddWithValue("@ooe_code", item.ooe_code == null ? "" : item.ooe_code);
                                 cmd.ExecuteNonQuery();
                             }
                         }

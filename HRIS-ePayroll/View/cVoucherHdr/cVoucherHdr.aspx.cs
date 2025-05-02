@@ -1001,6 +1001,9 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan9.Text   =  "0.00";
             txtb_other_ded_loan10.Text  =  "0.00";
 
+            txtb_period_from.Text   = DateTime.Parse(ddl_year.SelectedValue.ToString() + "-" + ddl_month.SelectedValue.ToString() + "-01").ToString("yyyy-MM-dd");
+            txtb_period_to.Text     = DateTime.Parse(txtb_period_from.Text).AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd");
+
             FieldValidationColorChanged(false, "ALL");
         }
         //*************************************************************************
@@ -4739,6 +4742,17 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan8.Enabled      = ifenable;
             txtb_other_ded_loan9.Enabled      = ifenable;
             txtb_other_ded_loan10.Enabled     = ifenable;
+
+            txtb_voucher_remarks.Enabled     = ifenable;
+            txtb_gross_pay.Enabled           = ifenable;
+            ddl_voucher_type.Enabled         = ifenable;
+            ddl_department_code_trk.Enabled     = ifenable;
+            ddl_function_code_trk.Enabled       = ifenable;
+            txtb_allotment_code_trk.Enabled     = ifenable;
+            txtb_other_amount1.Enabled          = ifenable;
+            txtb_rate_amount.Enabled            = ifenable;
+
+
         }
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Toogle All Textbox 

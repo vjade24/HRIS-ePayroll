@@ -202,7 +202,10 @@ namespace HRIS_ePayroll.View
             else if (ddl_payroll_template.SelectedValue.ToString().Trim() == "957" ||    // SERVICE RECOGNITION INCENTIVE - CASUAL
                      ddl_payroll_template.SelectedValue.ToString().Trim() == "962" ||    // SERVICE RECOGNITION INCENTIVE - PERMANENT
                      ddl_payroll_template.SelectedValue.ToString().Trim() == "979" ||    // CLOTHING DIFF REG
-                     ddl_payroll_template.SelectedValue.ToString().Trim() == "980"   )   // CLOTHING DIFF CE
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "980" ||     // CLOTHING DIFF CE
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "983" ||     // MEDICAL ALLOWANCE
+                     ddl_payroll_template.SelectedValue.ToString().Trim() == "984"        // MEDICAL ALLOWANCE
+                     )
             {
                 special_group = "01";
 
