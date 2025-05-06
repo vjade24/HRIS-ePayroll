@@ -4230,6 +4230,7 @@ namespace HRIS_ePayroll.View
                     total_netpay = double.Parse(txtb_gross_pay.Text.ToString()) + double.Parse(txtb_other_amount1.Text.ToString());
                     total_netpay = total_netpay - double.Parse(txtb_lwo_pay.Text.ToString().Trim());
                     total_netpay = total_netpay - double.Parse(txtb_lwop_amount_pera.Text.ToString().Trim());
+                    total_netpay = total_netpay - double.Parse(txtb_lates_amount.Text.ToString().Trim());
                     total_netpay = total_netpay - (double.Parse(txtb_total_mandatory.Text) + double.Parse(txtb_total_optional.Text) + double.Parse(txtb_total_loans.Text) + double.Parse(txtb_other_amount4.Text));
                     break;
                 // Template Code for Other Claims/Refund
