@@ -62,7 +62,7 @@
         <ContentTemplate>
         <div class="row">
             <div class="col-12">
-                <div id="crvHolder" style="overflow:scroll;height:560px;width:100%;">
+                <div id="crvHolder" style="overflow:scroll;height:100%;width:100%;">
                     <CR:CrystalReportViewer 
                         ID                       ="crvPrint" 
                         runat                    ="server" 
