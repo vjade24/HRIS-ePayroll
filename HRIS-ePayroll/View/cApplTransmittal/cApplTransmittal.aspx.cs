@@ -524,6 +524,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
                 row2Edit[0]["remarks"]          = txtb_trans_remarks.Text;
                 SaveAddEdit.Text                    = "The Record has been Disapproved !";
             }
+            par_status = "T";
             string Table_name       = "dtr_transmittal_hdr_tbl";
             string SetExpression    = "approval_status = '" + par_status + "', approved_by = '" + Session["ep_user_id"].ToString() + "',approved_date = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',remarks = '" + txtb_trans_remarks.Text.ToString().Replace("'","''") + "' ";
             string WhereExpression  = "WHERE " + editExpression;

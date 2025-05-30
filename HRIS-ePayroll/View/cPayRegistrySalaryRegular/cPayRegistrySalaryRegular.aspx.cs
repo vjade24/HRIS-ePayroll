@@ -3494,6 +3494,9 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan8.Text    = row2Edit2[0]["other_ded_loan8"].ToString(); 
             txtb_other_ded_loan9.Text    = row2Edit2[0]["other_ded_loan9"].ToString();
             txtb_other_ded_loan10.Text   = row2Edit2[0]["other_ded_loan10"].ToString();
+
+            txtb_remarks.Text           = row2Edit2[0]["remarks"].ToString();
+            txtb_no_days_lwopay.Text    = row2Edit2[0]["lowpay_day"].ToString();
         }
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Triggers When Click Calculate Button
@@ -3538,10 +3541,10 @@ namespace HRIS_ePayroll.View
 
             double lwo_amount_monthly_override = 0;
             lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
-            if ((lwo_amount_monthly_override == lwo_amount_monthly) || lwo_amount_monthly_override == 0)
-            {
+            //if ((lwo_amount_monthly_override == lwo_amount_monthly) || lwo_amount_monthly_override == 0)
+            //{
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
-            }
+            //}
 
             double wages_net = 0;
             wages_net = double.Parse(txtb_rate_amount.Text.ToString()) - (double.Parse(txtb_late_in_amount.Text.ToString()) + double.Parse(txtb_lwo_pay.Text.ToString()));
@@ -3573,10 +3576,10 @@ namespace HRIS_ePayroll.View
 
             double lwo_amount_monthly_override = 0;
             lwo_amount_monthly_override = double.Parse(txtb_lwop_amount_pera.Text);
-            if ((lwo_amount_monthly_override == lwo_amount_pera) || lwo_amount_monthly_override == 0)
-            {
+            //if ((lwo_amount_monthly_override == lwo_amount_pera) || lwo_amount_monthly_override == 0)
+            //{
                 txtb_lwop_amount_pera.Text = lwo_amount_pera.ToString("###,##0.00").Trim();
-            }
+            //}
             
             double pera_net = 0;
             pera_net = double.Parse(txtb_pera_amount.Text.ToString()) - (double.Parse(txtb_late_in_amount_pera.Text.ToString()) + double.Parse(txtb_lwop_amount_pera.Text.ToString()));
