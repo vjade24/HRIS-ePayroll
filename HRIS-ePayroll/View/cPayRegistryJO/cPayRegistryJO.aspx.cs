@@ -2957,6 +2957,37 @@ namespace HRIS_ePayroll.View
             txtb_no_worked_1st.Text             = selected_employee[0]["days_worked_010"].ToString();
             txtb_no_hours_worked_1st.Text       = selected_employee[0]["hours_worked_010"].ToString();
             txtb_no_absent_2nd.Text             = selected_employee[0]["nbr_days_absent"].ToString();
+                
+            txtb_other_ded_mand1.Text           = selected_employee[0]["other_ded_mand1"].ToString();
+            txtb_other_ded_mand2.Text           = selected_employee[0]["other_ded_mand2"].ToString();
+            txtb_other_ded_mand3.Text           = selected_employee[0]["other_ded_mand3"].ToString();
+            txtb_other_ded_mand4.Text           = selected_employee[0]["other_ded_mand4"].ToString();
+            txtb_other_ded_mand5.Text           = selected_employee[0]["other_ded_mand5"].ToString();
+            txtb_other_ded_mand6.Text           = selected_employee[0]["other_ded_mand6"].ToString();
+            txtb_other_ded_mand7.Text           = selected_employee[0]["other_ded_mand7"].ToString();
+            txtb_other_ded_mand8.Text           = selected_employee[0]["other_ded_mand8"].ToString();
+            txtb_other_ded_mand9.Text           = selected_employee[0]["other_ded_mand9"].ToString();
+            txtb_other_ded_mand10.Text          = selected_employee[0]["other_ded_mand10"].ToString();
+            txtb_other_ded_prem1.Text           = selected_employee[0]["other_ded_prem1"].ToString();
+            txtb_other_ded_prem2.Text           = selected_employee[0]["other_ded_prem2"].ToString();
+            txtb_other_ded_prem3.Text           = selected_employee[0]["other_ded_prem3"].ToString();
+            txtb_other_ded_prem4.Text           = selected_employee[0]["other_ded_prem4"].ToString();
+            txtb_other_ded_prem5.Text           = selected_employee[0]["other_ded_prem5"].ToString();
+            txtb_other_ded_prem6.Text           = selected_employee[0]["other_ded_prem6"].ToString();
+            txtb_other_ded_prem7.Text           = selected_employee[0]["other_ded_prem7"].ToString();
+            txtb_other_ded_prem8.Text           = selected_employee[0]["other_ded_prem8"].ToString();
+            txtb_other_ded_prem9.Text           = selected_employee[0]["other_ded_prem9"].ToString();
+            txtb_other_ded_prem10.Text          = selected_employee[0]["other_ded_prem10"].ToString();
+            txtb_other_ded_loan1.Text           = selected_employee[0]["other_ded_loan1"].ToString();
+            txtb_other_ded_loan2.Text           = selected_employee[0]["other_ded_loan2"].ToString();
+            txtb_other_ded_loan3.Text           = selected_employee[0]["other_ded_loan3"].ToString();
+            txtb_other_ded_loan4.Text           = selected_employee[0]["other_ded_loan4"].ToString();
+            txtb_other_ded_loan5.Text           = selected_employee[0]["other_ded_loan5"].ToString();
+            txtb_other_ded_loan6.Text           = selected_employee[0]["other_ded_loan6"].ToString();
+            txtb_other_ded_loan7.Text           = selected_employee[0]["other_ded_loan7"].ToString();
+            txtb_other_ded_loan8.Text           = selected_employee[0]["other_ded_loan8"].ToString();
+            txtb_other_ded_loan9.Text           = selected_employee[0]["other_ded_loan9"].ToString();
+            txtb_other_ded_loan10.Text          = selected_employee[0]["other_ded_loan10"].ToString();
 
             Update_lates_and_undertime.Update();
             Update_rate_amount.Update();
