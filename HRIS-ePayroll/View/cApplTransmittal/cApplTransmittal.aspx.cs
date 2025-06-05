@@ -586,7 +586,7 @@ namespace HRIS_ePayroll.View.cApplTransmittal
                 btn_disapprove.Visible      = true;
                 btn_rcvd_payroll.Visible    = false;
             }
-            else if (par_status == "D")
+            else if (par_status == "D" || par_status == "T")
             {
                 btn_approve.Visible         = false;
                 btn_disapprove.Visible      = false;

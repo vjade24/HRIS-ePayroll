@@ -433,6 +433,7 @@
                                                         <asp:ListItem Value="S" Text="Submitted"></asp:ListItem>
                                                         <asp:ListItem Value="A" Text="Approved"></asp:ListItem>
                                                         <asp:ListItem Value="D" Text="Disapproved"></asp:ListItem>
+                                                        <asp:ListItem Value="T" Text="For Return"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -503,8 +504,8 @@
                                                <asp:TemplateField HeaderText="STATUS" SortExpression="approval_status_descr">
                                                     <ItemTemplate>
                                                         &nbsp;
-                                                        <span class="<%# Eval("approval_status").ToString()  != "D" ? "badge badge-success" : "badge badge-danger" %>">
-                                                            <i class="<%# Eval("approval_status").ToString() != "D" ? "fa fa-check" : "fa fa-times" %> "></i>
+                                                        <span class="<%# Eval("approval_status").ToString()  != "D" && Eval("approval_status").ToString()  != "T" ? "badge badge-success" : "badge badge-danger" %>">
+                                                            <i class="<%# Eval("approval_status").ToString() != "D" && Eval("approval_status").ToString()  != "T" ? "fa fa-check" : "fa fa-times" %> "></i>
                                                             <%#  Eval("approval_status_descr") %>
                                                         </span>
 
