@@ -244,7 +244,7 @@
                                         <ContentTemplate>
                                             <div class="col-lg-12 text-center mb-4" >
                                                 <button class="btn btn-success" id="id_payroll" onclick="print('MONITORING')"><i class="fa fa-print"></i> Preview </button>
-                                                <asp:LinkButton ID="btn_extract_report" runat="server" Onclick="btn_extract_report_Click" CssClass="btn btn-warning pt-2 text-white" Width="220" Height="40"><i class="fa fa-file-excel-o "></i> Extract Monitoring Sheet</asp:LinkButton>
+                                                <asp:LinkButton ID="btn_extract_report" runat="server" Onclick="btn_extract_report_Click" CssClass="btn btn-warning pt-2 text-white" Width="220" Height="40" Visible="false"><i class="fa fa-file-excel-o "></i> Extract Monitoring Sheet</asp:LinkButton>
                                                 <asp:LinkButton ID="btn_rcvd_payroll" runat="server" CssClass="btn btn-primary pt-2" OnClick="btn_rcvd_payroll_Click" Width="200" Height="40"><i class="fa fa-qrcode"></i> Receive to Payroll</asp:LinkButton>
                                                 <asp:LinkButton ID="btn_approve" runat="server" CssClass="btn btn-success pt-2" OnClick="btn_approve_Click" Width="200" Height="40"><i class="fa fa-thumbs-up"></i> Approve</asp:LinkButton>
                                                 <asp:LinkButton ID="btn_disapprove" runat="server"  CssClass="btn btn-danger pt-2" OnClick="btn_disapprove_Click" Width="200" Height="40" ><i class="fa fa-thumbs-down"></i> Disapprove</asp:LinkButton>
