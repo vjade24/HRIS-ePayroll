@@ -1440,6 +1440,11 @@ namespace HRIS_ePayroll.View
                 validatedSaved = false;
             }
 
+            if (int.Parse(txtb_hazard_perc.Text) == 0)
+            {
+                FieldValidationColorChanged(true, "txtb_hazard_perc_zero", "0");
+                validatedSaved = false;
+            }
             if (CommonCode.checkisdecimal(txtb_withhel_tax_perc) == false)
             {
                 FieldValidationColorChanged(true, "txtb_withhel_tax_perc", "0");
@@ -1645,6 +1650,12 @@ namespace HRIS_ePayroll.View
                     case "txtb_hazard_perc":
                         {
                             LblRequired8.Text = MyCmn.CONST_INVALID_NUMERIC;
+                            txtb_hazard_perc.BorderColor = Color.Red;
+                            break;
+                        }
+                    case "txtb_hazard_perc_zero":
+                        {
+                            LblRequired8.Text = "Hazard rate is 0%";
                             txtb_hazard_perc.BorderColor = Color.Red;
                             break;
                         }
