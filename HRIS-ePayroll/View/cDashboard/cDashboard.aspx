@@ -896,14 +896,14 @@
                         }
 
                         // Grouping by 'post_status_descr' property
-                        let grouped = parsed.reduce((acc, obj) => {
-                            let key = obj.post_status_descr;
-                            if (!acc[key]) {
-                                acc[key] = [];
-                            }
-                            acc[key].push(obj);
-                            return acc;
-                        }, {});
+                        //let grouped = parsed.reduce((acc, obj) => {
+                        //    let key = obj.post_status_descr;
+                        //    if (!acc[key]) {
+                        //        acc[key] = [];
+                        //    }
+                        //    acc[key].push(obj);
+                        //    return acc;
+                        //}, {});
 
                         // Grouping by 'payroll_registry_nbr' property
                         let groupedByReg = parsed.reduce((acc, obj) => {
@@ -914,13 +914,50 @@
                             acc[key].push(obj);
                             return acc;
                         }, {});
+
+                        // Step 2: Group and Count Distinct payroll_registry_nbr
+                        const result = {};
+
+                        parsed.forEach(item => {
+                          const groupKey = item.post_status_descr;
+                          if (!result[groupKey]) result[groupKey] = new Set();
+                          result[groupKey].add(item.payroll_registry_nbr);
+                        });
+
+                        // Step 3: Format the result
+                        const finalOutput = Object.entries(result).map(([status, regSet]) => ({
+                          post_status_descr: status,
+                          distinct_count: regSet.size
+                        }));
                         
                         if (parsed.length > 0)
                         {
-                            ttl_posted     = (grouped['POSTED']     == null ? 0 : grouped['POSTED'].length);
-                            ttl_not_posted = (grouped['NOT POSTED'] == null ? 0 : grouped['NOT POSTED'].length);
-                            ttl_released   = (grouped['RELEASED']   == null ? 0 : grouped['RELEASED'].length);
-                            ttl_returned   = (grouped['RETURNED']   == null ? 0 : grouped['RETURNED'].length);
+                            if (finalOutput.length > 0)
+                            {
+                                for (var i = 0; i < finalOutput.length; i++)
+                                {
+                                    if (finalOutput[i].post_status_descr == "POSTED")
+                                    {
+                                        ttl_posted = finalOutput[i].distinct_count
+                                    }
+                                    if (finalOutput[i].post_status_descr == "NOT POSTED")
+                                    {
+                                        ttl_not_posted = finalOutput[i].distinct_count
+                                    }
+                                    if (finalOutput[i].post_status_descr == "RELEASED")
+                                    {
+                                        ttl_released = finalOutput[i].distinct_count
+                                    }
+                                    if (finalOutput[i].post_status_descr == "RETURNED")
+                                    {
+                                        ttl_returned = finalOutput[i].distinct_count
+                                    }
+                                }
+                            }
+                            //ttl_posted     = (grouped['POSTED']     == null ? 0 : grouped['POSTED'].length);
+                            //ttl_not_posted = (grouped['NOT POSTED'] == null ? 0 : grouped['NOT POSTED'].length);
+                            //ttl_released   = (grouped['RELEASED']   == null ? 0 : grouped['RELEASED'].length);
+                            //ttl_returned   = (grouped['RETURNED']   == null ? 0 : grouped['RETURNED'].length);
 
                             pieChartPayroll(ttl_posted,ttl_not_posted,ttl_released,ttl_returned)
                             let payrolls = [];
