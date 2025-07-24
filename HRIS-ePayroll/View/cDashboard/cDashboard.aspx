@@ -140,7 +140,7 @@
                                 <div class="card mb-2">
                                     <div class="card-header">
                                         <i class="fa fa-table me-1"></i>
-                                        DataTable 
+                                        Appropriation 
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive  smaller" >
@@ -243,7 +243,7 @@
                                 <div class="card mb-2">
                                     <div class="card-header">
                                         <i class="fa fa-table me-1"></i>
-                                        DataTable 
+                                        List of Payroll 
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive  smaller" >
@@ -254,7 +254,7 @@
                                                         <th scope="col" style="background-color:#007bff !important;color:white !important;width:10% !important">REG</th>
                                                         <th scope="col" style="background-color:#007bff !important;color:white !important;width:35% !important">PAYROLL</th>
                                                         <th scope="col" style="background-color:#007bff !important;color:white !important;width:40% !important">DESCRIPTION</th>
-                                                        <th scope="col" style="background-color:#007bff !important;color:white !important;width:5% !important">CAFOA AMOUNT</th>
+                                                        <%--<th scope="col" style="background-color:#007bff !important;color:white !important;width:5% !important">CAFOA AMOUNT</th>--%>
                                                         <th scope="col" style="background-color:#007bff !important;color:white !important;width:5% !important">STATUS</th>
                                                     </tr>
                                                 </thead>
@@ -710,7 +710,7 @@
                             "mRender": function (data, type, full, row) {
                                 var date_from = new Date(full[0].payroll_period_from).toLocaleDateString('en-US', options123)
                                 var date_to = new Date(full[0].payroll_period_to).toLocaleDateString('en-US', options123)
-                                return "<span>" + full[0].payrolltemplate_descr + "&nbsp;&nbsp;<small class='badge badge-secondary'> " + date_from + "-" + date_to+ "</small></span>"
+                                return "<span>" + full[0].payrolltemplate_descr + "&nbsp;&nbsp;<small class='badge badge-secondary'> " + date_from + "-" + date_to+ "</small>"+ "&nbsp;&nbsp;<small > " + full[0].department_short_name +"</small>"+"</span>"
                             }
                         },
                         {
@@ -719,12 +719,12 @@
                                 return "<span>" + full[0].payroll_registry_descr + "</span>"
                             }
                         },
-                        {
-                            "mData": "total_cafoa",
-                            "mRender": function (data, type, full, row) {
-                                return "<span class='text-right btn-block'>" + currency(full[0].total_cafoa) + "&nbsp;&nbsp;</span>"
-                            }
-                        },
+                        //{
+                        //    "mData": "total_cafoa",
+                        //    "mRender": function (data, type, full, row) {
+                        //        return "<span class='text-right btn-block'>" + currency(full[0].total_cafoa) + "&nbsp;&nbsp;</span>"
+                        //    }
+                        //},
                         {
                             "mData": "post_status_descr",
                             "mRender": function (data, type, full, row)
@@ -848,7 +848,7 @@
             var par_payrolltemplate_code    = $('#payrolltype').val() == null ? "" : $('#payrolltype').val()
             if (period_from != "" && period_to != "")
             {
-                $('#Loading_master').modal({ keyboard: false, backdrop: "static" });
+                //$('#Loading_master').modal({ keyboard: false, backdrop: "static" });
                 $.ajax({
                     type        : "POST",
                     url         : "cDashboard.aspx/PayrollAppropriation",
@@ -968,22 +968,24 @@
                             });
                             
                             oTable_payrolls.fnAddData(payrolls);
-                            $('#Loading_master').modal("hide");
+                            //$('#Loading_master').modal("hide");
                             
                         } else
                         {
                             pieChartPayroll(ttl_posted,ttl_not_posted,ttl_released,ttl_returned)
-                            $('#Loading_master').modal("hide");
+                            //$('#Loading_master').modal("hide");
                         }
                         $('#ttl_posted').text(ttl_posted)
                         $('#ttl_not_posted').text(ttl_not_posted)
                         $('#ttl_released').text(ttl_released)
                         $('#ttl_returned').text(ttl_returned)
+
+                        //$('#Loading_master').modal("hide");
                     },
                     failure: function (response)
                     {
                         alert("Error: " + response.d);
-                        $('#Loading_master').modal("hide");
+                        //$('#Loading_master').modal("hide");
                     }
                 });
             }
