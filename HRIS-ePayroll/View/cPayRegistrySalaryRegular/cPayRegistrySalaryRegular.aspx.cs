@@ -225,6 +225,7 @@ namespace HRIS_ePayroll.View
             btnAdd.Visible = true;
             id_days_hours.Visible = false;
 
+            ViewState["prev_lwop_day"] = 0;
             //txtb_date_posted.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
@@ -597,6 +598,7 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan10.Text  =  "0.00";
 
             txtb_late_in_amount_pera.Text      = "0.00";
+            ViewState["prev_lwop_day"] = 0;
             FieldValidationColorChanged(false, "ALL");
         }
         //*************************************************************************
@@ -1091,7 +1093,7 @@ namespace HRIS_ePayroll.View
             txtb_other_ded_loan8.Text   =  row2Edit[0]["other_ded_loan8"].ToString();
             txtb_other_ded_loan9.Text   =  row2Edit[0]["other_ded_loan9"].ToString();
             txtb_other_ded_loan10.Text  =  row2Edit[0]["other_ded_loan10"].ToString();
-
+            ViewState["prev_lwop_day"]  = double.Parse(row2Edit[0]["lowpay_day"].ToString());
             // During The Employee Name Change 
             calculate_salary_summary_tab();
             calculate_pera_summary_tab();
@@ -3497,6 +3499,7 @@ namespace HRIS_ePayroll.View
 
             txtb_remarks.Text           = row2Edit2[0]["remarks"].ToString();
             txtb_no_days_lwopay.Text    = row2Edit2[0]["lowpay_day"].ToString();
+            ViewState["prev_lwop_day"]  = double.Parse(row2Edit2[0]["lowpay_day"].ToString());
         }
         //**************************************************************************
         //  BEGIN - VJA- 09/12/2018 - Triggers When Click Calculate Button
@@ -3531,10 +3534,21 @@ namespace HRIS_ePayroll.View
 
             double lates_amount_override = 0;
             lates_amount_override = double.Parse(txtb_late_in_amount.Text);
-            if ((lates_amount_override == lates_amount) || lates_amount_override == 0 )
+            //if ((lates_amount_override == lates_amount) || lates_amount_override == 0 )
+            //{
+            //    txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
+            //}
+
+            // VJA - 2025-08-08 
+            if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
+            {
+                txtb_late_in_amount.Text = double.Parse(txtb_late_in_amount.Text).ToString("###,##0.00").Trim();
+            }
+            else
             {
                 txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
             }
+            // VJA - 2025-08-08 
 
             double lwo_amount_monthly = 0;
             lwo_amount_monthly = double.Parse(txtb_rate_amount.Text.ToString().Trim()) / 22 * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
@@ -3543,8 +3557,19 @@ namespace HRIS_ePayroll.View
             lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
             //if ((lwo_amount_monthly_override == lwo_amount_monthly) || lwo_amount_monthly_override == 0)
             //{
-                txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
+            //    txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
             //}
+            
+            // VJA - 2025-08-08 
+            if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
+            {
+                txtb_lwo_pay.Text = double.Parse(txtb_lwo_pay.Text).ToString("###,##0.00").Trim();
+            }
+            else
+            {
+                txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
+            }
+            // VJA - 2025-08-08 
 
             double wages_net = 0;
             wages_net = double.Parse(txtb_rate_amount.Text.ToString()) - (double.Parse(txtb_late_in_amount.Text.ToString()) + double.Parse(txtb_lwo_pay.Text.ToString()));
