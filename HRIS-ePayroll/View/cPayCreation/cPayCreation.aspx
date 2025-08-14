@@ -121,7 +121,7 @@
                                             
                                 <% if (ViewState["page_allow_add"].ToString() == "1")
                                     {  %>
-                                <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Create/Copy Payroll" />
+                                <asp:Button ID="btn_create_generate" runat="server" CssClass="btn btn-info btn-md add-icon icn" Font-Bold="true" OnClick="btn_create_generate_Click" OnClientClick="openLoading()"  Text="Generate Payroll" />
                                 <% }
                                     %>     
                             </ContentTemplate>

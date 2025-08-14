@@ -780,7 +780,7 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
                         {
                             if (dt.Rows[0]["return_value"].ToString() == "Y")
                             {
-                                lbl_notification.Text = "This Loan Account Name is already exist !";
+                                lbl_notification.Text = "This Loan Account Name is already exists !";
                                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop10", "openNotification();", true);
                                 return;
                             }

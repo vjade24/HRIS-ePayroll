@@ -1440,11 +1440,11 @@ namespace HRIS_ePayroll.View
                 validatedSaved = false;
             }
 
-            if (int.Parse(txtb_hazard_perc.Text) == 0)
-            {
-                FieldValidationColorChanged(true, "txtb_hazard_perc_zero", "0");
-                validatedSaved = false;
-            }
+            //if (int.Parse(txtb_hazard_perc.Text) == 0)
+            //{
+            //    FieldValidationColorChanged(true, "txtb_hazard_perc_zero", "0");
+            //    validatedSaved = false;
+            //}
             if (CommonCode.checkisdecimal(txtb_withhel_tax_perc) == false)
             {
                 FieldValidationColorChanged(true, "txtb_withhel_tax_perc", "0");
