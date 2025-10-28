@@ -3534,20 +3534,15 @@ namespace HRIS_ePayroll.View
 
             double lates_amount_override = 0;
             lates_amount_override = double.Parse(txtb_late_in_amount.Text);
-            //if ((lates_amount_override == lates_amount) || lates_amount_override == 0 )
-            //{
-            //    txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
-            //}
-
             // VJA - 2025-08-08 
-            if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
-            {
-                txtb_late_in_amount.Text = double.Parse(txtb_late_in_amount.Text).ToString("###,##0.00").Trim();
-            }
-            else
-            {
+            //if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
+            //{
+            //    txtb_late_in_amount.Text = double.Parse(txtb_late_in_amount.Text).ToString("###,##0.00").Trim();
+            //}
+            //else
+            //{
                 txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
-            }
+            //}
             // VJA - 2025-08-08 
 
             double lwo_amount_monthly = 0;
@@ -3555,20 +3550,15 @@ namespace HRIS_ePayroll.View
 
             double lwo_amount_monthly_override = 0;
             lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
-            //if ((lwo_amount_monthly_override == lwo_amount_monthly) || lwo_amount_monthly_override == 0)
-            //{
-            //    txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
-            //}
-            
             // VJA - 2025-08-08 
-            if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
-            {
-                txtb_lwo_pay.Text = double.Parse(txtb_lwo_pay.Text).ToString("###,##0.00").Trim();
-            }
-            else
-            {
+            //if (double.Parse(ViewState["prev_lwop_day"].ToString()) == double.Parse(txtb_no_days_lwopay.Text.ToString().Trim()))
+            //{
+            //    txtb_lwo_pay.Text = double.Parse(txtb_lwo_pay.Text).ToString("###,##0.00").Trim();
+            //}
+            //else
+            //{
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
-            }
+            //}
             // VJA - 2025-08-08 
 
             double wages_net = 0;

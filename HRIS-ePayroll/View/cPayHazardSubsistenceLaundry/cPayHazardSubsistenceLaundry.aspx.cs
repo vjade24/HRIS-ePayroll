@@ -1979,7 +1979,7 @@ namespace HRIS_ePayroll.View
                 if (txtb_department_code.Text.ToString().Trim() == "12")
                 {
                     int pswd_no_of_days = 0;
-
+                    actual_days_worked = no_days_wordked;
                     if (int.Parse(ddl_year.SelectedValue) <= 2019)
                     {
                         pswd_no_of_days = 30; 

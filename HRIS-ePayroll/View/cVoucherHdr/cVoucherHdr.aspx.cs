@@ -1974,6 +1974,8 @@ namespace HRIS_ePayroll.View
                     if (msg1.Substring(0, 1) == "X")
                     {
                         FieldValidationColorChanged(true, "already-exist");
+                        LblRequired60.Text = msg1;
+                        ddl_empl_id.BorderColor = Color.Red;
                         return;
                     }
 
