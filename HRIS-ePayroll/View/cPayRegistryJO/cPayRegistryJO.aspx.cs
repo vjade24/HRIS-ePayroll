@@ -2273,6 +2273,12 @@ namespace HRIS_ePayroll.View
             if (CommonCode.checkisdecimal(txtb_other_ded_loan9) == false) { FieldValidationColorChanged(true, "txtb_other_ded_loan9");  txtb_other_ded_loan9.Focus()  ; validatedSaved  = false; target_tab = 3; }
             if (CommonCode.checkisdecimal(txtb_other_ded_loan10)== false) { FieldValidationColorChanged(true, "txtb_other_ded_loan10"); txtb_other_ded_loan10.Focus() ; validatedSaved  = false; target_tab = 3; }
 
+            if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22)
+            {
+                lbl_continue.Text = "Exceeds 22 days";
+                ddl_empl_id.BorderColor = Color.Red;
+                validatedSaved = false;
+            }
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopClickTab", "click_tab(" + target_tab + ")", true);
             return validatedSaved;
@@ -2754,6 +2760,7 @@ namespace HRIS_ePayroll.View
                             req_other_ded_loan8.Text = "";
                             req_other_ded_loan9.Text = "";
                             req_other_ded_loan10.Text = "";
+                            lbl_continue.Text         = "";
 
                             txtb_other_ded_mand1.BorderColor = Color.LightGray;
                             txtb_other_ded_mand2.BorderColor = Color.LightGray;
@@ -2791,6 +2798,7 @@ namespace HRIS_ePayroll.View
                             Update_txtb_no_hours_ot.Update();
                             Update_txtb_no_hours_sal.Update();
                             Update_hours_worked.Update();
+                            upd_continue.Update();
                             break;
                         }
 

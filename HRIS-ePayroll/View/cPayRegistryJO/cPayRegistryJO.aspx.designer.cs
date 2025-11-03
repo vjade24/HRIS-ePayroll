@@ -391,6 +391,24 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.TextBox txtb_empl_id;
         
         /// <summary>
+        /// upd_continue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_continue;
+        
+        /// <summary>
+        /// lbl_continue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_continue;
+        
+        /// <summary>
         /// Label4 control.
         /// </summary>
         /// <remarks>

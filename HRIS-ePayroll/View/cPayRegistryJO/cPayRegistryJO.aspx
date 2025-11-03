@@ -246,6 +246,20 @@
                                     </asp:UpdatePanel>
                                 </div>
                                 <div class="col-12">
+                                    <asp:UpdatePanel runat="server" ID="upd_continue" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                                                <small>
+                                                    <strong>Message Alert!</strong> <asp:Label runat="server" ID="lbl_continue"></asp:Label>
+                                                </small>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="col-12">
                                     <hr style="margin-top:5px;margin-bottom:5px" />
                                 </div>
                                 <div class="col-3" >

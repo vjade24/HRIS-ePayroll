@@ -538,6 +538,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                         nrow["phic_flag"]         = ddl_phic_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
                         nrow["upd_master_flag_descr"] = ddl_upd_master_flag.SelectedItem.ToString().Trim();
                         nrow["ss_appl_flag"]         = ddl_ss_appl_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
+                        nrow["department_name1"]         = ddl_dep.SelectedItem.ToString().Trim() ;
 
 
                         // *******************************************************************************************
@@ -596,6 +597,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                         row2Edit[0]["phic_flag"] = ddl_phic_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
                         row2Edit[0]["upd_master_flag_descr"] = ddl_upd_master_flag.SelectedItem.ToString().Trim();
                         row2Edit[0]["ss_appl_flag"] = ddl_ss_appl_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
+                        row2Edit[0]["department_name1"] = ddl_dep.SelectedItem.ToString().Trim() ;
 
 
                         // *******************************************************************************************
@@ -674,6 +676,8 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             dtSource1.Columns.Add("function_code", typeof(System.String));
             dtSource1.Columns.Add("fund_code", typeof(System.String));
             dtSource1.Columns.Add("upd_master_flag_descr", typeof(System.String));
+            dtSource1.Columns.Add("department_name1", typeof(System.String));
+            dtSource1.Columns.Add("department_short_name", typeof(System.String));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -740,6 +744,11 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                 FieldValidationColorChanged(true, "ddl_empl_name");
                 validatedSaved = false;
             }
+            if (ddl_dep.SelectedValue == "" )
+            {
+                FieldValidationColorChanged(true, "ddl_dep");
+                validatedSaved = false;
+            }
             if (CommonCode.checkisdatetime(txtb_effective_date.Text) == false)
             {
                 FieldValidationColorChanged(true, "txtb_effective_date");
@@ -789,7 +798,13 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop5", "show_date();", true);
                             break;
                         }
-
+                    case "ddl_dep":
+                        {
+                            LblRequired1.Text = MyCmn.CONST_RQDFLD;
+                            ddl_dep.BorderColor = Color.Red;
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop5", "show_date();", true);
+                            break;
+                        }
                 }
             else if (!pMode)
             {
@@ -799,8 +814,10 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                         {
                             LblRequired12.Text = "";
                             LblRequired13.Text = "";
+                            LblRequired1.Text = "";
                             ddl_empl_name.BorderColor = Color.LightGray;
                             txtb_effective_date.BorderColor = Color.LightGray;
+                            ddl_dep.BorderColor = Color.LightGray;
                             UpdatePanelEffec.Update();
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop5", "show_date();", true);
                             break;

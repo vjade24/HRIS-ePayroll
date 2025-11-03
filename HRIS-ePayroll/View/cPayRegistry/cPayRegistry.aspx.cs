@@ -492,6 +492,13 @@ namespace HRIS_ePayroll.View.cPayRegistry
                     txtb_no_works_2nd.Text = dtSource_defult_setup.Rows[0]["no_of_workdays"].ToString();
                     div_no_works_days_1st.Visible = true;
                     div_no_works_days_2nd.Visible = true;
+
+                    if (ddl_payroll_template.SelectedValue.ToString().Trim() == "011")
+                    {
+                        DataTable dt            = new DataTable();
+                        dt                      = MyCmn.RetrieveData("sp_payrollregistry_get_dates", "par_payrolltemplate_code", "010", "par_payroll_year", ddl_year.SelectedValue.ToString(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim());
+                        txtb_no_works_1st.Text  = dt.Rows[0]["no_of_workdays"].ToString();
+                    }
                 }
                 else
                 {
@@ -1561,7 +1568,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                 can_print = "false";
                 btn_show_print_option.Visible = false;
                 msg_icon.Attributes.Add("class", "fa-5x fa fa-exclamation-triangle text-warning");
-                msg_header.InnerText = "PRINT PREVIEW ONLY!";
+                msg_header.InnerText = "CANNOT PROCEED IN PRINTING";
                 lbl_details.Text = chk_reg_hdr.Rows[0]["validation_msg"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "PopNotif", "openNotification();", true);
 

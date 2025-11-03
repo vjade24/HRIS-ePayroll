@@ -319,27 +319,22 @@
                                         </ContentTemplate>  
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-8">
                                     <div class="form-group row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <label >Payroll Year : </label>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_year" runat="server" CssClass="form-control-sm form-control" OnSelectedIndexChanged="ddl_year_SelectedIndexChanged" AutoPostBack="true" ></asp:DropDownList>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-3" >
-                                    <div class="form-group row">
-                                        
-                                            <div class="col-md-7" style="padding-right:0px">
+                                        <div class="col-md-2" >
                                                 <label >Last Name Starts W/: </label>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-3">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
                                                         <asp:DropDownList ID="ddl_start_with" runat="server" AutoPostBack="true" CssClass="form-control form-control-sm" OnSelectedIndexChanged="ddl_start_with_SelectedIndexChanged" >
@@ -374,25 +369,24 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
-                                        
-                                        </div>
-                                       
-                                </div>
-                                <div class="col-2 text-right">
-                                    <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                        <ContentTemplate>
+                                            <div class="col-2 text-right">
+                                                <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                                                    <ContentTemplate>
                                             
-                                            <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                {  %>
-                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
-                                            <% }
-                                                %>     
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnAdd" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
+                                                        <% if (ViewState["page_allow_add"].ToString() == "1")
+                                                            {  %>
+                                                        <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
+                                                        <% }
+                                                            %>     
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="btnAdd" />
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
+                                            </div>
+                                    </div>
                                 </div>
+                                
                                 
                                 <div class="col-4">
                                     <asp:UpdatePanel ID="UpdatePanel21" runat="server">
@@ -406,15 +400,20 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-md-8" style="margin-bottom:-5px">
-                                    <label style="float:left" >Employment Type: </label>
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:DropDownList ID="ddl_empl_type" style="width:80.5%;float:right" runat="server"  CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                <div class="col-md-8" >
+                                    <div class="form-group row">
+                                        <div class="col-2">
+                                            <label  >Employment Type: </label>
+                                        </div>
+                                        <div class="col-10">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList ID="ddl_empl_type" runat="server"  CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
                                 </div>
-                                 
                             </div>
                             <asp:UpdatePanel ID="up_dataListGrid" UpdateMode="Conditional" runat="server" >
                                 <ContentTemplate>
@@ -455,6 +454,14 @@
                                                <asp:TemplateField HeaderText="EMPLOYEE NAME" SortExpression="employee_name">
                                                     <ItemTemplate>
                                                         &nbsp;&nbsp;<%#  Eval("employee_name") %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="30%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="LEFT" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="DEPARTMENT" SortExpression="department_name1">
+                                                    <ItemTemplate>
+                                                        &nbsp;&nbsp;<%#  Eval("department_name1") %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="30%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
@@ -603,4 +610,23 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
+    <script type="text/javascript">
+        function hightlight()
+        {
+            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
+                   $(this).addClass('highlight');
+           }, function () {
+                   $(this).removeClass('highlight');
+           });
+        }
+
+        $(document).ready(function ()
+        {
+           $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
+                   $(this).addClass('highlight');
+           }, function () {
+                   $(this).removeClass('highlight');
+           });
+        });
+    </script>
 </asp:Content>

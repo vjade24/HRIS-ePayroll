@@ -1934,12 +1934,12 @@ namespace HRIS_ePayroll.View
                         txtb_other_amount.Focus();
                         validatedSaved = false;
                     }
-                    else if (double.Parse(txtb_other_amount.Text.ToString().Trim().Replace(",", "")) > double.Parse(hidden_max_amount.Value.ToString().Replace(",", "").Trim()))
-                    {
-                        FieldValidationColorChanged(true, "greater-than-cashgift");
-                        txtb_other_amount.Focus();
-                        validatedSaved = false;
-                    }
+                    //else if (double.Parse(txtb_other_amount.Text.ToString().Trim().Replace(",", "")) > double.Parse(hidden_max_amount.Value.ToString().Replace(",", "").Trim()))
+                    //{
+                    //    FieldValidationColorChanged(true, "greater-than-cashgift");
+                    //    txtb_other_amount.Focus();
+                    //    validatedSaved = false;
+                    //}
                 }
             }
             /*>>>>>>>>>>>>>>> END OF YECG <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

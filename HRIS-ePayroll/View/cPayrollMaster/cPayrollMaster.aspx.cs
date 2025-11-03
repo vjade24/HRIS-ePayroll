@@ -895,10 +895,10 @@ namespace HRIS_ePayroll.View.cPayrollMaster
                     //  BEGIN - VJA - 10/19/2019 - Update Previous Grouping of the Specific Employee during Add Mode
                     //************************************************************************************************
 
-                    if (ddl_emp_status.SelectedValue == "0" || ViewState["payroll_group_nbr"].ToString() != ddl_group_nbr.SelectedValue.ToString().Trim())
-                    {
-                        DataTable dt = MyCmn.RetrieveData("sp_payrollemployeegroupings_dtl_tbl_upd", "par_payroll_group_nbr", ddl_group_nbr.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim(), "par_special_group", "01");
-                    }
+                    //if (ddl_emp_status.SelectedValue == "0" || ViewState["payroll_group_nbr"].ToString() != ddl_group_nbr.SelectedValue.ToString().Trim())
+                    //{
+                    //    DataTable dt = MyCmn.RetrieveData("sp_payrollemployeegroupings_dtl_tbl_upd", "par_payroll_group_nbr", ddl_group_nbr.SelectedValue.ToString().Trim(), "par_empl_id", txtb_empl_id.Text.ToString().Trim(), "par_special_group", "01");
+                    //}
                     //************************************************************************************************
                     //  END - VJA - 10/19/2019 - Update Previous Grouping of the Specific Employee during Add Mode
                     //************************************************************************************************

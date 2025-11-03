@@ -1240,7 +1240,9 @@
                                                                     style="padding-left: 5px !important;padding-right: 5px !important;" 
                                                                     CommandArgument='<%# Eval("payroll_year")+","+Eval("payroll_registry_nbr")%> ' 
                                                                     CssClass='<%# Eval("coaching_status").ToString() == "" ? "btn btn-info action btn-sm" : "btn btn-danger action btn-sm" %>' />
-
+                                                                
+                                                                <%--<button class="btn btn-primary btn-sm" onclick='openModal_remarks("<%# Eval("payroll_year") %>", "<%# Eval("payroll_registry_nbr").ToString().Replace("\"", "\\\"") %>")'><i class="fa fa-address-book"></i></button>--%>
+                                                              
                                                               
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
@@ -1469,6 +1471,62 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modal_remarks" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-primary" >
+                            <h6 class="modal-title text-white" ><asp:Label runat="server" Text="PAYROLL REMARKS"></asp:Label></h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body" >
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <small>Payroll Year</small>
+                                    <input class="form-control form-control-sm" type="text" disabled/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <small>Registry Nbr.</small>
+                                    <input class="form-control form-control-sm" type="text" disabled />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mt-2">
+                                    <button onclick="addRow()" class="btn btn-primary btn-sm" type="button">Add Row</button><br /><br />
+                                    <table id="dataTable_remarks" class="table table-bordered table-sm" border="1" >
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input type="text" class="form-control form-control-sm" value="John Doe" /></td>
+                                        <td>
+                                            <select class="form-control form-control-sm">
+                                                <option value="">Select Role</option>
+                                                <option value="User" selected>User</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Guest">Guest</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm text-center" type="button" onclick="saveRow(this)"><i class="fa fa-save"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
                 <div class="modal-content  modal-content-add-edit">
@@ -2540,6 +2598,55 @@
             }
 
             $('#<%= lbl_payrollregistry_nbr_print.ClientID %>').val(reg_nbrs)
+        }
+
+        function openModal_remarks(year,reg_nbr)
+        {
+            console.log(year,reg_nbr)
+            $('#modal_remarks').modal({ backdrop: 'static', keyboard: false });
+        }
+
+        function saveRow(button) {
+            const row = button.parentNode.parentNode;
+            const nameInput = row.querySelector("input[type='text']");
+            const dropdown = row.querySelector("select");
+
+            const name = nameInput.value;
+            const role = dropdown.value;
+
+            if (name.trim() === "" || role === "") {
+                alert("Please complete the row before saving.");
+                return;
+            }
+
+            // You can replace this with an AJAX call or __doPostBack()
+            console.log("Saved Row:");
+            console.log("Name: " + name);
+            console.log("Role: " + role);
+
+            alert("Saved: " + name + " as " + role);
+        }
+
+        function addRow() {
+            const table     = document.getElementById("dataTable_remarks").getElementsByTagName('tbody')[0];
+            const rowCount  = table.rows.length;
+            const row       = table.insertRow();
+
+            row.insertCell(0).innerText = rowCount + 1;
+
+            const nameCell = row.insertCell(1);
+            nameCell.innerHTML = `<input type="text" placeholder="Enter name" class="form-control form-control-sm">`;
+
+            const roleCell = row.insertCell(2);
+            roleCell.innerHTML = `<select class="form-control form-control-sm">
+                                    <option value="">Select Role</option>
+                                    <option value="User">User</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Guest">Guest</option>
+                                </select>`;
+
+            const actionCell = row.insertCell(3);
+            actionCell.innerHTML = `<button class="btn btn-sm text-center" type="button" onclick="saveRow(this)"><i class="fa fa-save"></i></button>`;
         }
 
     </script>
