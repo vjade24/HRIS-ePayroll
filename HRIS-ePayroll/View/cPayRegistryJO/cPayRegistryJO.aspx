@@ -231,7 +231,7 @@
                                         <ContentTemplate>
                                             <asp:DropDownList ID="ddl_empl_id" runat="server" CssClass="form-control form-control-sm" Width="100%" OnTextChanged="ddl_empl_id_TextChanged" AutoPostBack="true" ></asp:DropDownList>
                                             <asp:TextBox runat="server" ID="txtb_employeename" CssClass="form-control form-control-sm" Enabled="false" Font-Bold="true"></asp:TextBox> 
-                                            <asp:Label ID="LblRequired1" CssClass="lbl_required" runat="server" Text=""></asp:Label>
+                                            <asp:Label ID="LblRequired1" Font-Bold="true" Font-Size="Smaller" ForeColor="Red" runat="server" Text=""></asp:Label>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
@@ -245,17 +245,14 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-12">
-                                    <asp:UpdatePanel runat="server" ID="upd_continue" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                                <div class="col-3"></div>
+                                <div class="col-9">
+                                    <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
-                                            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                                                <small>
-                                                    <strong>Message Alert!</strong> <asp:Label runat="server" ID="lbl_continue"></asp:Label>
-                                                </small>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
+                                            <label class="container" style="display:inline !important;font-size:14px !important">Continue anyway
+                                                    <asp:CheckBox ID="chkbox_continue" runat="server" />
+                                                    <span class="checkmark"></span>
+                                            </label>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>

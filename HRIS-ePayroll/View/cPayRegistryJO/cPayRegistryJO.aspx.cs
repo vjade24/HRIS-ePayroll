@@ -275,7 +275,10 @@ namespace HRIS_ePayroll.View
             RetrieveDataListGrid();
             RetriveGroupings();
             RetriveTemplate();
-            
+
+            chkbox_continue.Visible = false;
+            //upd_continue.Visible = false;
+            //upd_continue.Update();
         }
         //*************************************************************************
         //  BEGIN - VJA- 09/09/2018 - Retrieve From Installation Table 
@@ -429,7 +432,9 @@ namespace HRIS_ePayroll.View
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_ADD); ;
             FieldValidationColorChanged(false, "ALL");
 
-            txtb_employeename.Visible = false;
+            chkbox_continue.Visible     = false;
+            chkbox_continue.Checked     = false;
+            txtb_employeename.Visible   = false;
             ddl_empl_id.Visible = true;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
@@ -923,7 +928,9 @@ namespace HRIS_ePayroll.View
 
             txtb_employeename.Visible   = true;
             ddl_empl_id.Visible         = false;
-            
+            chkbox_continue.Visible     = false;
+            chkbox_continue.Checked     = false;
+
             txtb_bir_tax_10percent.Text         = row2Edit[0]["wtax_10perc"].ToString().Trim();
             txtb_bir_tax_15percent.Text         = row2Edit[0]["wtax_15perc"].ToString().Trim();
             txtb_bir_tax_2percent.Text          = row2Edit[0]["wtax_2perc"].ToString().Trim();
@@ -1130,6 +1137,7 @@ namespace HRIS_ePayroll.View
                 ToogleTextbox(true);
             }
             UpdatePanel10.Update();
+
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
@@ -2273,11 +2281,13 @@ namespace HRIS_ePayroll.View
             if (CommonCode.checkisdecimal(txtb_other_ded_loan9) == false) { FieldValidationColorChanged(true, "txtb_other_ded_loan9");  txtb_other_ded_loan9.Focus()  ; validatedSaved  = false; target_tab = 3; }
             if (CommonCode.checkisdecimal(txtb_other_ded_loan10)== false) { FieldValidationColorChanged(true, "txtb_other_ded_loan10"); txtb_other_ded_loan10.Focus() ; validatedSaved  = false; target_tab = 3; }
 
-            if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22)
+            if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22 && chkbox_continue.Checked == false)
             {
-                lbl_continue.Text = "Exceeds 22 days";
+                LblRequired1.Text = "Number of worked days exceeds 22 days (1st =" + txtb_no_worked_1st.Text.ToString() + " day/s, 2nd =" + txtb_no_days_worked.Text.ToString() + "day/s) TOTALS = " + (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text));
+                LblRequired1.Text.ToUpper();
                 ddl_empl_id.BorderColor = Color.Red;
                 validatedSaved = false;
+                chkbox_continue.Visible = true;
             }
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopClickTab", "click_tab(" + target_tab + ")", true);
@@ -2760,7 +2770,6 @@ namespace HRIS_ePayroll.View
                             req_other_ded_loan8.Text = "";
                             req_other_ded_loan9.Text = "";
                             req_other_ded_loan10.Text = "";
-                            lbl_continue.Text         = "";
 
                             txtb_other_ded_mand1.BorderColor = Color.LightGray;
                             txtb_other_ded_mand2.BorderColor = Color.LightGray;
@@ -2798,7 +2807,6 @@ namespace HRIS_ePayroll.View
                             Update_txtb_no_hours_ot.Update();
                             Update_txtb_no_hours_sal.Update();
                             Update_hours_worked.Update();
-                            upd_continue.Update();
                             break;
                         }
 
@@ -4189,6 +4197,7 @@ namespace HRIS_ePayroll.View
                 }
             }
         }
+        
 
         //********************************************************************
         // END OF THE CODE
