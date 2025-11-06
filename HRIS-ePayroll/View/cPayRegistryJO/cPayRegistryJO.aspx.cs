@@ -2281,13 +2281,18 @@ namespace HRIS_ePayroll.View
             if (CommonCode.checkisdecimal(txtb_other_ded_loan9) == false) { FieldValidationColorChanged(true, "txtb_other_ded_loan9");  txtb_other_ded_loan9.Focus()  ; validatedSaved  = false; target_tab = 3; }
             if (CommonCode.checkisdecimal(txtb_other_ded_loan10)== false) { FieldValidationColorChanged(true, "txtb_other_ded_loan10"); txtb_other_ded_loan10.Focus() ; validatedSaved  = false; target_tab = 3; }
 
-            if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22 && chkbox_continue.Checked == false)
+            if ((int.Parse(ddl_year.SelectedValue) >= 2025 && int.Parse(ddl_month.SelectedValue) >=10) 
+              || int.Parse(ddl_year.SelectedValue) >  2025
+              )
             {
-                LblRequired1.Text = "Number of worked days exceeds 22 days (1st =" + txtb_no_worked_1st.Text.ToString() + " day/s, 2nd =" + txtb_no_days_worked.Text.ToString() + "day/s) TOTALS = " + (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text));
-                LblRequired1.Text.ToUpper();
-                ddl_empl_id.BorderColor = Color.Red;
-                validatedSaved = false;
-                chkbox_continue.Visible = true;
+                if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22 && chkbox_continue.Checked == false && ddl_payroll_template.SelectedValue == "011")
+                {
+                    LblRequired1.Text = "Number of worked days exceeds 22 days (1st =" + txtb_no_worked_1st.Text.ToString() + " day/s, 2nd =" + txtb_no_days_worked.Text.ToString() + "day/s) TOTALS = " + (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text));
+                    LblRequired1.Text.ToUpper();
+                    ddl_empl_id.BorderColor = Color.Red;
+                    validatedSaved = false;
+                    chkbox_continue.Visible = true;
+                }
             }
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopClickTab", "click_tab(" + target_tab + ")", true);
@@ -3328,6 +3333,7 @@ namespace HRIS_ePayroll.View
             {
                 total_hours_worked = double.Parse(txtb_no_days_worked.Text) * double.Parse(hidden_hrs_in1day.Value);
                 txtb_no_hours_worked.Text = total_hours_worked.ToString("###,##0.00");
+                txtb_no_hours_sal.Text    = total_hours_worked.ToString("###,##0.00");
             }
         }
         //**************************************************************************

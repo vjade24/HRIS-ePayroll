@@ -418,6 +418,8 @@
                                             <asp:AsyncPostBackTrigger ControlID="txtb_no_hours_worked" />
                                             <asp:AsyncPostBackTrigger ControlID="txtb_no_days_worked" />
                                             <asp:AsyncPostBackTrigger ControlID="txtb_lates_and_undertime" />
+                                            <asp:AsyncPostBackTrigger ControlID="txtb_no_hours_sal" />
+                                            <asp:AsyncPostBackTrigger ControlID="txtb_no_hours_sal_amt" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </div>
@@ -451,6 +453,7 @@
                                             <asp:AsyncPostBackTrigger ControlID="txtb_no_days_worked" />
                                             <asp:AsyncPostBackTrigger ControlID="txtb_lates_and_undertime" />
                                             <asp:AsyncPostBackTrigger ControlID="txtb_no_hours_sal" />
+                                            <asp:AsyncPostBackTrigger ControlID="txtb_no_hours_sal_amt" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </div>
