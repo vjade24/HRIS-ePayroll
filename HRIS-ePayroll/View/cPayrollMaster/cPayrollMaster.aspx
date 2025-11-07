@@ -754,7 +754,7 @@
                                                                     </asp:TemplateField>
                                                                     <asp:TemplateField HeaderText="DEPARTMENT" SortExpression="department_name1">
                                                                         <ItemTemplate>
-                                                                            &nbsp;<%# Eval("department_name1") %>
+                                                                            &nbsp;<%# Eval("department_name1") + " <span class='badge badge-secondary'>"+Eval("source_descr") +"</span>"  %>
                                                                         </ItemTemplate>
                                                                         <ItemStyle Width="35%" />
                                                                         <HeaderStyle HorizontalAlign="Center" />

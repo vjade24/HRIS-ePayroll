@@ -271,12 +271,12 @@ namespace HRIS_ePayroll.View
         {
             Session["sortdirection"] = SortDirection.Ascending.ToString();
             Session["cPayRegistryJO"] = "cPayRegistryJO";
-            
+            ViewState["minimum_net_pay"] = "0";
             RetrieveDataListGrid();
             RetriveGroupings();
             RetriveTemplate();
 
-            chkbox_continue.Visible = false;
+            //chkbox_continue.Visible = false;
             //upd_continue.Visible = false;
             //upd_continue.Update();
         }
@@ -295,6 +295,7 @@ namespace HRIS_ePayroll.View
             {
                 hidden_monthly_days.Value      = dt.Rows[0]["monthly_salary_days_conv"].ToString();
                 hidden_hrs_in1day.Value        = dt.Rows[0]["hours_in_1day_conv"].ToString();
+                ViewState["minimum_net_pay"]   = dt.Rows[0]["minimum_net_pay"].ToString();
             }
         }
         //********************************************************************
@@ -432,7 +433,7 @@ namespace HRIS_ePayroll.View
             ViewState.Add("AddEdit_Mode", MyCmn.CONST_ADD); ;
             FieldValidationColorChanged(false, "ALL");
 
-            chkbox_continue.Visible     = false;
+            //chkbox_continue.Visible     = false;
             chkbox_continue.Checked     = false;
             txtb_employeename.Visible   = false;
             ddl_empl_id.Visible = true;
@@ -928,7 +929,7 @@ namespace HRIS_ePayroll.View
 
             txtb_employeename.Visible   = true;
             ddl_empl_id.Visible         = false;
-            chkbox_continue.Visible     = false;
+            //chkbox_continue.Visible     = false;
             chkbox_continue.Checked     = false;
 
             txtb_bir_tax_10percent.Text         = row2Edit[0]["wtax_10perc"].ToString().Trim();
@@ -1203,6 +1204,18 @@ namespace HRIS_ePayroll.View
                 {
                     FieldValidationColorChanged(true, "not-equal-to-amount-due");
                     return;
+                }
+
+                if ((int.Parse(ddl_year.SelectedValue) >= 2025 && int.Parse(ddl_month.SelectedValue) >= 9)
+                  || int.Parse(ddl_year.SelectedValue) > 2025
+                  )
+                {
+                    if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()))
+                    {
+                        FieldValidationColorChanged(true, "below-minumum-net");
+                        txtb_net_pay.Focus();
+                        return;
+                    }
                 }
                 
                 // Calculate ALL Computation
@@ -2288,10 +2301,9 @@ namespace HRIS_ePayroll.View
                 if (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text) > 22 && chkbox_continue.Checked == false && ddl_payroll_template.SelectedValue == "011")
                 {
                     LblRequired1.Text = "Number of worked days exceeds 22 days (1st =" + txtb_no_worked_1st.Text.ToString() + " day/s, 2nd =" + txtb_no_days_worked.Text.ToString() + "day/s) TOTALS = " + (double.Parse(txtb_no_worked_1st.Text) + double.Parse(txtb_no_days_worked.Text));
-                    LblRequired1.Text.ToUpper();
                     ddl_empl_id.BorderColor = Color.Red;
                     validatedSaved = false;
-                    chkbox_continue.Visible = true;
+                    //chkbox_continue.Visible = true;
                 }
             }
 
@@ -2642,6 +2654,14 @@ namespace HRIS_ePayroll.View
                     case "txtb_other_ded_loan8":  { req_other_ded_loan8.Text  = MyCmn.CONST_INVALID_NUMERIC; txtb_other_ded_loan8.BorderColor  = Color.Red; break;}
                     case "txtb_other_ded_loan9":  { req_other_ded_loan9.Text  = MyCmn.CONST_INVALID_NUMERIC; txtb_other_ded_loan9.BorderColor  = Color.Red; break;}
                     case "txtb_other_ded_loan10": { req_other_ded_loan10.Text = MyCmn.CONST_INVALID_NUMERIC; txtb_other_ded_loan10.BorderColor = Color.Red; break;}
+
+                    case "below-minumum-net":
+                    {
+                        LblRequired10.Text          = "Net Pay is below the minimum of " + ViewState["minimum_net_pay"].ToString();
+                        LblRequired1.Text          = "Net Pay is below the minimum of " + ViewState["minimum_net_pay"].ToString();
+                        txtb_net_pay.BorderColor    = Color.Red;
+                        break;
+                    }
                 }
             else if (!pMode)
             {
@@ -3237,6 +3257,18 @@ namespace HRIS_ePayroll.View
             str_net_pay = (double.Parse(txtb_gross_pay.Text.ToString()) - total_deductions).ToString("###,##0.00");
             str_net_pay = str_net_pay.Split('.')[0] + "." + str_net_pay.Split('.')[1].Substring(0, 2);
             txtb_net_pay.Text = str_net_pay;
+
+            if ((int.Parse(ddl_year.SelectedValue) >= 2025 && int.Parse(ddl_month.SelectedValue) >= 9)
+              || int.Parse(ddl_year.SelectedValue) > 2025
+              )
+            {
+                if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()))
+                {
+                    FieldValidationColorChanged(true, "below-minumum-net");
+                    txtb_net_pay.Focus();
+                    return;
+                }
+            }
         }
         //**************************************************************************
         //  BEGIN - VJA- 05/25/2019 - Triggers When Put Value on Textbox  : txtb_no_hours_worked
