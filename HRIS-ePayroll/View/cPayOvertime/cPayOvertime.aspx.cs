@@ -2071,9 +2071,9 @@ namespace HRIS_ePayroll.View
                                 case "2":
                                     tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
                                     break;
-                                case "1":
-                                    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
-                                    break;
+                                //case "1":
+                                //    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                                //    break;
                                 case "3":
                                     tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
                                     break;
@@ -2099,9 +2099,9 @@ namespace HRIS_ePayroll.View
                                 case "2":
                                     tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
                                     break;
-                                case "1":
-                                    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
-                                    break;
+                                //case "1":
+                                //    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                                //    break;
                                 case "3":
                                     tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
                                     break;
@@ -2127,9 +2127,9 @@ namespace HRIS_ePayroll.View
                             case "2":
                                 tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
                                 break;
-                            case "1":
-                                tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
-                                break;
+                            //case "1":
+                            //    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                            //    break;
                             case "3":
                                 tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
                                 break;
@@ -2156,9 +2156,9 @@ namespace HRIS_ePayroll.View
                             case "2":
                                 tax2 = tax2 + (double.Parse(txtb_gross_pay.Text)) * .02;
                                 break;
-                            case "1":
-                                tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
-                                break;
+                            //case "1":
+                            //    tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .01;
+                            //    break;
                             case "3":
                                 tax3 = tax3 + (double.Parse(txtb_gross_pay.Text)) * .03;
                                 break;
