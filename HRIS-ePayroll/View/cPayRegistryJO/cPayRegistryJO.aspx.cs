@@ -1206,6 +1206,16 @@ namespace HRIS_ePayroll.View
                     return;
                 }
 
+                
+                // Calculate ALL Computation
+                calculate_grossamount();
+                Calculate_Absent();
+                calculate_total_loans();
+                calculate_total_mandatory();
+                calculate_total_optional();
+                calculate_netpay();
+                // Calculate ALL Computation
+
                 if ((int.Parse(ddl_year.SelectedValue) >= 2025 && int.Parse(ddl_month.SelectedValue) >= 9)
                   || int.Parse(ddl_year.SelectedValue) > 2025
                   )
@@ -1217,16 +1227,6 @@ namespace HRIS_ePayroll.View
                         return;
                     }
                 }
-                
-                // Calculate ALL Computation
-                calculate_grossamount();
-                Calculate_Absent();
-                calculate_total_loans();
-                calculate_total_mandatory();
-                calculate_total_optional();
-                calculate_netpay();
-                // Calculate ALL Computation
-
                 if (saveRecord == MyCmn.CONST_ADD)
                 {
                     
