@@ -876,6 +876,7 @@
     <Content Include="View\cEmployeeTaxRateRECEDetails\cEmployeeTaxRateRECEDetails.aspx" />
     <Content Include="View\cEmployeeTaxRate\cEmployeeTaxRate.aspx" />
     <Content Include="View\cExtractToExcel\cExtractToExcel.aspx" />
+    <Content Include="View\cMortuary\cMortuary.aspx" />
     <Content Include="View\cPayOthContributionsGSIS\cPayOthContributionsGSIS.aspx" />
     <Content Include="View\cPayOvertime\cPayOvertime.aspx" />
     <Content Include="View\cApplTransmittal\cApplTransmittal.aspx" />
@@ -2496,6 +2497,13 @@
     </Compile>
     <Compile Include="View\cExtractToExcel\cExtractToExcel.aspx.designer.cs">
       <DependentUpon>cExtractToExcel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\cMortuary\cMortuary.aspx.cs">
+      <DependentUpon>cMortuary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\cMortuary\cMortuary.aspx.designer.cs">
+      <DependentUpon>cMortuary.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\cPayOthContributionsGSIS\cPayOthContributionsGSIS.aspx.cs">
       <DependentUpon>cPayOthContributionsGSIS.aspx</DependentUpon>

@@ -70,6 +70,14 @@
           letter-spacing: -10px;
           margin-bottom: 0;
         }
+         .large-checkbox input[type=checkbox] {
+            transform: scale(1.5); /* Increase size */
+            -webkit-transform: scale(1.5); /* Safari/Chrome */
+            margin-right: 5px; /* space between box and text */
+        }
+        .large-checkbox {
+            font-size: 1em; /* make label text bigger */
+        }
       </style>
 </head>
 <body class="body-login" >
@@ -154,13 +162,101 @@
                 </asp:UpdatePanel>
             </div>
             <div class="col-sm-12" style="margin-top:-15px !important">
-                <asp:LinkButton ID="btn_login"  CssClass="btn btn-primary btn-block btn-sm"  OnCommand="btn_login_Command" runat="server"><i class="fa fa-fw fa-sign-out"></i>Login</asp:LinkButton>
+                <asp:CheckBox runat="server" ID="chk_terms" Font-Size="Smaller" CssClass="large-checkbox text-left"  style="cursor:pointer"/>
+                <a onclick="btn_show_terms()" class="small text-primary" style="cursor:pointer" >Accept our Terms and Conditions</a>
+                <asp:LinkButton ID="btn_login"  CssClass="btn btn-primary btn-block btn-sm mt-2"  OnCommand="btn_login_Command" runat="server"><i class="fa fa-fw fa-sign-out"></i>Login</asp:LinkButton>
                 <p class="mt-0"> <small class="text-muted smaller">Provincial Government of Davao de Oro &copy <%: DateTime.Now.Year %></small> </p>
             </div>
         </div>
     </form>
     </div>
 
+    <div class="modal fade" id="modal_term_and_conditions" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+                <div class="modal-content ">
+                    <div class="modal-header" >
+                        <h5 ><asp:Label runat="server" Text="Terms and Conditions"></asp:Label></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body " >
+                        <div >
+                            <h5 >NON-DISCLOSURE AGREEMENT</h5>
+
+                            <p>This Non-Disclosure Agreement ("Agreement") is entered into by and between:</p>
+
+                            <p><strong>Provincial Health Office</strong><br>
+                            Address: Provincial Capitol Complex, Nabunturan, Davao de Oro<br>
+                            Email: pho.davaodeoro.gov.ph<br>
+                            (“Disclosing Party”)</p>
+
+                            <p><strong>AND</strong><br>
+                            Authorized System User (“Receiving Party” or “User”)</p>
+
+                            <h5 class="font-semibold mt-4">1. Purpose</h5>
+                            <p>This Agreement is intended to protect the confidentiality of sensitive data and system information accessed by the User through the Blood Donor Tracking System and Blood Inventory Management System (“Systems”). By using the Systems, the User may gain access to personal, medical, and operational information which must remain strictly confidential.</p>
+
+                            <h5 class="font-semibold mt-4">2. Confidential Information</h5>
+                            <p>“Confidential Information” includes but is not limited to:</p>
+                            <ul class="list-disc pl-5">
+                                <li>Personal details of blood donors and recipients (e.g., names, contact info, blood type, health history).</li>
+                                <li>Donor eligibility and screening information.</li>
+                                <li>Internal reports, statistics, and operational data.</li>
+                                <li>User access credentials and security settings.</li>
+                                <li>System software, interface details, or technical documentation.</li>
+                            </ul>
+
+                            <h5 class="font-semibold mt-4">3. User Obligations</h5>
+                            <p>The User agrees to:</p>
+                            <ul class="list-disc pl-5">
+                                <li>Access the System only with their own authorized credentials.</li>
+                                <li>Use Confidential Information solely for the purposes of their assigned duties.</li>
+                                <li>Not share, transmit, or disclose Confidential Information to unauthorized parties.</li>
+                                <li>Log out of the System when access is no longer required.</li>
+                                <li>Immediately report any suspected data breaches or unauthorized access.</li>
+                            </ul>
+
+                            <h5 class="font-semibold mt-4">4. Prohibited Actions</h5>
+                            <p>The User agrees not to:</p>
+                            <ul class="list-disc pl-5">
+                                <li>Download, copy, or distribute Confidential Information unless explicitly authorized.</li>
+                                <li>Use System data for personal, commercial, or unrelated purposes.</li>
+                                <li>Attempt to gain unauthorized access to other users' information or restricted areas of the System.</li>
+                                <li>Share login credentials or allow others to use their access.</li>
+                            </ul>
+
+                            <h5 class="font-semibold mt-4">5. Term</h5>
+                            <p>This Agreement is effective from the date the credentials were issued to the user and remains until user access is terminated.</p>
+
+                            <h5 class="font-semibold mt-4">6. Termination of Access</h5>
+                            <p>Upon termination of employment, volunteer work, or role requiring access, or upon request by the Disclosing Party:</p>
+                            <ul class="list-disc pl-5">
+                                <li>The User’s access will be revoked.</li>
+                                <li>The User must cease all use of the System and destroy or return any materials containing Confidential Information.</li>
+                            </ul>
+
+                            <h5 class="font-semibold mt-4">7. Breach and Consequences</h5>
+                            <p>A breach of this Agreement may result in:</p>
+                            <ul class="list-disc pl-5">
+                                <li>Disciplinary action (up to termination of employment or contract).</li>
+                                <li>Legal liability for damages.</li>
+                                <li>Civil or criminal penalties, particularly for violations of health privacy laws.</li>
+                            </ul>
+
+                            <h5 class="font-semibold mt-4">8. Governing Law</h5>
+                            <p>This Agreement shall be governed by the laws of Republic Act 10173.</p>
+
+                            <h5 class="font-semibold mt-4">9. Acknowledgment</h5>
+                            <p>By clicking AGREE, the User acknowledges they have read, understood, and agree to abide by the terms stated above and the organization’s confidentiality and data protection policies. Access is denied if the user chooses to disagree. The login and agreement logs are saved in the Systems.</p>
+                        
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-danger text-left">Close</button>
+                        <button class="btn btn-warning" type="button" onclick="btn_agree()"><i class="fa fa-thumbs-up"></i> I Agree</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 <script src='<%= ResolveUrl("~/vendor/jquery/jquery.min.js") %>'></script>
    
@@ -202,6 +298,20 @@
             $("#<%: show_caps.ClientID%>").css("visibility", visibility);
         }
       
+    }
+
+    function btn_show_terms()
+    {
+       $('#modal_term_and_conditions').modal({ backdrop: 'static', keyboard: false });
+    }
+    function btn_agree()
+    {
+        var chk = document.getElementById('<%= chk_terms.ClientID %>');
+        if (!chk.checked)
+        {
+            chk.checked = true;
+        } 
+        $('#modal_term_and_conditions').modal("hide");
     }
 </script>
 </html>

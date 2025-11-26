@@ -121,6 +121,15 @@ namespace HRIS_ePayroll {
         protected global::System.Web.UI.WebControls.Label show_caps;
         
         /// <summary>
+        /// chk_terms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_terms;
+        
+        /// <summary>
         /// btn_login control.
         /// </summary>
         /// <remarks>

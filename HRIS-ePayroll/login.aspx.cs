@@ -80,6 +80,11 @@ namespace HRIS_ePayroll
                 msg_logre.ForeColor = System.Drawing.Color.Red;
                 msg_logre.Text = "User Name and/or Password required.";
             }
+            //else if (chk_terms.Checked == false)
+            //{
+            //    msg_logre.ForeColor = System.Drawing.Color.Red;
+            //    msg_logre.Text = "You must accept the Terms and Conditions to continue.";
+            //}
             else
             {
                 Session.RemoveAll();
