@@ -1984,6 +1984,7 @@ namespace HRIS_Common
                     conn.Open();
                     //insertscript = "SET IDENTITY_INSERT " + tablenamescript + " ON; " + insertscript + " ; SET IDENTITY_INSERT " + tablenamescript + " ON";
                     SqlCommand insertcomd = new SqlCommand(script.Replace("'''", "''"), conn);
+                    insertcomd.CommandTimeout = 300; // 5 minutes
                     int retvalue = insertcomd.ExecuteNonQuery();
                     if (retvalue >= 1)
                     {
