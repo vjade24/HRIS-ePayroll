@@ -96,6 +96,9 @@
                                                 <option value="2023">2023</option>
                                                 <option value="2024">2024</option>
                                                 <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
                                             </select>
                                         </div>
 
@@ -1685,8 +1688,8 @@
         {
             var date  = new Date()
             var year  = date.getFullYear()
-            var month = month + 1
-            month     = (date.getMonth() <= 9 ? "0" +date.getMonth()  :  date.getMonth())
+            var month = date.getMonth() + 1
+            month     = (month <= 9 ? "0" +month  :  month)
 
             $('#year_filter').val(year);
             $('#month_filter').val(month);

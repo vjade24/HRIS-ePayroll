@@ -1220,7 +1220,7 @@ namespace HRIS_ePayroll.View
                   || int.Parse(ddl_year.SelectedValue) > 2025
                   )
                 {
-                    if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()))
+                    if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()) && chkbox_continue.Checked == false)
                     {
                         FieldValidationColorChanged(true, "below-minumum-net");
                         txtb_net_pay.Focus();
@@ -3262,7 +3262,7 @@ namespace HRIS_ePayroll.View
               || int.Parse(ddl_year.SelectedValue) > 2025
               )
             {
-                if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()))
+                if (double.Parse(txtb_net_pay.Text) < double.Parse(ViewState["minimum_net_pay"].ToString()) && chkbox_continue.Checked == false)
                 {
                     FieldValidationColorChanged(true, "below-minumum-net");
                     txtb_net_pay.Focus();

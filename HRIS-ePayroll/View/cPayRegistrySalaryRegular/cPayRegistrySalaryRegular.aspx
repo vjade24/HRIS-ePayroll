@@ -1165,14 +1165,14 @@
                                                         </div>
 
                                                        <%-- BEGIN   - VJA - 2022-05-27 - RESERVED DEDUCTIONS--%>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem1"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem1" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1180,14 +1180,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem2"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem2" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1195,14 +1195,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem3"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem3" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1210,14 +1210,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem4"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem4" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1225,14 +1225,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem5"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem5" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1247,7 +1247,7 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem6" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1255,14 +1255,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem7"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem7" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1270,14 +1270,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem8"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6" style="padding:0px;" >
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem8" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1285,14 +1285,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem9"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem9" CssClass="form-control form-control-sm text-right"></asp:TextBox>
@@ -1300,14 +1300,14 @@
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6" style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:label runat="server" Font-Bold="true" Font-Size="Small" ID="lbl_other_ded_prem10"></asp:label>
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
                                                         </div>
-                                                        <div class="col-6" >
+                                                        <div class="col-6"  style="padding:0px;">
                                                             <asp:UpdatePanel runat="server">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox runat="server" ID="txtb_other_ded_prem10" CssClass="form-control form-control-sm text-right"></asp:TextBox>

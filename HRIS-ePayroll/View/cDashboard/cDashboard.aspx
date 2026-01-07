@@ -49,8 +49,8 @@
                             <div class="col-lg-3">
                                 <label>Appropriation Year</label>
                                 <select class="form-control" id="appropriation_year">
-                                    <option value="2026" >2026</option>
-                                    <option value="2025" selected>2025</option>
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2025" >2025</option>
                                     <option value="2024" >2024</option>
                                     <option value="2023">2023</option>
                                     <option value="2022">2022</option>
