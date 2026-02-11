@@ -570,7 +570,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection25 {
             get {
                 return this.ReportDefinition.Sections[65];
             }
@@ -578,7 +578,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[66];
             }
@@ -586,7 +586,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[67];
             }
@@ -594,7 +594,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[68];
             }
@@ -602,7 +602,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[69];
             }
@@ -610,7 +610,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection3 {
             get {
                 return this.ReportDefinition.Sections[70];
             }
@@ -618,7 +618,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
                 return this.ReportDefinition.Sections[71];
             }
@@ -626,7 +626,7 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[72];
             }
@@ -634,9 +634,17 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[73];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection3 {
+            get {
+                return this.ReportDefinition.Sections[74];
             }
         }
         
