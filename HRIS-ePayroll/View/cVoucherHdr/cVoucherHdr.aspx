@@ -2838,8 +2838,11 @@
                 {
                     var parsed = JSON.parse(response.d)
                     var parsed_hdr = JSON.parse(response.d)
-                    console.log(parsed)
                     parsed = parsed.dt
+                    for (var i = 0; i < parsed.length; i++)
+                    {
+                        parsed[i]["payrolltemplate_code"] = payrolltemplate_code
+                    }
                     parsed_hdr = parsed_hdr.dt_header
                     oTable_cafoa.fnClearTable();
                     datalistgrid_cafoa = parsed;
@@ -2948,6 +2951,7 @@
             $('#raao_code').val("")
             $('#ooe_code').val("")
 
+            var template    = $('#<%= ddl_payroll_template.ClientID %>').val()
             if (action == "update")
             {
                 var data = oTable_cafoa.fnGetData(row)
@@ -2960,6 +2964,7 @@
                 $('#account_amt').val(currency(data.account_amt))
                 $('#raao_code').val(data.raao_code)
                 $('#ooe_code').val(data.ooe_code)
+                $('#payrolltemplate_code').val(template)
 
                 $('#modal_cafoa_details').modal({ backdrop: 'static', keyboard: false });
 
@@ -3115,6 +3120,7 @@
                 ,raao_code              : $('#raao_code').val()
                 ,ooe_code               : $('#ooe_code').val()
                 ,account_short_title    : $('#function_code option:selected').text()
+                ,payrolltemplate_code   : $('#<%= ddl_payroll_template.ClientID %>').val()
             };
 
             if (upsert.function_code == "")

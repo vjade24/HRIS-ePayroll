@@ -3871,6 +3871,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
             public DateTime? updated_dttm         { get; set; }
             public string raao_code              { get; set; }
             public string ooe_code               { get; set; }
+            public string payrolltemplate_code   { get; set; }
         }
         public class cafao_hdr_tbl
         {
@@ -3964,7 +3965,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         // INSERT records
                         foreach (var item in cafoa)
                         {
-                            string query = "INSERT INTO cafao_dtl_tbl (payroll_year, payroll_registry_nbr,seq_nbr,function_code,allotment_code,account_code,account_short_title,account_amt,created_by_user,updated_by_user,created_dttm,updated_dttm,raao_code,ooe_code) VALUES (@payroll_year, @payroll_registry_nbr,@seq_nbr,@function_code,@allotment_code,@account_code,@account_short_title,@account_amt,@created_by_user,@updated_by_user,@created_dttm,@updated_dttm,@raao_code,@ooe_code)";
+                            string query = "INSERT INTO cafao_dtl_tbl (payroll_year, payroll_registry_nbr,seq_nbr,function_code,allotment_code,account_code,account_short_title,account_amt,created_by_user,updated_by_user,created_dttm,updated_dttm,raao_code,ooe_code,payrolltemplate_code) VALUES (@payroll_year, @payroll_registry_nbr,@seq_nbr,@function_code,@allotment_code,@account_code,@account_short_title,@account_amt,@created_by_user,@updated_by_user,@created_dttm,@updated_dttm,@raao_code,@ooe_code,@payrolltemplate_code)";
                             using (SqlCommand cmd = new SqlCommand(query, con))
                             {
                                 cmd.Parameters.AddWithValue("@payroll_year", item.payroll_year);
@@ -3981,6 +3982,7 @@ namespace HRIS_ePayroll.View.cPayRegistry
                                 cmd.Parameters.AddWithValue("@updated_dttm", "");
                                 cmd.Parameters.AddWithValue("@raao_code", item.raao_code == null ? "" : item.raao_code);
                                 cmd.Parameters.AddWithValue("@ooe_code", item.ooe_code == null ? "" : item.ooe_code);
+                                cmd.Parameters.AddWithValue("@payrolltemplate_code", item.payrolltemplate_code == null ? "" : item.payrolltemplate_code);
                                 cmd.ExecuteNonQuery();
                             }
                         }
