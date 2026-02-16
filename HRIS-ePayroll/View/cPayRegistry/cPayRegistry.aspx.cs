@@ -3854,7 +3854,26 @@ namespace HRIS_ePayroll.View.cPayRegistry
             string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
             return json;
         }
-
+        [WebMethod]
+        public static string RetrieveRAAO(string appropriation_year, string function_code, string account_code)
+        {
+            CommonDB MyCmn = new CommonDB();
+            DataTable dt = new DataTable();
+            string query = "SELECT DISTINCT function_code,function_descr,raao_code,raao_descr FROM payrollcharges WHERE appropriation_year = '"+appropriation_year+"' AND function_code = '"+function_code+"' AND account_code = '"+account_code+"'";
+            dt = MyCmn.GetDatatable(query);
+            string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        [WebMethod]
+        public static string RetrieveOOE(string appropriation_year, string function_code, string account_code, string raao_code)
+        {
+            CommonDB MyCmn = new CommonDB();
+            DataTable dt = new DataTable();
+            string query = "SELECT DISTINCT function_code,function_descr,raao_code,raao_descr,ooe_code,object_of_expenditure FROM payrollcharges WHERE appropriation_year = '" + appropriation_year + "' AND function_code = '" + function_code + "' AND account_code = '" + account_code + "' AND raao_code = '"+ raao_code + "'";
+            dt = MyCmn.GetDatatable(query);
+            string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
         public class cafao_dtl_tbl
         {
             public string payroll_year           { get; set; }

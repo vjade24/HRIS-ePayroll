@@ -1457,13 +1457,15 @@
                                     <label>Seq. No</label>
                                     <input class="form-control form-control-sm" disabled id="seq_nbr" />
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <label>RAAO</label>
-                                    <input class="form-control form-control-sm" id="raao_code"/>
+                                    <select class="form-control form-control-sm" id="raao_code"></select>
                                 </div>
                                 <div class="col-lg-12">
                                     <label>OOE</label>
-                                    <input class="form-control form-control-sm" id="ooe_code"/>
+                                    <select class="form-control form-control-sm" id="ooe_code"></select>
                                 </div>
                             </div>
                         </div>
@@ -2132,14 +2134,23 @@
             {
                 $('#pacco_desig').val(this.options[this.selectedIndex].getAttribute("designation_head2"))
             })
-            
+            $('#raao_code').on('change', function ()
+            {
+                RetrieveOOE($('#<%= ddl_year.ClientID %>').val()
+                           ,$('#function_code').val()
+                           ,$('#account_code').val()
+                           ,this.options[this.selectedIndex].getAttribute("raao_code")
+                            )
+            })
 
             DepartmentSignatories()
             RetrieveFunctions('function_code')
 
             $('#function_code').on('change', function ()
             {
-                console.log(this.options[this.selectedIndex])
+                RetrieveRAAO($('#<%= ddl_year.ClientID %>').val()
+                            ,$('#function_code').val()
+                            ,$('#account_code').val())
                 $('#function_name').val(this.options[this.selectedIndex].getAttribute("function_name"))
             })
             var year        = $('#<%= ddl_year.ClientID %>').val()
@@ -2285,9 +2296,26 @@
                 $('#allotment_code').val(data.allotment_code)
                 $('#account_code').val(data.account_code)
                 $('#account_amt').val(currency(data.account_amt))
-                $('#raao_code').val(data.raao_code)
-                $('#ooe_code').val(data.ooe_code)
+
+                RetrieveRAAO($('#<%= ddl_year.ClientID %>').val()
+                            ,$('#function_code').val()
+                            ,$('#account_code').val())
+
+                RetrieveOOE($('#<%= ddl_year.ClientID %>').val()
+                           ,$('#function_code').val()
+                           ,$('#account_code').val()
+                           ,data.raao_code
+                            )
+
+                setTimeout(function ()
+                {
+                    $('#raao_code').val(data.raao_code)
+                    $('#ooe_code').val(data.ooe_code)
+                }, 2000);
+
                 $('#payrolltemplate_code').val(template)
+
+
 
                 $('#modal_cafoa_details').modal({ backdrop: 'static', keyboard: false });
 
@@ -2412,6 +2440,7 @@
                             option.text             = parsed[i].function_code + " - " + parsed[i].function_name ; 
                             option.value            = parsed[i].function_code; 
                             option.setAttribute("function_name", parsed[i].function_name);
+                            option.setAttribute("function_code", parsed[i].function_code);
                             select.appendChild(option);
                         }
                     } else
@@ -2426,6 +2455,102 @@
                 }
             });
         }
+        function RetrieveRAAO(appropriation_year,function_code,account_code)
+        {
+            $('#raao_code').val("")
+            $('#ooe_code').val("")
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/RetrieveRAAO",
+                contentType : "application/json; charset=utf-8",
+                data        : JSON.stringify({ appropriation_year: appropriation_year,function_code:function_code,account_code:account_code }),
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById("raao_code");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option              = document.createElement("option");
+                            option.text             = parsed[i].raao_code + " - " + parsed[i].raao_descr ; 
+                            option.value            = parsed[i].raao_code; 
+                            option.setAttribute("appropriation_year", parsed[i].appropriation_year);
+                            option.setAttribute("raao_code", parsed[i].raao_code);
+                            option.setAttribute("function_code", parsed[i].function_code);
+                            option.setAttribute("account_code", parsed[i].account_code);
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        var select = document.getElementById("raao_code");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+        function RetrieveOOE(appropriation_year,function_code,account_code,raao_code)
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayRegistry.aspx/RetrieveOOE",
+                contentType : "application/json; charset=utf-8",
+                data        : JSON.stringify({ appropriation_year: appropriation_year,function_code:function_code,account_code:account_code,raao_code:raao_code }),
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById("ooe_code");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option              = document.createElement("option");
+                            option.text             = parsed[i].ooe_code + " - " + parsed[i].object_of_expenditure ; 
+                            option.value            = parsed[i].ooe_code; 
+                            option.setAttribute("object_of_expenditure", parsed[i].object_of_expenditure);
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        var select = document.getElementById("ooe_code");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
         
 
         function btn_save_cafoa_dtl()
