@@ -1944,7 +1944,10 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="EMPLOYEE NAME" SortExpression="employee_name">
                                                     <ItemTemplate>
-                                                        &nbsp;&nbsp;<%# Eval("employee_name") %>
+                                                        &nbsp;&nbsp;<%# Eval("employee_name") %> 
+                                                        <%# Convert.ToDecimal(Eval("vat_value")) > 0 
+                                                        ? "&nbsp;&nbsp;<span class='badge badge-warning'>Vatable</span>" 
+                                                        : "" %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="20%" />
                                                     <HeaderStyle HorizontalAlign="Center" />

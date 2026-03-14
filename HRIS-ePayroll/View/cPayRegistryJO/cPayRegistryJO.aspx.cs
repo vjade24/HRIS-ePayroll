@@ -1605,6 +1605,7 @@ namespace HRIS_ePayroll.View
                 + "%' OR post_status_descr LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR payroll_year LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR payroll_registry_nbr LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
+                + "%' OR vat_value LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR net_pay LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%'";
 
             DataTable dtSource1 = new DataTable();
@@ -1618,6 +1619,7 @@ namespace HRIS_ePayroll.View
             dtSource1.Columns.Add("position_title1", typeof(System.String));
             dtSource1.Columns.Add("post_status_descr", typeof(System.String));
             dtSource1.Columns.Add("payroll_year", typeof(System.String));
+            dtSource1.Columns.Add("vat_value", typeof(System.Double));
            
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
@@ -3110,6 +3112,24 @@ namespace HRIS_ePayroll.View
                         }
                 }
             // NEW COMPUTATION **************************************
+
+            // ************************************************************
+            // ************ VJA 2026-03-11 ********************************
+            // ************************************************************
+            int year    = Convert.ToInt32(ddl_year.SelectedValue);
+            int month   = Convert.ToInt32(ddl_month.SelectedValue);
+            DateTime selectedDate = new DateTime(year, month, 1);
+            if (selectedDate >= new DateTime(2026, 3, 1))
+            {
+                dataList_employee_tax           = MyCmn.RetrieveData("sp_jo_for_tax", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
+                DataRow[] selected_employee     = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
+                if (double.Parse(selected_employee[0]["vat_value"].ToString()) != 0)
+                {
+                    gross_pay                   = gross_pay / double.Parse(selected_employee[0]["vat_value"].ToString());
+                    txtb_amount_due.Text        = gross_pay.ToString("###,##0.00");
+                    txtb_amount_due_hidden.Text = gross_pay.ToString("###,##0.00");
+                }
+            }
             txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
             str_lates_amount    = lates_amount.ToString("###,##0.00");
             str_lates_amount    = str_lates_amount.Split('.')[0] + "." + str_lates_amount.Split('.')[1].Substring(0, 2);

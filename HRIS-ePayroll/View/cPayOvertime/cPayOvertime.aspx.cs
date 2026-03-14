@@ -1097,6 +1097,7 @@ namespace HRIS_ePayroll.View
                 + "%' OR position_title1 LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR department_name1 LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR post_status_descr LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
+                + "%' OR vat_value LIKE '%" + txtb_search.Text.Trim().Replace("'", "''")
                 + "%' OR net_pay LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%'";
 
             DataTable dtSource1 = new DataTable();
@@ -1120,6 +1121,7 @@ namespace HRIS_ePayroll.View
             dtSource1.Columns.Add("position_title1", typeof(System.String));
             dtSource1.Columns.Add("department_name1", typeof(System.String));
             dtSource1.Columns.Add("post_status_descr", typeof(System.String));
+            dtSource1.Columns.Add("vat_value", typeof(System.Double));
 
             dtSource1.Columns.Add("employee_name", typeof(System.String));
 
@@ -1500,22 +1502,6 @@ namespace HRIS_ePayroll.View
 
             switch (ddl_empl_type.SelectedValue)
             {
-                
-                //case "CE":
-                //    total_hr_actual = double.Parse(txtb_hourly_rate_actual.Text.ToString()) * double.Parse(txtb_hr_actual.Text.ToString());
-                //    total_hr_25     = double.Parse((double.Parse(txtb_hourly_rate_25.Text.ToString()) * double.Parse(txtb_hr_25.Text.ToString())).ToString("###,##0.00"));
-                //    total_hr_50     = double.Parse((double.Parse(txtb_hourly_rate_50.Text.ToString()) * double.Parse(txtb_hr_50.Text.ToString())).ToString("###,##0.00"));
-                //    gross_pay       = total_hr_actual + total_hr_25 + total_hr_50;
-
-                //    // OLD COMPUTATION : Update : VJA - 11/19/2019
-                //    string total_str_gross_pay = "";
-                //    total_str_gross_pay = gross_pay.ToString("###,##0.0000");
-                //    txtb_gross_pay.Text = total_str_gross_pay.Split('.')[0] + "." + total_str_gross_pay.Split('.')[1].Substring(0, 2);
-
-                //    // NEW COMPUTATION 
-                //    //txtb_gross_pay.Text = gross_pay.ToString("###,##0.000");
-                //    break;
-
                 case "RE":
                 case "CE":
                   
@@ -1523,15 +1509,30 @@ namespace HRIS_ePayroll.View
                     total_hr_25 = double.Parse((double.Parse(txtb_hourly_rate_25.Text.ToString()) * double.Parse(txtb_hr_25.Text.ToString())).ToString("###,##0.00"));
                     total_hr_50 = double.Parse((double.Parse(txtb_hourly_rate_50.Text.ToString()) * double.Parse(txtb_hr_50.Text.ToString())).ToString("###,##0.00"));
                     gross_pay = total_hr_actual + total_hr_25 + total_hr_50;
-                    txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
+                    //txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
                     break;
 
                 case "JO":
-                    // Computation for JO - Is (Daily Rate / 8) * Actual Rendered hour  - Ana Si Maam Meldrid - 2020-11-14
                     gross_pay = (double.Parse(txtb_daily_rate.Text.ToString()) / 8) * double.Parse(txtb_hr_actual.Text.ToString());
-                    txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
+                    //txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
                     break;
             }
+            // ************************************************************
+            // ************ VJA 2026-03-11 ********************************
+            // ************************************************************
+            int year    = Convert.ToInt32(ddl_year.SelectedValue);
+            int month   = Convert.ToInt32(ddl_month.SelectedValue);
+            DateTime selectedDate = new DateTime(year, month, 1);
+            if (selectedDate >= new DateTime(2026, 3, 1))
+            {
+                dataList_employee_tax           = MyCmn.RetrieveData("sp_jo_for_tax", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
+                DataRow[] selected_employee     = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
+                if (double.Parse(selected_employee[0]["vat_value"].ToString()) != 0)
+                {
+                    gross_pay                   = gross_pay / double.Parse(selected_employee[0]["vat_value"].ToString());
+                }
+            }
+            txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
         }
         //**************************************************************************
         //  BEGIN - VJA- 04/02/2019 - Calculate Net Pays
