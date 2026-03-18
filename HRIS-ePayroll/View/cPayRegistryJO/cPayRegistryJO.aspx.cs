@@ -3113,23 +3113,7 @@ namespace HRIS_ePayroll.View
                 }
             // NEW COMPUTATION **************************************
 
-            // ************************************************************
-            // ************ VJA 2026-03-11 ********************************
-            // ************************************************************
-            int year    = Convert.ToInt32(ddl_year.SelectedValue);
-            int month   = Convert.ToInt32(ddl_month.SelectedValue);
-            DateTime selectedDate = new DateTime(year, month, 1);
-            if (selectedDate >= new DateTime(2026, 3, 1))
-            {
-                dataList_employee_tax           = MyCmn.RetrieveData("sp_jo_for_tax", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
-                DataRow[] selected_employee     = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
-                if (double.Parse(selected_employee[0]["vat_value"].ToString()) != 0)
-                {
-                    gross_pay                   = gross_pay / double.Parse(selected_employee[0]["vat_value"].ToString());
-                    txtb_amount_due.Text        = gross_pay.ToString("###,##0.00");
-                    txtb_amount_due_hidden.Text = gross_pay.ToString("###,##0.00");
-                }
-            }
+            
             txtb_gross_pay.Text = gross_pay.ToString("###,##0.00");
             str_lates_amount    = lates_amount.ToString("###,##0.00");
             str_lates_amount    = str_lates_amount.Split('.')[0] + "." + str_lates_amount.Split('.')[1].Substring(0, 2);
@@ -3626,37 +3610,51 @@ namespace HRIS_ePayroll.View
             double tax10    = 0;
             double tax15    = 0;
 
-            //dataList_employee_tax       = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_for_tax", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim());
+            double gross_pay_vat        = double.Parse(txtb_gross_pay.Text);
             dataList_employee_tax       = MyCmn.RetrieveData("sp_jo_for_tax", "par_empl_id", txtb_empl_id.Text.ToString().Trim());
             DataRow[] selected_employee = dataList_employee_tax.Select("empl_id='" + txtb_empl_id.Text.ToString().Trim() + "'");
 
             if (selected_employee.Length > 0)
             {
+                // ************************************************************
+                // ************ VJA 2026-03-11 ********************************
+                // ************************************************************
+                int year    = Convert.ToInt32(ddl_year.SelectedValue);
+                int month   = Convert.ToInt32(ddl_month.SelectedValue);
+                DateTime selectedDate = new DateTime(year, month, 1);
+                if (selectedDate >= new DateTime(2026, 3, 1))
+                {
+                    if (double.Parse(selected_employee[0]["vat_value"].ToString()) > 0 && dataList_employee_tax != null)
+                    {
+                        gross_pay_vat = double.Parse((gross_pay_vat / double.Parse(selected_employee[0]["vat_value"].ToString())).ToString("###,##0.00"));
+                    }
+                }
+
                 // **************************************************************
                 // *** VJA - Compute VAT
                 // **************************************************************
                 switch (selected_employee[0]["tax_perc"].ToString())
                 {
                     case "2":
-                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .02;
+                        tax2 = tax2 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .02;
                         break;
                     case "1":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .01;
+                        tax3 = tax3 + (gross_pay_vat  - double.Parse(txtb_less.Text)) * .01;
                         break;
                     case "3":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .03;
+                        tax3 = tax3 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .03;
                         break;
                     case "5":
-                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .05;
+                        tax5 = tax5 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .05;
                         break;
                     case "8":
-                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .08;
+                        tax8 = tax8 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .08;
                         break;
                     case "10":
-                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .10;
+                        tax10 = tax10 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .10;
                         break;
                     case "15":
-                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .15;
+                        tax15 = tax15 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .15;
                         break;
                 }
 
@@ -3667,25 +3665,25 @@ namespace HRIS_ePayroll.View
                 switch (selected_employee[0]["vat_perc"].ToString())
                 {
                     case "2":
-                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .02;
+                        tax2 = tax2 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .02;
                         break;
                     case "1":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .01;
+                        tax3 = tax3 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .01;
                         break;
                     case "3":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .03;
+                        tax3 = tax3 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .03;
                         break;
                     case "5":
-                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .05;
+                        tax5 = tax5 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .05;
                         break;
                     case "8":
-                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .08;
+                        tax8 = tax8 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .08;
                         break;
                     case "10":
-                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .10;
+                        tax10 = tax10 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .10;
                         break;
                     case "15":
-                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .15;
+                        tax15 = tax15 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .15;
                         break;
                 }
                 // **************************************************************
@@ -3695,25 +3693,25 @@ namespace HRIS_ePayroll.View
                 switch (selected_employee[0]["additional_vat_perc"].ToString())
                 {
                     case "2":
-                        tax2 = tax2 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .02;
+                        tax2 = tax2 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .02;
                         break;
                     case "1":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .01;
+                        tax3 = tax3 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .01;
                         break;
                     case "3":
-                        tax3 = tax3 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .03;
+                        tax3 = tax3 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .03;
                         break;
                     case "5":
-                        tax5 = tax5 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .05;
+                        tax5 = tax5 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .05;
                         break;
                     case "8":
-                        tax8 = tax8 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .08;
+                        tax8 = tax8 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .08;
                         break;
                     case "10":
-                        tax10 = tax10 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .10;
+                        tax10 = tax10 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .10;
                         break;
                     case "15":
-                        tax15 = tax15 + (double.Parse(txtb_gross_pay.Text) - double.Parse(txtb_less.Text)) * .15;
+                        tax15 = tax15 + (gross_pay_vat - double.Parse(txtb_less.Text)) * .15;
                         break;
                 }
 
