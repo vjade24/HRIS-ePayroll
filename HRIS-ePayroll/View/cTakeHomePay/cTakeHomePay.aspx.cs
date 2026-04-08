@@ -149,7 +149,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             RetriveTemplate();
             //RetrieveEmpl();
             RetrieveDataListGrid();
-            
+            RetrieveSignatory();
         }
 
         //*************************************************************************
@@ -169,7 +169,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             up_dataListGrid.Update();
 
             SearchData(txtb_search.Text);
-
+            
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopLoadingClose", "closeLoading();", true);
         }
         //*************************************************************************
@@ -187,7 +187,32 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             ListItem li = new ListItem("-- Select Here --", "");
             ddl_empl_type.Items.Insert(0, li);
         }
-        
+        //*************************************************************************
+        //  BEGIN - VJA- 09/09/2018 - Populate Combo list for Employment Type
+        //*************************************************************************
+        private void RetrieveSignatory()
+        {
+            ddl_preparedby.Items.Clear();
+            ddl_certifiedby.Items.Clear();
+            DataTable dt = MyCmn.RetrieveData_to_aats("sp_dtr_transmittal_requestedfrom_list", "p_department_code", "03", "p_subdepartment_code", "", "p_division_code", "", "p_section_code", "");
+
+            ddl_preparedby.DataSource = dt;
+            ddl_preparedby.DataValueField = "empl_id";
+            ddl_preparedby.DataTextField = "employee_name";
+            ddl_preparedby.DataBind();
+            ListItem li = new ListItem("-- Select Here --", "");
+            ddl_preparedby.Items.Insert(0, li);
+
+            ddl_certifiedby.DataSource = dt;
+            ddl_certifiedby.DataValueField = "empl_id";
+            ddl_certifiedby.DataTextField = "employee_name";
+            ddl_certifiedby.DataBind();
+            ListItem li2 = new ListItem("-- Select Here --", "");
+            ddl_certifiedby.Items.Insert(0, li2);
+
+            ddl_preparedby.SelectedValue  = "0029";
+            ddl_certifiedby.SelectedValue = "0028";
+        }
         //*************************************************************************
         //  BEGIN - VJA- 09/09/2018 - Populate Combo list for Payroll Year
         //*************************************************************************
@@ -568,28 +593,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                                 {
                                     post_status_descr += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() + " <br>";
                                 }
-
-                                //if (dt_NTHP_CHK.Rows[x]["post_status"].ToString() == "Y" && total_net_pay >= 5000)
-                                //{
-                                //    printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
-                                //    procedure = "sp_payrollregistry_takehome";
-                                //    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
-                                //    can_print = true;
-                                //}
-                                //else if (total_net_pay < 5000)
-                                //{
-                                //    message_descr     += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["net_pay"].ToString() + " <br>";
-                                //    LblRequired1.Text = message_descr + " Net Pay is Below 5k";
-                                //    can_print = false;
-                                //    return;
-                                //}
-                                //else
-                                //{
-                                //    message_descr += dt_NTHP_CHK.Rows[x]["payrolltemplate_descr"].ToString() + "-" + dt_NTHP_CHK.Rows[x]["post_status_descr"].ToString() + " <br>";
-                                //    LblRequired1.Text = message_descr;
-                                //    can_print = false;
-                                //    return;
-                                //}
+                                
                             }
                             if (total_net_pay < 5000)
                             {
@@ -607,7 +611,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                             {
                                 printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
                                 procedure = "sp_payrollregistry_takehome";
-                                url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
+                                url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim() + ",par_certifiedby," + ddl_certifiedby.SelectedValue.ToString().Trim() + ",par_prepared_name," + ddl_preparedby.SelectedValue.ToString().Trim();
                                 can_print = true;
                             }
 
@@ -646,7 +650,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                                 {
                                     printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
                                     procedure = "sp_payrollregistry_takehome";
-                                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
+                                    url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim() + ",par_certifiedby," + ddl_certifiedby.SelectedValue.ToString().Trim() + ",par_prepared_name," + ddl_preparedby.SelectedValue.ToString().Trim();
                                     can_print = true;
                                 }
                             }
@@ -721,7 +725,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                     dt_check = new DataTable();
                     if (procedure == "sp_payrollregistry_takehome")
                     {
-                        dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim(), "par_orno", txtb_or_nbr.Text.ToString().Trim(), "par_ordate", txtb_or_date.Text, "par_purpose", txtb_purpose_override.Text.ToString().Trim());
+                        dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim(), "par_orno", txtb_or_nbr.Text.ToString().Trim(), "par_ordate", txtb_or_date.Text, "par_purpose", txtb_purpose_override.Text.ToString().Trim(), "par_certifiedby", ddl_certifiedby.SelectedValue.ToString().Trim(), "par_prepared_name", ddl_preparedby.SelectedValue.ToString().Trim());
                         if (dt_check.Rows.Count > 0)
                         {
                             can_print = true;
@@ -766,208 +770,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
                     Response.Redirect(url);
                 }
             }
-
-            //switch (ddl_select_report.SelectedValue)
-            //{
-            //    case "01": // Net Take Home Pay 
-            //        printreport = "/cryOtherPayroll/cryNTHP/cryNTHP.rpt";
-            //        procedure = "sp_payrollregistry_takehome";
-            //        url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_orno," + txtb_or_nbr.Text.ToString().Trim() + ",par_ordate," + txtb_or_date.Text.ToString().Trim() + ",par_purpose," + txtb_purpose_override.Text.ToString().Trim();
-
-            //        LblRequired1.Text = "";
-            //        dt_check = new DataTable();
-            //        if (procedure == "sp_payrollregistry_takehome")
-            //        {
-            //            if (ddl_empl_type.SelectedValue == "JO")
-            //            {
-            //                DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_salary_payslip_jo_rep", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr", "", "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim());
-
-            //                for (int x = 0; x < dt.Rows.Count; x++)
-            //                {
-            //                    if (dt.Rows[x]["post_status"].ToString() == "N")
-            //                    {
-            //                        can_print = false;
-            //                        LblRequired1.Text = dt.Rows[x]["payrolltemplate_descr"].ToString() + " - Not Posted";
-            //                    }
-            //                    else if (dt == null || dt.Rows.Count < 0)
-            //                    {
-            //                        can_print = false;
-            //                        LblRequired1.Text = "No Data Found!";
-            //                    }
-            //                    else
-            //                    {
-            //                        can_print = true;
-            //                        LblRequired1.Text = "";
-            //                    }
-            //                }
-            //            }
-            //            else if (ddl_empl_type.SelectedValue == "RE")
-            //            {
-            //                DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_salary_payslip_re_rep", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr", "", "par_payrolltemplate_code", "007", "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim());
-                           
-            //                double net_pay = 0;
-            //                net_pay = net_pay + double.Parse(dt.Rows[0]["net_pay"].ToString());
-                           
-            //                if (net_pay < 5000)
-            //                {
-            //                    can_print = false;
-            //                    LblRequired1.Text = dt.Rows[0]["payrolltemplate_descr"].ToString() + " - Net Pay is Below 5k";
-            //                }
-            //                else if (dt == null || dt.Rows.Count < 0)
-            //                {
-            //                    can_print = false;
-            //                    LblRequired1.Text = "No Data Found!";
-            //                }
-            //                else
-            //                {
-            //                    can_print = true;
-            //                    LblRequired1.Text = "No Data Found!";
-            //                }
-
-            //            }
-            //            else if (ddl_empl_type.SelectedValue == "CE")
-            //            {
-            //                DataTable dt = MyCmn.RetrieveData("sp_payrollregistry_salary_payslip_ce_rep", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr", "", "par_payrolltemplate_code", "008", "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim());
-                            
-            //                double net_pay = 0;
-            //                net_pay = net_pay + double.Parse(dt.Rows[0]["net_pay"].ToString());
-                            
-            //                if (net_pay < 5000)
-            //                {
-            //                    can_print = false;
-            //                    LblRequired1.Text = dt.Rows[0]["payrolltemplate_descr"].ToString() + " - Net Pay is Below 5k";
-            //                }
-            //                else if (dt == null || dt.Rows.Count < 0)
-            //                {
-            //                    can_print = false;
-            //                    LblRequired1.Text = "No Data Found!";
-            //                }
-            //                else
-            //                {
-            //                    can_print = true;
-            //                    LblRequired1.Text = "No Data Found!";
-            //                }
-            //            }
-            //            else
-            //            {
-            //                dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim(), "par_orno", txtb_or_nbr.Text.ToString().Trim(), "par_ordate", txtb_or_date.Text);
-            //                if (dt_check.Rows.Count > 0)
-            //                {
-            //                    can_print = true;
-            //                }
-            //                else
-            //                {
-            //                    can_print = false;
-            //                    LblRequired1.Text = "No Data Found!";
-            //                }
-            //            }
-            //        }
-
-            //        break;
-
-            //    case "02": // PaySLip 
-            //        if (ddl_payroll_template.SelectedValue == "009" ||  // JO - Monthly payroll
-            //            ddl_payroll_template.SelectedValue == "010" ||  // JO - 1st Quincena
-            //            ddl_payroll_template.SelectedValue == "011"     // JO - 2nd Quincena
-            //            )   
-            //        {
-            //            printreport = "/cryJobOrderReports/cryPayslip/cryPaySlip.rpt";
-            //            procedure = "sp_payrollregistry_salary_payslip_jo_rep";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + "213" + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-            //        else if (ddl_payroll_template.SelectedValue == "008")
-            //        {
-            //            printreport = "/cryCasualReports/cryPayslip/cryPaySlip.rpt";
-            //            procedure = "sp_payrollregistry_salary_payslip_ce_rep";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + "214" + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-            //        else if (ddl_payroll_template.SelectedValue == "007")
-            //        {
-            //            printreport = "/cryRegularReports/cryPayslip/cryPaySlip.rpt";
-            //            procedure = "sp_payrollregistry_salary_payslip_re_rep";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + "212" + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-            //        else if (ddl_payroll_template.SelectedValue == "041" ||  // Subsistence - RE
-            //                ddl_payroll_template.SelectedValue  == "021")   // Subsistence - CE
-            //        {
-            //            procedure = "sp_payrollregistry_payslip";
-            //            printreport = "/cryOtherPayroll/cryPayslip/cryPS_Subsistence.rpt";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-
-            //        }
-            //        else if (ddl_payroll_template.SelectedValue == "023")  // RATA - RE
-            //        {
-            //            procedure = "sp_payrollregistry_payslip";
-            //            printreport = "/cryOtherPayroll/cryPayslip/cryPS_RATA.rpt";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-            //        else if (ddl_payroll_template.SelectedValue == "022" ||   // Overtime Payroll - RE
-            //                 ddl_payroll_template.SelectedValue == "042" ||   // Overtime Payroll - CE
-            //                 ddl_payroll_template.SelectedValue == "061")  // Overtime Payroll - JO
-            //        {
-            //            procedure = "sp_payrollregistry_payslip";
-            //            printreport = "/cryOtherPayroll/cryPayslip/cryPS_Ovtm.rpt";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-            //        else
-            //        {
-            //            procedure = "sp_payrollregistry_payslip";
-            //            printreport = "/cryOtherPayroll/cryPayslip/cryPS_OtherSal.rpt";
-            //            url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_month," + ddl_month.SelectedValue.ToString().Trim() + ",par_employment_type," + ddl_empl_type.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + "" + ",par_payrolltemplate_code," + ddl_payroll_template.SelectedValue.ToString().Trim() + ",par_empl_id," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim();
-            //        }
-
-            //        LblRequired1.Text = "";
-            //        dt_check = new DataTable();
-            //        if (procedure == "sp_payrollregistry_takehome")
-            //        {
-            //            dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim(), "par_orno", txtb_or_nbr.Text.ToString().Trim(), "par_ordate", txtb_or_date.Text, "par_purpose", txtb_purpose_override.Text.ToString().Trim());
-            //            if (dt_check.Rows.Count > 0)
-            //            {
-            //                can_print = true;
-            //            }
-            //            else
-            //            {
-            //                can_print = false;
-            //                LblRequired1.Text = "No Data Found!";
-            //            }
-            //        }
-            //        else if (procedure == "sp_payrollregistry_payslip")
-            //        {
-            //            dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr", "", "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim());
-            //            if (dt_check.Rows.Count > 0)
-            //            {
-            //                can_print = true;
-            //            }
-            //            else
-            //            {
-            //                can_print = false;
-            //                LblRequired1.Text = "No Data Found!";
-            //            }
-            //        }
-            //        else if (procedure == "sp_payrollregistry_salary_payslip_jo_rep" ||
-            //                 procedure == "sp_payrollregistry_salary_payslip_ce_rep" ||
-            //                 procedure == "sp_payrollregistry_salary_payslip_re_rep")
-            //        {
-            //            dt_check = MyCmn.RetrieveData(procedure, "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_payroll_registry_nbr", "", "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_empl_id", lnkPrint.CommandArgument.Split(',')[0].ToString().Trim());
-            //            if (dt_check.Rows.Count > 0)
-            //            {
-            //                can_print = true;
-            //            }
-            //            else
-            //            {
-            //                can_print = false;
-            //                LblRequired1.Text = "No Data Found!";
-            //            }
-            //        }
-            //        break;
-            //}
-
-
-            //if (url != "" && can_print == true)
-            //{
-            //    Response.Redirect(url);
-            //}
-
+            
         }
 
         protected void ddl_purpose_SelectedIndexChanged(object sender, EventArgs e)

@@ -126,6 +126,10 @@ namespace HRIS_ePayroll.prinview
             {
                 dt = MyCmn.RetrieveData(ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9], ls_splitvalue[10], ls_splitvalue[11], ls_splitvalue[12], ls_splitvalue[13], ls_splitvalue[14], ls_splitvalue[15]);
             }
+            if (ls_splitvalue.Length == 20)
+            {
+                dt = MyCmn.RetrieveData(ls_splitvalue[1], ls_splitvalue[2], ls_splitvalue[3], ls_splitvalue[4], ls_splitvalue[5], ls_splitvalue[6], ls_splitvalue[7], ls_splitvalue[8], ls_splitvalue[9], ls_splitvalue[10], ls_splitvalue[11], ls_splitvalue[12], ls_splitvalue[13], ls_splitvalue[14], ls_splitvalue[15], ls_splitvalue[16], ls_splitvalue[17], ls_splitvalue[18], ls_splitvalue[19]);
+            }
             //if (ls_splitvalue.Length == 12 & (Session["BODY_LINE"].ToString() == "" || Session["BODY_LINE"].ToString() != "")) 
             //    // 12 Length and Not or Equal to blank the BODY LINE for eRsp Module
             //{

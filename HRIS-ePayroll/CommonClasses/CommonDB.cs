@@ -693,7 +693,39 @@ namespace HRIS_Common
             }
 
         }
+        //***********************************************************************************************************************
+        // Purpose      :   Create Overloaded Datatable object based SQL script (stored prodecure) with one string parameter
+        //                  and 1 int paramater
+        // Method Name  :   RetrieveData
+        // Created By   :   Ariel Cabungcal (AEC)
+        // Date Created :   09/07/2018
+        //***********************************************************************************************************************
+        public DataTable RetrieveData_to_aats(string sp_script, string parmagr1, string parmvalue1, string parmagr2, string parmvalue2, string parmagr3, string parmvalue3, string parmagr4, string parmvalue4)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                string connStr = System.Configuration.ConfigurationManager.ConnectionStrings[connectstring_aats].ConnectionString;
+                using (SqlConnection cn = new SqlConnection(connStr))
+                {
+                    SqlCommand cmd = new SqlCommand(sp_script, cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = Int32.MaxValue;
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    cmd.Parameters.Add("@" + parmagr1, SqlDbType.VarChar).Value = parmvalue1;
+                    cmd.Parameters.Add("@" + parmagr2, SqlDbType.VarChar).Value = parmvalue2;
+                    cmd.Parameters.Add("@" + parmagr3, SqlDbType.VarChar).Value = parmvalue3;
+                    cmd.Parameters.Add("@" + parmagr4, SqlDbType.VarChar).Value = parmvalue4;
+                    adp.Fill(dt);
+                }
+                return dt;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
         //***********************************************************************************************************************
         // Purpose      :   Create Overloaded Datatable object based SQL script (stored prodecure) with one string parameter
         //                  and 1 int paramater

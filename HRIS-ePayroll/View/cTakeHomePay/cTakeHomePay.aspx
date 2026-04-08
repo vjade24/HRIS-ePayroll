@@ -145,6 +145,14 @@
                                     <div class="col-9" style="text-align:center !important">
                                         <asp:Label runat="server" CssClass="badge badge-danger" ForeColor="White" ID="LblRequired1"></asp:Label>
                                     </div>
+                                    <div class="col-12" >
+                                        <asp:Label runat="server" ID="Label1" Text="Prepared By:" ></asp:Label>
+                                        <asp:DropDownList ID="ddl_preparedby" CssClass="form-control form-control-sm" runat="server" Width="100%"  AutoPostBack="true" ></asp:DropDownList>
+                                    </div>
+                                    <div class="col-12" >
+                                        <asp:Label runat="server" ID="Label2" Text="Certified By:" ></asp:Label>
+                                        <asp:DropDownList ID="ddl_certifiedby" CssClass="form-control form-control-sm" runat="server" Width="100%"  AutoPostBack="true" ></asp:DropDownList>
+                                    </div>
                                     <%--<div class="col-12 text-left" style="padding-top:5px !important" runat="server" id="col_message">
                                         <div class="alert alert-danger alert-dismissible fade show small" role="alert" style="padding:5px;margin-bottom:0px;margin-left:0px;opacity:0.8;font-size:12px !important">
                                             <strong> Message:  </strong> -- Cannot Print Report <b> No Data Found</b>

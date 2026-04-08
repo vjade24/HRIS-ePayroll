@@ -706,9 +706,25 @@ namespace HRIS_ePayroll.Reports.cryOtherPayroll.cryNTHP {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_cryOrganizationrpt_organization_code {
+        public CrystalDecisions.Shared.IParameterField Parameter_par_certifiedby {
             get {
                 return this.DataDefinition.ParameterFields[7];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_par_prepared_name {
+            get {
+                return this.DataDefinition.ParameterFields[8];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_cryOrganizationrpt_organization_code {
+            get {
+                return this.DataDefinition.ParameterFields[9];
             }
         }
     }
