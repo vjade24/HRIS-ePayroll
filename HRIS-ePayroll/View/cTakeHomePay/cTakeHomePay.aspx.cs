@@ -194,7 +194,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
         {
             ddl_preparedby.Items.Clear();
             ddl_certifiedby.Items.Clear();
-            DataTable dt = MyCmn.RetrieveData_to_aats("sp_dtr_transmittal_requestedfrom_list", "p_department_code", "03", "p_subdepartment_code", "", "p_division_code", "", "p_section_code", "");
+            DataTable dt = MyCmn.RetrieveData_to_aats("sp_dtr_transmittal_requestedfrom_list", "p_department_code", "HR", "p_subdepartment_code", "", "p_division_code", "", "p_section_code", "");
 
             ddl_preparedby.DataSource = dt;
             ddl_preparedby.DataValueField = "empl_id";
