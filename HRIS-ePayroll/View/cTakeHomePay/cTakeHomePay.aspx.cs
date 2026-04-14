@@ -778,6 +778,21 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             txtb_purpose_override.Text = "";
             txtb_purpose_override.Text = ddl_purpose.SelectedValue.ToString();
 
+            if (
+                ddl_purpose.SelectedValue.ToString() == "CCMPC Loan" ||
+                ddl_purpose.SelectedValue.ToString() == "ONB" ||
+                ddl_purpose.SelectedValue.ToString() == "LBP eSL" ||
+                ddl_purpose.SelectedValue.ToString() == "" 
+                )
+            {
+                ddl_certifiedby.SelectedValue = "0028"; // Janet
+            }
+            else
+            {
+                ddl_certifiedby.SelectedValue = "0428"; // Grace Almedilla
+            }
+            
+
             Update_or_date.Update();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "PopSHowDate", "show_date();", true);
         }

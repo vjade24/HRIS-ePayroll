@@ -97,7 +97,7 @@
                                             <ContentTemplate>
                                                 <asp:Label runat="server" Text="Select Purpose:" ID="lbl_purpose"></asp:Label> 
                                                 <asp:DropDownList ID="ddl_purpose" CssClass="form-control form-control-sm" runat="server" Width="100%"  AutoPostBack="true" OnSelectedIndexChanged="ddl_purpose_SelectedIndexChanged" >
-                                                    <asp:ListItem Text=""></asp:ListItem>
+                                                    <asp:ListItem Value="" Text=""></asp:ListItem>
                                                     <asp:ListItem Value="CCMPC Loan" Text="CCMPC Loan"></asp:ListItem>
                                                     <asp:ListItem Value="NICO Loan" Text="NICO Loan"></asp:ListItem>
                                                     <asp:ListItem Value="BDO Loan" Text="BDO Loan"></asp:ListItem>
@@ -105,6 +105,7 @@
                                                     <asp:ListItem Value="Tagum Coop." Text="Tagum Coop."></asp:ListItem>
                                                     <asp:ListItem Value="HDMF-MPL" Text="HDMF-MPL"></asp:ListItem>
                                                     <asp:ListItem Value="HDMF-Calamity Loan" Text="HDMF-Calamity Loan"></asp:ListItem>
+                                                    <asp:ListItem Value="ONB" Text="ONB"></asp:ListItem>
                                                     <asp:ListItem Value="" Text="Other Loan"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ContentTemplate>
