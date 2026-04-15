@@ -71,9 +71,6 @@
                                         <asp:Label runat="server" Text="ID No.:"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtb_empl_id" CssClass="form-control form-control-sm" Enabled="false" Font-Bold="true"></asp:TextBox>
                                     </div>
-                                    <div class="col-12">
-                                        <hr />
-                                    </div>
                                     <div class="col-6" >
                                         <asp:Label runat="server" Text="Payroll Year:"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtb_payroll_year" CssClass="form-control form-control-sm" Enabled="false"></asp:TextBox>
@@ -88,9 +85,6 @@
                                             <asp:ListItem Value="01" Text="Net Take Home Pay"></asp:ListItem>
                                             <asp:ListItem Value="02" Text="Pay Slip"></asp:ListItem>
                                         </asp:DropDownList>
-                                    </div>
-                                    <div class="col-12">
-                                        <hr />
                                     </div>
                                     <div class="col-12" >
                                         <asp:UpdatePanel runat="server">
@@ -142,7 +136,6 @@
                                         <asp:DropDownList ID="ddl_payroll_template" CssClass="form-control form-control-sm" runat="server" Width="100%"  AutoPostBack="true" Visible="false"></asp:DropDownList>
                                         
                                     </div>
-                                    <hr />
                                     <div class="col-9" style="text-align:center !important">
                                         <asp:Label runat="server" CssClass="badge badge-danger" ForeColor="White" ID="LblRequired1"></asp:Label>
                                     </div>
@@ -163,8 +156,8 @@
                                             </button>
                                         </div>
                                     </div>--%>
-                                    <div class="col-3" style="margin-top:5px">
-                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success pull-right" OnClick="lnkPrint_Click"  > <i class="fa fa-print"></i> Print </asp:LinkButton>
+                                    <div class="col-3 " style="margin-top:15px">
+                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success btn-md btn-block text-center" OnClick="lnkPrint_Click"  > <i class="fa fa-print"></i> Print </asp:LinkButton>
                                     </div>
                                 </div>
                             </div>

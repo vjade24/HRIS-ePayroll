@@ -245,7 +245,7 @@ namespace HRIS_ePayroll.View.cTakeHomePay
             txtb_payroll_year.Text   = "";
             txtb_payroll_month.Text  = "";
             txtb_or_nbr.Text         = "";
-            txtb_or_date.Text        = "";
+            txtb_or_date.Text        = DateTime.Now.ToString("yyyy-MM-dd");
             LblRequired1.Text        = "";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Popshowdate", "show_date();", true);
         }

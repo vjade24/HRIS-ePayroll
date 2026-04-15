@@ -3070,7 +3070,16 @@ namespace HRIS_ePayroll.View
                 {
                     case "M": // Rate basis = Monthly Rate is Daily Rate * No of days Worked
                         {
-                            gross_pay                   = double.Parse(txtb_rate_amount.Text.ToString());
+                            if (double.Parse(txtb_no_hours_worked.Text) < 16)
+                            {
+                                //  SubSpec with 16 below Hours Worked (Prorated Gross Pay) - 2026-04-14
+                                gross_pay                = (double.Parse(txtb_rate_amount.Text.ToString()) / 4 / 4) * double.Parse(txtb_no_hours_worked.Text);
+                                hidden_hourly_rate.Value = (double.Parse(txtb_rate_amount.Text.ToString()) / 4 / 4).ToString("###,##0.00");
+                            }
+                            else
+                            {
+                                gross_pay                   = double.Parse(txtb_rate_amount.Text.ToString());
+                            }
                             lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) * (lates_time / decimal.Parse(hidden_hrs_in1day.Value));
                             decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
                             string str_lates_amount_1   = "";
@@ -3901,8 +3910,16 @@ namespace HRIS_ePayroll.View
                     str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                     str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0, 11);
                     lates_amount                = decimal.Parse(str_lates_amount_1) * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-                    
-                    amount_due_hidden = (double.Parse(txtb_rate_amount.Text)) ;
+
+                    if (double.Parse(txtb_no_hours_worked.Text) < 16)
+                    {
+                        //  SubSpec with 16 below Hours Worked (Prorated Gross Pay) - 2026-04-14
+                        amount_due_hidden = (double.Parse(txtb_rate_amount.Text.ToString()) / 4 / 4) * double.Parse(txtb_no_hours_worked.Text);
+                    }
+                    else
+                    {
+                        amount_due_hidden = double.Parse(txtb_rate_amount.Text.ToString());
+                    }
                     amount_due_hidden = amount_due_hidden - double.Parse(lates_amount.ToString("###,##0.00"));
                     break;
             }
