@@ -100,7 +100,7 @@
                                                     <asp:ListItem Value="HDMF-MPL" Text="HDMF-MPL"></asp:ListItem>
                                                     <asp:ListItem Value="HDMF-Calamity Loan" Text="HDMF-Calamity Loan"></asp:ListItem>
                                                     <asp:ListItem Value="ONB" Text="ONB"></asp:ListItem>
-                                                    <asp:ListItem Value="" Text="Other Loan"></asp:ListItem>
+                                                    <asp:ListItem Value="Other Loan" Text="Other Loan"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
@@ -156,8 +156,8 @@
                                             </button>
                                         </div>
                                     </div>--%>
-                                    <div class="col-3 " style="margin-top:15px">
-                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success btn-md btn-block text-center" OnClick="lnkPrint_Click"  > <i class="fa fa-print"></i> Print </asp:LinkButton>
+                                    <div class="col-12 pull-right text-right" style="margin-top:15px">
+                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="btn btn-success btn-md pull-right" OnClick="lnkPrint_Click"  > <i class="fa fa-print"></i> Print </asp:LinkButton>
                                     </div>
                                 </div>
                             </div>
