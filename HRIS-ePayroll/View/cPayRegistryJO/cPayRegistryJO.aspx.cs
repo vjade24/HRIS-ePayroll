@@ -314,7 +314,7 @@ namespace HRIS_ePayroll.View
             //}
             group_nbr = ViewState["payroll_group_nbr"].ToString().Trim();
             ddl_empl_id.Items.Clear();
-            dataList_employee = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", group_nbr);
+            dataList_employee = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", group_nbr, "par_empl_id","");
 
             ddl_empl_id.DataSource = dataList_employee;
             ddl_empl_id.DataValueField = "empl_id";
@@ -2902,7 +2902,9 @@ namespace HRIS_ePayroll.View
             double lates_time = 0;
             double gross_pay = 0;
             double lates_amount = 0;
-            DataRow[] selected_employee = dataList_employee.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
+            DataTable datalist_new = new DataTable();
+            datalist_new = MyCmn.RetrieveData("sp_personnelnames_combolist_preg_jo_payroll", "par_payroll_year", ddl_year.SelectedValue.ToString().Trim(), "par_payroll_month", ddl_month.SelectedValue.ToString().Trim(), "par_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "par_payrolltemplate_code", ddl_payroll_template.SelectedValue.ToString().Trim(), "par_payrol_group_nbr", ViewState["payroll_group_nbr"].ToString().Trim(), "par_empl_id", ddl_empl_id.SelectedValue.ToString().Trim());
+            DataRow[] selected_employee = datalist_new.Select("empl_id='" + ddl_empl_id.SelectedValue.ToString().Trim() + "'");
             
             if (selected_employee.Length > 0)
             {
