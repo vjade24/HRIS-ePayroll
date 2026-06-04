@@ -15,6 +15,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using HRIS_Common;
 using System.Drawing;
+using System.Web.Services;
+using Newtonsoft.Json;
+using System.Data.SqlClient;
 
 namespace HRIS_ePayroll.View.cPayAccountLedger
 {
@@ -2462,6 +2465,158 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
             txtb_search.Attributes["onfocus"] = "var value = this.value; this.value = ''; this.value = value; onfocus = null;";
             txtb_search.Focus();
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
+        }
+        [WebMethod]
+        public static string Moratorium(string par_deduc_code)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                CommonDB MyCmn = new CommonDB();
+                dt = MyCmn.RetrieveData("sp_moratorium_tbl_list", "par_deduc_code", par_deduc_code);
+                string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                throw;
+            }
+        }
+        [WebMethod]
+        public static string RetrieveEmpl(string p_employment_type)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                CommonDB MyCmn = new CommonDB();
+                dt = MyCmn.RetrieveData("sp_personnelnames_combolist_loan_ledger", "p_employment_type", p_employment_type);
+                string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                throw;
+            }
+        }
+        public class moratorium_tbl
+        {
+             public int? id                 { get; set; }
+             public string deduc_code       { get; set; }
+             public string empl_id          { get; set; }
+             public string period_from      { get; set; }
+             public string period_to        { get; set; }
+             public string rcrd_status      { get; set; }
+             public string created_by       { get; set; }
+             public DateTime? created_dttm  { get; set; }
+             public string updated_by       { get; set; }
+             public DateTime? updated_dttm  { get; set; }
+        }
+        [WebMethod]
+        public static string save_data(string action, string data_string)
+        {
+            try
+            {
+                var message = "";
+                moratorium_tbl data = JsonConvert.DeserializeObject<moratorium_tbl>(data_string);
+                if (data != null)
+                {
+                    string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["hrisConn"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connStr))
+                    {
+                        con.Open();
+                        if (action == "add")
+                        {
+                            string query_check = "SELECT COUNT(1) FROM moratorium_tbl WHERE deduc_code = @deduc_code AND empl_id = @empl_id";
+                            using (SqlCommand check_cmd = new SqlCommand(query_check, con))
+                            {
+                                check_cmd.Parameters.AddWithValue("@deduc_code", data.deduc_code ?? (object)DBNull.Value);
+                                check_cmd.Parameters.AddWithValue("@empl_id",    data.empl_id   ?? (object)DBNull.Value);
+                                int count = (int)check_cmd.ExecuteScalar();
+                                if (count > 0)
+                                    return "duplicate: A moratorium record for this deduction and employee already exists.";
+                            }
+
+                            string query_insert = "INSERT INTO moratorium_tbl (deduc_code, empl_id, period_from, period_to, rcrd_status, created_by, created_dttm, updated_by, updated_dttm) " +
+                                                  "VALUES (@deduc_code, @empl_id, @period_from, @period_to, @rcrd_status, @created_by, @created_dttm, @updated_by, @updated_dttm)";
+                            using (SqlCommand insert_cmd = new SqlCommand(query_insert, con))
+                            {
+                                insert_cmd.Parameters.AddWithValue("@deduc_code",   data.deduc_code  ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@empl_id",      data.empl_id     ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@period_from",  data.period_from ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@period_to",    data.period_to   ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@rcrd_status",  data.rcrd_status ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@created_by",   System.Web.HttpContext.Current.Session["ep_user_id"]?.ToString().Trim() ?? (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@created_dttm", DateTime.Now);
+                                insert_cmd.Parameters.AddWithValue("@updated_by",   (object)DBNull.Value);
+                                insert_cmd.Parameters.AddWithValue("@updated_dttm", (object)DBNull.Value);
+                                insert_cmd.ExecuteNonQuery();
+                            }
+                        }
+                        else if (action == "update")
+                        {
+                            string query_update = "UPDATE moratorium_tbl SET " +
+                                                  "period_from      = @period_from, " +
+                                                  "period_to        = @period_to,   " +
+                                                  "rcrd_status      = @rcrd_status, " +
+                                                  "updated_by       = @updated_by,  " +
+                                                  "updated_dttm     = @updated_dttm " +
+                                                  "WHERE deduc_code = @deduc_code " +
+                                                  "AND empl_id      = @empl_id    " +
+                                                  "AND id           = @id";
+                            using (SqlCommand update_cmd = new SqlCommand(query_update, con))
+                            {
+                                update_cmd.Parameters.AddWithValue("@period_to",    data.period_to   ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@rcrd_status",  data.rcrd_status ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@updated_by",   System.Web.HttpContext.Current.Session["ep_user_id"]?.ToString().Trim() ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@updated_dttm", DateTime.Now);
+                                update_cmd.Parameters.AddWithValue("@deduc_code",   data.deduc_code  ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@empl_id",      data.empl_id     ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@period_from",  data.period_from ?? (object)DBNull.Value);
+                                update_cmd.Parameters.AddWithValue("@id",           data.id.HasValue ? (object)data.id.Value : DBNull.Value);
+                                update_cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                    }
+                    message = "success";
+                }
+                else
+                {
+                    message = "no data found!";
+                }
+                return message;
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+        }
+        [WebMethod]
+        public static string delete_data(string id)
+        {
+            try
+            {
+                var message = "";
+                string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["hrisConn"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    con.Open();
+                    string query_delete = "DELETE FROM moratorium_tbl WHERE id = @id";
+                    using (SqlCommand delete_cmd = new SqlCommand(query_delete, con))
+                    {
+                        delete_cmd.Parameters.AddWithValue("@id", id);
+                        delete_cmd.ExecuteNonQuery();
+                    }
+                }
+                message = "success";
+                return message;
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
         }
         //********************************************************************
         // END OF THE CODE

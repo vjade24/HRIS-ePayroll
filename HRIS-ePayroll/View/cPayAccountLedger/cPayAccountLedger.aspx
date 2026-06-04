@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="cPayAccountLedger.aspx.cs" Inherits="HRIS_ePayroll.View.cPayAccountLedger.cPayAccountLedger" %>
 <%@ MasterType VirtualPath="~/MasterPage.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="specific_css" runat="server">
+    <style>
+        .highlight-row td {
+            background-color: #fffde7 !important;
+            transition: background-color 0.5s ease;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContainer" runat="server">
     <form runat="server">
@@ -1140,6 +1146,94 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+    
+
+    <div class="modal fade" id="moratorium_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+            <div class="modal-content  modal-content-add-edit">
+                <div class="modal-header bg-success" >
+                        <h5 class="modal-title text-white" ><asp:Label runat="server" Text="MORATORIUM"></asp:Label></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary btn-sm pull-right mr-3" type="button" onclick="btn_moratorium_action('','add')"><i class="fa fa-plus-square"></i> Add New</button>
+                            <div class="table-responsive pt-1">
+                                <table class="table table-striped table-bordered" id="datalist_grid_moratorium" style="width:100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20% !important">DESCRIPTION</th>
+                                        <th style="width:10% !important">ID #</th>
+                                        <th style="width:30% !important">EMPLOYEE NAME</th>
+                                        <th style="width:20% !important">PERIOD COVERED</th>
+                                        <th style="width:10% !important">STATUS</th>
+                                        <th style="width:10% !important"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="moratorium_modal_details" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document" >
+            <div class="modal-content  modal-content-add-edit">
+                <div class="modal-header bg-success" >
+                        <h5 class="modal-title text-white" ><asp:Label runat="server" Text="MORATORIUM DETAILS"></asp:Label></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <label>Description</label>
+                            <input class="form-control" id="deduc_descr" type="text" disabled/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Code</label>
+                            <input class="form-control text-center" id="deduc_code" type="text" disabled/>
+                        </div>
+                        <div class="col-lg-8" id="employee_select_div">
+                            <label>Employee Name</label>
+                            <select class="form-control" id="ddl_employee_name" > </select>
+                        </div>
+                        <div class="col-lg-8" id="employee_input_div">
+                            <label>Employee Name</label>
+                            <input class="form-control" id="employee_name" type="text" disabled/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>ID #</label>
+                            <input class="form-control text-center" id="empl_id" type="text" disabled/>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Period from</label>
+                            <input class="form-control" id="period_from" type="date"/>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Period To</label>
+                            <input class="form-control" id="period_to" type="date" />
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Status</label>
+                            <select class="form-control" id="rcrd_status" >
+                                <option value="1">Active</option>
+                                <option value="0">In-Active</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" onclick="btn_save()"> Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="col-12">
         <div class="row breadcrumb my-breadcrumb">
@@ -1185,32 +1279,75 @@
                                         </ContentTemplate>  
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-5" style="margin-top:3px;padding-right:3px">
-                                    
-                                    <asp:Label style="float:left;" ID="Label4" runat="server" Text="Employment Type: "></asp:Label>
-                                     <div style="float:right;width:65%">
-                                        <asp:UpdatePanel runat="server">
-                                            <ContentTemplate>
-                                                <asp:DropDownList ID="ddl_empl_type" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <asp:Label  ID="Label4" runat="server" Text="Employment Type: "></asp:Label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList ID="ddl_empl_type" runat="server" CssClass="form-control-sm form-control" AutoPostBack="true" OnSelectedIndexChanged="ddl_empl_type_SelectedIndexChanged"></asp:DropDownList>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-4" style="margin-top:3px;">
-                                    <asp:Label style="float:left;" ID="Label11" runat="server" Text="Deduction Type:"></asp:Label>
                                     
-                                    <div style="float:right;width:65%" >
-                                        <asp:UpdatePanel runat="server">
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <asp:Label  runat="server" Text="Deduction Type:"></asp:Label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <asp:UpdatePanel runat="server">
                                             <ContentTemplate>
                                                 <asp:DropDownList ID="ddl_accttype_main" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddl_accttype_main_SelectedIndexChanged" >
                                                     
                                                 </asp:DropDownList>  
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-4"></div>
+                                <div class="col-4" >
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <asp:Label  runat="server" Text="Deductions: "></asp:Label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList ID="ddl_loan_account_name" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddl_loan_account_name_SelectedIndexChanged"></asp:DropDownList>
+                                                    
+                                                    <asp:Label ID="LblRequired11" runat="server" CssClass="lbl_required" Text=""></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-2 text-right" >
+                                    <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                                        <ContentTemplate>
+                                            
+                                            <% if (ViewState["page_allow_add"].ToString() == "1")
+                                                {  %>
+                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
+                                            <% }
+                                                %>     
+                                        </ContentTemplate>
+                                        <Triggers>
+                                            <asp:AsyncPostBackTrigger ControlID="btnAdd" />
+                                        </Triggers>
+                                    </asp:UpdatePanel>
 
+                                </div>
+                                <div class="col-lg-2" >
+                                    <button class="btn btn-success btn-sm btn-block" id="lnkbtn_moraturium" onclick="open_moratorium()" type="button"><i class="fa fa-qrcode"></i> Moratorium</button>
+                                </div>
                                 <div class="col-2" style="margin-top:3px;display:none">
                                     <asp:Label style="float:left;" ID="Label3" runat="server" Text="Status:"></asp:Label>
                                     
@@ -1236,36 +1373,9 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div class="col-8" style="margin-top:3px">
-                                        <asp:Label style="float:left;" ID="Label5" runat="server" Text="Deductions: "></asp:Label>
-                                    
-                                    <div style="float:right;width:78%">
-                                        <asp:UpdatePanel runat="server">
-                                            <ContentTemplate>
-                                                <asp:DropDownList ID="ddl_loan_account_name" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddl_loan_account_name_SelectedIndexChanged"></asp:DropDownList>
-                                                    
-                                                <asp:Label ID="LblRequired11" runat="server" CssClass="lbl_required" Text=""></asp:Label>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                    </div>
-                                        
-                                </div>
                                 
-                                <div class="col-1 text-right" style="margin-top:3px">
-                                    <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                        <ContentTemplate>
-                                            
-                                            <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                {  %>
-                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
-                                            <% }
-                                                %>     
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnAdd" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                </div>
+                                
+                                
 
                             </div>
                             <asp:UpdatePanel ID="up_dataListGrid" UpdateMode="Conditional" runat="server" >
@@ -1458,7 +1568,8 @@
                 keyboard: false,
                 backdrop: "static"
             });
-        };
+        }; 
+
     </script>
     <script type="text/javascript">
         function closeModal() {
@@ -1568,6 +1679,328 @@
              document.getElementById('<%: Button2.ClientID%>').style.display = "";
          }
     </script>
+
+    <script type="text/javascript">
+
+        var datalistgrid;
+        var oTable;
+        var action_cafoa     = "";
+        var selected_row_idx = null;
+
+        function open_moratorium()
+        {
+            var deduc_code = $('#<%= ddl_loan_account_name.ClientID %>').val()
+            if (!deduc_code)
+            {
+                alert("PLEASE SELECT DEDUCTIONS DESCRIPTION")
+                return;
+            }
+            RetrieveGrid(deduc_code)
+            $('#moratorium_modal').modal({ backdrop: 'static', keyboard: false });
+        }
+
+        function RetrieveGrid(par_deduc_code)
+        {
+            $.ajax({
+                type: "POST",
+                url: "cPayAccountLedger.aspx/Moratorium",
+                data: JSON.stringify({ par_deduc_code: par_deduc_code }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var parsed = JSON.parse(response.d)
+                    oTable.fnClearTable();
+                    datalistgrid = parsed;
+                    if (parsed.length > 0) {
+                        oTable.fnAddData(parsed);
+                    }
+                    
+                },
+                failure: function (response) {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function btn_moratorium_action(row,action)
+        {
+            var deduc_code  = $('#<%= ddl_loan_account_name.ClientID %>').val()
+            var deduc_descr = $('#<%= ddl_loan_account_name.ClientID %> option:selected').text()
+
+            $('#deduc_code').val("")
+            $('#deduc_descr').val("")
+            $('#empl_id').val("")
+            $('#employee_name').val("")
+            $('#period_from').val("")
+            $('#period_to').val("")
+            $('#rcrd_status').val(1)
+
+            $('#deduc_code').val(deduc_code)
+            $('#deduc_descr').val(deduc_descr)
+
+            $('#ddl_employee_name').on('change', function ()
+            {
+                $('#empl_id').val(this.options[this.selectedIndex].getAttribute("empl_id"))
+            })
+
+            action_cafoa = action
+            var data = datalistgrid[row]
+            selected_row_idx = row;
+
+            if (action == "add")
+            {
+                RetrieveEmpl()
+
+                $('#employee_select_div').show();
+                $('#employee_input_div').hide();
+
+                $('#moratorium_modal_details').modal({ backdrop: 'static', keyboard: false });
+            }
+            else if (action == "update")
+            {
+                $('#employee_select_div').hide();
+                $('#employee_input_div').show();
+
+                $('#empl_id').val(data.empl_id)
+                $('#employee_name').val(data.employee_name)
+                $('#period_from').val(data.period_from.substring(0, 10))
+                $('#period_to').val(data.period_to.substring(0, 10))
+                $('#rcrd_status').val(data.rcrd_status == true ? "1" : "0")
+
+                $('#moratorium_modal_details').modal({ backdrop: 'static', keyboard: false });
+            }
+            else if (action == "delete")
+            {
+                if (confirm("Are you sure you want to delete '" + data.employee_name + "' record?"))
+                {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "cPayAccountLedger.aspx/delete_data",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ id: datalistgrid[row].id }),
+                        dataType: "json",
+                        success: function (response)
+                        {
+                            var result = response.d;
+                            if (result === "success") {
+                                oTable.fnDeleteRow(row);
+                                $('#moratorium_modal_details').modal("hide");
+                            }
+                            else {
+                                alert("Error: " + result);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert("An error occurred: " + error);
+                        }
+                    });
+                }
+            }
+            else
+            {
+                alert("NO ACTION")
+            }
+        }
+
+
+
+        var init_table_data = function (par_data)
+        {
+            datalistgrid = par_data;
+            oTable       = $('#datalist_grid_moratorium').dataTable(
+                {
+                    data        : datalistgrid,
+                    sDom        : 'frtip',
+                    pageLength  : 10,
+                    paging      : true,
+                    columns:
+                    [
+                        {
+                            "mData": "deduc_descr",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class=' btn-block'>&nbsp;&nbsp;" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "empl_id",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "employee_name",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class=' btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "period_covered",
+                            "mRender": function (data, type, full, row) {
+                                return "<span class='text-center btn-block'>" + data + "</span>"
+                            }
+                        },
+                        {
+                            "mData": "rcrd_status",
+                            "mRender": function (data, type, full, row) {
+                                return data == 1 ? "<span class='text-center btn-block'> Active </span>" : "<span class='text-center btn-block'> In-Active </span>"  
+                            }
+                        },
+                        {
+                            "mData": "",
+                            "mRender": function (data, type, full, row) {
+                                return '<button type="button" class="btn text-center btn-info btn-sm" onclick=\'btn_moratorium_action(' + row["row"] + ',"update")\' data-toggle="tooltip" data-placement="top" title="Edit">  <i class="fa fa-edit"></i></button >'
+                                     + '<button type="button" class="btn text-center btn-danger btn-sm" onclick=\'btn_moratorium_action(' + row["row"] + ',"delete")\' data-toggle="tooltip" data-placement="top" title="Remove">  <i class="fa fa-trash"></i></button >'
+                            }
+                        },
+                    ],
+                });
+        }
+
+
+        function formatPeriodCovered(from, to)
+        {
+            var options = { year: 'numeric', month: 'short', day: 'numeric' };
+            var fromStr = from ? new Date(from).toLocaleDateString('en-US', options) : '';
+            var toStr   = to   ? new Date(to).toLocaleDateString('en-US', options)   : '';
+            return fromStr + ' - ' + toStr;
+        }
+
+        function btn_save()
+        {
+            var upsert =
+            {
+                 deduc_code         : $('#<%= ddl_loan_account_name.ClientID %>').val()
+                ,empl_id            : $('#empl_id').val()
+                ,period_from        : $('#period_from').val()
+                ,period_to          : $('#period_to').val()
+                ,rcrd_status        : $('#rcrd_status').val()
+                ,deduc_descr        : $('#<%= ddl_loan_account_name.ClientID %> option:selected').text()           
+                ,employee_name      : $('#ddl_employee_name option:selected').text()           
+                ,period_covered     : formatPeriodCovered($('#period_from').val(), $('#period_to').val())
+                , id: datalistgrid[selected_row_idx] == undefined ? null :  datalistgrid[selected_row_idx].id
+            }
+
+            if (upsert.deduc_code == "")
+            {
+                alert("deduc_code is Required!")
+                return
+            } else if (upsert.empl_id == "")
+            {
+                alert("empl_id is Required!")
+                return
+            }else if (upsert.period_from == "")
+            {
+                alert("period_from is Required!")
+                return
+            }else if (upsert.period_to == "")
+            {
+                alert("period_to is Required!")
+                return
+            }else if (upsert.rcrd_status == "")
+            {
+                alert("rcrd_status is Required!")
+                return
+            }
+
+            $.ajax({
+                type        : "POST",
+                url         : "cPayAccountLedger.aspx/save_data",
+                contentType : "application/json; charset=utf-8",
+                data: JSON.stringify({ action: action_cafoa, data_string: JSON.stringify(upsert) }),
+                dataType    : "json",
+                success: function (response)
+                {
+                    var result = response.d;
+                    if (result === "success")
+                    {
+                        var nRow = null;
+
+                        RetrieveGrid(upsert.deduc_code)
+
+                        if (action_cafoa == "update")
+                        {
+                            oTable.fnUpdate(upsert, selected_row_idx, undefined, false);
+                            nRow = oTable.fnGetNodes(selected_row_idx);
+                        }
+                        else if (action_cafoa == "add")
+                        {
+                            oTable.fnAddData(upsert);
+                            var allNodes = oTable.fnGetNodes();
+                            nRow = allNodes[allNodes.length - 1];
+                        }
+                        if (nRow)
+                        {
+                            $(nRow).addClass('highlight-row');
+                            setTimeout(function () { $(nRow).removeClass('highlight-row'); }, 3000);
+                        }
+                        $('#moratorium_modal_details').modal("hide");
+                    }
+                    else if (result.indexOf("duplicate:") === 0)
+                    {
+                        alert(result.replace("duplicate: ", ""));
+                    }
+                    else
+                    {
+                        alert("Error: " + result);
+                    }
+                },
+                error: function (xhr, status, error)
+                {
+                    alert("An error occurred: " + error);
+                }
+            });
+        }
+
+        function RetrieveEmpl()
+        {
+            $.ajax({
+                type        : "POST",
+                url         : "cPayAccountLedger.aspx/RetrieveEmpl",
+                contentType : "application/json; charset=utf-8",
+                data        : JSON.stringify({ p_employment_type: $('#<%= ddl_empl_type.ClientID %>').val() }),
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d)
+                    if (parsed.length > 0)
+                    {
+                        var select = document.getElementById("ddl_employee_name");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                        // Add options to the select element
+                        for (var i = 0; i < parsed.length; i++)
+                        {
+                            var option              = document.createElement("option");
+                            option.text             = parsed[i].employee_name; 
+                            option.value            = parsed[i].empl_id; 
+                            option.setAttribute("empl_id", parsed[i].empl_id);
+                            select.appendChild(option);
+                        }
+                    } else
+                    {
+                        var select = document.getElementById("ddl_employee_name");
+                        select.innerHTML = "";
+                        var option1      = document.createElement("option");
+                        option1.text     = "-- Select Here--"; 
+                        option1.value    = "";
+                        select.appendChild(option1);
+                    }
+                    
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="specific_scripts" runat="server">
     <script type="text/javascript">
@@ -1581,6 +2014,7 @@
         }
 
         $(document).ready(function () {
+            init_table_data([]);
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight_on_grid');
            }, function () {
