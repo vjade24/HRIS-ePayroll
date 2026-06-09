@@ -1881,6 +1881,8 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
                 // }
                 RetrieveDataListGrid();
                 btnAdd.Visible = true;
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "change_ddl_loan", "RetrieveGrid('"+ ddl_loan_account_name.SelectedValue.ToString() + "');", true);
             }
             else
             {
@@ -2428,6 +2430,7 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
                 "OR deduc_date_from LIKE '%" + search.Trim().Replace("'", "''") + "%' " +
                 "OR deduc_date_to LIKE '%" +   search.Trim().Replace("'", "''") + "%' " +
                 "OR deduc_amount1 LIKE '%" +   search.Trim().Replace("'", "''") + "%' " +
+                "OR remarks_descr LIKE '%" +   search.Trim().Replace("'", "''") + "%' " +
                 "OR deduc_amount2 LIKE '%" +   search.Trim().Replace("'", "''") + "%' ";
 
             DataTable dtSource1 = new DataTable();
@@ -2439,6 +2442,7 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
             dtSource1.Columns.Add("deduc_ref_nbr", typeof(System.String));
             dtSource1.Columns.Add("deduc_amount1", typeof(System.String));
             dtSource1.Columns.Add("deduc_amount2", typeof(System.String));
+            dtSource1.Columns.Add("remarks_descr", typeof(System.String));
             dtSource1.Columns.Add("deduc_loan_amount", typeof(System.String));
             dtSource1.Columns.Add("deduc_nbr_months", typeof(System.String));
             dtSource1.Columns.Add("deduc_status", typeof(System.String));
@@ -2616,6 +2620,24 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
             catch (Exception e)
             {
                 return e.Message.ToString();
+            }
+        }
+        [WebMethod]
+        public static string ExistingDed(string empl_id, string deduc_code)
+        {
+            try
+            {
+                CommonDB MyCmn  = new CommonDB();
+                DataTable dt    = new DataTable();
+                string query    = "SELECT TOP 1 * FROM payrolldeduc_ledger_tbl WHERE empl_id = '"+ empl_id + "' AND deduc_code = '"+ deduc_code + "'";
+                dt = MyCmn.GetDatatable(query);
+                string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                throw;
             }
         }
         //********************************************************************

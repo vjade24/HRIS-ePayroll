@@ -1182,48 +1182,80 @@
     </div>
 
     <div class="modal fade" id="moratorium_modal_details" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-md" role="document" >
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
             <div class="modal-content  modal-content-add-edit">
                 <div class="modal-header bg-success" >
                         <h5 class="modal-title text-white" ><asp:Label runat="server" Text="MORATORIUM DETAILS"></asp:Label></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <label>Description</label>
-                            <input class="form-control" id="deduc_descr" type="text" disabled/>
-                        </div>
-                        <div class="col-lg-4">
-                            <label>Code</label>
-                            <input class="form-control text-center" id="deduc_code" type="text" disabled/>
-                        </div>
-                        <div class="col-lg-8" id="employee_select_div">
-                            <label>Employee Name</label>
-                            <select class="form-control" id="ddl_employee_name" > </select>
-                        </div>
-                        <div class="col-lg-8" id="employee_input_div">
-                            <label>Employee Name</label>
-                            <input class="form-control" id="employee_name" type="text" disabled/>
-                        </div>
-                        <div class="col-lg-4">
-                            <label>ID #</label>
-                            <input class="form-control text-center" id="empl_id" type="text" disabled/>
-                        </div>
+                    <div class="form-group row">
                         <div class="col-lg-12">
-                            <label>Period from</label>
-                            <input class="form-control" id="period_from" type="date"/>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label>Description</label>
+                                    <input class="form-control" id="deduc_descr" type="text" disabled/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Code</label>
+                                    <input class="form-control text-center" id="deduc_code" type="text" disabled/>
+                                </div>
+                                <div class="col-lg-6" id="employee_select_div">
+                                    <label>Employee Name</label>
+                                    <select class="form-control" id="ddl_employee_name" > </select>
+                                </div>
+                                <div class="col-lg-6" id="employee_input_div">
+                                    <label>Employee Name</label>
+                                    <input class="form-control" id="employee_name" type="text" disabled/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>ID #</label>
+                                    <input class="form-control text-center" id="empl_id" type="text" disabled/>
+                                </div>
+                            
+                            </div>
+                            <hr />
                         </div>
-                        <div class="col-lg-12">
-                            <label>Period To</label>
-                            <input class="form-control" id="period_to" type="date" />
+                        <div class="col-lg-6 border-right">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="text-uppercase"><i class="fa fa-info-circle"></i> Moratorium Information</h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Period from</label>
+                                    <input class="form-control" id="period_from" type="date"/>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Period To</label>
+                                    <input class="form-control" id="period_to" type="date" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Status</label>
+                                    <select class="form-control" id="rcrd_status" >
+                                        <option value="1">Active</option>
+                                        <option value="0">In-Active</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-12">
-                            <label>Status</label>
-                            <select class="form-control" id="rcrd_status" >
-                                <option value="1">Active</option>
-                                <option value="0">In-Active</option>
-                            </select>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="text-uppercase"><i class="fa fa-info-circle"></i> Existing Deduction Details</h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Period from</label>
+                                    <input class="form-control" id="exist_period_from" type="date" disabled/>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Period To</label>
+                                    <input class="form-control" id="exist_period_to" type="date" disabled/>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Remarks</label>
+                                    <textarea class="form-control" id="exist_remarks" disabled></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1346,7 +1378,7 @@
 
                                 </div>
                                 <div class="col-lg-2" >
-                                    <button class="btn btn-success btn-sm btn-block" id="lnkbtn_moraturium" onclick="open_moratorium()" type="button"><i class="fa fa-qrcode"></i> Moratorium</button>
+                                    <button class="btn btn-success btn-sm btn-block" id="lnkbtn_moraturium" onclick="open_moratorium()" type="button"><i class="fa fa-qrcode"></i> Moratorium &nbsp;&nbsp;&nbsp;<span class="badge badge-danger" id="label_count_moratorium"></span></button>
                                 </div>
                                 <div class="col-2" style="margin-top:3px;display:none">
                                     <asp:Label style="float:left;" ID="Label3" runat="server" Text="Status:"></asp:Label>
@@ -1418,7 +1450,7 @@
                                                 <asp:TemplateField HeaderText="EMPLOYEE NAME" SortExpression="employee_name">
                                                     <ItemTemplate>
                                                         <%--&nbsp;<%# (Eval("employee_name").ToString().Length > 20) ? Eval("employee_name").ToString().Substring(0,20) + "..." : Eval("employee_name").ToString() %>--%>
-                                                        &nbsp;&nbsp;<%# Eval("employee_name") %>
+                                                        &nbsp;&nbsp;<%# Eval("employee_name") + " " + Eval("remarks_descr")  %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="45%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
@@ -1686,7 +1718,7 @@
         var oTable;
         var action_cafoa     = "";
         var selected_row_idx = null;
-
+        //$('#label_count_moratorium').text(0);
         function open_moratorium()
         {
             var deduc_code = $('#<%= ddl_loan_account_name.ClientID %>').val()
@@ -1701,6 +1733,7 @@
 
         function RetrieveGrid(par_deduc_code)
         {
+            $('#label_count_moratorium').text("0");
             $.ajax({
                 type: "POST",
                 url: "cPayAccountLedger.aspx/Moratorium",
@@ -1713,8 +1746,8 @@
                     datalistgrid = parsed;
                     if (parsed.length > 0) {
                         oTable.fnAddData(parsed);
+                        $('#label_count_moratorium').text(parsed.length);
                     }
-                    
                 },
                 failure: function (response) {
                     alert("Error: " + response.d);
@@ -1740,7 +1773,11 @@
 
             $('#ddl_employee_name').on('change', function ()
             {
-                $('#empl_id').val(this.options[this.selectedIndex].getAttribute("empl_id"))
+                var var_empl_id = this.options[this.selectedIndex].getAttribute("empl_id")
+                $('#empl_id').val(var_empl_id)
+
+                ExistingDed(var_empl_id, deduc_code)
+
             })
 
             action_cafoa = action
@@ -1766,6 +1803,8 @@
                 $('#period_from').val(data.period_from.substring(0, 10))
                 $('#period_to').val(data.period_to.substring(0, 10))
                 $('#rcrd_status').val(data.rcrd_status == true ? "1" : "0")
+
+                ExistingDed(data.empl_id, deduc_code)
 
                 $('#moratorium_modal_details').modal({ backdrop: 'static', keyboard: false });
             }
@@ -1994,6 +2033,38 @@
                 failure: function (response)
                 {
                     alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function ExistingDed(empl_id, deduc_code)
+        {
+            var deduc_descr = $('#<%= ddl_loan_account_name.ClientID %> option:selected').text()
+
+            $('#exist_period_to').val("")
+            $('#exist_period_from').val("")
+            $('#exist_remarks').val("")
+
+            $.ajax({
+                type: "POST",
+                url: "cPayAccountLedger.aspx/ExistingDed",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ empl_id: empl_id, deduc_code: deduc_code }),
+                dataType: "json",
+                success: function (response) {
+                    var result = JSON.parse(response.d);
+                    if (result.length > 0) {
+                        console.log(result[0])
+                        $('#exist_period_to').val(result[0].deduc_date_from.substring(0, 10))
+                        $('#exist_period_from').val(result[0].deduc_date_to.substring(0, 10))
+                        $('#exist_remarks').val(result[0].deduc_ref_nbr)
+                    }
+                    else {
+                        alert("No Existing deduction for " + deduc_descr);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
                 }
             });
         }
