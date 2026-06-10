@@ -2471,6 +2471,61 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
             show_pagesx.Text = "Page: <b>" + (gv_dataListGrid.PageIndex + 1) + "</b>/<strong style='color:#B7B7B7;'>" + gv_dataListGrid.PageCount + "</strong>";
         }
         [WebMethod]
+        public static string DeducLedgerAudit(string par_deduc_code)
+        {
+            try
+            {
+                string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["hrisConn"].ConnectionString;
+                DataTable dt   = new DataTable();
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    con.Open();
+                    string query = @"SELECT  A.empl_id
+                                            ,B.employee_name
+                                            ,A.deduc_code
+                                            ,C.deduc_descr
+                                            ,A.deduc_seq
+                                            ,A.deduc_date_from
+                                            ,A.deduc_date_to
+                                            ,A.deduc_ref_nbr
+                                            ,A.deduc_amount1
+                                            ,A.deduc_amount2
+                                            ,A.deduc_loan_amount
+                                            ,A.deduc_nbr_months
+                                            ,A.deduc_status
+                                            ,A.deduc_source
+                                            ,A.created_by_user
+                                            ,A.created_dttm
+                                            ,A.updated_by_user
+                                            ,A.updated_dttm
+                                            ,A.deleted_dttm
+                                    FROM payrolldeduc_ledger_aud A
+                                        INNER JOIN vw_personnelnames_PAY B
+                                            ON B.empl_id = A.empl_id
+                                        OUTER APPLY (SELECT TOP 1 * FROM vw_deduction_accounts X
+                                                        WHERE X.deduc_code = A.deduc_code) C
+                                    WHERE A.deduc_code = @par_deduc_code
+                                    ORDER BY A.deleted_dttm DESC, B.employee_name";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@par_deduc_code", par_deduc_code ?? (object)DBNull.Value);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
+                }
+                string json = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.ToString());
+                throw;
+            }
+        }
+
+        [WebMethod]
         public static string Moratorium(string par_deduc_code)
         {
             try

@@ -1266,6 +1266,37 @@
         </div>
     </div>
 
+    <%-- DEDUCTION LEDGER AUDIT MODAL --%>
+    <div class="modal fade" id="ledger_audit_modal" tabindex="-1" role="dialog" aria-labelledby="ledgerAuditLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content modal-content-add-edit">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-white"><asp:Label runat="server" Text="DEDUCTION LEDGER AUDIT"></asp:Label></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive pt-1">
+                                <table class="table table-striped table-bordered" id="datalist_grid_ledger_audit" style="width:100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20% !important" >EMPLOYEE NAME</th>
+                                        <th style="width:20% !important" >DESCRIPTION</th>
+                                        <th style="width:20% !important" >REF #</th>
+                                        <th style="width:10% !important" >AMT 1</th>
+                                        <th style="width:10% !important" >AMT 2</th>
+                                        <th style="width:20% !important" >DELETED</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col-12">
         <div class="row breadcrumb my-breadcrumb">
@@ -1345,12 +1376,12 @@
                                     
                                 </div>
                                 <div class="col-4"></div>
-                                <div class="col-4" >
-                                    <div class="form-group row">
-                                        <div class="col-lg-4">
+                                <div class="col-8" >
+                                    <div class="form-group row mt-1">
+                                        <div class="col-lg-2">
                                             <asp:Label  runat="server" Text="Deductions: "></asp:Label>
                                         </div>
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-10">
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddl_loan_account_name" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddl_loan_account_name_SelectedIndexChanged"></asp:DropDownList>
@@ -1361,25 +1392,35 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2 text-right" >
-                                    <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
-                                        <ContentTemplate>
-                                            
-                                            <% if (ViewState["page_allow_add"].ToString() == "1")
-                                                {  %>
-                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
-                                            <% }
-                                                %>     
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnAdd" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-
+                                <div class="col-4"></div>
+                                <div class="col-lg-8">
+                                    <div class="form-group row mt-1">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-success btn-sm btn-block" id="lnkbtn_moraturium" onclick="open_moratorium()" type="button"><i class="fa fa-qrcode"></i> Moratorium <span class="badge badge-danger" id="label_count_moratorium"></span></button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-warning btn-sm btn-block" id="lnkbtn_ledger_audit" onclick="open_ledger_audit()" type="button"><i class="fa fa-list-alt"></i> Ledger Audit <span class="badge badge-danger" id="label_count_ledger_audit"></span></button>
+                                        </div>
+                                         <div class="col-6 text-right" >
+                                             <asp:UpdatePanel ID="UpdatePanel10" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
+                                                 <ContentTemplate>
+             
+                                                     <% if (ViewState["page_allow_add"].ToString() == "1")
+                                                         {  %>
+                                                     <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary btn-sm add-icon icn"  Text="Add" OnClick="btnAdd_Click" />
+                                                     <% }
+                                                         %>     
+                                                 </ContentTemplate>
+                                                 <Triggers>
+                                                     <asp:AsyncPostBackTrigger ControlID="btnAdd" />
+                                                 </Triggers>
+                                             </asp:UpdatePanel>
+                                         </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2" >
-                                    <button class="btn btn-success btn-sm btn-block" id="lnkbtn_moraturium" onclick="open_moratorium()" type="button"><i class="fa fa-qrcode"></i> Moratorium &nbsp;&nbsp;&nbsp;<span class="badge badge-danger" id="label_count_moratorium"></span></button>
-                                </div>
+                               
+                                
                                 <div class="col-2" style="margin-top:3px;display:none">
                                     <asp:Label style="float:left;" ID="Label3" runat="server" Text="Status:"></asp:Label>
                                     
@@ -1753,6 +1794,7 @@
                     alert("Error: " + response.d);
                 }
             });
+
         }
 
         function btn_moratorium_action(row,action)
@@ -2068,6 +2110,85 @@
                 }
             });
         }
+        var datalistgrid_audit;
+        var oTableAudit;
+
+        function open_ledger_audit()
+        {
+            var deduc_code = $('#<%= ddl_loan_account_name.ClientID %>').val();
+            if (!deduc_code)
+            {
+                alert("PLEASE SELECT DEDUCTIONS DESCRIPTION");
+                return;
+            }
+
+            RetrieveLedgerAudit(deduc_code);
+            $('#ledger_audit_modal').modal({ backdrop: 'static', keyboard: false });
+            $('#ledger_audit_modal').one('shown.bs.modal', function () {
+                oTableAudit.fnAdjustColumnSizing();
+            });
+        }
+
+        function RetrieveLedgerAudit(par_deduc_code)
+        {
+            $('#label_count_ledger_audit').text("0");
+            $.ajax({
+                type        : "POST",
+                url         : "cPayAccountLedger.aspx/DeducLedgerAudit",
+                data        : JSON.stringify({ par_deduc_code: par_deduc_code }),
+                contentType : "application/json; charset=utf-8",
+                dataType    : "json",
+                success: function (response)
+                {
+                    var parsed = JSON.parse(response.d);
+                    oTableAudit.fnClearTable();
+                    datalistgrid_audit = parsed;
+                    if (parsed.length > 0)
+                    {
+                        oTableAudit.fnAddData(parsed);
+                        $('#label_count_ledger_audit').text(parsed.length);
+                    }
+                },
+                failure: function (response)
+                {
+                    alert("Error: " + response.d);
+                }
+            });
+        }
+
+        function formatDateTime(d)
+        {
+            if (!d) return '';
+            var dt = new Date(d);
+            return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                   + ' ' + dt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        var init_ledger_audit_table = function ()
+        {
+            oTableAudit = $('#datalist_grid_ledger_audit').dataTable(
+            {
+                data       : [],
+                sDom       : 'frtip',
+                pageLength : 10,
+                paging     : true,
+                autoWidth  : false,
+                columns:
+                [
+                    {
+                        "mData": "employee_name", "mRender": function (d, type, full) { return "<span class='btn-block'>" + (d || '') + ' <br> <small>' + full["empl_id"] + '</small></span>'; }
+                    },
+                    {
+                        "mData": "deduc_descr", "mRender": function (d, type, full)
+                        { return "<span class='btn-block'>" + (d || '') + ' <br> <small>' + (full["deduc_date_from"] ? full["deduc_date_from"].substring(0, 10) : '') + ' - ' + (full["deduc_date_to"] ? full["deduc_date_to"].substring(0, 10) : '') + '</small></span>'; }
+                    },
+                    { "mData": "deduc_ref_nbr",     "mRender": function (d) { return "<span class='btn-block'>" + (d || '') + "</span>"; } },
+                    { "mData": "deduc_amount1",     "mRender": function (d) { return "<span class='text-right btn-block'>" + (d || '0.00') + "</span>"; } },
+                    { "mData": "deduc_amount2",     "mRender": function (d) { return "<span class='text-right btn-block'>" + (d || '0.00') + "</span>"; } },
+                    { "mData": "deleted_dttm",      "mRender": function (d) { return "<span class='text-center btn-block'>" + formatDateTime(d) + "</span>"; } },
+                ]
+            });
+        };
 
 
 
@@ -2086,6 +2207,7 @@
 
         $(document).ready(function () {
             init_table_data([]);
+            init_ledger_audit_table();
            $('#<%= gv_dataListGrid.ClientID%> tr').hover(function () {
                    $(this).addClass('highlight_on_grid');
            }, function () {
