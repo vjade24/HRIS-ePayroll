@@ -1143,6 +1143,12 @@
       <DependentUpon>cryCoaching.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryDeductLedger\cryDeductLedger.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryDeductLedger.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\cryDocTracking\cryDocsHistory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3441,6 +3447,10 @@
     <Content Include="Reports\cryCoaching\cryCoaching.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryCoaching.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryDeductLedger\cryDeductLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryDeductLedger.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryJobOrderReports\crySalaryx\cryAttachment.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

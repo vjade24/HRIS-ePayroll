@@ -1484,7 +1484,7 @@
                                                         <%--&nbsp;<%# (Eval("employee_name").ToString().Length > 20) ? Eval("employee_name").ToString().Substring(0,20) + "..." : Eval("employee_name").ToString() %>--%>
                                                         &nbsp;&nbsp;<%# Eval("empl_id") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="8%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
@@ -1493,7 +1493,7 @@
                                                         <%--&nbsp;<%# (Eval("employee_name").ToString().Length > 20) ? Eval("employee_name").ToString().Substring(0,20) + "..." : Eval("employee_name").ToString() %>--%>
                                                         &nbsp;&nbsp;<%# Eval("employee_name") + " " + Eval("remarks_descr")  %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="45%" />
+                                                    <ItemStyle Width="40%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="LEFT" />
                                                 </asp:TemplateField>
@@ -1501,7 +1501,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("deduc_date_from") %>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="13%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="CENTER" />
                                                 </asp:TemplateField>
@@ -1517,7 +1517,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("deduc_amount1") %>&nbsp;&nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="12%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -1525,7 +1525,7 @@
                                                     <ItemTemplate>
                                                         <%# Eval("deduc_amount2") %>&nbsp;&nbsp;
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="17%" />
+                                                    <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="RIGHT" />
                                                 </asp:TemplateField>
@@ -1546,12 +1546,13 @@
                                                                     {
                                                                 %>
                                                                     <asp:ImageButton ID="lnkDeleteRow" CssClass="btn btn-danger action" EnableTheming="true" runat="server"  ImageUrl="~/ResourceImages/final_delete.png" OnCommand="deleteRow_Command" CommandArgument='<%# Eval("deduc_seq") + "," + Eval("empl_id") + "," + Eval("deduc_code")%>'/>
+                                                                    <button class="btn btn-sm btn-success" onclick="btn_print(<%# "'"+Eval("empl_id")+ "'" + "," + "'"+ddl_empl_type.SelectedValue.ToString().Trim()+ "'" + "," + "'" +Eval("deduc_code")+ "'" + "," + "'"+Eval("deduc_seq") + "'"%>)"><i class="fa fa-print"></i></button>
                                                                 <% }
                                                                 %>
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
                                                     </ItemTemplate>
-                                                    <ItemStyle Width="8%" />
+                                                    <ItemStyle Width="10%" />
                                                     <ItemStyle CssClass="text-center" />
                                                 </asp:TemplateField>
                                             </Columns>
@@ -1592,6 +1593,25 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_print_preview" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+                <div class="modal-content  modal-content-add-edit">
+                    <div class="modal-header bg-success" >
+                            <h5 class="modal-title text-white" ><asp:Label runat="server" Text="Preview Report"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    <div class="modal-body with-background" style="padding:0px !important">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <iframe style="width:100% !important;height:700px !important;border:0px none;" id="iframe_print_preview"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </form>
         <script type="text/javascript">
         function openModal() {
@@ -2190,7 +2210,69 @@
             });
         };
 
+        function btn_print(empl_id, employment_type, deduc_code, deduc_seq)
+        {
+            var ReportPath      = "~/Reports/cryDeductLedger/cryDeductLedger.rpt";
+            var sp                  = ReportPath+","+"sp_deduct_details_per_empl,p_empl_id," + empl_id + ",p_employment_type," + employment_type+ ",p_deduc_code," + deduc_code + ",p_deduc_seq," + deduc_seq;
+            previewReport(sp,"")
+        }
 
+        function previewReport(sp,report_type)
+        {
+            // *******************************************************
+            // *** VJA : 2021-07-14 - Validation and Loading hide ****
+            // *******************************************************
+            var ReportName      = "CrystalReport"
+            var SaveName        = "Crystal_Report"
+            var ReportType      = "inline"
+            var ReportPath      = ""
+            var iframe          = document.getElementById('iframe_print_preview');
+            var iframe_page     = $("#iframe_print_preview")[0];
+            var embed_link;
+            
+            iframe.style.visibility = "hidden";
+            
+            embed_link = "../../printView/CrystalViewer.aspx?Params=" + ""
+                + "&ReportName=" + ReportName
+                + "&SaveName="   + SaveName
+                + "&ReportType=" + ReportType
+                + "&ReportPath=" + ReportPath
+                + "&id=" + sp // + "," + parameters
+            
+
+            if (!/*@cc_on!@*/0) { //if not IE
+                iframe.onload = function () {
+                    iframe.style.visibility = "visible";
+                };
+            }
+            else if (iframe_page.innerHTML()) {
+                // get and check the Title (and H tags if you want)
+                var ifTitle = iframe_page.contentDocument.title;
+                if (ifTitle.indexOf("404") >= 0)
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+                else if (ifTitle != "")
+                {
+                    swal("You cannot Preview this Report", "There something wrong!", { icon: "warning" });
+                    iframe.src = "";
+                }
+            }
+            else {
+                iframe.onreadystatechange = function ()
+                {
+                    if (iframe.readyState == "complete")
+                    {
+                        iframe.style.visibility = "visible";
+                    }
+                };
+            }
+            iframe.src = embed_link;
+            $('#modal_print_preview').modal({ backdrop: 'static', keyboard: false });
+            // *******************************************************
+            // *******************************************************
+        }
 
     </script>
 </asp:Content>

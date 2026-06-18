@@ -3658,7 +3658,7 @@ namespace HRIS_ePayroll.View
 
             if (double.Parse(txtb_pera_amount.Text.ToString()) < 2000 || double.Parse(txtb_lwop_amount_pera.Text.ToString()) > 0 || double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()) > 0)
             {
-                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString()) - (double.Parse(txtb_lwop_amount_pera.Text.ToString()) - double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()));
+                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString()); // Comment Date (2026-06-10)==> - (double.Parse(txtb_lwop_amount_pera.Text.ToString()) - double.Parse(txtb_lates_undertime_in_minute_in_amt_pera.Text.ToString()));
                 total_netpay1 = (total_netpay - total_pera_amount) / 2;
                 total_netpay1 = total_netpay1 - (total_netpay1 % 1);
                 total_netpay1 = total_netpay1 + total_pera_amount;
@@ -3667,7 +3667,7 @@ namespace HRIS_ePayroll.View
             else
             {
                 string total_str_netpay1 = "";
-                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString()) - double.Parse(txtb_lwop_amount_pera.Text.ToString());
+                total_pera_amount = double.Parse(txtb_pera_amount.Text.ToString());  // Comment Date (2026-06-10)==> - double.Parse(txtb_lwop_amount_pera.Text.ToString());
                 total_netpay1 = ((total_netpay - total_pera_amount) / 2) + total_pera_amount;
                 total_str_netpay1 = total_netpay1.ToString("###,##0.0000");
                 txtb_net_pay_1h.Text = total_str_netpay1.Split('.')[0] + ".00";
