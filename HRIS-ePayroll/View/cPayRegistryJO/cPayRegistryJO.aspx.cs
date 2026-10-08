@@ -3082,8 +3082,8 @@ namespace HRIS_ePayroll.View
                             {
                                 gross_pay                   = double.Parse(txtb_rate_amount.Text.ToString());
                             }
-                            lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) * (lates_time / decimal.Parse(hidden_hrs_in1day.Value));
-                            decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
+                            lates_amount                = (decimal.Parse(txtb_rate_amount.Text.ToString()) / 22 / 8 / 60) * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
+                            decimal late_amount1        = (decimal.Parse(txtb_rate_amount.Text.ToString()) / 22 / 8 / 60);
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);
@@ -3107,7 +3107,7 @@ namespace HRIS_ePayroll.View
                     case "H":// Rate basis = Hourlky Rate is Hourly Rate * No of Hours Worked
                         {
                             lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-                            decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
+                            decimal late_amount1        = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);

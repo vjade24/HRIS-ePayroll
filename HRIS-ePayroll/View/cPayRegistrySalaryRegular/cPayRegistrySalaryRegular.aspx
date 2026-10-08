@@ -434,6 +434,17 @@
                                                             <asp:label runat="server" Font-Bold="true" Text="Less" Font-Size="Smaller" class="text-danger" ></asp:label>
                                                         </div>
                                                         <div class="col-6">
+                                                            &nbsp&nbsp&nbsp&nbsp<asp:label runat="server" Font-Bold="true" Text="LWOP M.R Basis :" Font-Size="Small"></asp:label>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <asp:UpdatePanel runat="server">
+                                                                <ContentTemplate>
+                                                                    <asp:TextBox runat="server" ID="txtb_lwo_pay_basis" CssClass="form-control form-control-sm text-right"  Font-Bold="true"></asp:TextBox>
+                                                                    <asp:Label runat="server" CssClass="lbl_required" Text="Leave the value at 0 to keep the current monthly rate."></asp:Label>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
+                                                        </div> 
+                                                        <div class="col-6">
                                                             &nbsp&nbsp&nbsp&nbsp<asp:label runat="server" Font-Bold="true" Text="LWOP Amt :" Font-Size="Small"></asp:label>
                                                         </div>
                                                         <div class="col-6">

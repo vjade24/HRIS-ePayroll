@@ -473,6 +473,7 @@ namespace HRIS_ePayroll.View
             txtb_remarks.Text = "";
 
             txtb_rate_amount.Text = "0.00";
+            txtb_lwo_pay_basis.Text = "0.00";
             txtb_no_days_lwopay.Text = "0.00";
             txtb_no_days_worked.Text = "0.00";
             txtb_lates_in_min.Text = "0";
@@ -3530,7 +3531,10 @@ namespace HRIS_ePayroll.View
             lates_time = double.Parse((txtb_lates_in_min.Text.ToString().Trim() != "" ? txtb_lates_in_min.Text.ToString().Trim() : "0"));
             lates_time = lates_time / 60;
 
-            lates_amount = double.Parse(txtb_rate_amount.Text.ToString()) / 22 *  (lates_time / double.Parse(lbl_hours_in_1day.Text));
+            double lwop_monthly_basis = double.Parse(txtb_lwo_pay_basis.Text.ToString())  == 0 ? double.Parse(txtb_rate_amount.Text.ToString()) : double.Parse(txtb_lwo_pay_basis.Text.ToString());
+
+
+            lates_amount = lwop_monthly_basis / 22 *  (lates_time / double.Parse(lbl_hours_in_1day.Text));
 
             double lates_amount_override = 0;
             lates_amount_override = double.Parse(txtb_late_in_amount.Text);
@@ -3546,7 +3550,7 @@ namespace HRIS_ePayroll.View
             // VJA - 2025-08-08 
 
             double lwo_amount_monthly = 0;
-            lwo_amount_monthly = double.Parse(txtb_rate_amount.Text.ToString().Trim()) / 22 * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
+            lwo_amount_monthly = lwop_monthly_basis / 22 * double.Parse(txtb_no_days_lwopay.Text.ToString().Trim());
 
             double lwo_amount_monthly_override = 0;
             lwo_amount_monthly_override = double.Parse(txtb_lwo_pay.Text);
@@ -3560,6 +3564,9 @@ namespace HRIS_ePayroll.View
                 txtb_lwo_pay.Text = lwo_amount_monthly.ToString("###,##0.00").Trim();
             //}
             // VJA - 2025-08-08 
+
+            txtb_late_in_amount.Text = lates_amount.ToString("###,##0.00").Trim();
+            txtb_lwo_pay.Text        = lwo_amount_monthly.ToString("###,##0.00").Trim();
 
             double wages_net = 0;
             wages_net = double.Parse(txtb_rate_amount.Text.ToString()) - (double.Parse(txtb_late_in_amount.Text.ToString()) + double.Parse(txtb_lwo_pay.Text.ToString()));

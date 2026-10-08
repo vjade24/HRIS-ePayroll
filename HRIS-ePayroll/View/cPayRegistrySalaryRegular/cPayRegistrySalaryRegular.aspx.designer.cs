@@ -616,6 +616,15 @@ namespace HRIS_ePayroll.View {
         protected global::System.Web.UI.WebControls.TextBox txtb_rate_amount;
         
         /// <summary>
+        /// txtb_lwo_pay_basis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_lwo_pay_basis;
+        
+        /// <summary>
         /// txtb_lwo_pay control.
         /// </summary>
         /// <remarks>
