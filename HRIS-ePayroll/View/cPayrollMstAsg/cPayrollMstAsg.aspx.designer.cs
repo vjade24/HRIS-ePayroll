@@ -355,6 +355,15 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg {
         protected global::System.Web.UI.WebControls.DropDownList ddl_ss_appl_flag;
         
         /// <summary>
+        /// txtb_remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtb_remarks;
+        
+        /// <summary>
         /// LinkButton2 control.
         /// </summary>
         /// <remarks>

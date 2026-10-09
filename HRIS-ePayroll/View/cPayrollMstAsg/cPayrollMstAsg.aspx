@@ -212,6 +212,19 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
+                                        <div class="col-12">
+                                                <hr style="margin-bottom:5px;margin-top:5px"/>
+                                            </div>
+                                        <div class="col-3" style="padding-right:0px !important">
+                                                <label class="font-weight-bold">Remarks:</label>
+                                            </div>
+                                        <div class="col-9" >
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:TextBox runat="server" ID="txtb_remarks" Rows="3" TextMode="MultiLine" CssClass="form-control form-control-sm"></asp:TextBox>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </div>
                                              <div class="col-12 text-right" >
                                                 <hr style="margin-bottom:5px;margin-top:5px"/>
                                                 <asp:UpdatePanel runat="server">
@@ -453,7 +466,7 @@
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="EMPLOYEE NAME" SortExpression="employee_name">
                                                     <ItemTemplate>
-                                                        &nbsp;&nbsp;<%#  Eval("employee_name") %>
+                                                        &nbsp;&nbsp;<%#  Eval("employee_name") + " <span class='badge badge-secondary'>"+Eval("remarks") +"</span>" %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="30%" />
                                                     <HeaderStyle HorizontalAlign="Center" />
@@ -477,7 +490,15 @@
                                                 </asp:TemplateField>
                                                <asp:TemplateField HeaderText="UPD. MASTER" SortExpression="upd_master_flag_descr" >
                                                     <ItemTemplate>
-                                                        <%# Eval("upd_master_flag_descr") %>
+                                                        <%# Eval("upd_master_flag_descr").ToString() %>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="10%" />
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="CENTER" />
+                                                </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="PHIC SHARE" SortExpression="phic_flag" >
+                                                    <ItemTemplate>
+                                                        <%# Eval("phic_flag").ToString() == "True" ? " <span class='badge badge-success'>Yes</span>" : " <span class='badge badge-danger'>No</span>" %>
                                                     </ItemTemplate>
                                                     <ItemStyle Width="10%" />
                                                     <HeaderStyle HorizontalAlign="Center" />

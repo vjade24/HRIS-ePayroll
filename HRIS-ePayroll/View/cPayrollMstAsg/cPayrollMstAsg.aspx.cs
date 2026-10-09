@@ -273,6 +273,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             ddl_function_code.SelectedIndex = -1;
             ddl_fund_charges.SelectedIndex = -1;
             ddl_upd_master_flag.SelectedValue = "0";
+            txtb_remarks.Text = "";
             UpdatePanelEffec.Update();
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Popshowdate", "show_date();", true);
@@ -297,6 +298,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             dtSource.Columns.Add("upd_master_flag", typeof(System.String));
             dtSource.Columns.Add("phic_flag", typeof(System.String));
             dtSource.Columns.Add("ss_appl_flag", typeof(System.String));
+            dtSource.Columns.Add("remarks", typeof(System.String));
         }
         //*************************************************************************
         //  BEGIN - VJA- 01/17/2019 - Add Primary Key Field to datasource- Insert Table : payrollemployeemaster_asg_tbl
@@ -327,6 +329,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             nrow["upd_master_flag"] = string.Empty;
             nrow["phic_flag"] = string.Empty;
             nrow["ss_appl_flag"] = string.Empty;
+            nrow["remarks"] = string.Empty;
             nrow["action"] = 1;
             nrow["retrieve"] = false;
             dtSource.Rows.Add(nrow);
@@ -363,6 +366,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             ddl_upd_master_flag.SelectedValue = row2Edit[0]["upd_master_flag"].ToString() == "True" ? "1" : "0";
             ddl_phic_flag.SelectedValue = row2Edit[0]["phic_flag"].ToString() == "True" ? "1" : "0";
             ddl_ss_appl_flag.SelectedValue = row2Edit[0]["ss_appl_flag"].ToString() == "True" ? "1" : "0";
+            txtb_remarks.Text = row2Edit[0]["remarks"].ToString() ;
 
             if (row2Edit[0]["upd_master_flag"].ToString() == "1" ||
                 row2Edit[0]["upd_master_flag"].ToString() == "True")
@@ -458,6 +462,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                     dtSource.Rows[0]["upd_master_flag"] = ddl_upd_master_flag.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["phic_flag"] = ddl_phic_flag.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["ss_appl_flag"] = ddl_ss_appl_flag.SelectedValue.ToString().Trim();
+                    dtSource.Rows[0]["remarks"] = txtb_remarks.Text.ToString().Trim();
                     // BEGIN : Save from Header Table - payrollemployeemaster_asg_tbl
 
                     scriptInsertUpdate = MyCmn.get_insertscript(dtSource);
@@ -477,7 +482,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                     dtSource.Rows[0]["upd_master_flag"] = ddl_upd_master_flag.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["phic_flag"] = ddl_phic_flag.SelectedValue.ToString().Trim();
                     dtSource.Rows[0]["ss_appl_flag"] = ddl_ss_appl_flag.SelectedValue.ToString().Trim();
-
+                    dtSource.Rows[0]["remarks"] = txtb_remarks.Text.ToString().Trim();
                     // BEGIN : Save from Header Table - payrollemployeemaster_asg_tbl
 
 
@@ -539,6 +544,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                         nrow["upd_master_flag_descr"] = ddl_upd_master_flag.SelectedItem.ToString().Trim();
                         nrow["ss_appl_flag"]         = ddl_ss_appl_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
                         nrow["department_name1"]         = ddl_dep.SelectedItem.ToString().Trim() ;
+                        nrow["remarks"]         = txtb_remarks.Text.ToString().Trim() ;
 
 
                         // *******************************************************************************************
@@ -598,7 +604,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                         row2Edit[0]["upd_master_flag_descr"] = ddl_upd_master_flag.SelectedItem.ToString().Trim();
                         row2Edit[0]["ss_appl_flag"] = ddl_ss_appl_flag.SelectedValue.ToString().Trim() == "0" ? "False" : "True";
                         row2Edit[0]["department_name1"] = ddl_dep.SelectedItem.ToString().Trim() ;
-
+                        row2Edit[0]["remarks"] = txtb_remarks.Text.ToString().Trim();
 
                         // *******************************************************************************************
                         // *** VJA - 2022-07-01 - Insert/Update/Delete - Audit Table for Change of Assignment ********
@@ -662,6 +668,7 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
                 "OR employee_name LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%' " +
                 "OR employment_type LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%' " +
                 "OR upd_master_flag_descr LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%' " +
+                "OR remarks LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%' " +
                 "OR effective_date LIKE '%" + txtb_search.Text.Trim().Replace("'", "''") + "%'";
 
             DataTable dtSource1 = new DataTable();
@@ -678,6 +685,8 @@ namespace HRIS_ePayroll.View.cPayrollMstAsg
             dtSource1.Columns.Add("upd_master_flag_descr", typeof(System.String));
             dtSource1.Columns.Add("department_name1", typeof(System.String));
             dtSource1.Columns.Add("department_short_name", typeof(System.String));
+            dtSource1.Columns.Add("remarks", typeof(System.String));
+            dtSource1.Columns.Add("phic_flag", typeof(System.Boolean));
 
             DataRow[] rows = dataListGrid.Select(searchExpression);
             dtSource1.Clear();
