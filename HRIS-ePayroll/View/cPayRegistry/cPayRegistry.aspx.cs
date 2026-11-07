@@ -2143,6 +2143,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         break;
 
                     case "219": // Subsistence Loan Remittance -  CE
+                    case "246": // Optional Deduction - (Hazard)
+                    case "247": // Optional Deduction - (Hazard)
                         printreport = hidden_report_filename.Text;
                         procedure = "sp_payrollregistry_subs_rep";
                         url = "/printView/printView.aspx?id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.SelectedValue.ToString().Trim() + ",par_payroll_registry_nbr," + lnkPrint.CommandArgument.Split(',')[0].ToString().Trim() + ",par_payrolltemplate_code," + ddl_select_report.SelectedValue.ToString().Trim();
@@ -3556,6 +3558,8 @@ namespace HRIS_ePayroll.View.cPayRegistry
                         break;
 
                     case "219": // Subsistence Loan Remittance -  CE
+                    case "246": // Optional Deduction - (Hazard)
+                    case "247": // Optional Deduction - (Hazard)
                         printreport = report_filename;
                         procedure = "sp_payrollregistry_subs_rep";
                         url = "../../printView/CrystalViewer.aspx?ReportType=&ReportPath=&id=~/Reports/" + printreport + "," + procedure + ",par_payroll_year," + ddl_year.ToString().Trim() + ",par_payroll_registry_nbr," + payroll_registry_nbr + ",par_payrolltemplate_code," + ddl_select_report.ToString().Trim();

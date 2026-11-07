@@ -999,6 +999,8 @@ namespace HRIS_ePayroll.View
 
 
                             case "218": // Subsistence Loan Remittance -  RE
+                            case "246": // Subsistence Loan Remittance -  RE
+                            case "247": // Subsistence Loan Remittance -  RE
                                 //printreport = dataListGridField.Rows[x]["report_filename"].ToString().Trim();
                                 //url = url + "~/Reports/";
 

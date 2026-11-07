@@ -2230,6 +2230,17 @@ namespace HRIS_ePayroll.View
                 total_deduction = total_deduction + double.Parse(txtb_other_ded_loan9.Text.ToString());
                 total_deduction = total_deduction + double.Parse(txtb_other_ded_loan10.Text.ToString());
 
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem1.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem2.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem3.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem4.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem5.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem6.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem7.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem8.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem9.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem10.Text.ToString());
+
                 total_net_pay                   = total_gross_pay - total_deduction;
 
                 // string str_total_net_pay        = "";
@@ -2363,7 +2374,18 @@ namespace HRIS_ePayroll.View
                 total_deduction = total_deduction + double.Parse(txtb_other_ded_loan8.Text.ToString());
                 total_deduction = total_deduction + double.Parse(txtb_other_ded_loan9.Text.ToString());
                 total_deduction = total_deduction + double.Parse(txtb_other_ded_loan10.Text.ToString());
-                
+
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem1.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem2.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem3.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem4.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem5.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem6.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem7.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem8.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem9.Text.ToString());
+                total_deduction = total_deduction + double.Parse(txtb_other_ded_prem10.Text.ToString());
+
                 total_net_pay = total_gross_pay - total_deduction;
 
                 // string str_total_net_pay = "";

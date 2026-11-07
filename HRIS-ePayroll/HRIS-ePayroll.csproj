@@ -1929,6 +1929,12 @@
       <DependentUpon>cryLoanSubs.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\cryOtherPayroll\cryRemit\cryOptionalSubs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cryOptionalSubs.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\cryOtherPayroll\cryRemit\cryTaxOTJO.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3803,6 +3809,10 @@
     <Content Include="Reports\cryPayrollMonitoring\cryPayrollMonitoring.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryPayrollMonitoring.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\cryOtherPayroll\cryRemit\cryOptionalSubs.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cryOptionalSubs.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Reports\cryPDS\cryPDCivilService.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
