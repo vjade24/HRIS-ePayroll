@@ -3106,8 +3106,8 @@ namespace HRIS_ePayroll.View
                         }
                     case "H":// Rate basis = Hourlky Rate is Hourly Rate * No of Hours Worked
                         {
-                            lates_amount                = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-                            decimal late_amount1        = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60; 
+                            lates_amount                = decimal.Parse(txtb_rate_amount.Text.ToString()) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
+                            decimal late_amount1        = decimal.Parse(txtb_rate_amount.Text.ToString()) / 60; 
                             string str_lates_amount_1   = "";
                             str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                             str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0,11);
@@ -3522,7 +3522,7 @@ namespace HRIS_ePayroll.View
             else 
             {
                 DataTable chk = new DataTable();
-                string query = "SELECT * FROM payrollemployeemaster_hdr_tbl A WHERE A.empl_id = '"+ txtb_empl_id.Text.ToString().Trim() + "' AND   A.emp_rcrd_status = 1 AND   A.effective_date = (SELECT MAX(A1.effective_date) FROM payrollemployeemaster_hdr_tbl A1 WHERE A1.empl_id = A.empl_id AND A1.emp_rcrd_status = A.emp_rcrd_status AND A1.effective_date  <= CONVERT(date,'"+ effective_date + "'))";
+                string query = "SELECT * FROM payrollemployeemaster_hdr_tbl A WHERE A.empl_id = '"+ txtb_empl_id.Text.ToString().Trim() + "' AND   A.emp_rcrd_status = 1 AND   A.effective_date = (SELECT MAX(A1.effective_date) FROM payrollemployeemaster_hdr_tbl A1 WHERE A1.empl_id = A.empl_id AND A1.emp_rcrd_status = A.emp_rcrd_status AND A1.effective_date  <= EOMONTH(CONVERT(date,'"+ effective_date + "')))";
                 chk = MyCmn.GetDatatable(query);
                 if (chk.Rows.Count > 0)
                 {
@@ -3880,9 +3880,8 @@ namespace HRIS_ePayroll.View
             switch (hidden_rate_basis.Value.ToString().Trim())
             {
                 case "H":
-                    lates_amount      = decimal.Parse(hidden_daily_rate.Value.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
-                    
-                    late_amount1                = decimal.Parse(txtb_rate_amount.Text.ToString()) / decimal.Parse(hidden_hrs_in1day.Value) / 60;
+                    lates_amount                = decimal.Parse(txtb_rate_amount.Text.ToString()) / 60 * decimal.Parse(txtb_lates_and_undertime.Text.ToString());
+                    late_amount1                = decimal.Parse(txtb_rate_amount.Text.ToString()) / 60;
                     str_lates_amount_1          = "";
                     str_lates_amount_1          = late_amount1.ToString("###,##0.000000000000");
                     str_lates_amount_1          = str_lates_amount_1.Split('.')[0] + "." + str_lates_amount_1.Split('.')[1].Substring(0, 11);

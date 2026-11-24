@@ -1228,6 +1228,15 @@ namespace HRIS_ePayroll.View.cPayAccountLedger {
         protected global::System.Web.UI.WebControls.TextBox txtb_search;
         
         /// <summary>
+        /// search_btn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton search_btn;
+        
+        /// <summary>
         /// UpdatePanel9 control.
         /// </summary>
         /// <remarks>

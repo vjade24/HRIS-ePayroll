@@ -318,7 +318,7 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
         private void RetrieveEmpl()
         {
             ddl_empl_name.Items.Clear();
-            dtSource_for_names = MyCmn.RetrieveData("sp_personnelnames_combolist_loan_ledger","p_employment_type", ddl_empl_type.SelectedValue.ToString().Trim());
+            dtSource_for_names = MyCmn.RetrieveData("sp_personnelnames_combolist_loan_ledger","p_employment_type", ddl_empl_type.SelectedValue.ToString().Trim(), "p_deduc_code", ddl_loan_account_name.SelectedValue.ToString().Trim());
 
             ddl_empl_name.DataSource = dtSource_for_names;
             ddl_empl_name.DataValueField = "empl_id";
@@ -2415,10 +2415,10 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
         //**********************************************************************************
         //  BEGIN - JVA- 09/12/2018 - Search Data Bind to Grid View on every KeyInput  
         //*********************************************************************************
-        protected void txtb_search_TextChanged(object sender, EventArgs e)
-        {
-            SearchDate(txtb_search.Text.ToString().Trim());
-        }
+        //protected void txtb_search_TextChanged(object sender, EventArgs e)
+        //{
+        //    SearchDate(txtb_search.Text.ToString().Trim());
+        //}
 
         //******************************************************************************
         //  BEGIN - VJA - 2020-05-21 - Search Data
@@ -2694,6 +2694,12 @@ namespace HRIS_ePayroll.View.cPayAccountLedger
                 System.Diagnostics.Trace.TraceError(ex.ToString());
                 throw;
             }
+        }
+        
+
+        protected void search_btn_Click(object sender, EventArgs e)
+        {
+            SearchDate(txtb_search.Text.ToString().Trim());
         }
         //********************************************************************
         // END OF THE CODE

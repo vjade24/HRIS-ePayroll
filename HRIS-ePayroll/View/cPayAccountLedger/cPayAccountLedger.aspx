@@ -1301,16 +1301,25 @@
     <div class="col-12">
         <div class="row breadcrumb my-breadcrumb">
             <div class="col-4"><strong style="font-family:Arial;font-size:19px;color:white;"><%: Master.page_title %></strong></div>
-            <div class="col-8">
+            <div class="col-6">
                 <asp:UpdatePanel ID="UpdatePanel11" ChildrenAsTriggers="false" UpdateMode="Conditional"  runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="txtb_search" onInput="search_for(event);" runat="server" class="form-control" placeholder="Search.." Height="30px" 
+
+                        <asp:TextBox ID="txtb_search" runat="server" class="form-control" placeholder="Search.." Height="30px" Width="100%"></asp:TextBox>
+                        <%--<asp:TextBox ID="txtb_search" onInput="search_for(event);" runat="server" class="form-control" placeholder="Search.." Height="30px" 
                             Width="100%" OnTextChanged="txtb_search_TextChanged" AutoPostBack="true"></asp:TextBox>
                         <script type="text/javascript">
                             function search_for(key) {
                                     __doPostBack("<%= txtb_search.ClientID %>", "");
                             }
-                        </script>
+                        </script>--%>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+            <div class="col-2">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                            <asp:LinkButton runat="server" Text="Search" CssClass="btn btn-warning btn-block" Font-Size="X-Small" ID="search_btn" OnClick="search_btn_Click" ></asp:LinkButton>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
